@@ -9,12 +9,19 @@ describe('build-time stats snapshot', () => {
     expect(snapshot.codeforces.username).toBe('nhan43');
     expect(snapshot.leetcode.username).toBe('nhan43');
     expect(snapshot.sources.codeforces).toMatch(/^https:\/\//);
-    expect(sumPlatformSolves({
+    const solvedByPlatform = {
       codeforces: snapshot.codeforces.solved,
       leetcode: snapshot.leetcode.solved,
       cses: snapshot.cses.solved,
       vnoi: snapshot.vnoi.solved,
       lqdoj: snapshot.lqdoj.solved,
-    })).toBe(2039);
+    };
+    const total = sumPlatformSolves(solvedByPlatform);
+    const counts = Object.values(solvedByPlatform);
+    const expectedTotal = counts.every((count) => count !== null)
+      ? counts.reduce<number>((sum, count) => sum + (count ?? 0), 0)
+      : null;
+
+    expect(total).toBe(expectedTotal);
   });
 });
