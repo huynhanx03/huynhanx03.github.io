@@ -37,7 +37,7 @@ for (const file of files) {
   if (!raw.replace(match[0], '').trim()) errors.push(`${relativePath}: document body is empty`);
   const key = `${translationKey}:${locale}`;
   if (notes.has(key)) errors.push(`${relativePath}: duplicate locale/translationKey`);
-  notes.set(key, { slug, translationKey, locale, title, draft: read('draft') === 'true' });
+  notes.set(key, { slug, translationKey, locale, title, draft: read('draft') === 'true', translationPending: read('translationPending') === 'true' });
   const h1s = [...raw.replace(match[0], '').matchAll(/^# (?!#)(.+)$/gm)].map((heading) => heading[1].trim());
   if (h1s.length > 1) errors.push(`${relativePath}: use frontmatter title and at most one body H1`);
   const headingIds = new Set();
@@ -54,7 +54,9 @@ for (const note of notes.values()) {
   groups.set(note.translationKey, pair);
 }
 for (const [translationKey, locales] of groups) {
-  if (!locales.has('en') || !locales.has('vi')) errors.push(`${translationKey}: every note must have both EN and VI variants`);
+  if ((!locales.has('en') || !locales.has('vi')) && ![...notes.values()].some((note) => note.translationKey === translationKey && note.translationPending)) {
+    errors.push(`${translationKey}: missing locale variant; mark translationPending: true for intentionally single-language content`);
+  }
 }
 
 const topicGuidesPath = new URL('../src/data/topic-guides.json', import.meta.url);
@@ -63,18 +65,20 @@ const guideSlugs = new Set();
 for (const guide of topicGuides) {
   if (!guide.slug || guideSlugs.has(guide.slug)) errors.push(`topic guide: missing or duplicate slug "${guide.slug ?? ''}"`);
   guideSlugs.add(guide.slug);
-  for (const locale of ['en', 'vi']) {
+  const locales = guide.locales ?? ['en', 'vi'];
+  if (!Array.isArray(locales) || locales.some((locale) => !['en', 'vi'].includes(locale)) || locales.length === 0) errors.push(`topic guide ${guide.slug}: locales must contain en and/or vi`);
+  for (const locale of locales) {
     if (!guide.title?.[locale] || !guide.description?.[locale] || !guide.prerequisites?.[locale]) {
       errors.push(`topic guide ${guide.slug}: title, description, and prerequisites are required in ${locale}`);
     }
   }
   const referenced = new Set();
   for (const section of guide.sections ?? []) {
-    for (const locale of ['en', 'vi']) if (!section.title?.[locale]) errors.push(`topic guide ${guide.slug}: section title is required in ${locale}`);
+    for (const locale of locales) if (!section.title?.[locale]) errors.push(`topic guide ${guide.slug}: section title is required in ${locale}`);
     for (const key of section.noteKeys ?? []) {
       if (referenced.has(key)) errors.push(`topic guide ${guide.slug}: duplicate note reference "${key}"`);
       referenced.add(key);
-      for (const locale of ['en', 'vi']) {
+      for (const locale of locales) {
         const note = notes.get(`${key}:${locale}`);
         if (!note) errors.push(`topic guide ${guide.slug}: missing ${locale} note "${key}"`);
         else if (note.draft) errors.push(`topic guide ${guide.slug}: draft note "${key}" cannot be listed`);

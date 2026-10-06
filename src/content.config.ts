@@ -11,6 +11,7 @@ const notes = defineCollection({
     kind: z.enum(['note', 'guide', 'interview-question', 'reference', 'link', 'project-log', 'glossary']).default('note'),
     difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
     translationKey: z.string().optional(),
+    translationPending: z.boolean().optional(),
     series: z.string().optional(),
     seriesOrder: z.number().int().positive().optional(),
     related: z.array(z.string()).default([]),

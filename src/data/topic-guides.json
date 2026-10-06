@@ -1,7 +1,10 @@
 [
   {
     "slug": "go-fundamentals",
-    "title": { "en": "Go Fundamentals", "vi": "Nền tảng Go" },
+    "title": {
+      "en": "Go Fundamentals",
+      "vi": "Nền tảng Go"
+    },
     "description": {
       "en": "Follow Go from core syntax and data structures through types, composition, and the runtime memory model.",
       "vi": "Học Go theo thứ tự từ cú pháp, cấu trúc dữ liệu đến kiểu dữ liệu, composition và cách runtime quản lý bộ nhớ."
@@ -12,26 +15,58 @@
     },
     "sections": [
       {
-        "title": { "en": "Language basics", "vi": "Cú pháp cơ bản" },
-        "noteKeys": ["go/intro", "go/variables", "go/flow", "go/functions", "go/errors"]
+        "title": {
+          "en": "Language basics",
+          "vi": "Cú pháp cơ bản"
+        },
+        "noteKeys": [
+          "go/intro",
+          "go/variables",
+          "go/flow",
+          "go/functions",
+          "go/errors"
+        ]
       },
       {
-        "title": { "en": "Pointers and core data", "vi": "Con trỏ và dữ liệu cốt lõi" },
-        "noteKeys": ["go/pointers", "go/slices", "go/maps"]
+        "title": {
+          "en": "Pointers and core data",
+          "vi": "Con trỏ và dữ liệu cốt lõi"
+        },
+        "noteKeys": [
+          "go/pointers",
+          "go/slices",
+          "go/maps"
+        ]
       },
       {
-        "title": { "en": "Types and composition", "vi": "Kiểu dữ liệu và composition" },
-        "noteKeys": ["go/structs", "go/methods", "go/interfaces", "go/composition"]
+        "title": {
+          "en": "Types and composition",
+          "vi": "Kiểu dữ liệu và composition"
+        },
+        "noteKeys": [
+          "go/structs",
+          "go/methods",
+          "go/interfaces",
+          "go/composition"
+        ]
       },
       {
-        "title": { "en": "Runtime and memory", "vi": "Runtime và bộ nhớ" },
-        "noteKeys": ["go/garbage_collection"]
+        "title": {
+          "en": "Runtime and memory",
+          "vi": "Runtime và bộ nhớ"
+        },
+        "noteKeys": [
+          "go/garbage_collection"
+        ]
       }
     ]
   },
   {
     "slug": "go-concurrency",
-    "title": { "en": "Go Concurrency", "vi": "Concurrency trong Go" },
+    "title": {
+      "en": "Go Concurrency",
+      "vi": "Concurrency trong Go"
+    },
     "description": {
       "en": "Follow concurrency concepts in order: reason about races, coordinate goroutines, manage lifetimes, then apply a worker pool.",
       "vi": "Đọc lần lượt về concurrency: nhận diện race, phối hợp goroutine, quản lý vòng đời rồi áp dụng worker pool."
@@ -42,17 +77,143 @@
     },
     "sections": [
       {
-        "title": { "en": "Reason about concurrent behavior", "vi": "Hiểu hành vi khi chạy đồng thời" },
-        "noteKeys": ["fundamentals/concurrency_race", "go/goroutines"]
+        "title": {
+          "en": "Reason about concurrent behavior",
+          "vi": "Hiểu hành vi khi chạy đồng thời"
+        },
+        "noteKeys": [
+          "fundamentals/concurrency_race",
+          "go/goroutines"
+        ]
       },
       {
-        "title": { "en": "Coordinate work and lifetimes", "vi": "Phối hợp công việc và vòng đời" },
-        "noteKeys": ["go/channels", "go/context"]
+        "title": {
+          "en": "Coordinate work and lifetimes",
+          "vi": "Phối hợp công việc và vòng đời"
+        },
+        "noteKeys": [
+          "go/channels",
+          "go/context"
+        ]
       },
       {
-        "title": { "en": "Apply a worker pool", "vi": "Áp dụng worker pool" },
-        "noteKeys": ["libraries/ants"]
+        "title": {
+          "en": "Apply a worker pool",
+          "vi": "Áp dụng worker pool"
+        },
+        "noteKeys": [
+          "libraries/ants"
+        ]
       }
+    ]
+  },
+  {
+    "slug": "cadence-workflows",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Cadence Workflows"
+    },
+    "description": {
+      "vi": "Lộ trình Cadence từ khái niệm và ứng dụng Go đầu tiên đến thiết kế workflow an toàn, kiểm thử và vận hành production."
+    },
+    "prerequisites": {
+      "vi": "Nên biết Go cơ bản, API, database, queue và xử lý lỗi backend. Bài đầu hướng dẫn chạy Cadence local."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Nền tảng và ứng dụng đầu tiên"
+        },
+        "noteKeys": [
+          "cadence/fundamentals",
+          "cadence/first-workflow"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Replay, Activity và độ tin cậy"
+        },
+        "noteKeys": [
+          "cadence/replay-and-code-changes",
+          "cadence/activity-reliability"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Điều phối và dữ liệu"
+        },
+        "noteKeys": [
+          "cadence/orchestration",
+          "cadence/data-and-observability"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Production và lựa chọn engine"
+        },
+        "noteKeys": [
+          "cadence/production-operations",
+          "cadence/choosing-cadence"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "temporal-workflows",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Temporal Workflows"
+    },
+    "description": {
+      "vi": "Lộ trình Temporal bằng Go: hiểu durable execution, xây Workflow an toàn, kiểm thử thay đổi và vận hành hệ thống thực tế."
+    },
+    "prerequisites": {
+      "vi": "Nắm Go cơ bản; nên học Cadence trước."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Nền tảng và replay"
+        },
+        "noteKeys": [
+          "temporal/fundamentals",
+          "temporal/history-and-determinism"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Activity và điều phối"
+        },
+        "noteKeys": [
+          "temporal/activity-reliability",
+          "temporal/orchestration"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Kiểm thử và dữ liệu"
+        },
+        "noteKeys": [
+          "temporal/testing-and-deployment",
+          "temporal/data-and-observability"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Production và mẫu nâng cao"
+        },
+        "noteKeys": [
+          "temporal/production",
+          "temporal/advanced-patterns"
+        ]
+      }
+    ],
+    "prerequisiteTopics": [
+      "cadence-workflows"
     ]
   }
 ]

@@ -15,6 +15,8 @@ describe('notes routes', () => {
     expect(index).toContain('copy.notes.search');
     expect(index).toContain('data-filter-value="type:note"');
     expect(index).toContain('data-filter-value="type:topic"');
+    expect(index).not.toContain('type:blog');
+    expect(index).not.toContain('blogFilter');
     expect(index).toContain('data-notes-search');
     expect(index).toContain("import.meta.env.BASE_URL || '/'");
     expect(index).toContain('topicGuides.map((guide) => <TopicGuideCard');
@@ -30,7 +32,8 @@ describe('notes routes', () => {
     expect(card).toContain('copy.notes.views');
     expect(card).toContain('copy.notes.viewsUnavailable');
     expect(card).toContain('getNoteViews(notePath(note))');
-    expect(card).toContain("note.data.kind !== 'note'");
+    expect(card).not.toContain('note-kind');
+    expect(card).not.toContain('termLabel');
     expect(topicCard).toContain('class="topic-guide-card"');
     expect(topicCard).toContain('guide.minutes');
     expect(topicCard).not.toContain('topic-guide-preview');
@@ -43,7 +46,7 @@ describe('notes routes', () => {
     expect(detail).toContain('getRelatedEntries');
     expect(detail).toContain('copy-code');
     expect(detail).toContain('structuredData={schemas}');
-    expect(detail).toContain('localeSwitchUrl={paired ? notePath(paired) : undefined}');
+    expect(detail).toContain("localeSwitchUrl={paired ? notePath(paired) : sitePath(`/${locale === 'vi' ? 'en' : 'vi'}/notes`)}");
     expect(detail).toContain('<p class="eyebrow note-category-label">{note.data.category}</p>');
     expect(detail).not.toContain('{note.data.category} <span class="eyebrow-slash">/</span>');
     expect(detail).not.toContain('copy.notes.language');

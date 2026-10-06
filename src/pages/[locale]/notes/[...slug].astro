@@ -41,7 +41,7 @@ const schemas = [
   buildBreadcrumbSchema([{ name: copy.nav.home, url: homeUrl }, { name: copy.notes.title, url: notesUrl }, { name: note.data.title, url: canonical }]),
 ];
 ---
-<PortfolioLayout title={`${note.data.title} | ${site.name}`} description={description} locale={locale} canonicalUrl={canonical} alternateUrl={alternate} localeSwitchUrl={paired ? notePath(paired) : undefined} pagefindCategory={note.data.category} pagefindKind={note.data.kind} openGraphType="article" updated={updated} structuredData={schemas}>
+<PortfolioLayout title={`${note.data.title} | ${site.name}`} description={description} locale={locale} canonicalUrl={canonical} alternateUrl={alternate} localeSwitchUrl={paired ? notePath(paired) : sitePath(`/${locale === 'vi' ? 'en' : 'vi'}/notes`)} pagefindCategory={note.data.category} pagefindKind={note.data.kind} openGraphType="article" updated={updated} structuredData={schemas}>
   <article class="container note-article" data-pagefind-body>
     <header class="note-article-header">
       <a class="back-link" href={sitePath(`/${locale}/notes`)}>← {copy.notes.allNotes}</a>

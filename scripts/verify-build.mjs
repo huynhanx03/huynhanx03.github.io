@@ -39,9 +39,8 @@ for (const file of html) {
   if (!source.includes('<meta name="description" content="')) errors.push(`${relativePath}: missing meta description`);
   if (!source.includes('<meta property="og:locale" content="')) errors.push(`${relativePath}: missing og:locale`);
   if (!source.includes('<meta property="og:image:type" content="image/png"')) errors.push(`${relativePath}: OG image must be PNG`);
-  for (const language of ['en', 'vi', 'x-default']) {
-    if (!source.includes(`hreflang="${language}"`)) errors.push(`${relativePath}: missing hreflang=${language}`);
-  }
+  if (lang && !source.includes(`hreflang="${lang}"`)) errors.push(`${relativePath}: missing self hreflang=${lang}`);
+  if (!source.includes('hreflang="x-default"')) errors.push(`${relativePath}: missing hreflang=x-default`);
   if (!source.includes('application/ld+json')) errors.push(`${relativePath}: missing JSON-LD structured data`);
   const h1Count = (source.match(/<h1(?:\s|>)/g) ?? []).length;
   if (h1Count !== 1) errors.push(`${relativePath}: expected exactly one H1, found ${h1Count}`);

@@ -25,16 +25,23 @@ const site = localizedSite(getSiteConfig(), locale);
 const guide = (await getTopicGuides(locale)).find((candidate) => candidate.slug === slug);
 if (!guide) throw new Error(`Missing topic guide ${locale}/${slug}`);
 const urls = getLocalizedPageUrls(locale, `/notes/topics/${slug}`, Astro.site ?? Astro.url);
+const localeSwitchUrl = ((await getTopicGuides(locale === 'vi' ? 'en' : 'vi')).some((candidate) => candidate.slug === slug))
+  ? urls.localeSwitchUrl
+  : sitePath(`/${locale === 'vi' ? 'en' : 'vi'}/notes`);
 const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: guide.title, description: guide.description, homeLabel: copy.nav.home, items: guide.steps.map((step) => ({ name: step.note.data.title, url: absoluteSiteUrl(notePath(step.note), Astro.site ?? Astro.url) })) });
 ---
-<PortfolioLayout title={`${guide.title} | ${copy.notes.topic} | ${site.name}`} description={guide.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+<PortfolioLayout title={`${guide.title} | ${copy.notes.topic} | ${site.name}`} description={guide.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={localeSwitchUrl} structuredData={schemas}>
   <article class="container topic-guide-page" data-topic-guide={guide.slug} data-topic-guide-total={guide.steps.length}>
     <header class="topic-guide-page-header">
       <a class="back-link" href={sitePath(`/${locale}/notes`)}>← {copy.notes.title}</a>
       <p class="eyebrow">{copy.notes.topic}</p>
       <h1>{guide.title}</h1>
       <p class="topic-guide-intro">{guide.description}</p>
-      <p class="topic-guide-prerequisite"><strong>{copy.notes.prerequisites}:</strong> {guide.prerequisites}</p>
+      <p class="topic-guide-prerequisite"><strong>{copy.notes.prerequisites}:</strong> {guide.prerequisites}
+        {guide.prerequisiteTopics.length > 0 && <span class="topic-guide-prerequisite-links">
+          {guide.prerequisiteTopics.map((topic) => <a href={sitePath(`/${locale}/notes/topics/${topic.slug}/`)}>{topic.title} <span aria-hidden="true">↗</span></a>)}
+        </span>}
+      </p>
       <div class="topic-guide-summary"><span>{guide.steps.length} {copy.notes.steps}</span><span>{guide.minutes} {copy.notes.minuteRead}</span></div>
       <div class="topic-guide-progress-head"><span>{copy.notes.progress}</span><strong data-topic-guide-progress-count>0 / {guide.steps.length} {copy.notes.completed}</strong></div>
       <div class="topic-guide-progress" role="progressbar" aria-label={copy.notes.progress} aria-valuemin="0" aria-valuemax={guide.steps.length} aria-valuenow="0" data-topic-guide-progress><span data-topic-guide-progress-fill></span></div>

@@ -58,6 +58,7 @@ async function readFallbackEntries(): Promise<NoteEntry[]> {
     const data = {
       title: value('title'),
       category: value('category'),
+      kind: value('kind') || 'note',
       tags: tagValue ? tagValue.split(',').map((tag) => tag.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean) : [],
       translationKey: value('translationKey') || undefined,
       draft: false,
