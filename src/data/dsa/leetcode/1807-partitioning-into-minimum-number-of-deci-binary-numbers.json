@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1807",
+  "platform": "leetcode",
+  "id": "1807",
+  "title": "Partitioning Into Minimum Number Of Deci-Binary Numbers",
+  "slug": "partitioning-into-minimum-number-of-deci-binary-numbers",
+  "url": "https://leetcode.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers",
+  "difficulty": "Medium",
+  "topics": [
+    "Greedy",
+    "String"
+  ],
+  "statementHtml": "<p>A decimal number is called <strong>deci-binary</strong> if each of its digits is either <code>0</code> or <code>1</code> without any leading zeros. For example, <code>101</code> and <code>1100</code> are <strong>deci-binary</strong>, while <code>112</code> and <code>3001</code> are not.</p>\n\n<p>Given a string <code>n</code> that represents a positive decimal integer, return <em>the <strong>minimum</strong> number of positive <strong>deci-binary</strong> numbers needed so that they sum up to </em><code>n</code><em>.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = \"32\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> 10 + 11 + 11 = 32\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = \"82734\"\n<strong>Output:</strong> 8\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> n = \"27346209830709182346\"\n<strong>Output:</strong> 9\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>n</code> consists of only digits.</li>\n\t<li><code>n</code> does not contain any leading zeros and represents a positive integer.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1807-partitioning-into-minimum-number-of-deci-binary-numbers/1807-partitioning-into-minimum-number-of-deci-binary-numbers.cpp",
+      "source": "/*\n Problem: 1807. Partitioning Into Minimum Number Of Deci-Binary Numbers\n Language: cpp\n Runtime: 4 ms (26.33%)\n Memory: 16.6 MB (56.70%)\n Tags: String, Greedy\n*/\nclass Solution {\npublic:\n    int minPartitions(string n) {\n        int ans = -1;\n        for (const auto& c : n) ans = max(ans, c - '0');\n        return ans;   \n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1807-partitioning-into-minimum-number-of-deci-binary-numbers/1807-partitioning-into-minimum-number-of-deci-binary-numbers.cpp"
+    }
+  ]
+}

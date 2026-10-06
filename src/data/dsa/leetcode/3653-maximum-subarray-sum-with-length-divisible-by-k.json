@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3653",
+  "platform": "leetcode",
+  "id": "3653",
+  "title": "Maximum Subarray Sum With Length Divisible by K",
+  "slug": "maximum-subarray-sum-with-length-divisible-by-k",
+  "url": "https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>You are given an array of integers <code>nums</code> and an integer <code>k</code>.</p>\n\n<p>Return the <strong>maximum</strong> sum of a <span>subarray</span> of <code>nums</code>, such that the size of the subarray is <strong>divisible</strong> by <code>k</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2], k = 1</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subarray <code>[1, 2]</code> with sum 3 has length equal to 2 which is divisible by 1.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [-1,-2,-3,-4,-5], k = 4</span></p>\n\n<p><strong>Output:</strong> <span>-10</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The maximum sum subarray is <code>[-1, -2, -3, -4]</code> which has length equal to 4 which is divisible by 4.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [-5,1,2,-3,4], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The maximum sum subarray is <code>[1, 2, -3, 4]</code> which has length equal to 4 which is divisible by 2.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= nums.length &lt;= 2 * 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3653-maximum-subarray-sum-with-length-divisible-by-k/3653-maximum-subarray-sum-with-length-divisible-by-k.cpp",
+      "source": "/*\n Problem: 3653. Maximum Subarray Sum With Length Divisible by K\n Language: cpp\n Runtime: 4 ms (84.96%)\n Memory: 162.2 MB (54.75%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    long long maxSubarraySum(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<long long> minPref(k, LLONG_MAX);\n        long long pref = 0, res = LLONG_MIN;\n        \n        minPref[0] = 0;\n        for (int i = 0; i < n; i++) {\n            pref += nums[i];\n            int m = (i + 1) % k;\n            if (minPref[m] != LLONG_MAX)\n                res = max(res, pref - minPref[m]);\n            minPref[m] = min(minPref[m], pref);\n        }\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3653-maximum-subarray-sum-with-length-divisible-by-k/3653-maximum-subarray-sum-with-length-divisible-by-k.cpp"
+    }
+  ]
+}

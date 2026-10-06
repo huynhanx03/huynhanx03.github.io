@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4173",
+  "platform": "leetcode",
+  "id": "4173",
+  "title": "Maximum Score of a Split",
+  "slug": "maximum-score-of-a-split",
+  "url": "https://leetcode.com/problems/maximum-score-of-a-split",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> of length <code>n</code>.</p>\n\n<p>Choose an index <code>i</code> such that <code>0 &lt;= i &lt; n - 1</code>.</p>\n\n<p>For a chosen split index <code>i</code>:</p>\n\n<ul>\n\t<li>Let <code>prefixSum(i)</code> be the sum of <code>nums[0] + nums[1] + ... + nums[i]</code>.</li>\n\t<li>Let <code>suffixMin(i)</code> be the minimum value among <code>nums[i + 1], nums[i + 2], ..., nums[n - 1]</code>.</li>\n</ul>\n\n<p>The <strong>score</strong> of a split at index <code>i</code> is defined as:</p>\n\n<p><code>score(i) = prefixSum(i) - suffixMin(i)</code></p>\n\n<p>Return an integer denoting the <strong>maximum</strong> score over all valid split indices.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [10,-1,3,-4,-5]</span></p>\n\n<p><strong>Output:</strong> <span>17</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The optimal split is at <code>i = 2</code>, <code>score(2) = prefixSum(2) - suffixMin(2) = (10 + (-1) + 3) - (-5) = 17</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [-7,-5,3]</span></p>\n\n<p><strong>Output:</strong> <span>-2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The optimal split is at <code>i = 0</code>, <code>score(0) = prefixSum(0) - suffixMin(0) = (-7) - (-5) = -2</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,1]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The only valid split is at <code>i = 0</code>, <code>score(0) = prefixSum(0) - suffixMin(0) = 1 - 1 = 0</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup>​​​​​​​ &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4173-maximum-score-of-a-split/4173-maximum-score-of-a-split.cpp",
+      "source": "/*\n Problem: 4173. Maximum Score of a Split\n Language: cpp\n Runtime: 19 ms (14.74%)\n Memory: 156.1 MB (39.94%)\n Tags: Array, Prefix Sum\n*/\nclass Solution {\npublic:\n    long long maximumScore(vector<int>& nums) {\n        int n = nums.size();\n        vector <long long> pre(n + 5);\n        vector <int> mn(n + 5);\n        pre[0] = 0;\n        mn[n + 1] = 2e9;\n        for (int i = 1; i <= n; ++i) {\n            pre[i] = pre[i - 1] + nums[i - 1];\n            // mn[n - i + 1] = min(mn[n - i + 2], nums[i - 1]); \n        }\n\n        for (int i = n; i >= 1; --i) {\n            mn[i] = min(mn[i + 1], nums[i - 1]);\n        }\n\n        long long ans = -2e18;\n        for (int i = 1; i < n; ++i) {\n            ans = max(ans, pre[i] - mn[i + 1]);\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4173-maximum-score-of-a-split/4173-maximum-score-of-a-split.cpp"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import { getMessages } from '../i18n';
+import { localizedPath } from '../i18n';
+const copy = getMessages('en');
+---
+<PortfolioLayout title={`${copy.notFound.title} | Huỳnh Mai Cao Nhân`} description={copy.notFound.description} locale="en" localeSwitchUrl={localizedPath('vi', '/')} noindex>
+  <section class="container narrow-page empty-state">
+    <p class="eyebrow">{copy.notFound.eyebrow}</p>
+    <h1>{copy.notFound.title}</h1>
+    <p>{copy.notFound.description}</p>
+    <a class="button button-primary" href={localizedPath('en', '/')}>{copy.notFound.home} <span aria-hidden="true">↗</span></a>
+  </section>
+</PortfolioLayout>

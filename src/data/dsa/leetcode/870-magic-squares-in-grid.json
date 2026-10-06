@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:870",
+  "platform": "leetcode",
+  "id": "870",
+  "title": "Magic Squares In Grid",
+  "slug": "magic-squares-in-grid",
+  "url": "https://leetcode.com/problems/magic-squares-in-grid",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Math",
+    "Matrix"
+  ],
+  "statementHtml": "<p>A <code>3 x 3</code> <strong>magic square</strong> is a <code>3 x 3</code> grid filled with distinct numbers <strong>from </strong>1<strong> to </strong>9 such that each row, column, and both diagonals all have the same sum.</p>\n\n<p>Given a <code>row x col</code> <code>grid</code> of integers, how many <code>3 x 3</code> magic square subgrids are there?</p>\n\n<p>Note: while a magic square can only contain numbers from 1 to 9, <code>grid</code> may contain numbers up to 15.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[4,3,8,4],[9,5,1,9],[2,7,6,2]]\n<strong>Output:</strong> 1\n<strong>Explanation: </strong>\nThe following subgrid is a 3 x 3 magic square:\n\nwhile this one is not:\n\nIn total, there is only one magic square inside the given grid.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[8]]\n<strong>Output:</strong> 0\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>row == grid.length</code></li>\n\t<li><code>col == grid[i].length</code></li>\n\t<li><code>1 &lt;= row, col &lt;= 10</code></li>\n\t<li><code>0 &lt;= grid[i][j] &lt;= 15</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0870-magic-squares-in-grid/0870-magic-squares-in-grid.cpp",
+      "source": "/*\n Problem: 870. Magic Squares In Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.7 MB (50.86%)\n Tags: Array, Hash Table, Math, Matrix\n*/\nclass Solution {\npublic:\n    bool isMagic(vector<vector<int>>& g, int n, int m) {\n        if (g[n+1][m+1] != 5) return false;\n\n        int cnt[10] = {};\n        for (int i = n; i < n + 3; ++i) {\n            for (int j = m; j < m + 3; ++j) {\n                int v = g[i][j];\n                if (v < 1 || v > 9 || cnt[v]++) return false;\n            }\n        }\n\n        for (int i = 0; i < 3; ++i) {\n            if (g[n+i][m] + g[n+i][m+1] + g[n+i][m+2] != 15) return false;\n            if (g[n][m+i] + g[n+1][m+i] + g[n+2][m+i] != 15) return false;\n        }\n\n        if (g[n][m] + g[n+1][m+1] + g[n+2][m+2] != 15) return false;\n        if (g[n][m+2] + g[n+1][m+1] + g[n+2][m] != 15) return false;\n\n        return true;\n    }\n\n    int numMagicSquaresInside(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n        int ans = 0;\n\n        for (int i = 0; i + 2 < n; ++i) {\n            for (int j = 0; j + 2 < m; ++j) {\n                if (isMagic(grid, i, j)) ++ans;\n            }\n        }\n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0870-magic-squares-in-grid/0870-magic-squares-in-grid.cpp"
+    }
+  ]
+}

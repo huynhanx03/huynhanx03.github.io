@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1460",
+  "platform": "leetcode",
+  "id": "1460",
+  "title": "Number of Substrings Containing All Three Characters",
+  "slug": "number-of-substrings-containing-all-three-characters",
+  "url": "https://leetcode.com/problems/number-of-substrings-containing-all-three-characters",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Sliding Window",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> consisting only of characters <em>a</em>, <em>b</em> and <em>c</em>.</p>\n\n<p>Return the number of substrings containing <b>at least</b> one occurrence of all these characters <em>a</em>, <em>b</em> and <em>c</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"abcabc\"\n<strong>Output:</strong> 10\n<strong>Explanation:</strong> The substrings containing at least one occurrence of the characters <em>a</em>, <em>b</em> and <em>c are \"</em>abc<em>\", \"</em>abca<em>\", \"</em>abcab<em>\", \"</em>abcabc<em>\", \"</em>bca<em>\", \"</em>bcab<em>\", \"</em>bcabc<em>\", \"</em>cab<em>\", \"</em>cabc<em>\" </em>and<em> \"</em>abc<em>\" </em>(<strong>again</strong>)<em>. </em>\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"aaacb\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The substrings containing at least one occurrence of the characters <em>a</em>, <em>b</em> and <em>c are \"</em>aaacb<em>\", \"</em>aacb<em>\" </em>and<em> \"</em>acb<em>\".</em><em> </em>\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"abc\"\n<strong>Output:</strong> 1\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= s.length &lt;= 5 x 10^4</code></li>\n\t<li><code>s</code> only consists of <em>a</em>, <em>b</em> or <em>c </em>characters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1460-number-of-substrings-containing-all-three-characters/1460-number-of-substrings-containing-all-three-characters.cpp",
+      "source": "/*\n Problem: 1460. Number of Substrings Containing All Three Characters\n Language: cpp\n Runtime: 4 ms (79.23%)\n Memory: 11.1 MB (52.90%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> cnt(3, 0);\n        int left = 0, n = s.size(), res = 0;\n\n        for (int right = 0; right < n; ++right) {\n            ++cnt[s[right] - 'a'];\n\n            while (cnt[0] && cnt[1] && cnt[2]) {\n                res += n - right;\n                --cnt[s[left++] - 'a'];\n            }\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1460-number-of-substrings-containing-all-three-characters/1460-number-of-substrings-containing-all-three-characters.cpp"
+    }
+  ]
+}

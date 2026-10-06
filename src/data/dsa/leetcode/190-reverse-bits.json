@@ -1,0 +1,28 @@
+{
+  "key": "leetcode:190",
+  "platform": "leetcode",
+  "id": "190",
+  "title": "Reverse Bits",
+  "slug": "reverse-bits",
+  "url": "https://leetcode.com/problems/reverse-bits",
+  "difficulty": "Easy",
+  "topics": [
+    "Bit Manipulation",
+    "Divide and Conquer"
+  ],
+  "statementHtml": "<p>Reverse bits of a given 32 bits signed integer.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 43261596</span></p>\n\n<p><strong>Output:</strong> <span>964176192</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<table>\n\t<tbody>\n\t\t<tr>\n\t\t\t<th>Integer</th>\n\t\t\t<th>Binary</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>43261596</td>\n\t\t\t<td>00000010100101000001111010011100</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>964176192</td>\n\t\t\t<td>00111001011110000010100101000000</td>\n\t\t</tr>\n\t</tbody>\n</table>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 2147483644</span></p>\n\n<p><strong>Output:</strong> <span>1073741822</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<table>\n\t<tbody>\n\t\t<tr>\n\t\t\t<th>Integer</th>\n\t\t\t<th>Binary</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>2147483644</td>\n\t\t\t<td>01111111111111111111111111111100</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>1073741822</td>\n\t\t\t<td>00111111111111111111111111111110</td>\n\t\t</tr>\n\t</tbody>\n</table>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= n &lt;= 2<sup>31</sup> - 2</code></li>\n\t<li><code>n</code> is even.</li>\n</ul>\n\n<p> </p>\n<p><strong>Follow up:</strong> If this function is called many times, how would you optimize it?</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0190-reverse-bits/0190-reverse-bits.cpp",
+      "source": "/*\n Problem: 190. Reverse Bits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.6 MB (100.00%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nclass Solution {\npublic:\n    uint32_t reverseBits(uint32_t n) {\n        uint32_t result = 0;\n        for (int i = 0; i < 32; ++i) {\n            result <<= 1;          // Shift the result to the left by 1 bit\n            result |= (n & 1);     // Add the least significant bit of n to the result\n            n >>= 1;               // Shift n to the right by 1 bit\n        }\n        return result;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0190-reverse-bits/0190-reverse-bits.cpp"
+    },
+    {
+      "language": "Rust",
+      "relativePath": "leetcode/Easy/0190-reverse-bits/0190-reverse-bits.rs",
+      "source": "/*\n Problem: 190. Reverse Bits\n Language: rust\n Runtime: 2 ms (52.47%)\n Memory: 2.1 MB (92.52%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nimpl Solution {\n    pub fn reverse_bits(n: i32) -> i32 {\n        let mut v: i32 = 0;\n        let mut x = n;\n\n        for _ in 0..32 {\n            v = (v << 1) | (x & 1);\n            x >>= 1;\n        }\n\n        v   \n    }\n}",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0190-reverse-bits/0190-reverse-bits.rs"
+    }
+  ]
+}

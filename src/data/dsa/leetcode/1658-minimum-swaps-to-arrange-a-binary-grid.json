@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1658",
+  "platform": "leetcode",
+  "id": "1658",
+  "title": "Minimum Swaps to Arrange a Binary Grid",
+  "slug": "minimum-swaps-to-arrange-a-binary-grid",
+  "url": "https://leetcode.com/problems/minimum-swaps-to-arrange-a-binary-grid",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Matrix"
+  ],
+  "statementHtml": "<p>Given an <code>n x n</code> binary <code>grid</code>, in one step you can choose two <strong>adjacent rows</strong> of the grid and swap them.</p>\n\n<p>A grid is said to be <strong>valid</strong> if all the cells above the main diagonal are <strong>zeros</strong>.</p>\n\n<p>Return <em>the minimum number of steps</em> needed to make the grid valid, or <strong>-1</strong> if the grid cannot be valid.</p>\n\n<p>The main diagonal of a grid is the diagonal that starts at cell <code>(1, 1)</code> and ends at cell <code>(n, n)</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[0,0,1],[1,1,0],[1,0,0]]\n<strong>Output:</strong> 3\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[0,1,1,0],[0,1,1,0],[0,1,1,0],[0,1,1,0]]\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> All rows are similar, swaps have no effect on the grid.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[1,0,0],[1,1,0],[1,1,1]]\n<strong>Output:</strong> 0\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == grid.length</code> <code>== grid[i].length</code></li>\n\t<li><code>1 &lt;= n &lt;= 200</code></li>\n\t<li><code>grid[i][j]</code> is either <code>0</code> or <code>1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1658-minimum-swaps-to-arrange-a-binary-grid/1658-minimum-swaps-to-arrange-a-binary-grid.cpp",
+      "source": "/*\n Problem: 1658. Minimum Swaps to Arrange a Binary Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30 MB (66.25%)\n Tags: Array, Greedy, Matrix\n*/\nclass Solution {\npublic:\n    int minSwaps(vector<vector<int>>& grid) {\n        int n = grid.size();\n        vector<int> zeros(n);\n\n        for (int i = 0; i < n; i++) {\n            int cnt = 0;\n            for (int j = n - 1; j >= 0 && grid[i][j] == 0; j--) {\n                cnt++;\n            }\n            zeros[i] = cnt;\n        }\n\n        int swaps = 0;\n\n        for (int i = 0; i < n; i++) {\n            int need = n - i - 1;\n            int j = i;\n\n            while (j < n && zeros[j] < need) j++;\n            if (j == n) return -1;\n\n            while (j > i) {\n                swap(zeros[j], zeros[j - 1]);\n                swaps++;\n                j--;\n            }\n        }\n\n        return swaps;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1658-minimum-swaps-to-arrange-a-binary-grid/1658-minimum-swaps-to-arrange-a-binary-grid.cpp"
+    }
+  ]
+}

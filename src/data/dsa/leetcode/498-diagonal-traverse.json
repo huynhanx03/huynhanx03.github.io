@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:498",
+  "platform": "leetcode",
+  "id": "498",
+  "title": "Diagonal Traverse",
+  "slug": "diagonal-traverse",
+  "url": "https://leetcode.com/problems/diagonal-traverse",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Simulation"
+  ],
+  "statementHtml": "<p>Given an <code>m x n</code> matrix <code>mat</code>, return <em>an array of all the elements of the array in a diagonal order</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> mat = [[1,2,3],[4,5,6],[7,8,9]]\n<strong>Output:</strong> [1,2,4,7,5,3,6,8,9]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> mat = [[1,2],[3,4]]\n<strong>Output:</strong> [1,2,3,4]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == mat.length</code></li>\n\t<li><code>n == mat[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= m * n &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>5</sup> &lt;= mat[i][j] &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0498-diagonal-traverse/0498-diagonal-traverse.cpp",
+      "source": "/*\n Problem: 498. Diagonal Traverse\n Language: cpp\n Runtime: 20 ms (28.10%)\n Memory: 25.9 MB (32.35%)\n Tags: Array, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {\n        int n = mat.size(), m = mat[0].size();\n        vector<int> arr;\n\n        for (int d = 0; d < n + m - 1; d++) {\n            vector<int> diagonal;\n            int r = (d < m) ? 0 : d - m + 1;\n            int c = (d < m) ? d : m - 1;\n\n            while (r < n && c >= 0) {\n                diagonal.push_back(mat[r][c]);\n                r++; c--;\n            }\n\n            if (d % 2 == 0) reverse(diagonal.begin(), diagonal.end());\n            arr.insert(arr.end(), diagonal.begin(), diagonal.end());\n        }\n        return arr;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0498-diagonal-traverse/0498-diagonal-traverse.cpp"
+    }
+  ]
+}

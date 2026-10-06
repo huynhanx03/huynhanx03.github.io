@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4098",
+  "platform": "leetcode",
+  "id": "4098",
+  "title": "Longest Non-Decreasing Subarray After Replacing at Most One Element",
+  "slug": "longest-non-decreasing-subarray-after-replacing-at-most-one-element",
+  "url": "https://leetcode.com/problems/longest-non-decreasing-subarray-after-replacing-at-most-one-element",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>You are allowed to replace <strong>at most</strong> one element in the array with any other integer value of your choice.</p>\n\n<p>Return the length of the <strong>longest non-decreasing <span>subarray</span></strong> that can be obtained after performing at most one replacement.</p>\n\n<p>An array is said to be <strong>non-decreasing</strong> if each element is greater than or equal to its previous one (if it exists).</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,1,2]</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Replacing <code>nums[3] = 1</code> with 3 gives the array [1, 2, 3, 3, 2].</p>\n\n<p>The longest non-decreasing subarray is [1, 2, 3, 3], which has a length of 4.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,2,2,2,2]</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>All elements in <code>nums</code> are equal, so it is already non-decreasing and the entire <code>nums</code> forms a subarray of length 5.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code>​​​​​​​</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4098-longest-non-decreasing-subarray-after-replacing-at-most-one-element/4098-longest-non-decreasing-subarray-after-replacing-at-most-one-element.cpp",
+      "source": "/*\n Problem: 4098. Longest Non-Decreasing Subarray After Replacing at Most One Element\n Language: cpp\n Runtime: 47 ms (11.17%)\n Memory: 190.1 MB (58.20%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int longestSubarray(vector<int>& nums) {\n        int n = nums.size();\n\n        vector<int> left(n, 1), right(n, 1);\n\n        for (int i = 1; i < n; ++i) {\n            if (nums[i] >= nums[i - 1]) left[i] = left[i - 1] + 1;\n        }\n\n        for (int i = n - 2; i >= 0; --i) {\n            if (nums[i] <= nums[i + 1]) right[i] = right[i + 1] + 1;\n        }\n\n        int ans = *max_element(left.begin(), left.end());\n\n        for (int i = 0; i < n; ++i) {\n            int tmp = 1;\n            if (i > 0) tmp += left[i - 1];\n            if (i < n - 1) tmp += right[i + 1];\n\n            if (i > 0 && i < n - 1 && nums[i - 1] > nums[i + 1]) {\n                tmp = max({\n                   (i > 0 ? left[i - 1] + 1 : 1),\n                    (i < n - 1 ? right[i + 1] + 1 : 1)\n                });\n            }\n\n            ans = max(ans, tmp);\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4098-longest-non-decreasing-subarray-after-replacing-at-most-one-element/4098-longest-non-decreasing-subarray-after-replacing-at-most-one-element.cpp"
+    }
+  ]
+}

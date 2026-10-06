@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4175",
+  "platform": "leetcode",
+  "id": "4175",
+  "title": "Smallest All-Ones Multiple",
+  "slug": "smallest-all-ones-multiple",
+  "url": "https://leetcode.com/problems/smallest-all-ones-multiple",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given a positive integer <code>k</code>.</p>\n\n<p>Find the <strong>smallest</strong> integer <code>n</code> divisible by <code>k</code> that consists of <strong>only the digit 1</strong> in its decimal representation (e.g., 1, 11, 111, ...).</p>\n\n<p>Return an integer denoting the <strong>number of digits</strong> in the decimal representation of <code>n</code>. If no such <code>n</code> exists, return <code>-1</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>k = 3</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>n = 111</code> because 111 is divisible by 3, but 1 and 11 are not. The length of <code>n = 111</code> is 3.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>k = 7</span></p>\n\n<p><strong>Output:</strong> <span>6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>n = 111111</code>. The length of <code>n = 111111</code> is 6.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>k = 2</span></p>\n\n<p><strong>Output:</strong> <span>-1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There does not exist a valid <code>n</code> that is a multiple of 2.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= k &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4175-smallest-all-ones-multiple/4175-smallest-all-ones-multiple.cpp",
+      "source": "/*\n Problem: 4175. Smallest All-Ones Multiple\n Language: cpp\n Runtime: 7 ms (85.67%)\n Memory: 8.5 MB (87.09%)\n Tags: Hash Table, Math\n*/\nclass Solution {\npublic:\n    int minAllOneMultiple(int k) {\n        if (k % 2 == 0 || k % 5 == 0) {\n            return -1;\n        }\n\n        int rem = 0;\n        for (int l = 1; l <= k; ++l) {\n            rem = (rem * 10 + 1) % k;\n\n            if (rem == 0) return l;\n        }\n\n        return -1;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4175-smallest-all-ones-multiple/4175-smallest-all-ones-multiple.cpp"
+    }
+  ]
+}

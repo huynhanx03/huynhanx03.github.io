@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:4141",
+  "platform": "leetcode",
+  "id": "4141",
+  "title": "Count Elements With at Least K Greater Values",
+  "slug": "count-elements-with-at-least-k-greater-values",
+  "url": "https://leetcode.com/problems/count-elements-with-at-least-k-greater-values",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Divide and Conquer",
+    "Quickselect",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> of length <code>n</code> and an integer <code>k</code>.</p>\n\n<p>An element in <code>nums</code> is said to be <strong>qualified</strong> if there exist <strong>at least</strong> <code>k</code> elements in the array that are <strong>strictly greater</strong> than it.</p>\n\n<p>Return an integer denoting the total number of qualified elements in <code>nums</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,1,2], k = 1</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The elements 1 and 2 each have at least <code>k = 1</code> element greater than themselves.<br>\n​​​​​​​No element is greater than 3. Therefore, the answer is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5,5,5], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Since all elements are equal to 5, no element is greater than the other. Therefore, the answer is 0.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>0 &lt;= k &lt; n</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4141-count-elements-with-at-least-k-greater-values/4141-count-elements-with-at-least-k-greater-values.cpp",
+      "source": "/*\n Problem: 4141. Count Elements With at Least K Greater Values\n Language: cpp\n Runtime: 71 ms (50.90%)\n Memory: 173.9 MB (76.90%)\n Tags: Array, Binary Search, Divide and Conquer, Sorting, Quickselect\n*/\nclass Solution {\npublic:\n    int countElements(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (k == 0) return n;\n\n        sort(nums.begin(), nums.end());\n        int tmp = nums[n - k];\n        int cnt = 0;\n\n        for (const auto&x : nums) {\n            if (x < tmp) ++cnt;\n        }\n\n        return cnt;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4141-count-elements-with-at-least-k-greater-values/4141-count-elements-with-at-least-k-greater-values.cpp"
+    }
+  ]
+}

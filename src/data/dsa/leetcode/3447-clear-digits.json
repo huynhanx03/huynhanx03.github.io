@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3447",
+  "platform": "leetcode",
+  "id": "3447",
+  "title": "Clear Digits",
+  "slug": "clear-digits",
+  "url": "https://leetcode.com/problems/clear-digits",
+  "difficulty": "Easy",
+  "topics": [
+    "Simulation",
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code>.</p>\n\n<p>Your task is to remove <strong>all</strong> digits by doing this operation repeatedly:</p>\n\n<ul>\n\t<li>Delete the <em>first</em> digit and the <strong>closest</strong> <b>non-digit</b> character to its <em>left</em>.</li>\n</ul>\n\n<p>Return the resulting string after removing all digits.</p>\n\n<p><strong>Note</strong> that the operation <em>cannot</em> be performed on a digit that does not have any non-digit character to its left.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abc\"</span></p>\n\n<p><strong>Output:</strong> <span>\"abc\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is no digit in the string.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"cb34\"</span></p>\n\n<p><strong>Output:</strong> <span>\"\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>First, we apply the operation on <code>s[2]</code>, and <code>s</code> becomes <code>\"c4\"</code>.</p>\n\n<p>Then we apply the operation on <code>s[1]</code>, and <code>s</code> becomes <code>\"\"</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists only of lowercase English letters and digits.</li>\n\t<li>The input is generated such that it is possible to delete all digits.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3447-clear-digits/3447-clear-digits.cpp",
+      "source": "/*\n Problem: 3447. Clear Digits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (71.79%)\n Tags: String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    string clearDigits(string s) {\n        while (true) {\n            bool found_digit = false;\n            for (int i = 0; i < s.size(); ++i) {\n                if (isdigit(s[i])) {\n                    found_digit = true;\n                    for (int j = i - 1; j >= 0; --j) {\n                        if (!isdigit(s[j])) {\n                            s.erase(j, 1);\n                            break;\n                        }\n                    }\n                    s.erase(i - 1, 1);\n                    break;\n                }\n            }\n            if (!found_digit)\n                break;\n        }\n        return s;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3447-clear-digits/3447-clear-digits.cpp"
+    }
+  ]
+}

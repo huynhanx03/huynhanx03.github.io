@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:130",
+  "platform": "leetcode",
+  "id": "130",
+  "title": "Surrounded Regions",
+  "slug": "surrounded-regions",
+  "url": "https://leetcode.com/problems/surrounded-regions",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Matrix",
+    "Union-Find"
+  ],
+  "statementHtml": "<p>You are given an <code>m x n</code> matrix <code>board</code> containing <strong>letters</strong> <code>'X'</code> and <code>'O'</code>, <strong>capture regions</strong> that are <strong>surrounded</strong>:</p>\n\n<ul>\n\t<li><strong>Connect</strong>: A cell is connected to adjacent cells horizontally or vertically.</li>\n\t<li><strong>Region</strong>: To form a region <strong>connect every</strong> <code>'O'</code> cell.</li>\n\t<li><strong>Surround</strong>: A region is surrounded if none of the <code>'O'</code> cells in that region are on the edge of the board. Such regions are <strong>completely enclosed </strong>by <code>'X'</code> cells.</li>\n</ul>\n\n<p>To capture a <strong>surrounded region</strong>, replace all <code>'O'</code>s with <code>'X'</code>s <strong>in-place</strong> within the original board. You do not need to return anything.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]</span></p>\n\n<p><strong>Output:</strong> <span>[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>In the above diagram, the bottom region is not captured because it is on the edge of the board and cannot be surrounded.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>board = [[\"X\"]]</span></p>\n\n<p><strong>Output:</strong> <span>[[\"X\"]]</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == board.length</code></li>\n\t<li><code>n == board[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 200</code></li>\n\t<li><code>board[i][j]</code> is <code>'X'</code> or <code>'O'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0130-surrounded-regions/0130-surrounded-regions.cpp",
+      "source": "/*\n Problem: 130. Surrounded Regions\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 14.9 MB (28.16%)\n Tags: Array, Depth-First Search, Breadth-First Search, Union-Find, Matrix\n*/\nclass Solution {\nprivate:\n    int dd[5] = {0, 1, 0, -1, 0};\n\npublic:\n    void solve(vector<vector<char>>& board) {\n        int n = board.size();\n        int m = board[0].size();\n        vector<vector<bool>> check(n, vector<bool>(m, false));\n        queue<pair<int, int>> q;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if ((i == 0 || j == 0 || i == n - 1 || j == m - 1) &&\n                    board[i][j] == 'O') {\n                    check[i][j] = true;\n                    q.push({i, j});\n                }\n            }\n\n        while (!q.empty()) {\n            auto [x, y] = q.front();\n            q.pop();\n\n            for (int i = 0; i < 4; ++i) {\n                int nx = x + dd[i];\n                int ny = y + dd[i + 1];\n\n                if (nx >= n || ny >= m || nx < 0 || ny < 0 || check[nx][ny] ||\n                    board[nx][ny] == 'X')\n                    continue;\n\n                q.push({nx, ny});\n                check[nx][ny] = true;\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < m; ++j)\n                if (!check[i][j])\n                    board[i][j] = 'X';\n        }\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0130-surrounded-regions/0130-surrounded-regions.cpp"
+    }
+  ]
+}

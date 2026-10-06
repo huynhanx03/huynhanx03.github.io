@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:1527",
+  "platform": "leetcode",
+  "id": "1527",
+  "title": "Number of Ways to Paint N × 3 Grid",
+  "slug": "number-of-ways-to-paint-n-3-grid",
+  "url": "https://leetcode.com/problems/number-of-ways-to-paint-n-3-grid",
+  "difficulty": "Hard",
+  "topics": [
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>You have a <code>grid</code> of size <code>n x 3</code> and you want to paint each cell of the grid with exactly one of the three colors: <strong>Red</strong>, <strong>Yellow,</strong> or <strong>Green</strong> while making sure that no two adjacent cells have the same color (i.e., no two cells that share vertical or horizontal sides have the same color).</p>\n\n<p>Given <code>n</code> the number of rows of the grid, return <em>the number of ways</em> you can paint this <code>grid</code>. As the answer may grow large, the answer <strong>must be</strong> computed modulo <code>10<sup>9</sup> + 7</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 1\n<strong>Output:</strong> 12\n<strong>Explanation:</strong> There are 12 possible way to paint the grid as shown.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 5000\n<strong>Output:</strong> 30228214\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == grid.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 5000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/1527-number-of-ways-to-paint-n-3-grid/1527-number-of-ways-to-paint-n-3-grid.cpp",
+      "source": "/*\n Problem: 1527. Number of Ways to Paint N × 3 Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (60.79%)\n Tags: Dynamic Programming\n*/\nclass Solution {\npublic:\n    int numOfWays(int n) {\n        const int MOD = 1e9 + 7;\n\n        long long A = 6; // ABC\n        long long B = 6; // ABA\n\n        for (int i = 2; i <= n; i++) {\n            long long newA = (2 * A % MOD + 2 * B % MOD) % MOD;\n            long long newB = (2 * A % MOD + 3 * B % MOD) % MOD;\n            A = newA;\n            B = newB;\n        }\n\n        return (A + B) % MOD;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1527-number-of-ways-to-paint-n-3-grid/1527-number-of-ways-to-paint-n-3-grid.cpp"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "go-fundamentals",
+    "title": { "en": "Go Fundamentals", "vi": "Nền tảng Go" },
+    "description": {
+      "en": "Follow Go from core syntax and data structures through types, composition, and the runtime memory model.",
+      "vi": "Học Go theo thứ tự từ cú pháp, cấu trúc dữ liệu đến kiểu dữ liệu, composition và cách runtime quản lý bộ nhớ."
+    },
+    "prerequisites": {
+      "en": "None — start here.",
+      "vi": "Không cần kiến thức trước — hãy bắt đầu từ đây."
+    },
+    "sections": [
+      {
+        "title": { "en": "Language basics", "vi": "Cú pháp cơ bản" },
+        "noteKeys": ["go/intro", "go/variables", "go/flow", "go/functions", "go/errors"]
+      },
+      {
+        "title": { "en": "Pointers and core data", "vi": "Con trỏ và dữ liệu cốt lõi" },
+        "noteKeys": ["go/pointers", "go/slices", "go/maps"]
+      },
+      {
+        "title": { "en": "Types and composition", "vi": "Kiểu dữ liệu và composition" },
+        "noteKeys": ["go/structs", "go/methods", "go/interfaces", "go/composition"]
+      },
+      {
+        "title": { "en": "Runtime and memory", "vi": "Runtime và bộ nhớ" },
+        "noteKeys": ["go/garbage_collection"]
+      }
+    ]
+  },
+  {
+    "slug": "go-concurrency",
+    "title": { "en": "Go Concurrency", "vi": "Concurrency trong Go" },
+    "description": {
+      "en": "Follow concurrency concepts in order: reason about races, coordinate goroutines, manage lifetimes, then apply a worker pool.",
+      "vi": "Đọc lần lượt về concurrency: nhận diện race, phối hợp goroutine, quản lý vòng đời rồi áp dụng worker pool."
+    },
+    "prerequisites": {
+      "en": "Know basic Go syntax, functions, and error handling.",
+      "vi": "Nắm cú pháp Go cơ bản, hàm và cách xử lý lỗi."
+    },
+    "sections": [
+      {
+        "title": { "en": "Reason about concurrent behavior", "vi": "Hiểu hành vi khi chạy đồng thời" },
+        "noteKeys": ["fundamentals/concurrency_race", "go/goroutines"]
+      },
+      {
+        "title": { "en": "Coordinate work and lifetimes", "vi": "Phối hợp công việc và vòng đời" },
+        "noteKeys": ["go/channels", "go/context"]
+      },
+      {
+        "title": { "en": "Apply a worker pool", "vi": "Áp dụng worker pool" },
+        "noteKeys": ["libraries/ants"]
+      }
+    ]
+  }
+]

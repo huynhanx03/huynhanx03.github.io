@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:9",
+  "platform": "leetcode",
+  "id": "9",
+  "title": "Palindrome Number",
+  "slug": "palindrome-number",
+  "url": "https://leetcode.com/problems/palindrome-number",
+  "difficulty": "Easy",
+  "topics": [
+    "Math"
+  ],
+  "statementHtml": "<p>Given an integer <code>x</code>, return <code>true</code><em> if </em><code>x</code><em> is a </em><span><em><strong>palindrome</strong></em></span><em>, and </em><code>false</code><em> otherwise</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> x = 121\n<strong>Output:</strong> true\n<strong>Explanation:</strong> 121 reads as 121 from left to right and from right to left.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> x = -121\n<strong>Output:</strong> false\n<strong>Explanation:</strong> From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> x = 10\n<strong>Output:</strong> false\n<strong>Explanation:</strong> Reads 01 from right to left. Therefore it is not a palindrome.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>-2<sup>31</sup> &lt;= x &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n\n<p> </p>\n<strong>Follow up:</strong> Could you solve it without converting the integer to a string?",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0009-palindrome-number/0009-palindrome-number.cpp",
+      "source": "/*\n Problem: 9. Palindrome Number\n Language: cpp\n Runtime: 4 ms (31.68%)\n Memory: 8.5 MB (65.42%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool isPalindrome(int x) {\n        if (x < 0)\n            return 0;\n        \n        long tmp = x;\n        long reversed = 0;\n\n        while (tmp != 0) {\n            int digit = tmp % 10;\n            reversed = reversed * 10 + digit;\n            tmp /= 10; \n        }\n\n        return reversed == x;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0009-palindrome-number/0009-palindrome-number.cpp"
+    }
+  ]
+}

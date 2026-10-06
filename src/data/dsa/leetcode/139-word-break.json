@@ -1,0 +1,26 @@
+{
+  "key": "leetcode:139",
+  "platform": "leetcode",
+  "id": "139",
+  "title": "Word Break",
+  "slug": "word-break",
+  "url": "https://leetcode.com/problems/word-break",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Hash Table",
+    "Memoization",
+    "String",
+    "Trie"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> and a dictionary of strings <code>wordDict</code>, return <code>true</code> if <code>s</code> can be segmented into a space-separated sequence of one or more dictionary words.</p>\n\n<p><strong>Note</strong> that the same word in the dictionary may be reused multiple times in the segmentation.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"leetcode\", wordDict = [\"leet\",\"code\"]\n<strong>Output:</strong> true\n<strong>Explanation:</strong> Return true because \"leetcode\" can be segmented as \"leet code\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]\n<strong>Output:</strong> true\n<strong>Explanation:</strong> Return true because \"applepenapple\" can be segmented as \"apple pen apple\".\nNote that you are allowed to reuse a dictionary word.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]\n<strong>Output:</strong> false\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 300</code></li>\n\t<li><code>1 &lt;= wordDict.length &lt;= 1000</code></li>\n\t<li><code>1 &lt;= wordDict[i].length &lt;= 20</code></li>\n\t<li><code>s</code> and <code>wordDict[i]</code> consist of only lowercase English letters.</li>\n\t<li>All the strings of <code>wordDict</code> are <strong>unique</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0139-word-break/0139-word-break.cpp",
+      "source": "/*\n Problem: 139. Word Break\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.2 MB (97.88%)\n Tags: Array, Hash Table, String, Dynamic Programming, Trie, Memoization\n*/\nclass Solution {\npublic:\n    bool wordBreak(string& s, vector<string>& wordDict) {\n        int n = s.size();\n        vector<int> dp(n);\n\n        for (int i = 0; i < n; i++) {\n            for (auto& str : wordDict) {\n                if (i < str.length() - 1)\n                    continue;\n                if (i == str.length() - 1 || dp[i - str.length()])\n                    if (str == s.substr(i - str.length() + 1, str.length())) {\n                        dp[i] = 1;\n                        break;\n                    }\n            }\n        }\n        return dp[n - 1];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0139-word-break/0139-word-break.cpp"
+    }
+  ]
+}

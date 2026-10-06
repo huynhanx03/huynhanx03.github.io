@@ -1,0 +1,18 @@
+{
+  "key": "cses:2165",
+  "platform": "cses",
+  "id": "2165",
+  "slug": "tower-of-hanoi",
+  "title": "Tower of Hanoi",
+  "url": "https://cses.fi/problemset/task/2165/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>The Tower of Hanoi game consists of three stacks (left, middle and right) and <span>n</span> round disks of different sizes. Initially, the left stack has all the disks, in increasing order of size from top to bottom.</p>\n<p>The goal is to move all the disks to the right stack using the middle stack. On each move you can move the uppermost disk from a stack to another stack. In addition, it is not allowed to place a larger disk on a smaller disk.</p>\n<p>Your task is to find a solution that minimizes the number of moves.</p>\n<h2>Input</h2>\n<p>The only input line has an integer <span>n</span>: the number of disks.</p>\n<h2>Output</h2>\n<p>First print an integer <span>k</span>: the minimum number of moves.</p>\n<p>After this, print <span>k</span> lines that describe the moves. Each line has two integers <span>a</span> and <span>b</span>: you move a disk from stack <span>a</span> to stack <span>b</span>.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n \\le 16</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>2\n</pre>\n<p>Output:</p>\n<pre>3\n1 2\n1 3\n2 3\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Tower_of_Hanoi.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution {\n    vector<pair<int,int>> moves;\n\n    void move(int n, int from, int mid, int to) {\n        if (n == 0) return;\n        move(n - 1, from, to, mid);\n        moves.emplace_back(from, to);\n        move(n - 1, mid, from, to);\n    }\n\npublic:\n    void sol() {\n        int n;\n        cin >> n;\n\n        move(n, 1, 2, 3);\n\n        cout << moves.size() << '\\n';\n        for (const auto &m : moves) {\n            cout << m.first << \" \" << m.second << '\\n';\n        }\n    }\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Tower_of_Hanoi.cpp"
+    }
+  ]
+}

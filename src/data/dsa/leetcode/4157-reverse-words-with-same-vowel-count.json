@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4157",
+  "platform": "leetcode",
+  "id": "4157",
+  "title": "Reverse Words With Same Vowel Count",
+  "slug": "reverse-words-with-same-vowel-count",
+  "url": "https://leetcode.com/problems/reverse-words-with-same-vowel-count",
+  "difficulty": "Medium",
+  "topics": [
+    "Simulation",
+    "String",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English words, each separated by a single space.</p>\n\n<p>Determine how many vowels appear in the <strong>first</strong> word. Then, reverse each following word that has the <strong>same vowel count</strong>. Leave all remaining words unchanged.</p>\n\n<p>Return the resulting string.</p>\n\n<p>Vowels are <code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, and <code>'u'</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"cat and mice\"</span></p>\n\n<p><strong>Output:</strong> <span>\"cat dna mice\"</span></p>\n\n<p><strong>Explanation:</strong>​​​​​​​</p>\n\n<ul>\n\t<li>The first word <code>\"cat\"</code> has 1 vowel.</li>\n\t<li><code>\"and\"</code> has 1 vowel, so it is reversed to form <code>\"dna\"</code>.</li>\n\t<li><code>\"mice\"</code> has 2 vowels, so it remains unchanged.</li>\n\t<li>Thus, the resulting string is <code>\"cat dna mice\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"book is nice\"</span></p>\n\n<p><strong>Output:</strong> <span>\"book is ecin\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The first word <code>\"book\"</code> has 2 vowels.</li>\n\t<li><code>\"is\"</code> has 1 vowel, so it remains unchanged.</li>\n\t<li><code>\"nice\"</code> has 2 vowels, so it is reversed to form <code>\"ecin\"</code>.</li>\n\t<li>Thus, the resulting string is <code>\"book is ecin\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"banana healthy\"</span></p>\n\n<p><strong>Output:</strong> <span>\"banana healthy\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The first word <code>\"banana\"</code> has 3 vowels.</li>\n\t<li><code>\"healthy\"</code> has 2 vowels, so it remains unchanged.</li>\n\t<li>Thus, the resulting string is <code>\"banana healthy\"</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters and spaces.</li>\n\t<li>Words in <code>s</code> are separated by a <strong>single</strong> space.</li>\n\t<li><code>s</code> does <strong>not</strong> contain leading or trailing spaces.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Medium/4157-reverse-words-with-same-vowel-count/4157-reverse-words-with-same-vowel-count.py",
+      "source": "\"\"\"\n Problem: 4157. Reverse Words With Same Vowel Count\n Language: python3\n Runtime: 207 ms (53.34%)\n Memory: 23.9 MB (28.34%)\n Tags: Two Pointers, String, Simulation\n\"\"\"\nclass Solution:\n    def reverseWords(self, s: str) -> str:\n        vowels = \"aeiou\"\n\n        words = s.split()\n\n        if not words:\n            return \"\"\n\n        f = sum(1 for c in words[0] if c in vowels)\n\n        res = [words[0]]\n        \n        for word in words[1:]:\n            if sum(1 for c in word if c in vowels) == f:\n                res.append(word[::-1])\n            else:\n                res.append(word)\n\n        return \" \".join(res)",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4157-reverse-words-with-same-vowel-count/4157-reverse-words-with-same-vowel-count.py"
+    }
+  ]
+}

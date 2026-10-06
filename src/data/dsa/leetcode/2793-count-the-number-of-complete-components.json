@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2793",
+  "platform": "leetcode",
+  "id": "2793",
+  "title": "Count the Number of Complete Components",
+  "slug": "count-the-number-of-complete-components",
+  "url": "https://leetcode.com/problems/count-the-number-of-complete-components",
+  "difficulty": "Medium",
+  "topics": [
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Graph Theory",
+    "Union-Find"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code>. There is an <strong>undirected</strong> graph with <code>n</code> vertices, numbered from <code>0</code> to <code>n - 1</code>. You are given a 2D integer array <code>edges</code> where <code>edges[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> denotes that there exists an <strong>undirected</strong> edge connecting vertices <code>a<sub>i</sub></code> and <code>b<sub>i</sub></code>.</p>\n\n<p>Return <em>the number of <strong>complete connected components</strong> of the graph</em>.</p>\n\n<p>A <strong>connected component</strong> is a subgraph of a graph in which there exists a path between any two vertices, and no vertex of the subgraph shares an edge with a vertex outside of the subgraph.</p>\n\n<p>A connected component is said to be <b>complete</b> if there exists an edge between every pair of its vertices.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<p><strong></strong></p>\n\n<pre><strong>Input:</strong> n = 6, edges = [[0,1],[0,2],[1,2],[3,4]]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> From the picture above, one can see that all of the components of this graph are complete.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<p><strong></strong></p>\n\n<pre><strong>Input:</strong> n = 6, edges = [[0,1],[0,2],[1,2],[3,4],[3,5]]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The component containing vertices 0, 1, and 2 is complete since there is an edge between every pair of two vertices. On the other hand, the component containing vertices 3, 4, and 5 is not complete since there is no edge between vertices 4 and 5. Thus, the number of complete components in this graph is 1.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 50</code></li>\n\t<li><code>0 &lt;= edges.length &lt;= n * (n - 1) / 2</code></li>\n\t<li><code>edges[i].length == 2</code></li>\n\t<li><code>0 &lt;= a<sub>i</sub>, b<sub>i</sub> &lt;= n - 1</code></li>\n\t<li><code>a<sub>i</sub> != b<sub>i</sub></code></li>\n\t<li>There are no repeated edges.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2793-count-the-number-of-complete-components/2793-count-the-number-of-complete-components.cpp",
+      "source": "/*\n Problem: 2793. Count the Number of Complete Components\n Language: cpp\n Runtime: 37 ms (74.49%)\n Memory: 128.1 MB (79.54%)\n Tags: Depth-First Search, Breadth-First Search, Union-Find, Graph Theory\n*/\nclass Solution {\npublic:\n    int countCompleteComponents(int n, vector<vector<int>>& edges) {\n        vector<vector<int>> graph(n);\n        for (auto& edge : edges) {\n            graph[edge[0]].push_back(edge[1]);\n            graph[edge[1]].push_back(edge[0]);\n        }\n\n        vector<bool> visited(n, false);\n        int completeCount = 0;\n\n        for (int i = 0; i < n; ++i) {\n            if (!visited[i]) {\n                int nodeCount = 0;\n                int edgeCount = 0;\n                dfs(i, graph, visited, nodeCount, edgeCount);\n                if (edgeCount / 2 == nodeCount * (nodeCount - 1) / 2) {\n                    ++completeCount;\n                }\n            }\n        }\n\n        return completeCount;\n    }\n\nprivate:\n    void dfs(int node, const vector<vector<int>>& graph, vector<bool>& visited,\n            int& nodeCount, int& edgeCount) {\n        visited[node] = true;\n        ++nodeCount;\n        edgeCount += graph[node].size();\n\n        for (int neighbor : graph[node]) {\n            if (!visited[neighbor]) {\n                dfs(neighbor, graph, visited, nodeCount, edgeCount);\n            }\n        }\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2793-count-the-number-of-complete-components/2793-count-the-number-of-complete-components.cpp"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:19",
+  "platform": "leetcode",
+  "id": "19",
+  "title": "Remove Nth Node From End of List",
+  "slug": "remove-nth-node-from-end-of-list",
+  "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list",
+  "difficulty": "Medium",
+  "topics": [
+    "Linked List",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>Given the <code>head</code> of a linked list, remove the <code>n<sup>th</sup></code> node from the end of the list and return its head.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,2,3,4,5], n = 2\n<strong>Output:</strong> [1,2,3,5]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> head = [1], n = 1\n<strong>Output:</strong> []\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,2], n = 1\n<strong>Output:</strong> [1]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is <code>sz</code>.</li>\n\t<li><code>1 &lt;= sz &lt;= 30</code></li>\n\t<li><code>0 &lt;= Node.val &lt;= 100</code></li>\n\t<li><code>1 &lt;= n &lt;= sz</code></li>\n</ul>\n\n<p> </p>\n<p><strong>Follow up:</strong> Could you do this in one pass?</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0019-remove-nth-node-from-end-of-list/0019-remove-nth-node-from-end-of-list.cpp",
+      "source": "/*\n Problem: 19. Remove Nth Node From End of List\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15 MB (25.17%)\n Tags: Linked List, Two Pointers\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\n        ListNode dummy(0);\n        dummy.next = head;\n        ListNode* first = &dummy;\n        ListNode* second = &dummy;\n\n        for (int i = 0; i <= n; ++i) {\n            first = first->next;\n        }\n\n        while (first != nullptr) {\n            first = first->next;\n            second = second->next;\n        }\n        \n        second->next = second->next->next;\n        return dummy.next;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0019-remove-nth-node-from-end-of-list/0019-remove-nth-node-from-end-of-list.cpp"
+    }
+  ]
+}

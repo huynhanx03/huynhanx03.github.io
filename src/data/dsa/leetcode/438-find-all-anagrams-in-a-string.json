@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:438",
+  "platform": "leetcode",
+  "id": "438",
+  "title": "Find All Anagrams in a String",
+  "slug": "find-all-anagrams-in-a-string",
+  "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Sliding Window",
+    "String"
+  ],
+  "statementHtml": "<p>Given two strings <code>s</code> and <code>p</code>, return an array of all the start indices of <code>p</code>'s <span>anagrams</span> in <code>s</code>. You may return the answer in <strong>any order</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"cbaebabacd\", p = \"abc\"\n<strong>Output:</strong> [0,6]\n<strong>Explanation:</strong>\nThe substring with start index = 0 is \"cba\", which is an anagram of \"abc\".\nThe substring with start index = 6 is \"bac\", which is an anagram of \"abc\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"abab\", p = \"ab\"\n<strong>Output:</strong> [0,1,2]\n<strong>Explanation:</strong>\nThe substring with start index = 0 is \"ab\", which is an anagram of \"ab\".\nThe substring with start index = 1 is \"ba\", which is an anagram of \"ab\".\nThe substring with start index = 2 is \"ab\", which is an anagram of \"ab\".\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length, p.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>s</code> and <code>p</code> consist of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0438-find-all-anagrams-in-a-string/0438-find-all-anagrams-in-a-string.cpp",
+      "source": "/*\n Problem: 438. Find All Anagrams in a String\n Language: cpp\n Runtime: 5 ms (55.77%)\n Memory: 11.4 MB (97.16%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        int len = p.size();\n        int n = s.size();\n\n        vector<int> cnt(26, 0);\n\n        for (const auto& c : p) {\n            --cnt[c - 'a'];\n        }\n\n        vector<int> ans;\n\n        for (int i = 0; i < n; ++i) {\n            ++cnt[s[i] - 'a'];\n            if (i >= len - 1) {\n                if (i - len >= 0) --cnt[s[i - len] - 'a'];\n\n                int count = 0;\n\n                for (int j = 0; j < 26; ++j) count += abs(cnt[j]);\n\n                if (count == 0) ans.push_back(i - len + 1);\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0438-find-all-anagrams-in-a-string/0438-find-all-anagrams-in-a-string.cpp"
+    }
+  ]
+}

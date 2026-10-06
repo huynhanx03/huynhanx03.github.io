@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3620",
+  "platform": "leetcode",
+  "id": "3620",
+  "title": "Maximum Number of Distinct Elements After Operations",
+  "slug": "maximum-number-of-distinct-elements-after-operations",
+  "url": "https://leetcode.com/problems/maximum-number-of-distinct-elements-after-operations",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> and an integer <code>k</code>.</p>\n\n<p>You are allowed to perform the following <strong>operation</strong> on each element of the array <strong>at most</strong> <em>once</em>:</p>\n\n<ul>\n\t<li>Add an integer in the range <code>[-k, k]</code> to the element.</li>\n</ul>\n\n<p>Return the <strong>maximum</strong> possible number of <strong>distinct</strong> elements in <code>nums</code> after performing the <strong>operations</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,2,3,3,4], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>nums</code> changes to <code>[-1, 0, 1, 2, 3, 4]</code> after performing operations on the first four elements.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,4,4,4], k = 1</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>By adding -1 to <code>nums[0]</code> and 1 to <code>nums[1]</code>, <code>nums</code> changes to <code>[3, 5, 4, 4]</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>0 &lt;= k &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3620-maximum-number-of-distinct-elements-after-operations/3620-maximum-number-of-distinct-elements-after-operations.cpp",
+      "source": "/*\n Problem: 3620. Maximum Number of Distinct Elements After Operations\n Language: cpp\n Runtime: 129 ms (25.46%)\n Memory: 97.8 MB (37.27%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int maxDistinctElements(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int last = INT_MIN;\n        int res = 0;\n        for (int x : nums) {\n            int candidate = max(last + 1, x - k);\n            if (candidate <= x + k) {\n                res++;\n                last = candidate;\n            }\n        }\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3620-maximum-number-of-distinct-elements-after-operations/3620-maximum-number-of-distinct-elements-after-operations.cpp"
+    }
+  ]
+}

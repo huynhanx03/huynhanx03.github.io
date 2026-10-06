@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:228",
+  "platform": "leetcode",
+  "id": "228",
+  "title": "Summary Ranges",
+  "slug": "summary-ranges",
+  "url": "https://leetcode.com/problems/summary-ranges",
+  "difficulty": "Easy",
+  "topics": [
+    "Array"
+  ],
+  "statementHtml": "<p>You are given a <strong>sorted unique</strong> integer array <code>nums</code>.</p>\n\n<p>A <strong>range</strong> <code>[a,b]</code> is the set of all integers from <code>a</code> to <code>b</code> (inclusive).</p>\n\n<p>Return <em>the <strong>smallest sorted</strong> list of ranges that <strong>cover all the numbers in the array exactly</strong></em>. That is, each element of <code>nums</code> is covered by exactly one of the ranges, and there is no integer <code>x</code> such that <code>x</code> is in one of the ranges but not in <code>nums</code>.</p>\n\n<p>Each range <code>[a,b]</code> in the list should be output as:</p>\n\n<ul>\n\t<li><code>\"a-&gt;b\"</code> if <code>a != b</code></li>\n\t<li><code>\"a\"</code> if <code>a == b</code></li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [0,1,2,4,5,7]\n<strong>Output:</strong> [\"0-&gt;2\",\"4-&gt;5\",\"7\"]\n<strong>Explanation:</strong> The ranges are:\n[0,2] --&gt; \"0-&gt;2\"\n[4,5] --&gt; \"4-&gt;5\"\n[7,7] --&gt; \"7\"\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [0,2,3,4,6,8,9]\n<strong>Output:</strong> [\"0\",\"2-&gt;4\",\"6\",\"8-&gt;9\"]\n<strong>Explanation:</strong> The ranges are:\n[0,0] --&gt; \"0\"\n[2,4] --&gt; \"2-&gt;4\"\n[6,6] --&gt; \"6\"\n[8,9] --&gt; \"8-&gt;9\"\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= nums.length &lt;= 20</code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n\t<li>All the values of <code>nums</code> are <strong>unique</strong>.</li>\n\t<li><code>nums</code> is sorted in ascending order.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0228-summary-ranges/0228-summary-ranges.cpp",
+      "source": "/*\n Problem: 228. Summary Ranges\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.3 MB (10.19%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    vector<string> summaryRanges(vector<int>& nums) {\n        vector<string> ans;\n        if (nums.empty()) return ans;\n\n        int st = nums[0];\n\n        for (int i = 1; i < nums.size(); ++i) {\n            if (static_cast<long>(nums[i]) - static_cast<long>(nums[i - 1]) != 1) {\n                if (nums[i - 1] == st) {\n                    ans.push_back(to_string(st));\n                } else {\n                    ans.push_back(to_string(st) + \"->\" + to_string(nums[i - 1]));\n                }\n                st = nums[i];\n            }\n        }\n\n        if (nums.back() == st) {\n            ans.push_back(to_string(st));\n        } else {\n            ans.push_back(to_string(st) + \"->\" + to_string(nums.back()));\n        }\n\n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0228-summary-ranges/0228-summary-ranges.cpp"
+    }
+  ]
+}

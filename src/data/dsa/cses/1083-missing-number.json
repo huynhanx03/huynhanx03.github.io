@@ -1,0 +1,18 @@
+{
+  "key": "cses:1083",
+  "platform": "cses",
+  "id": "1083",
+  "slug": "missing-number",
+  "title": "Missing Number",
+  "url": "https://cses.fi/problemset/task/1083/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>You are given all numbers between <span>1,2,\\ldots,n</span> except one. Your task is to find the missing number.</p>\n<h2>Input</h2>\n<p>The first input line contains an integer <span>n</span>.</p>\n<p>The second line contains <span>n-1</span> numbers. Each number is distinct and between <span>1</span> and <span>n</span> (inclusive).</p>\n<h2>Output</h2>\n<p>Print the missing number.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>2 \\le n \\le 2 \\cdot 10^5</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>5\n2 3 1 5\n</pre>\n<p>Output:</p>\n<pre>4\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Missing_Number.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        long long n;\n        cin >> n;\n        \n        long long s = n * (n + 1) / 2;\n\n        for (int i = 0; i < n - 1; ++i) {\n            int x;\n            cin >> x;\n            s -= x;\n        }\n\n        cout << s;\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Missing_Number.cpp"
+    }
+  ]
+}

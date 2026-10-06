@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2473",
+  "platform": "leetcode",
+  "id": "2473",
+  "title": "Max Sum of a Pair With Equal Sum of Digits",
+  "slug": "max-sum-of-a-pair-with-equal-sum-of-digits",
+  "url": "https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Heap (Priority Queue)",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> array <code>nums</code> consisting of <strong>positive</strong> integers. You can choose two indices <code>i</code> and <code>j</code>, such that <code>i != j</code>, and the sum of digits of the number <code>nums[i]</code> is equal to that of <code>nums[j]</code>.</p>\n\n<p>Return the <strong>maximum</strong> value of<em> </em><code>nums[i] + nums[j]</code><em> </em>that you can obtain over all possible indices <code>i</code> and <code>j</code> that satisfy the conditions. If no such pair of indices exists, return -1.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [18,43,36,13,7]\n<strong>Output:</strong> 54\n<strong>Explanation:</strong> The pairs (i, j) that satisfy the conditions are:\n- (0, 2), both numbers have a sum of digits equal to 9, and their sum is 18 + 36 = 54.\n- (1, 4), both numbers have a sum of digits equal to 7, and their sum is 43 + 7 = 50.\nSo the maximum sum that we can obtain is 54.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [10,12,19,14]\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> There are no two numbers that satisfy the conditions, so we return -1.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2473-max-sum-of-a-pair-with-equal-sum-of-digits/2473-max-sum-of-a-pair-with-equal-sum-of-digits.cpp",
+      "source": "/*\n Problem: 2473. Max Sum of a Pair With Equal Sum of Digits\n Language: cpp\n Runtime: 77 ms (12.97%)\n Memory: 75 MB (37.18%)\n Tags: Array, Hash Table, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    int maximumSum(vector<int>& nums) {\n        unordered_map<int, vector<int>> digitSumMap;\n        \n        for (int num : nums) {\n            int sum = digitSum(num);\n            digitSumMap[sum].push_back(num);\n        }\n        \n        int maxSum = -1;\n        for (auto& [sum, group] : digitSumMap) {\n            if (group.size() > 1) {\n                sort(group.rbegin(), group.rend());\n                maxSum = max(maxSum, group[0] + group[1]);\n            }\n        }\n        \n        return maxSum;\n    }\n\nprivate:\n    int digitSum(int n) {\n        int sum = 0;\n        while (n) {\n            sum += n % 10;\n            n /= 10;\n        }\n        return sum;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2473-max-sum-of-a-pair-with-equal-sum-of-digits/2473-max-sum-of-a-pair-with-equal-sum-of-digits.cpp"
+    }
+  ]
+}

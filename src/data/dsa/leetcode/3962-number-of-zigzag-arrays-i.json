@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3962",
+  "platform": "leetcode",
+  "id": "3962",
+  "title": "Number of ZigZag Arrays I",
+  "slug": "number-of-zigzag-arrays-i",
+  "url": "https://leetcode.com/problems/number-of-zigzag-arrays-i",
+  "difficulty": "Hard",
+  "topics": [
+    "Dynamic Programming",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>You are given three integers <code>n</code>, <code>l</code>, and <code>r</code>.</p>\n\n<p>A <strong>ZigZag</strong> array of length <code>n</code> is defined as follows:</p>\n\n<ul>\n\t<li>Each element lies in the range <code>[l, r]</code>.</li>\n\t<li>No <strong>two</strong> adjacent elements are equal.</li>\n\t<li>No <strong>three</strong> consecutive elements form a <strong>strictly increasing</strong> or <strong>strictly decreasing</strong> sequence.</li>\n</ul>\n\n<p>Return the total number of valid <strong>ZigZag</strong> arrays.</p>\n\n<p>Since the answer may be large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>\n\n<p>A <strong>sequence</strong> is said to be <strong>strictly increasing</strong> if each element is strictly greater than its previous one (if exists).</p>\n\n<p>A <strong>sequence</strong> is said to be <strong>strictly decreasing</strong> if each element is strictly smaller than its previous one (if exists).</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 3, l = 4, r = 5</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There are only 2 valid ZigZag arrays of length <code>n = 3</code> using values in the range <code>[4, 5]</code>:</p>\n\n<ul>\n\t<li><code>[4, 5, 4]</code></li>\n\t<li><code>[5, 4, 5]</code>​​​​​​​</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 3, l = 1, r = 3</span></p>\n\n<p><strong>Output:</strong> <span>10</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There are 10 valid ZigZag arrays of length <code>n = 3</code> using values in the range <code>[1, 3]</code>:</p>\n\n<ul>\n\t<li><code>[1, 2, 1]</code>, <code>[1, 3, 1]</code>, <code>[1, 3, 2]</code></li>\n\t<li><code>[2, 1, 2]</code>, <code>[2, 1, 3]</code>, <code>[2, 3, 1]</code>, <code>[2, 3, 2]</code></li>\n\t<li><code>[3, 1, 2]</code>, <code>[3, 1, 3]</code>, <code>[3, 2, 3]</code></li>\n</ul>\n\n<p>All arrays meet the ZigZag conditions.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= n &lt;= 2000</code></li>\n\t<li><code>1 &lt;= l &lt; r &lt;= 2000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/3962-number-of-zigzag-arrays-i/3962-number-of-zigzag-arrays-i.cpp",
+      "source": "/*\n Problem: 3962. Number of ZigZag Arrays I\n Language: cpp\n Runtime: 745 ms (29.47%)\n Memory: 649.6 MB (17.44%)\n Tags: Dynamic Programming, Prefix Sum\n*/\nclass Solution {\npublic:\n    int zigZagArrays(int n, int l, int r) {\n        const int MOD = 1e9 + 7;\n        int m = r - l + 1;\n\n        if (n == 1) return m;\n\n        vector<long long> u(m + 1), d(m + 1);\n\n        for (int i = 1; i <= m; i++) {\n            u[i] = i - 1;\n            d[i] = m - i;\n        }\n\n        while (--n > 1) {\n            vector<long long> nu(m + 1), nd(m + 1);\n\n            long long s = 0;\n            for (int i = 1; i <= m; i++) {\n                nu[i] = s;\n                s = (s + d[i]) % MOD;\n            }\n\n            s = 0;\n            for (int i = m; i >= 1; i--) {\n                nd[i] = s;\n                s = (s + u[i]) % MOD;\n            }\n\n            u.swap(nu);\n            d.swap(nd);\n        }\n\n        long long ans = 0;\n        for (int i = 1; i <= m; i++) ans = (ans + u[i] + d[i]) % MOD;\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/3962-number-of-zigzag-arrays-i/3962-number-of-zigzag-arrays-i.cpp"
+    }
+  ]
+}

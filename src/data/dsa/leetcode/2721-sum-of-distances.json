@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:2721",
+  "platform": "leetcode",
+  "id": "2721",
+  "title": "Sum of Distances",
+  "slug": "sum-of-distances",
+  "url": "https://leetcode.com/problems/sum-of-distances",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> integer array <code>nums</code>. There exists an array <code>arr</code> of length <code>nums.length</code>, where <code>arr[i]</code> is the sum of <code>|i - j|</code> over all <code>j</code> such that <code>nums[j] == nums[i]</code> and <code>j != i</code>. If there is no such <code>j</code>, set <code>arr[i]</code> to be <code>0</code>.</p>\n\n<p>Return <em>the array </em><code>arr</code><em>.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,3,1,1,2]\n<strong>Output:</strong> [5,0,3,4,0]\n<strong>Explanation:</strong> \nWhen i = 0, nums[0] == nums[2] and nums[0] == nums[3]. Therefore, arr[0] = |0 - 2| + |0 - 3| = 5. \nWhen i = 1, arr[1] = 0 because there is no other index with value 3.\nWhen i = 2, nums[2] == nums[0] and nums[2] == nums[3]. Therefore, arr[2] = |2 - 0| + |2 - 3| = 3. \nWhen i = 3, nums[3] == nums[0] and nums[3] == nums[2]. Therefore, arr[3] = |3 - 0| + |3 - 2| = 4. \nWhen i = 4, arr[4] = 0 because there is no other index with value 2. \n\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [0,5,3]\n<strong>Output:</strong> [0,0,0]\n<strong>Explanation:</strong> Since each element in nums is distinct, arr[i] = 0 for all i.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>\n\n<p> </p>\n<p><strong>Note:</strong> This question is the same as <a href=\"https://leetcode.com/problems/intervals-between-identical-elements/description/\" target=\"_blank\" rel=\"noopener noreferrer\"> 2121: Intervals Between Identical Elements.</a></p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2721-sum-of-distances/2721-sum-of-distances.cpp",
+      "source": "/*\n Problem: 2721. Sum of Distances\n Language: cpp\n Runtime: 71 ms (56.25%)\n Memory: 116.9 MB (59.25%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    vector<long long> distance(vector<int>& nums) {\n        int n = nums.size();\n        vector<long long> ans(n, 0);\n        \n        unordered_map<int, vector<int>> mp;\n        \n        for (int i = 0; i < n; ++i) {\n            mp[nums[i]].push_back(i);\n        }\n        \n        for (const auto& [_, pos] : mp) {\n            int k = pos.size();\n            \n            vector<long long> prefix(k + 1, 0);\n            for (int i = 0; i < k; ++i) {\n                prefix[i + 1] = prefix[i] + pos[i];\n            }\n            \n            for (int i = 0; i < k; ++i) {\n                long long left = (long long)pos[i] * i - prefix[i];\n                long long right = (prefix[k] - prefix[i + 1]) - (long long)pos[i] * (k - i - 1);\n                ans[pos[i]] = left + right;\n            }\n        }\n        \n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2721-sum-of-distances/2721-sum-of-distances.cpp"
+    }
+  ]
+}

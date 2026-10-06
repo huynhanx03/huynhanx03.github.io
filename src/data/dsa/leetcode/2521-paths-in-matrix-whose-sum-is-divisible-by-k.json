@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:2521",
+  "platform": "leetcode",
+  "id": "2521",
+  "title": "Paths in Matrix Whose Sum Is Divisible by K",
+  "slug": "paths-in-matrix-whose-sum-is-divisible-by-k",
+  "url": "https://leetcode.com/problems/paths-in-matrix-whose-sum-is-divisible-by-k",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> <code>m x n</code> integer matrix <code>grid</code> and an integer <code>k</code>. You are currently at position <code>(0, 0)</code> and you want to reach position <code>(m - 1, n - 1)</code> moving only <strong>down</strong> or <strong>right</strong>.</p>\n\n<p>Return<em> the number of paths where the sum of the elements on the path is divisible by </em><code>k</code>. Since the answer may be very large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[5,2,4],[3,0,5],[0,7,2]], k = 3\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> There are two paths where the sum of the elements on the path is divisible by k.\nThe first path highlighted in red has a sum of 5 + 2 + 4 + 5 + 2 = 18 which is divisible by 3.\nThe second path highlighted in blue has a sum of 5 + 3 + 0 + 5 + 2 = 15 which is divisible by 3.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[0,0]], k = 5\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The path highlighted in red has a sum of 0 + 0 = 0 which is divisible by 5.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[7,3,4,9],[2,3,6,2],[2,3,7,0]], k = 1\n<strong>Output:</strong> 10\n<strong>Explanation:</strong> Every integer is divisible by 1 so the sum of the elements on every possible path is divisible by k.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= m * n &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= grid[i][j] &lt;= 100</code></li>\n\t<li><code>1 &lt;= k &lt;= 50</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/2521-paths-in-matrix-whose-sum-is-divisible-by-k/2521-paths-in-matrix-whose-sum-is-divisible-by-k.cpp",
+      "source": "/*\n Problem: 2521. Paths in Matrix Whose Sum Is Divisible by K\n Language: cpp\n Runtime: 224 ms (65.03%)\n Memory: 132.1 MB (63.25%)\n Tags: Array, Dynamic Programming, Matrix\n*/\nclass Solution {\npublic:\n    int numberOfPaths(vector<vector<int>>& grid, int k) {\n        const int MOD = 1e9 + 7;\n        int m = grid.size();\n        int n = grid[0].size();\n\n        // dp[i][j][r] = số cách đến (i,j) với tổng % k = r\n        vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(k, 0)));\n\n        dp[0][0][grid[0][0] % k] = 1;\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                int val = grid[i][j] % k;\n\n                if (i == 0 && j == 0) continue;\n\n                for (int r = 0; r < k; r++) {\n                    int prev = (r - val + k) % k;\n\n                    if (i > 0)\n                        dp[i][j][r] = (dp[i][j][r] + dp[i-1][j][prev]) % MOD;\n\n                    if (j > 0)\n                        dp[i][j][r] = (dp[i][j][r] + dp[i][j-1][prev]) % MOD;\n                }\n            }\n        }\n\n        return dp[m-1][n-1][0];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/2521-paths-in-matrix-whose-sum-is-divisible-by-k/2521-paths-in-matrix-whose-sum-is-divisible-by-k.cpp"
+    }
+  ]
+}

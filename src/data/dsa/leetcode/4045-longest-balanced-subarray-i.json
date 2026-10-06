@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:4045",
+  "platform": "leetcode",
+  "id": "4045",
+  "title": "Longest Balanced Subarray I",
+  "slug": "longest-balanced-subarray-i",
+  "url": "https://leetcode.com/problems/longest-balanced-subarray-i",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Divide and Conquer",
+    "Hash Table",
+    "Prefix Sum",
+    "Segment Tree"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>A <strong><span>subarray</span></strong> is called <strong>balanced</strong> if the number of <strong>distinct even</strong> numbers in the subarray is equal to the number of <strong>distinct odd</strong> numbers.</p>\n\n<p>Return the length of the <strong>longest</strong> balanced subarray.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,5,4,3]</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The longest balanced subarray is <code>[2, 5, 4, 3]</code>.</li>\n\t<li>It has 2 distinct even numbers <code>[2, 4]</code> and 2 distinct odd numbers <code>[5, 3]</code>. Thus, the answer is 4.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,2,2,5,4]</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The longest balanced subarray is <code>[3, 2, 2, 5, 4]</code>.</li>\n\t<li>It has 2 distinct even numbers <code>[2, 4]</code> and 2 distinct odd numbers <code>[3, 5]</code>. Thus, the answer is 5.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,2]</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The longest balanced subarray is <code>[2, 3, 2]</code>.</li>\n\t<li>It has 1 distinct even number <code>[2]</code> and 1 distinct odd number <code>[3]</code>. Thus, the answer is 3.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 1500</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4045-longest-balanced-subarray-i/4045-longest-balanced-subarray-i.cpp",
+      "source": "/*\n Problem: 4045. Longest Balanced Subarray I\n Language: cpp\n Runtime: 2001 ms (27.94%)\n Memory: 530.5 MB (9.87%)\n Tags: Array, Hash Table, Divide and Conquer, Segment Tree, Prefix Sum\n*/\nclass Solution {\npublic:\n    int longestBalanced(vector<int>& nums) {\n        int n = nums.size();\n        int ans = 0;\n\n        for (int l = 0; l < n; ++l) {\n            unordered_set<int> even, odd;\n            int ce = 0, co = 0;\n\n            for (int r = l; r < n; ++r) {\n                int x = nums[r];\n                if (x % 2 == 0) {\n                    if (!even.count(x)) {\n                        even.insert(x);\n                        ++ce;\n                    }\n                } else {\n                    if (!odd.count(x)) {\n                        odd.insert(x);\n                        ++co;\n                    }\n                }\n\n                if (ce == co)\n                    ans = max(ans, r - l + 1);\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4045-longest-balanced-subarray-i/4045-longest-balanced-subarray-i.cpp"
+    }
+  ]
+}

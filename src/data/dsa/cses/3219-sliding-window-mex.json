@@ -1,0 +1,18 @@
+{
+  "key": "cses:3219",
+  "platform": "cses",
+  "id": "3219",
+  "slug": "sliding-window-mex",
+  "title": "Sliding Window Mex",
+  "url": "https://cses.fi/problemset/task/3219/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>You are given an array of <span>n</span> integers. Your task is to calculate the mex of each window of <span>k</span> elements, from left to right.</p>\n<p>The mex is the smallest nonnegative integer that does not appear in the array. For example, the mex for <span>[3,1,4,3,0,5]</span> is <span>2</span>.</p>\n<h2>Input</h2>\n<p>The first line contains two integers <span>n</span> and <span>k</span>: the number of elements and the size of the window.</p>\n<p>Then there are <span>n</span> integers <span>x_1,x_2,\\ldots,x_n</span>: the contents of the array.</p>\n<h2>Output</h2>\n<p>Print <span>n-k+1</span> values: the mex values.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le k \\le n \\le 2 \\cdot 10^5</span></li>\n<li><span>0 \\le x_i \\le 10^9</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>8 3\n1 2 1 0 5 1 1 0\n</pre>\n<p>Output:</p>\n<pre>0 3 2 2 0 2\n</pre></div>",
+  "solutions": [
+    {
+      "language": "Rust",
+      "relativePath": "cses/Sliding_Window_Problems/Sliding_Window_Mex.rs",
+      "source": "use std::collections::{BTreeSet, HashMap};\nuse std::io::{self, Read};\n\nfn main() {\n    let mut input = String::new();\n    if io::stdin().read_to_string(&mut input).is_err() {\n        return;\n    }\n    let mut scanner = input.split_whitespace();\n\n    let n: usize = scanner.next().unwrap().parse().unwrap();\n    let k: usize = scanner.next().unwrap().parse().unwrap();\n\n    let mut v: Vec<i64> = Vec::new();\n    for _ in 0..n {\n        v.push(scanner.next().unwrap().parse().unwrap());\n    }\n\n    let mut cnt: HashMap<i64, i64> = HashMap::new();\n    let mut set: BTreeSet<i64> = (0..=k as i64).collect();\n\n    for i in 0..n {\n        *cnt.entry(v[i]).or_insert(0) += 1;\n        set.remove(&v[i]);\n\n        if i >= k {\n            *cnt.entry(v[i - k]).or_insert(0) -= 1;\n            if *cnt.get(&v[i - k]).unwrap() == 0 {\n                cnt.remove(&v[i - k]);\n                set.insert(v[i - k]);\n            }\n        }\n\n        if i >= k - 1 {\n            print!(\"{} \", *set.iter().next().unwrap());\n        }\n    }\n}\n\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Sliding_Window_Problems/Sliding_Window_Mex.rs"
+    }
+  ]
+}

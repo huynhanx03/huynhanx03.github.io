@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:2137",
+  "platform": "leetcode",
+  "id": "2137",
+  "title": "Final Value of Variable After Performing Operations",
+  "slug": "final-value-of-variable-after-performing-operations",
+  "url": "https://leetcode.com/problems/final-value-of-variable-after-performing-operations",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>There is a programming language with only <strong>four</strong> operations and <strong>one</strong> variable <code>X</code>:</p>\n\n<ul>\n\t<li><code>++X</code> and <code>X++</code> <strong>increments</strong> the value of the variable <code>X</code> by <code>1</code>.</li>\n\t<li><code>--X</code> and <code>X--</code> <strong>decrements</strong> the value of the variable <code>X</code> by <code>1</code>.</li>\n</ul>\n\n<p>Initially, the value of <code>X</code> is <code>0</code>.</p>\n\n<p>Given an array of strings <code>operations</code> containing a list of operations, return <em>the <strong>final </strong>value of </em><code>X</code> <em>after performing all the operations</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> operations = [\"--X\",\"X++\",\"X++\"]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The operations are performed as follows:\nInitially, X = 0.\n--X: X is decremented by 1, X =  0 - 1 = -1.\nX++: X is incremented by 1, X = -1 + 1 =  0.\nX++: X is incremented by 1, X =  0 + 1 =  1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> operations = [\"++X\",\"++X\",\"X++\"]\n<strong>Output:</strong> 3\n<strong>Explanation: </strong>The operations are performed as follows:\nInitially, X = 0.\n++X: X is incremented by 1, X = 0 + 1 = 1.\n++X: X is incremented by 1, X = 1 + 1 = 2.\nX++: X is incremented by 1, X = 2 + 1 = 3.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> operations = [\"X++\",\"++X\",\"--X\",\"X--\"]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> The operations are performed as follows:\nInitially, X = 0.\nX++: X is incremented by 1, X = 0 + 1 = 1.\n++X: X is incremented by 1, X = 1 + 1 = 2.\n--X: X is decremented by 1, X = 2 - 1 = 1.\nX--: X is decremented by 1, X = 1 - 1 = 0.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= operations.length &lt;= 100</code></li>\n\t<li><code>operations[i]</code> will be either <code>\"++X\"</code>, <code>\"X++\"</code>, <code>\"--X\"</code>, or <code>\"X--\"</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/2137-final-value-of-variable-after-performing-operations/2137-final-value-of-variable-after-performing-operations.cpp",
+      "source": "/*\n Problem: 2137. Final Value of Variable After Performing Operations\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.6 MB (42.40%)\n Tags: Array, String, Simulation\n*/\nclass Solution {\npublic:\n    int finalValueAfterOperations(vector<string>& operations) {\n        int res = 0;\n\n        for (const auto& ope : operations) {\n            res = res + (ope[1] == '+' ? 1 : -1);\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2137-final-value-of-variable-after-performing-operations/2137-final-value-of-variable-after-performing-operations.cpp"
+    }
+  ]
+}

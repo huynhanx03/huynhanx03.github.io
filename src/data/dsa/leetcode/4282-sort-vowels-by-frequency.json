@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4282",
+  "platform": "leetcode",
+  "id": "4282",
+  "title": "Sort Vowels by Frequency",
+  "slug": "sort-vowels-by-frequency",
+  "url": "https://leetcode.com/problems/sort-vowels-by-frequency",
+  "difficulty": "Medium",
+  "topics": [
+    "None",
+    "Uncategorized"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English characters.</p>\n\n<p>Rearrange only the <strong>vowels</strong> in the string so that they appear in <strong>non-increasing</strong> order of their frequency.</p>\n\n<p>If multiple vowels have the same <strong>frequency</strong>, order them by the position of their <strong>first occurrence</strong> in <code>s</code>.</p>\n\n<p>Return the modified string.</p>\n\n<p>Vowels are <code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, and <code>'u'</code>.</p>\n\n<p>The <strong>frequency</strong> of a letter is the number of times it occurs in the string.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"leetcode\"</span></p>\n\n<p><strong>Output:</strong> <span>\"leetcedo\"</span></p>\n\n<p><strong>Explanation:</strong>​​​​​​​</p>\n\n<ul>\n\t<li>Vowels in the string are <code>['e', 'e', 'o', 'e']</code> with frequencies: <code>e = 3</code>, <code>o = 1</code>.</li>\n\t<li>Sorting in non-increasing order of frequency and placing them back into the vowel positions results in <code>\"leetcedo\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aeiaaioooa\"</span></p>\n\n<p><strong>Output:</strong> <span>\"aaaaoooiie\"</span></p>\n\n<p><strong>Explanation:</strong>​​​​​​​</p>\n\n<ul>\n\t<li>Vowels in the string are <code>['a', 'e', 'i', 'a', 'a', 'i', 'o', 'o', 'o', 'a']</code> with frequencies: <code>a = 4</code>, <code>o = 3</code>, <code>i = 2</code>, <code>e = 1</code>.</li>\n\t<li>Sorting them in non-increasing order of frequency and placing them back into the vowel positions results in <code>\"aaaaoooiie\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"baeiou\"</span></p>\n\n<p><strong>Output:</strong> <span>\"baeiou\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Each vowel appears exactly once, so all have the same frequency.</li>\n\t<li>Thus, they retain their relative order based on first occurrence, and the string remains unchanged.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4282-sort-vowels-by-frequency/4282-sort-vowels-by-frequency.cpp",
+      "source": "/*\n Problem: 4282. Sort Vowels by Frequency\n Language: cpp\n Runtime: 13 ms (83.12%)\n Memory: 19.1 MB (54.65%)\n Tags: None\n*/\nclass Solution {\npublic:\n    string sortVowels(string s) {\n        string v = \"aeiou\";\n        vector<int> cnt(5), first(5, -1);\n\n        auto id = [&](char c) {\n            for (int i = 0; i < 5; ++i) {\n                if (v[i] == c) return i;\n            }\n\n            return -1;\n        };\n\n        for (int i = 0; i < s.size(); ++i) {\n            int x = id(s[i]);\n\n            if (x == -1) continue;\n\n            ++cnt[x];\n            if (first[x] == -1) first[x] = i;\n        }\n\n        vector <int> ord = {0, 1, 2, 3, 4};\n        sort(ord.begin(), ord.end(), [&](int a, int b) {\n           if (cnt[a] != cnt[b]) return cnt[a] > cnt[b];\n            return first[a] < first[b];\n        });\n\n        string seq;\n        for (const auto& i : ord) seq += string(cnt[i], v[i]);\n\n        int j = 0;\n        for (char&c : s) if (id(c) != -1) c = seq[j++];\n        return s;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4282-sort-vowels-by-frequency/4282-sort-vowels-by-frequency.cpp"
+    }
+  ]
+}

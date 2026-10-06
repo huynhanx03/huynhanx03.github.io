@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2216",
+  "platform": "leetcode",
+  "id": "2216",
+  "title": "Delete the Middle Node of a Linked List",
+  "slug": "delete-the-middle-node-of-a-linked-list",
+  "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list",
+  "difficulty": "Medium",
+  "topics": [
+    "Linked List",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given the <code>head</code> of a linked list. <strong>Delete</strong> the <strong>middle node</strong>, and return <em>the</em> <code>head</code> <em>of the modified linked list</em>.</p>\n\n<p>The <strong>middle node</strong> of a linked list of size <code>n</code> is the <code>⌊n / 2⌋<sup>th</sup></code> node from the <b>start</b> using <strong>0-based indexing</strong>, where <code>⌊x⌋</code> denotes the largest integer less than or equal to <code>x</code>.</p>\n\n<ul>\n\t<li>For <code>n</code> = <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, and <code>5</code>, the middle nodes are <code>0</code>, <code>1</code>, <code>1</code>, <code>2</code>, and <code>2</code>, respectively.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,3,4,7,1,2,6]\n<strong>Output:</strong> [1,3,4,1,2,6]\n<strong>Explanation:</strong>\nThe above figure represents the given linked list. The indices of the nodes are written below.\nSince n = 7, node 3 with value 7 is the middle node, which is marked in red.\nWe return the new list after removing this node. \n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,2,3,4]\n<strong>Output:</strong> [1,2,4]\n<strong>Explanation:</strong>\nThe above figure represents the given linked list.\nFor n = 4, node 2 with value 3 is the middle node, which is marked in red.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> head = [2,1]\n<strong>Output:</strong> [2]\n<strong>Explanation:</strong>\nThe above figure represents the given linked list.\nFor n = 2, node 1 with value 1 is the middle node, which is marked in red.\nNode 0 with value 2 is the only node remaining after removing node 1.</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is in the range <code>[1, 10<sup>5</sup>]</code>.</li>\n\t<li><code>1 &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2216-delete-the-middle-node-of-a-linked-list/2216-delete-the-middle-node-of-a-linked-list.cpp",
+      "source": "/*\n Problem: 2216. Delete the Middle Node of a Linked List\n Language: cpp\n Runtime: 4 ms (35.97%)\n Memory: 311.9 MB (83.24%)\n Tags: Linked List, Two Pointers\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* deleteMiddle(ListNode* head) {\n        if (!head->next) {\n            return nullptr;\n        }\n\n        ListNode *slow = head, *fast = head, *prev = nullptr;\n\n        while (fast && fast->next) {\n            prev = slow;\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n\n        prev->next = slow->next;\n\n        return head;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2216-delete-the-middle-node-of-a-linked-list/2216-delete-the-middle-node-of-a-linked-list.cpp"
+    }
+  ]
+}

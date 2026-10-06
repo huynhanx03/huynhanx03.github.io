@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:896",
+  "platform": "leetcode",
+  "id": "896",
+  "title": "Smallest Subtree with all the Deepest Nodes",
+  "slug": "smallest-subtree-with-all-the-deepest-nodes",
+  "url": "https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Tree",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Hash Table",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given the <code>root</code> of a binary tree, the depth of each node is <strong>the shortest distance to the root</strong>.</p>\n\n<p>Return <em>the smallest subtree</em> such that it contains <strong>all the deepest nodes</strong> in the original tree.</p>\n\n<p>A node is called <strong>the deepest</strong> if it has the largest depth possible among any node in the entire tree.</p>\n\n<p>The <strong>subtree</strong> of a node is a tree consisting of that node, plus the set of all descendants of that node.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [3,5,1,6,2,0,8,null,null,7,4]\n<strong>Output:</strong> [2,7,4]\n<strong>Explanation:</strong> We return the node with value 2, colored in yellow in the diagram.\nThe nodes coloured in blue are the deepest nodes of the tree.\nNotice that nodes 5, 3 and 2 contain the deepest nodes in the tree but node 2 is the smallest subtree among them, so we return it.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [1]\n<strong>Output:</strong> [1]\n<strong>Explanation:</strong> The root is the deepest node in the tree.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> root = [0,1,3,null,2]\n<strong>Output:</strong> [2]\n<strong>Explanation:</strong> The deepest node in the tree is 2, the valid subtrees are the subtrees of nodes 2, 1 and 0 but the subtree of node 2 is the smallest.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree will be in the range <code>[1, 500]</code>.</li>\n\t<li><code>0 &lt;= Node.val &lt;= 500</code></li>\n\t<li>The values of the nodes in the tree are <strong>unique</strong>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Note:</strong> This question is the same as 1123: <a href=\"https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/\" target=\"_blank\" rel=\"noopener noreferrer\">https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/</a></p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0896-smallest-subtree-with-all-the-deepest-nodes/0896-smallest-subtree-with-all-the-deepest-nodes.cpp",
+      "source": "/*\n Problem: 896. Smallest Subtree with all the Deepest Nodes\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 16.1 MB (83.58%)\n Tags: Hash Table, Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    pair<int, TreeNode*> dfs(TreeNode* root) {\n        if (!root) return {0, nullptr};\n\n        auto [dl, nl] = dfs(root->left);\n        auto [dr, nr] = dfs(root->right);\n\n        if (dl == dr) return {dl+1, root};\n        else if (dl > dr) return {dl+1, nl};\n        else return {dr+1, nr};\n    }\n\n    TreeNode* subtreeWithAllDeepest(TreeNode* root) {\n        return dfs(root).second;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0896-smallest-subtree-with-all-the-deepest-nodes/0896-smallest-subtree-with-all-the-deepest-nodes.cpp"
+    }
+  ]
+}

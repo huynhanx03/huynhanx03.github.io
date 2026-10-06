@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4186",
+  "platform": "leetcode",
+  "id": "4186",
+  "title": "Count Residue Prefixes",
+  "slug": "count-residue-prefixes",
+  "url": "https://leetcode.com/problems/count-residue-prefixes",
+  "difficulty": "Easy",
+  "topics": [
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting only of lowercase English letters.</p>\n\n<p>A <strong>prefix</strong> of <code>s</code> is called a <strong>residue</strong> if the number of <strong>distinct characters</strong> in the <strong>prefix</strong> is equal to <code>len(prefix) % 3</code>.</p>\n\n<p>Return the count of <strong>residue</strong> prefixes in <code>s</code>.</p>\nA <strong>prefix</strong> of a string is a <strong>non-empty substring</strong> that starts from the beginning of the string and extends to any point within it.\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abc\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong>​​​​​​​</p>\n\n<ul>\n\t<li>Prefix <code>\"a\"</code> has 1 distinct character and length modulo 3 is 1, so it is a residue.</li>\n\t<li>Prefix <code>\"ab\"</code> has 2 distinct characters and length modulo 3 is 2, so it is a residue.</li>\n\t<li>Prefix <code>\"abc\"</code> does not satisfy the condition. Thus, the answer is 2.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"dd\"</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Prefix <code>\"d\"</code> has 1 distinct character and length modulo 3 is 1, so it is a residue.</li>\n\t<li>Prefix <code>\"dd\"</code> has 1 distinct character but length modulo 3 is 2, so it is not a residue. Thus, the answer is 1.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"bob\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Prefix <code>\"b\"</code> has 1 distinct character and length modulo 3 is 1, so it is a residue.</li>\n\t<li>Prefix <code>\"bo\"</code> has 2 distinct characters and length mod 3 is 2, so it is a residue. Thus, the answer is 2.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> contains only lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4186-count-residue-prefixes/4186-count-residue-prefixes.cpp",
+      "source": "/*\n Problem: 4186. Count Residue Prefixes\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10 MB (51.57%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int residuePrefixes(string s) {\n        int cnt = 0;\n        set<char> st;\n\n        for (int i = 0; i < s.size(); ++i) {\n            st.insert(s[i]);\n            int len = i + 1;\n            if (st.size() == len % 3) ++cnt;\n        }\n        \n        return cnt;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4186-count-residue-prefixes/4186-count-residue-prefixes.cpp"
+    }
+  ]
+}

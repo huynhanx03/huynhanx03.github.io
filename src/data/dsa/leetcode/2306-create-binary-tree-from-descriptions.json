@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2306",
+  "platform": "leetcode",
+  "id": "2306",
+  "title": "Create Binary Tree From Descriptions",
+  "slug": "create-binary-tree-from-descriptions",
+  "url": "https://leetcode.com/problems/create-binary-tree-from-descriptions",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Tree",
+    "Hash Table",
+    "Tree"
+  ],
+  "statementHtml": "<p>You are given a 2D integer array <code>descriptions</code> where <code>descriptions[i] = [parent<sub>i</sub>, child<sub>i</sub>, isLeft<sub>i</sub>]</code> indicates that <code>parent<sub>i</sub></code> is the <strong>parent</strong> of <code>child<sub>i</sub></code> in a <strong>binary</strong> tree of <strong>unique</strong> values. Furthermore,</p>\n\n<ul>\n\t<li>If <code>isLeft<sub>i</sub> == 1</code>, then <code>child<sub>i</sub></code> is the left child of <code>parent<sub>i</sub></code>.</li>\n\t<li>If <code>isLeft<sub>i</sub> == 0</code>, then <code>child<sub>i</sub></code> is the right child of <code>parent<sub>i</sub></code>.</li>\n</ul>\n\n<p>Construct the binary tree described by <code>descriptions</code> and return <em>its <strong>root</strong></em>.</p>\n\n<p>The test cases will be generated such that the binary tree is <strong>valid</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> descriptions = [[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]]\n<strong>Output:</strong> [50,20,80,15,17,19]\n<strong>Explanation:</strong> The root node is the node with value 50 since it has no parent.\nThe resulting binary tree is shown in the diagram.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> descriptions = [[1,2,1],[2,3,0],[3,4,1]]\n<strong>Output:</strong> [1,2,null,null,3,4]\n<strong>Explanation:</strong> The root node is the node with value 1 since it has no parent.\nThe resulting binary tree is shown in the diagram.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= descriptions.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>descriptions[i].length == 3</code></li>\n\t<li><code>1 &lt;= parent<sub>i</sub>, child<sub>i</sub> &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= isLeft<sub>i</sub> &lt;= 1</code></li>\n\t<li>The binary tree described by <code>descriptions</code> is valid.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2306-create-binary-tree-from-descriptions/2306-create-binary-tree-from-descriptions.cpp",
+      "source": "/*\n Problem: 2306. Create Binary Tree From Descriptions\n Language: cpp\n Runtime: 195 ms (56.24%)\n Memory: 279.2 MB (41.80%)\n Tags: Array, Hash Table, Tree, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\n\nclass Solution {\npublic:\n    TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {\n        unordered_map<int, TreeNode*> mp;\n        unordered_set<int> childs;\n\n        for (auto &d : descriptions) {\n            int parent = d[0];\n            int child = d[1];\n            int isLeft = d[2];\n\n            if (!mp.count(parent))\n                mp[parent] = new TreeNode(parent);\n\n            if (!mp.count(child))\n                mp[child] = new TreeNode(child);\n\n            if (isLeft)\n                mp[parent]->left = mp[child];\n            else\n                mp[parent]->right = mp[child];\n\n            childs.insert(child);\n        }\n\n        for (const auto &d : descriptions) {\n            int parent = d[0];\n\n            if (!childs.count(parent))\n                return mp[parent];\n        }\n\n        return nullptr;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2306-create-binary-tree-from-descriptions/2306-create-binary-tree-from-descriptions.cpp"
+    }
+  ]
+}

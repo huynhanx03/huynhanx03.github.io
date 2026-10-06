@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:4183",
+  "platform": "leetcode",
+  "id": "4183",
+  "title": "Count Caesar Cipher Pairs",
+  "slug": "count-caesar-cipher-pairs",
+  "url": "https://leetcode.com/problems/count-caesar-cipher-pairs",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Counting",
+    "Hash Table",
+    "Math",
+    "String"
+  ],
+  "statementHtml": "<p>You are given an array <code>words</code> of <code>n</code> strings. Each string has length <code>m</code> and contains only lowercase English letters.</p>\n\n<p>Two strings <code>s</code> and <code>t</code> are <strong>similar</strong> if we can apply the following operation any number of times (possibly zero times) so that <code>s</code> and <code>t</code> become <strong>equal</strong>.</p>\n\n<ul>\n\t<li>Choose either <code>s</code> or <code>t</code>.</li>\n\t<li>Replace <strong>every</strong> letter in the chosen string with the next letter in the alphabet cyclically. The next letter after <code>'z'</code> is <code>'a'</code>.</li>\n</ul>\n\n<p>Count the number of pairs of indices <code>(i, j)</code> such that:</p>\n\n<ul>\n\t<li><code>i &lt; j</code></li>\n\t<li><code>words[i]</code> and <code>words[j]</code> are <strong>similar</strong>.</li>\n</ul>\n\n<p>Return an integer denoting the number of such pairs.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>words = [\"fusion\",\"layout\"]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>words[0] = \"fusion\"</code> and <code>words[1] = \"layout\"</code> are similar because we can apply the operation to <code>\"fusion\"</code> 6 times. The string <code>\"fusion\"</code> changes as follows.</p>\n\n<ul>\n\t<li><code>\"fusion\"</code></li>\n\t<li><code>\"gvtjpo\"</code></li>\n\t<li><code>\"hwukqp\"</code></li>\n\t<li><code>\"ixvlrq\"</code></li>\n\t<li><code>\"jywmsr\"</code></li>\n\t<li><code>\"kzxnts\"</code></li>\n\t<li><code>\"layout\"</code></li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>words = [\"ab\",\"aa\",\"za\",\"aa\"]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>words[0] = \"ab\"</code> and <code>words[2] = \"za\"</code> are similar. <code>words[1] = \"aa\"</code> and <code>words[3] = \"aa\"</code> are similar.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == words.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= m == words[i].length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= n * m &lt;= 10<sup>5</sup></code></li>\n\t<li><code>words[i]</code> consists only of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4183-count-caesar-cipher-pairs/4183-count-caesar-cipher-pairs.cpp",
+      "source": "/*\n Problem: 4183. Count Caesar Cipher Pairs\n Language: cpp\n Runtime: 28 ms (79.70%)\n Memory: 110.3 MB (79.84%)\n Tags: Array, Hash Table, Math, String, Counting\n*/\nclass Solution {\npublic:\n    long long countPairs(vector<string>& words) {\n        long long cnt = 0;\n        map <string, int> freq;\n        for (const auto& w : words) {\n            int v = w[0] - 'a';\n            string tmp = w;\n            for (int i = 0; i < tmp.size(); ++i) {\n                int nv = tmp[i] - 'a';\n                int next = (nv - v + 26) % 26;\n                tmp[i] = next + 'a';\n            }\n            cnt += freq[tmp];\n            ++freq[tmp];\n        }\n\n        return cnt;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4183-count-caesar-cipher-pairs/4183-count-caesar-cipher-pairs.cpp"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:56",
+  "platform": "leetcode",
+  "id": "56",
+  "title": "Merge Intervals",
+  "slug": "merge-intervals",
+  "url": "https://leetcode.com/problems/merge-intervals",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array of <code>intervals</code> where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code>, merge all overlapping intervals, and return <em>an array of the non-overlapping intervals that cover all the intervals in the input</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[1,3],[2,6],[8,10],[15,18]]\n<strong>Output:</strong> [[1,6],[8,10],[15,18]]\n<strong>Explanation:</strong> Since intervals [1,3] and [2,6] overlap, merge them into [1,6].\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[1,4],[4,5]]\n<strong>Output:</strong> [[1,5]]\n<strong>Explanation:</strong> Intervals [1,4] and [4,5] are considered overlapping.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[4,7],[1,4]]\n<strong>Output:</strong> [[1,7]]\n<strong>Explanation:</strong> Intervals [1,4] and [4,7] are considered overlapping.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= intervals.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>intervals[i].length == 2</code></li>\n\t<li><code>0 &lt;= start<sub>i</sub> &lt;= end<sub>i</sub> &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0056-merge-intervals/0056-merge-intervals.cpp",
+      "source": "/*\n Problem: 56. Merge Intervals\n Language: cpp\n Runtime: 8 ms (24.98%)\n Memory: 24.8 MB (16.05%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n\n        sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b) {\n            return a[0] < b[0];\n        });\n\n        vector<vector<int>> merged;\n        vector<int> prev = intervals[0];\n\n        for (int i = 1; i < intervals.size(); ++i) {\n            vector<int> interval = intervals[i];\n            if (interval[0] <= prev[1]) {\n                prev[1] = max(prev[1], interval[1]);\n            } else {\n                merged.push_back(prev);\n                prev = interval;\n            }\n        }\n\n        merged.push_back(prev);\n        return merged;        \n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0056-merge-intervals/0056-merge-intervals.cpp"
+    }
+  ]
+}

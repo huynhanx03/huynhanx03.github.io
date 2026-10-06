@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1335",
+  "platform": "leetcode",
+  "id": "1335",
+  "title": "Maximum Candies Allocated to K Children",
+  "slug": "maximum-candies-allocated-to-k-children",
+  "url": "https://leetcode.com/problems/maximum-candies-allocated-to-k-children",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Search"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> integer array <code>candies</code>. Each element in the array denotes a pile of candies of size <code>candies[i]</code>. You can divide each pile into any number of <strong>sub piles</strong>, but you <strong>cannot</strong> merge two piles together.</p>\n\n<p>You are also given an integer <code>k</code>. You should allocate piles of candies to <code>k</code> children such that each child gets the <strong>same</strong> number of candies. Each child can be allocated candies from <strong>only one</strong> pile of candies and some piles of candies may go unused.</p>\n\n<p>Return <em>the <strong>maximum number of candies</strong> each child can get.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> candies = [5,8,6], k = 3\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> We can divide candies[1] into 2 piles of size 5 and 3, and candies[2] into 2 piles of size 5 and 1. We now have five piles of candies of sizes 5, 5, 3, 5, and 1. We can allocate the 3 piles of size 5 to 3 children. It can be proven that each child cannot receive more than 5 candies.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> candies = [2,5], k = 11\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> There are 11 children but only 7 candies in total, so it is impossible to ensure each child receives at least one candy. Thus, each child gets no candy and the answer is 0.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= candies.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= candies[i] &lt;= 10<sup>7</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>12</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1335-maximum-candies-allocated-to-k-children/1335-maximum-candies-allocated-to-k-children.cpp",
+      "source": "/*\n Problem: 1335. Maximum Candies Allocated to K Children\n Language: cpp\n Runtime: 45 ms (11.56%)\n Memory: 88.1 MB (95.30%)\n Tags: Array, Binary Search\n*/\nclass Solution {\nprivate:\n    long long count(vector<int>& candies, int& v) {\n        long long cnt = 0;\n\n        for (const auto& x: candies) {\n            cnt += x / v;\n        }\n\n        return cnt;\n    }\n\npublic:\n    int maximumCandies(vector<int>& candies, long long k) {\n        int l = 1, r = 1e9, res = 0;\n\n        while (l <= r) {\n            int mid = l + (r - l) / 2;\n\n            if (count(candies, mid) >= k) {\n                l = mid + 1;\n                res = mid;\n            } else {\n                r = mid - 1;\n            }\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1335-maximum-candies-allocated-to-k-children/1335-maximum-candies-allocated-to-k-children.cpp"
+    }
+  ]
+}

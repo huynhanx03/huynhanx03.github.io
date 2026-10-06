@@ -1,0 +1,17 @@
+---
+import type { TopicGuide } from '../../content/notes/topic-guides';
+import type { Locale, Messages } from '../../i18n';
+import { sitePath } from '../../lib/paths';
+
+interface Props { guide: TopicGuide; locale: Locale; copy: Messages }
+const { guide, locale, copy } = Astro.props;
+---
+<a class="topic-guide-card" data-discovery-card data-content-type="topic" data-content-category="topic" data-content-path={sitePath(`/${locale}/notes/topics/${guide.slug}`)} data-topic-note-paths={JSON.stringify(guide.steps.map((step) => sitePath(`/${locale}/notes/${step.note.slug}`)))} href={sitePath(`/${locale}/notes/topics/${guide.slug}`)}>
+  <div class="topic-guide-card-topline">
+    <span class="topic-guide-label">{copy.notes.topic}</span>
+    <span class="topic-guide-card-stats"><span>{guide.steps.length} {copy.notes.steps}</span><span>{guide.minutes} {copy.notes.minuteRead}</span></span>
+  </div>
+  <h3>{guide.title}</h3>
+  <p>{guide.description}</p>
+  <span class="topic-guide-card-arrow" aria-hidden="true">↗</span>
+</a>

@@ -1,0 +1,18 @@
+{
+  "key": "cses:1623",
+  "platform": "cses",
+  "id": "1623",
+  "slug": "apple-division",
+  "title": "Apple Division",
+  "url": "https://cses.fi/problemset/task/1623/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>There are <span>n</span> apples with known weights. Your task is to divide the apples into two groups so that the difference between the weights of the groups is minimal.</p>\n<h2>Input</h2>\n<p>The first input line has an integer <span>n</span>: the number of apples.</p>\n<p>The next line has <span>n</span> integers <span>p_1,p_2,\\dots,p_n</span>: the weight of each apple.</p>\n<h2>Output</h2>\n<p>Print one integer: the minimum difference between the weights of the groups.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n \\le 20</span></li>\n<li><span>1 \\le p_i \\le 10^9</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>5\n3 2 7 4 1\n</pre>\n<p>Output:</p>\n<pre>1\n</pre>\n<p>Explanation: Group 1 has weights 2, 3 and 4 (total weight 9), and group 2 has weights 1 and 7 (total weight 8).</p>\n</div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Apple_Division.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        int n;\n        cin >> n;\n\n        long long s = 0;\n        vector <int> a(n);\n        for (auto& x : a) {\n            cin >> x;\n            s += x;\n        }\n\n        long long ans = LLONG_MAX;\n\n        auto dfs = [&](auto self, int idx, long long cur) -> void {\n            if (idx == n) {\n                ans = min(ans, abs(s - 2 * cur));\n                return;\n            }\n\n            self(self, idx + 1, cur + a[idx]);\n            self(self, idx + 1, cur);\n        };\n        \n        dfs(dfs, 0, 0);\n\n        cout << ans << '\\n';\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Apple_Division.cpp"
+    }
+  ]
+}

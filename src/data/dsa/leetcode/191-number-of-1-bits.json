@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:191",
+  "platform": "leetcode",
+  "id": "191",
+  "title": "Number of 1 Bits",
+  "slug": "number-of-1-bits",
+  "url": "https://leetcode.com/problems/number-of-1-bits",
+  "difficulty": "Easy",
+  "topics": [
+    "Bit Manipulation",
+    "Divide and Conquer"
+  ],
+  "statementHtml": "<p>Given a positive integer <code>n</code>, write a function that returns the number of <span>set bits</span> in its binary representation (also known as the <a href=\"http://en.wikipedia.org/wiki/Hamming_weight\" target=\"_blank\" rel=\"noopener noreferrer\">Hamming weight</a>).</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 11</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The input binary string <strong>1011</strong> has a total of three set bits.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 128</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The input binary string <strong>10000000</strong> has a total of one set bit.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 2147483645</span></p>\n\n<p><strong>Output:</strong> <span>30</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The input binary string <strong>1111111111111111111111111111101</strong> has a total of thirty set bits.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n\n<p> </p>\n<strong>Follow up:</strong> If this function is called many times, how would you optimize it?",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0191-number-of-1-bits/0191-number-of-1-bits.cpp",
+      "source": "/*\n Problem: 191. Number of 1 Bits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (48.24%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int hammingWeight(int n) {\n        int cnt = 0;\n\n        while (n != 0) {\n            cnt += n & 1;\n            n >>= 1;\n        }\n\n        return cnt;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0191-number-of-1-bits/0191-number-of-1-bits.cpp"
+    }
+  ]
+}

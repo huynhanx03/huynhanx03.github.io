@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:2707",
+  "platform": "leetcode",
+  "id": "2707",
+  "title": "Merge Two 2D Arrays by Summing Values",
+  "slug": "merge-two-2d-arrays-by-summing-values",
+  "url": "https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given two <strong>2D</strong> integer arrays <code>nums1</code> and <code>nums2.</code></p>\n\n<ul>\n\t<li><code>nums1[i] = [id<sub>i</sub>, val<sub>i</sub>]</code> indicate that the number with the id <code>id<sub>i</sub></code> has a value equal to <code>val<sub>i</sub></code>.</li>\n\t<li><code>nums2[i] = [id<sub>i</sub>, val<sub>i</sub>]</code> indicate that the number with the id <code>id<sub>i</sub></code> has a value equal to <code>val<sub>i</sub></code>.</li>\n</ul>\n\n<p>Each array contains <strong>unique</strong> ids and is sorted in <strong>ascending</strong> order by id.</p>\n\n<p>Merge the two arrays into one array that is sorted in ascending order by id, respecting the following conditions:</p>\n\n<ul>\n\t<li>Only ids that appear in at least one of the two arrays should be included in the resulting array.</li>\n\t<li>Each id should be included <strong>only once</strong> and its value should be the sum of the values of this id in the two arrays. If the id does not exist in one of the two arrays, then assume its value in that array to be <code>0</code>.</li>\n</ul>\n\n<p>Return <em>the resulting array</em>. The returned array must be sorted in ascending order by id.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums1 = [[1,2],[2,3],[4,5]], nums2 = [[1,4],[3,2],[4,1]]\n<strong>Output:</strong> [[1,6],[2,3],[3,2],[4,6]]\n<strong>Explanation:</strong> The resulting array contains the following:\n- id = 1, the value of this id is 2 + 4 = 6.\n- id = 2, the value of this id is 3.\n- id = 3, the value of this id is 2.\n- id = 4, the value of this id is 5 + 1 = 6.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums1 = [[2,4],[3,6],[5,5]], nums2 = [[1,3],[4,3]]\n<strong>Output:</strong> [[1,3],[2,4],[3,6],[4,3],[5,5]]\n<strong>Explanation:</strong> There are no common ids, so we just include each id with its value in the resulting list.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums1.length, nums2.length &lt;= 200</code></li>\n\t<li><code>nums1[i].length == nums2[j].length == 2</code></li>\n\t<li><code>1 &lt;= id<sub>i</sub>, val<sub>i</sub> &lt;= 1000</code></li>\n\t<li>Both arrays contain unique ids.</li>\n\t<li>Both arrays are in strictly ascending order by id.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/2707-merge-two-2d-arrays-by-summing-values/2707-merge-two-2d-arrays-by-summing-values.cpp",
+      "source": "/*\n Problem: 2707. Merge Two 2D Arrays by Summing Values\n Language: cpp\n Runtime: 3 ms (29.19%)\n Memory: 14.7 MB (83.57%)\n Tags: Array, Hash Table, Two Pointers\n*/\nclass Solution {\npublic:\n    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1,\n                                    vector<vector<int>>& nums2) {\n        int n1 = nums1.size();\n        int n2 = nums2.size();\n        int l1 = 0, l2 = 0;\n\n        vector<vector<int>> res;\n\n        while (l1 < n1 && l2 < n2) {\n            if (nums1[l1][0] == nums2[l2][0]) {\n                res.push_back(\n                    vector<int>{nums1[l1][0], nums1[l1++][1] + nums2[l2++][1]});\n            } else if (nums1[l1][0] < nums2[l2][0]) {\n                res.push_back(vector<int>{nums1[l1][0], nums1[l1][1]});\n                ++l1;\n            } else {\n                res.push_back(vector<int>{nums2[l2][0], nums2[l2][1]});\n                ++l2;\n            }\n        }\n\n        while (l1 < n1) {\n            res.push_back(vector<int>{nums1[l1][0], nums1[l1][1]});\n            ++l1;\n        }\n\n        while (l2 < n2) {\n            res.push_back(vector<int>{nums2[l2][0], nums2[l2][1]});\n            ++l2;\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2707-merge-two-2d-arrays-by-summing-values/2707-merge-two-2d-arrays-by-summing-values.cpp"
+    }
+  ]
+}

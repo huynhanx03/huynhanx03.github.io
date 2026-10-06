@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:678",
+  "platform": "leetcode",
+  "id": "678",
+  "title": "Valid Parenthesis String",
+  "slug": "valid-parenthesis-string",
+  "url": "https://leetcode.com/problems/valid-parenthesis-string",
+  "difficulty": "Medium",
+  "topics": [
+    "Dynamic Programming",
+    "Greedy",
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> containing only three types of characters: <code>'('</code>, <code>')'</code> and <code>'*'</code>, return <code>true</code> <em>if</em> <code>s</code> <em>is <strong>valid</strong></em>.</p>\n\n<p>The following rules define a <strong>valid</strong> string:</p>\n\n<ul>\n\t<li>Any left parenthesis <code>'('</code> must have a corresponding right parenthesis <code>')'</code>.</li>\n\t<li>Any right parenthesis <code>')'</code> must have a corresponding left parenthesis <code>'('</code>.</li>\n\t<li>Left parenthesis <code>'('</code> must go before the corresponding right parenthesis <code>')'</code>.</li>\n\t<li><code>'*'</code> could be treated as a single right parenthesis <code>')'</code> or a single left parenthesis <code>'('</code> or an empty string <code>\"\"</code>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> s = \"()\"\n<strong>Output:</strong> true\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> s = \"(*)\"\n<strong>Output:</strong> true\n</pre><p><strong>Example 3:</strong></p>\n<pre><strong>Input:</strong> s = \"(*))\"\n<strong>Output:</strong> true\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s[i]</code> is <code>'('</code>, <code>')'</code> or <code>'*'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0678-valid-parenthesis-string/0678-valid-parenthesis-string.cpp",
+      "source": "/*\n Problem: 678. Valid Parenthesis String\n Language: cpp\n Runtime: 3 ms (9.16%)\n Memory: 7.4 MB (100.00%)\n Tags: String, Dynamic Programming, Stack, Greedy\n*/\nclass Solution {\npublic:\n    bool checkValidString(string s) {\n        int p1 = 0;\n        int p2 = 0;\n\n        for (auto& c : s) {\n            if (c == '(')\n            {\n                ++p1;\n                ++p2;\n            }\n            else if (c == '*')\n                {\n                    ++p1;\n                    --p2;\n                }\n            else {\n                --p1;\n                --p2;\n            }\n\n            if (p1 < 0)\n                return false;\n\n            if (p2 < 0)\n                p2 = 0;\n        }\n\n        return p2 == 0;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0678-valid-parenthesis-string/0678-valid-parenthesis-string.cpp"
+    }
+  ]
+}

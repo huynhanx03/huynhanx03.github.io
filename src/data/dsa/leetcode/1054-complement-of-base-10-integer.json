@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:1054",
+  "platform": "leetcode",
+  "id": "1054",
+  "title": "Complement of Base 10 Integer",
+  "slug": "complement-of-base-10-integer",
+  "url": "https://leetcode.com/problems/complement-of-base-10-integer",
+  "difficulty": "Easy",
+  "topics": [
+    "Bit Manipulation"
+  ],
+  "statementHtml": "<p>The <strong>complement</strong> of an integer is the integer you get when you flip all the <code>0</code>'s to <code>1</code>'s and all the <code>1</code>'s to <code>0</code>'s in its binary representation.</p>\n\n<ul>\n\t<li>For example, The integer <code>5</code> is <code>\"101\"</code> in binary and its <strong>complement</strong> is <code>\"010\"</code> which is the integer <code>2</code>.</li>\n</ul>\n\n<p>Given an integer <code>n</code>, return <em>its complement</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 5\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> 5 is \"101\" in binary, with complement \"010\" in binary, which is 2 in base-10.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 7\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> 7 is \"111\" in binary, with complement \"000\" in binary, which is 0 in base-10.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> n = 10\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> 10 is \"1010\" in binary, with complement \"0101\" in binary, which is 5 in base-10.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= n &lt; 10<sup>9</sup></code></li>\n</ul>\n\n<p> </p>\n<p><strong>Note:</strong> This question is the same as 476: <a href=\"https://leetcode.com/problems/number-complement/\" target=\"_blank\" rel=\"noopener noreferrer\">https://leetcode.com/problems/number-complement/</a></p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1054-complement-of-base-10-integer/1054-complement-of-base-10-integer.cpp",
+      "source": "/*\n Problem: 1054. Complement of Base 10 Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (59.24%)\n Tags: Bit Manipulation\n*/\nclass Solution {\npublic:\n    int bitwiseComplement(int n) {\n        int mask = 1;\n        \n        while (mask < n) {\n            mask = (mask << 1) | 1;\n        }\n        \n        return n ^ mask;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1054-complement-of-base-10-integer/1054-complement-of-base-10-integer.cpp"
+    }
+  ]
+}

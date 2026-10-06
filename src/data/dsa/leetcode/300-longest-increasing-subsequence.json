@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:300",
+  "platform": "leetcode",
+  "id": "300",
+  "title": "Longest Increasing Subsequence",
+  "slug": "longest-increasing-subsequence",
+  "url": "https://leetcode.com/problems/longest-increasing-subsequence",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code>, return <em>the length of the longest <strong>strictly increasing </strong></em><span><em><strong>subsequence</strong></em></span>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [10,9,2,5,3,7,101,18]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The longest increasing subsequence is [2,3,7,101], therefore the length is 4.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [0,1,0,3,2,3]\n<strong>Output:</strong> 4\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [7,7,7,7,7,7,7]\n<strong>Output:</strong> 1\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2500</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n\n<p> </p>\n<p><b>Follow up:</b> Can you come up with an algorithm that runs in <code>O(n log(n))</code> time complexity?</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0300-longest-increasing-subsequence/0300-longest-increasing-subsequence.cpp",
+      "source": "/*\n Problem: 300. Longest Increasing Subsequence\n Language: cpp\n Runtime: 61 ms (61.18%)\n Memory: 13.2 MB (100.00%)\n Tags: Array, Binary Search, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int lengthOfLIS(vector<int>& a) {\n        int n = a.size();\n        vector<int> dp(n, 1);\n\n        for (int i = 1; i < n; ++i)\n            for (int j = 0; j < i; ++j) {\n                if (a[i] > a[j])\n                    dp[i] = max(dp[i], dp[j] + 1);\n            }\n\n        return *max_element(dp.begin(), dp.end());\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0300-longest-increasing-subsequence/0300-longest-increasing-subsequence.cpp"
+    }
+  ]
+}

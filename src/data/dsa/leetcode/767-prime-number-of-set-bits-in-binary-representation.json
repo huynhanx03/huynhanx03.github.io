@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:767",
+  "platform": "leetcode",
+  "id": "767",
+  "title": "Prime Number of Set Bits in Binary Representation",
+  "slug": "prime-number-of-set-bits-in-binary-representation",
+  "url": "https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation",
+  "difficulty": "Easy",
+  "topics": [
+    "Bit Manipulation",
+    "Math"
+  ],
+  "statementHtml": "<p>Given two integers <code>left</code> and <code>right</code>, return <em>the <strong>count</strong> of numbers in the <strong>inclusive</strong> range </em><code>[left, right]</code><em> having a <strong>prime number of set bits</strong> in their binary representation</em>.</p>\n\n<p>Recall that the <strong>number of set bits</strong> an integer has is the number of <code>1</code>'s present when written in binary.</p>\n\n<ul>\n\t<li>For example, <code>21</code> written in binary is <code>10101</code>, which has <code>3</code> set bits.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> left = 6, right = 10\n<strong>Output:</strong> 4\n<strong>Explanation:</strong>\n6  -&gt; 110 (2 set bits, 2 is prime)\n7  -&gt; 111 (3 set bits, 3 is prime)\n8  -&gt; 1000 (1 set bit, 1 is not prime)\n9  -&gt; 1001 (2 set bits, 2 is prime)\n10 -&gt; 1010 (2 set bits, 2 is prime)\n4 numbers have a prime number of set bits.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> left = 10, right = 15\n<strong>Output:</strong> 5\n<strong>Explanation:</strong>\n10 -&gt; 1010 (2 set bits, 2 is prime)\n11 -&gt; 1011 (3 set bits, 3 is prime)\n12 -&gt; 1100 (2 set bits, 2 is prime)\n13 -&gt; 1101 (3 set bits, 3 is prime)\n14 -&gt; 1110 (3 set bits, 3 is prime)\n15 -&gt; 1111 (4 set bits, 4 is not prime)\n5 numbers have a prime number of set bits.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= left &lt;= right &lt;= 10<sup>6</sup></code></li>\n\t<li><code>0 &lt;= right - left &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Rust",
+      "relativePath": "leetcode/Easy/0767-prime-number-of-set-bits-in-binary-representation/0767-prime-number-of-set-bits-in-binary-representation.rs",
+      "source": "/*\n Problem: 767. Prime Number of Set Bits in Binary Representation\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.1 MB (54.66%)\n Tags: Math, Bit Manipulation\n*/\nfn sieve(limit: usize) -> Vec<bool> {\n    let mut prime = vec![true; limit + 1];\n    if limit >= 0 { prime[0] = false; }\n    if limit >= 1 { prime[1] = false; }\n\n    let mut i = 2;\n    while i * i <= limit {\n        if prime[i] {\n            let mut j = i * i;\n            while j <= limit {\n                prime[j] = false;\n                j += i;\n            }\n        }\n        i += 1;\n    }\n    prime\n}\n\nimpl Solution {\n    pub fn count_prime_set_bits(left: i32, right: i32) -> i32 {\n        let primes = sieve(32);\n\n        (left..=right)\n            .filter(|&n| primes[n.count_ones() as usize])\n            .count() as i32\n    }\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0767-prime-number-of-set-bits-in-binary-representation/0767-prime-number-of-set-bits-in-binary-representation.rs"
+    }
+  ]
+}

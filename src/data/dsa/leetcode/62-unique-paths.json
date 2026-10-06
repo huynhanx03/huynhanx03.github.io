@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:62",
+  "platform": "leetcode",
+  "id": "62",
+  "title": "Unique Paths",
+  "slug": "unique-paths",
+  "url": "https://leetcode.com/problems/unique-paths",
+  "difficulty": "Medium",
+  "topics": [
+    "Combinatorics",
+    "Dynamic Programming",
+    "Math"
+  ],
+  "statementHtml": "<p>There is a robot on an <code>m x n</code> grid. The robot is initially located at the <strong>top-left corner</strong> (i.e., <code>grid[0][0]</code>). The robot tries to move to the <strong>bottom-right corner</strong> (i.e., <code>grid[m - 1][n - 1]</code>). The robot can only move either down or right at any point in time.</p>\n\n<p>Given the two integers <code>m</code> and <code>n</code>, return <em>the number of possible unique paths that the robot can take to reach the bottom-right corner</em>.</p>\n\n<p>The test cases are generated so that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> m = 3, n = 7\n<strong>Output:</strong> 28\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> m = 3, n = 2\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:\n1. Right -&gt; Down -&gt; Down\n2. Down -&gt; Down -&gt; Right\n3. Down -&gt; Right -&gt; Down\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= m, n &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0062-unique-paths/0062-unique-paths.cpp",
+      "source": "/*\n Problem: 62. Unique Paths\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.3 MB (51.76%)\n Tags: Math, Dynamic Programming, Combinatorics\n*/\nclass Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        vector <vector<long long>> dp(n, vector<long long>(m, 0));\n\n        dp[0][0] = 1;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if (i > 0)\n                    dp[i][j] += dp[i - 1][j];\n                \n                if (j > 0)\n                    dp[i][j] += dp[i][j - 1];\n            }\n\n        return dp[n - 1][m - 1];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0062-unique-paths/0062-unique-paths.cpp"
+    }
+  ]
+}

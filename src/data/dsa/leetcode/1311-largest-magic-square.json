@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1311",
+  "platform": "leetcode",
+  "id": "1311",
+  "title": "Largest Magic Square",
+  "slug": "largest-magic-square",
+  "url": "https://leetcode.com/problems/largest-magic-square",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>A <code>k x k</code> <strong>magic square</strong> is a <code>k x k</code> grid filled with integers such that every row sum, every column sum, and both diagonal sums are <strong>all equal</strong>. The integers in the magic square <strong>do not have to be distinct</strong>. Every <code>1 x 1</code> grid is trivially a <strong>magic square</strong>.</p>\n\n<p>Given an <code>m x n</code> integer <code>grid</code>, return <em>the <strong>size</strong> (i.e., the side length </em><code>k</code><em>) of the <strong>largest magic square</strong> that can be found within this grid</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[7,1,4,5,6],[2,5,1,6,4],[1,5,4,3,2],[1,2,7,3,4]]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The largest magic square has a size of 3.\nEvery row sum, column sum, and diagonal sum of this magic square is equal to 12.\n- Row sums: 5+1+6 = 5+4+3 = 2+7+3 = 12\n- Column sums: 5+5+2 = 1+4+7 = 6+3+3 = 12\n- Diagonal sums: 5+4+3 = 6+4+2 = 12\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[5,1,3,1],[9,3,3,1],[1,3,3,8]]\n<strong>Output:</strong> 2\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 50</code></li>\n\t<li><code>1 &lt;= grid[i][j] &lt;= 10<sup>6</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1311-largest-magic-square/1311-largest-magic-square.cpp",
+      "source": "/*\n Problem: 1311. Largest Magic Square\n Language: cpp\n Runtime: 19 ms (42.92%)\n Memory: 14.1 MB (61.18%)\n Tags: Array, Matrix, Prefix Sum\n*/\nclass Solution {\npublic:\n    int largestMagicSquare(vector<vector<int>>& grid) {\n        int m = grid.size(), n = grid[0].size();\n\n        vector<vector<int>> row(m, vector<int>(n + 1, 0));\n        vector<vector<int>> col(m + 1, vector<int>(n, 0));\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                row[i][j + 1] = row[i][j] + grid[i][j];\n                col[i + 1][j] = col[i][j] + grid[i][j];\n            }\n        }\n\n        int maxK = min(m, n);\n\n        for (int k = maxK; k >= 2; k--) {\n            for (int i = 0; i + k <= m; i++) {\n                for (int j = 0; j + k <= n; j++) {\n\n                    int target = row[i][j + k] - row[i][j];\n                    bool ok = true;\n\n                    for (int r = i; r < i + k && ok; r++) {\n                        if (row[r][j + k] - row[r][j] != target)\n                            ok = false;\n                    }\n\n                    for (int c = j; c < j + k && ok; c++) {\n                        if (col[i + k][c] - col[i][c] != target)\n                            ok = false;\n                    }\n\n                    int d1 = 0, d2 = 0;\n                    for (int t = 0; t < k; t++) {\n                        d1 += grid[i + t][j + t];\n                        d2 += grid[i + t][j + k - 1 - t];\n                    }\n\n                    if (ok && d1 == target && d2 == target)\n                        return k;\n                }\n            }\n        }\n\n        return 1;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1311-largest-magic-square/1311-largest-magic-square.cpp"
+    }
+  ]
+}

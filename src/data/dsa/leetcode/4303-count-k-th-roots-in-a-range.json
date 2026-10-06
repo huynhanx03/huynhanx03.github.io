@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4303",
+  "platform": "leetcode",
+  "id": "4303",
+  "title": "Count K-th Roots in a Range",
+  "slug": "count-k-th-roots-in-a-range",
+  "url": "https://leetcode.com/problems/count-k-th-roots-in-a-range",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Search",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given three integers <code>l</code>, <code>r</code>, and <code>k</code>.</p>\n\n<p>An integer <code>y</code> is said to be a <strong>perfect k<sup>th</sup> power</strong> if there exists an integer <code>x</code> such that <code>y = x<sup>k</sup></code>.</p>\n\n<p>Return the number of integers <code>y</code> in the range <code>[l, r]</code> (inclusive) that are <strong>perfect k<sup>th</sup> powers</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>l = 1, r = 9, k = 3</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\nThe perfect cubes in the range <code>[1, 9]</code> are:\n\n<ul>\n\t<li><code>1 = 1<sup>3</sup></code></li>\n\t<li><code>8 = 2<sup>3</sup></code></li>\n</ul>\nHence, the answer is 2.</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>l = 8, r = 30, k = 2</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\nThe perfect squares in the range <code>[8, 30]</code> are:\n\n<ul>\n\t<li><code>9 = 3<sup>2</sup></code></li>\n\t<li><code>16 = 4<sup>2</sup></code></li>\n\t<li><code>25 = 5<sup>2</sup></code></li>\n</ul>\nHence, the answer is 3.</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= l &lt;= r &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= 30</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4303-count-k-th-roots-in-a-range/4303-count-k-th-roots-in-a-range.cpp",
+      "source": "/*\n Problem: 4303. Count K-th Roots in a Range\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (22.56%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int countKthRoots(int l, int r, int k) {\n        auto get = [&](int x) {\n            return pow(x, 1.0 / k);\n        };\n\n        return max(0, (int) (\n            floor(get(r) + 1e-9) - \n            ceil(get(l) - 1e-9) + 1)\n        );\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4303-count-k-th-roots-in-a-range/4303-count-k-th-roots-in-a-range.cpp"
+    }
+  ]
+}

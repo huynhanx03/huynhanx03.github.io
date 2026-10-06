@@ -1,0 +1,18 @@
+{
+  "key": "cses:1071",
+  "platform": "cses",
+  "id": "1071",
+  "slug": "number-spiral",
+  "title": "Number Spiral",
+  "url": "https://cses.fi/problemset/task/1071/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>A number spiral is an infinite grid whose upper-left square has number 1. Here are the first five layers of the spiral:\n</p>\nYour task is to find out the number in row <span>y</span> and column <span>x</span>.<p></p>\n<h2>Input</h2>\n<p>The first input line contains an integer <span>t</span>: the number of tests.</p>\n<p>After this, there are <span>t</span> lines, each containing integers <span>y</span> and <span>x</span>.</p>\n<h2>Output</h2>\n<p>For each test, print the number in row <span>y</span> and column <span>x</span>.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le t \\le 10^5</span></li>\n<li><span>1 \\le y,x \\le 10^9</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>3\n2 3\n1 1\n4 2\n</pre>\n<p>Output:</p>\n<pre>8\n1\n15\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Number_Spiral.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        long long x, y;\n        cin >> x >> y;\n\n        long long k = max(x, y);\n        long long base = (k - 1) * (k - 1);\n\n        cout << (k % 2\n            ? (x == k ? base + y : base + 2 * k - x)\n            : (y == k ? base + x : base + 2 * k - y)\n        ) << '\\n';\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Number_Spiral.cpp"
+    }
+  ]
+}

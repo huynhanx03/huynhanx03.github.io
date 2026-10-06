@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:219",
+  "platform": "leetcode",
+  "id": "219",
+  "title": "Contains Duplicate II",
+  "slug": "contains-duplicate-ii",
+  "url": "https://leetcode.com/problems/contains-duplicate-ii",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return <code>true</code> <em>if there are two <strong>distinct indices</strong> </em><code>i</code><em> and </em><code>j</code><em> in the array such that </em><code>nums[i] == nums[j]</code><em> and </em><code>abs(i - j) &lt;= k</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2,3,1], k = 3\n<strong>Output:</strong> true\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,0,1,1], k = 1\n<strong>Output:</strong> true\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2,3,1,2,3], k = 2\n<strong>Output:</strong> false\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>0 &lt;= k &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0219-contains-duplicate-ii/0219-contains-duplicate-ii.cpp",
+      "source": "/*\n Problem: 219. Contains Duplicate II\n Language: cpp\n Runtime: 180 ms (10.79%)\n Memory: 84.5 MB (91.30%)\n Tags: Array, Hash Table, Sliding Window\n*/\nclass Solution {\npublic:\n    bool containsNearbyDuplicate(vector<int>& nums, int k) {\n        map<int, int> mp;\n\n        int n = nums.size();\n\n        for (int i = 0; i < n; ++i) {\n            if (i == 0) {\n                mp[nums[i]] = 0; \n            } else {\n                if (mp[nums[i]] == 0) {\n                    if (nums[i] == nums[0]) {\n                        if (i <= k)\n                            return 1;\n                    }\n\n                } else {\n                    if (i - mp[nums[i]] <= k)\n                        return 1;\n                }\n\n                mp[nums[i]] = i; \n            }\n        }\n\n        return 0;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0219-contains-duplicate-ii/0219-contains-duplicate-ii.cpp"
+    }
+  ]
+}

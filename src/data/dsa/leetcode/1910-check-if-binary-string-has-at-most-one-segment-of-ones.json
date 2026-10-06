@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:1910",
+  "platform": "leetcode",
+  "id": "1910",
+  "title": "Check if Binary String Has at Most One Segment of Ones",
+  "slug": "check-if-binary-string-has-at-most-one-segment-of-ones",
+  "url": "https://leetcode.com/problems/check-if-binary-string-has-at-most-one-segment-of-ones",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "statementHtml": "<p>Given a binary string <code>s</code> <strong>​​​​​without leading zeros</strong>, return <code>true</code>​​​ <em>if </em><code>s</code><em> contains <strong>at most one contiguous segment of ones</strong></em>. Otherwise, return <code>false</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"1001\"\n<strong>Output:</strong> false\n<strong>Explanation: </strong>The ones do not form a contiguous segment.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"110\"\n<strong>Output:</strong> true</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s[i]</code>​​​​ is either <code>'0'</code> or <code>'1'</code>.</li>\n\t<li><code>s[0]</code> is <code>'1'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1910-check-if-binary-string-has-at-most-one-segment-of-ones/1910-check-if-binary-string-has-at-most-one-segment-of-ones.cpp",
+      "source": "/*\n Problem: 1910. Check if Binary String Has at Most One Segment of Ones\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (77.26%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool checkOnesSegment(string s) {\n        bool has = false;\n\n        for (const auto& c : s) {\n            if (c == '0') {\n                has = true;\n            } \n            else if (has) {\n                return false;\n            }\n        }\n\n        return true;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1910-check-if-binary-string-has-at-most-one-segment-of-ones/1910-check-if-binary-string-has-at-most-one-segment-of-ones.cpp"
+    }
+  ]
+}

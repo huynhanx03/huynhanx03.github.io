@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:22",
+  "platform": "leetcode",
+  "id": "22",
+  "title": "Generate Parentheses",
+  "slug": "generate-parentheses",
+  "url": "https://leetcode.com/problems/generate-parentheses",
+  "difficulty": "Medium",
+  "topics": [
+    "Backtracking",
+    "Dynamic Programming",
+    "String"
+  ],
+  "statementHtml": "<p>Given <code>n</code> pairs of parentheses, write a function to <em>generate all combinations of well-formed parentheses</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> n = 3\n<strong>Output:</strong> [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> n = 1\n<strong>Output:</strong> [\"()\"]\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 8</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0022-generate-parentheses/0022-generate-parentheses.cpp",
+      "source": "/*\n Problem: 22. Generate Parentheses\n Language: cpp\n Runtime: 6 ms (13.90%)\n Memory: 20.6 MB (7.68%)\n Tags: String, Dynamic Programming, Backtracking\n*/\nclass Solution {\npublic:\n    vector<string> ans;\n\n    void generate(string s, int cnt, int& n) {\n        if (s.size() == n * 2) {\n            if (cnt == 0) ans.push_back(s);\n            return;\n        }\n\n        if (cnt > 0)\n            generate(s + ')', cnt - 1, n);\n        \n        generate(s + '(', cnt + 1, n);\n    }\n\n    vector<string> generateParenthesis(int n) {\n        generate(\"(\", 1, n);\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0022-generate-parentheses/0022-generate-parentheses.cpp"
+    }
+  ]
+}

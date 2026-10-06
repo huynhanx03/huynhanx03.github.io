@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3483",
+  "platform": "leetcode",
+  "id": "3483",
+  "title": "Alternating Groups II",
+  "slug": "alternating-groups-ii",
+  "url": "https://leetcode.com/problems/alternating-groups-ii",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>There is a circle of red and blue tiles. You are given an array of integers <code>colors</code> and an integer <code>k</code>. The color of tile <code>i</code> is represented by <code>colors[i]</code>:</p>\n\n<ul>\n\t<li><code>colors[i] == 0</code> means that tile <code>i</code> is <strong>red</strong>.</li>\n\t<li><code>colors[i] == 1</code> means that tile <code>i</code> is <strong>blue</strong>.</li>\n</ul>\n\n<p>An <strong>alternating</strong> group is every <code>k</code> contiguous tiles in the circle with <strong>alternating</strong> colors (each tile in the group except the first and last one has a different color from its <strong>left</strong> and <strong>right</strong> tiles).</p>\n\n<p>Return the number of <strong>alternating</strong> groups.</p>\n\n<p><strong>Note</strong> that since <code>colors</code> represents a <strong>circle</strong>, the <strong>first</strong> and the <strong>last</strong> tiles are considered to be next to each other.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>colors = [0,1,0,1,0], k = 3</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><strong></strong></p>\n\n<p>Alternating groups:</p>\n\n<p></p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>colors = [0,1,0,0,1,0,1], k = 6</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><strong></strong></p>\n\n<p>Alternating groups:</p>\n\n<p></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>colors = [1,1,0,1], k = 4</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= colors.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= colors[i] &lt;= 1</code></li>\n\t<li><code>3 &lt;= k &lt;= colors.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3483-alternating-groups-ii/3483-alternating-groups-ii.cpp",
+      "source": "/*\n Problem: 3483. Alternating Groups II\n Language: cpp\n Runtime: 70 ms (60.36%)\n Memory: 102.6 MB (95.50%)\n Tags: Array, Sliding Window\n*/\n#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size(), count = 0, start = 0;\n\n        for (int end = 0; end < n + k - 1; ++end) {\n            if (end > 0 && colors[end % n] == colors[(end - 1) % n]) {\n                start = end;\n            }\n\n            if (end - start + 1 >= k) {\n                ++count;\n                start++;\n            }\n        }\n        \n        return count;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3483-alternating-groups-ii/3483-alternating-groups-ii.cpp"
+    }
+  ]
+}

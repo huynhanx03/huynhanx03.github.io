@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3610",
+  "platform": "leetcode",
+  "id": "3610",
+  "title": "Find X-Sum of All K-Long Subarrays I",
+  "slug": "find-x-sum-of-all-k-long-subarrays-i",
+  "url": "https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-i",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Heap (Priority Queue)",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>You are given an array <code>nums</code> of <code>n</code> integers and two integers <code>k</code> and <code>x</code>.</p>\n\n<p>The <strong>x-sum</strong> of an array is calculated by the following procedure:</p>\n\n<ul>\n\t<li>Count the occurrences of all elements in the array.</li>\n\t<li>Keep only the occurrences of the top <code>x</code> most frequent elements. If two elements have the same number of occurrences, the element with the <strong>bigger</strong> value is considered more frequent.</li>\n\t<li>Calculate the sum of the resulting array.</li>\n</ul>\n\n<p><strong>Note</strong> that if an array has less than <code>x</code> distinct elements, its <strong>x-sum</strong> is the sum of the array.</p>\n\n<p>Return an integer array <code>answer</code> of length <code>n - k + 1</code> where <code>answer[i]</code> is the <strong>x-sum</strong> of the <span>subarray</span> <code>nums[i..i + k - 1]</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,1,2,2,3,4,2,3], k = 6, x = 2</span></p>\n\n<p><strong>Output:</strong> <span>[6,10,12]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>For subarray <code>[1, 1, 2, 2, 3, 4]</code>, only elements 1 and 2 will be kept in the resulting array. Hence, <code>answer[0] = 1 + 1 + 2 + 2</code>.</li>\n\t<li>For subarray <code>[1, 2, 2, 3, 4, 2]</code>, only elements 2 and 4 will be kept in the resulting array. Hence, <code>answer[1] = 2 + 2 + 2 + 4</code>. Note that 4 is kept in the array since it is bigger than 3 and 1 which occur the same number of times.</li>\n\t<li>For subarray <code>[2, 2, 3, 4, 2, 3]</code>, only elements 2 and 3 are kept in the resulting array. Hence, <code>answer[2] = 2 + 2 + 2 + 3 + 3</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,8,7,8,7,5], k = 2, x = 2</span></p>\n\n<p><strong>Output:</strong> <span>[11,15,15,15,12]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Since <code>k == x</code>, <code>answer[i]</code> is equal to the sum of the subarray <code>nums[i..i + k - 1]</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == nums.length &lt;= 50</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 50</code></li>\n\t<li><code>1 &lt;= x &lt;= k &lt;= nums.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3610-find-x-sum-of-all-k-long-subarrays-i/3610-find-x-sum-of-all-k-long-subarrays-i.cpp",
+      "source": "/*\n Problem: 3610. Find X-Sum of All K-Long Subarrays I\n Language: cpp\n Runtime: 5 ms (93.40%)\n Memory: 32.4 MB (82.57%)\n Tags: Array, Hash Table, Sliding Window, Heap (Priority Queue)\n*/\nstruct cmp {\n    bool operator()(const pair<int, int>& a, const pair<int, int>& b) const {\n        if (a.second == b.second)\n            return a.first > b.first;\n        return a.second > b.second;\n    }\n};\n\nclass Solution {\npublic:\n    vector<int> findXSum(vector<int>& nums, int k, int x) {\n        int n = nums.size();\n        unordered_map<int, int> freq;\n        multiset<pair<int, int>, cmp> order; // (value, freq)\n        vector<int> ans;\n\n        auto add = [&](int v) {\n            int f = freq[v]++;\n            if (f > 0)\n                order.erase(order.find({v, f}));\n            order.insert({v, f + 1});\n        };\n\n        auto remove = [&](int v) {\n            int f = freq[v]--;\n            order.erase(order.find({v, f}));\n            if (f > 1)\n                order.insert({v, f - 1});\n            else\n                freq.erase(v);\n        };\n\n        for (int i = 0; i < n; ++i) {\n            add(nums[i]);\n            if (i >= k)\n                remove(nums[i - k]);\n            if (i >= k - 1) {\n                int sum = 0;\n                int count = 0;\n                for (auto it = order.begin(); it != order.end() && count < x;\n                     ++it, ++count) {\n                    auto [val, f] = *it;\n                    sum += val * f;\n                }\n                ans.push_back(sum);\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3610-find-x-sum-of-all-k-long-subarrays-i/3610-find-x-sum-of-all-k-long-subarrays-i.cpp"
+    }
+  ]
+}

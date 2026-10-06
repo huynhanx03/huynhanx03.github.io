@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3657",
+  "platform": "leetcode",
+  "id": "3657",
+  "title": "Check if Grid can be Cut into Sections",
+  "slug": "check-if-grid-can-be-cut-into-sections",
+  "url": "https://leetcode.com/problems/check-if-grid-can-be-cut-into-sections",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code> representing the dimensions of an <code>n x n</code> grid, with the origin at the bottom-left corner of the grid. You are also given a 2D array of coordinates <code>rectangles</code>, where <code>rectangles[i]</code> is in the form <code>[start<sub>x</sub>, start<sub>y</sub>, end<sub>x</sub>, end<sub>y</sub>]</code>, representing a rectangle on the grid. Each rectangle is defined as follows:</p>\n\n<ul>\n\t<li><code>(start<sub>x</sub>, start<sub>y</sub>)</code>: The bottom-left corner of the rectangle.</li>\n\t<li><code>(end<sub>x</sub>, end<sub>y</sub>)</code>: The top-right corner of the rectangle.</li>\n</ul>\n\n<p><strong>Note </strong>that the rectangles do not overlap. Your task is to determine if it is possible to make <strong>either two horizontal or two vertical cuts</strong> on the grid such that:</p>\n\n<ul>\n\t<li>Each of the three resulting sections formed by the cuts contains <strong>at least</strong> one rectangle.</li>\n\t<li>Every rectangle belongs to <strong>exactly</strong> one section.</li>\n</ul>\n\n<p>Return <code>true</code> if such cuts can be made; otherwise, return <code>false</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 5, rectangles = [[1,0,5,2],[0,2,2,4],[3,2,5,3],[0,4,4,5]]</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n\n<p>The grid is shown in the diagram. We can make horizontal cuts at <code>y = 2</code> and <code>y = 4</code>. Hence, output is true.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 4, rectangles = [[0,0,1,1],[2,0,3,4],[0,2,2,3],[3,0,4,3]]</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n\n<p>We can make vertical cuts at <code>x = 2</code> and <code>x = 3</code>. Hence, output is true.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 4, rectangles = [[0,2,2,4],[1,0,3,2],[2,2,3,4],[3,0,4,2],[3,2,4,4]]</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We cannot make two horizontal or two vertical cuts that satisfy the conditions. Hence, output is false.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= n &lt;= 10<sup>9</sup></code></li>\n\t<li><code>3 &lt;= rectangles.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= rectangles[i][0] &lt; rectangles[i][2] &lt;= n</code></li>\n\t<li><code>0 &lt;= rectangles[i][1] &lt; rectangles[i][3] &lt;= n</code></li>\n\t<li>No two rectangles overlap.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3657-check-if-grid-can-be-cut-into-sections/3657-check-if-grid-can-be-cut-into-sections.cpp",
+      "source": "/*\n Problem: 3657. Check if Grid can be Cut into Sections\n Language: cpp\n Runtime: 129 ms (75.81%)\n Memory: 185.6 MB (96.77%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    bool checkValidCuts(int n, vector<vector<int>>& rectangles) {\n        return checkCuts(rectangles, 0) || checkCuts(rectangles, 1);\n    }\n\nprivate:\n    bool checkCuts(vector<vector<int>>& rectangles, int dim) {\n        int gapCount = 0;\n\n        sort(rectangles.begin(), rectangles.end(),\n             [dim](const vector<int>& a, const vector<int>& b) {\n                 return a[dim] < b[dim];\n             });\n\n        int furthestEnd = rectangles[0][dim + 2];\n\n        for (size_t i = 1; i < rectangles.size(); i++) {\n            vector<int>& rect = rectangles[i];\n\n            if (furthestEnd <= rect[dim]) {\n                ++gapCount;\n            }\n\n            furthestEnd = max(furthestEnd, rect[dim + 2]);\n        }\n\n        return gapCount >= 2;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3657-check-if-grid-can-be-cut-into-sections/3657-check-if-grid-can-be-cut-into-sections.cpp"
+    }
+  ]
+}

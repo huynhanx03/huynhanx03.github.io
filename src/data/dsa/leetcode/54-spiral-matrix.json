@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:54",
+  "platform": "leetcode",
+  "id": "54",
+  "title": "Spiral Matrix",
+  "slug": "spiral-matrix",
+  "url": "https://leetcode.com/problems/spiral-matrix",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Simulation"
+  ],
+  "statementHtml": "<p>Given an <code>m x n</code> <code>matrix</code>, return <em>all elements of the</em> <code>matrix</code> <em>in spiral order</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[1,2,3],[4,5,6],[7,8,9]]\n<strong>Output:</strong> [1,2,3,6,9,8,7,4,5]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]\n<strong>Output:</strong> [1,2,3,4,8,12,11,10,9,5,6,7]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == matrix.length</code></li>\n\t<li><code>n == matrix[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 10</code></li>\n\t<li><code>-100 &lt;= matrix[i][j] &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0054-spiral-matrix/0054-spiral-matrix.cpp",
+      "source": "/*\n Problem: 54. Spiral Matrix\n Language: cpp\n Runtime: 1 ms (2.22%)\n Memory: 9.5 MB (14.40%)\n Tags: Array, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size();\n        vector<vector<bool>> check(n, vector<bool>(m, false));\n        pair<int, int> dd[4] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};\n        int cd = 0, nd = 4;\n        int i = 0, j = 0;\n        vector<int> res;\n        while (true) {\n            res.push_back(matrix[i][j]);\n            check[i][j] = true;\n            int ni = i + dd[cd].first, nj = j + dd[cd].second;\n            if (ni < 0 || ni >= n || nj < 0 || nj >= m || check[ni][nj]) {\n                cd = (cd + 1) % nd;\n                ni = i + dd[cd].first;\n                nj = j + dd[cd].second;\n                if (ni < 0 || ni >= n || nj < 0 || nj >= m || check[ni][nj])\n                    break;\n            }\n            i = ni;\n            j = nj;\n        }\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0054-spiral-matrix/0054-spiral-matrix.cpp"
+    }
+  ]
+}

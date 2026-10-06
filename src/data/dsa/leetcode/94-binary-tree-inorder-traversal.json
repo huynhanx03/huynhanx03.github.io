@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:94",
+  "platform": "leetcode",
+  "id": "94",
+  "title": "Binary Tree Inorder Traversal",
+  "slug": "binary-tree-inorder-traversal",
+  "url": "https://leetcode.com/problems/binary-tree-inorder-traversal",
+  "difficulty": "Easy",
+  "topics": [
+    "Binary Tree",
+    "Depth-First Search",
+    "Stack",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given the <code>root</code> of a binary tree, return <em>the inorder traversal of its nodes' values</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>root = [1,null,2,3]</span></p>\n\n<p><strong>Output:</strong> <span>[1,3,2]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>root = [1,2,3,4,5,null,8,null,null,6,7,9]</span></p>\n\n<p><strong>Output:</strong> <span>[4,2,6,5,7,1,3,9,8]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>root = []</span></p>\n\n<p><strong>Output:</strong> <span>[]</span></p>\n</div>\n\n<p><strong>Example 4:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>root = [1]</span></p>\n\n<p><strong>Output:</strong> <span>[1]</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[0, 100]</code>.</li>\n\t<li><code>-100 &lt;= Node.val &lt;= 100</code></li>\n</ul>\n\n<p> </p>\n<strong>Follow up:</strong> Recursive solution is trivial, could you do it iteratively?",
+  "solutions": [
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Easy/0094-binary-tree-inorder-traversal/0094-binary-tree-inorder-traversal.py",
+      "source": "\"\"\"\n Problem: 94. Binary Tree Inorder Traversal\n Language: python\n Runtime: 0 ms (100.00%)\n Memory: 12.2 MB (99.44%)\n Tags: Stack, Tree, Depth-First Search, Binary Tree\n\"\"\"\n# Definition for a binary tree node.\n# class TreeNode(object):\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution(object):\n    def inorder(self, root):\n        return self.inorder(root.left) + [root.val] + self.inorder(root.right) if root else []\n\n    def inorderTraversal(self, root):\n        \"\"\"\n        :type root: Optional[TreeNode]\n        :rtype: List[int]\n        \"\"\"\n        return self.inorder(root)\n\n        ",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0094-binary-tree-inorder-traversal/0094-binary-tree-inorder-traversal.py"
+    }
+  ]
+}

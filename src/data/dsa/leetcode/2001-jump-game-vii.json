@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2001",
+  "platform": "leetcode",
+  "id": "2001",
+  "title": "Jump Game VII",
+  "slug": "jump-game-vii",
+  "url": "https://leetcode.com/problems/jump-game-vii",
+  "difficulty": "Medium",
+  "topics": [
+    "Dynamic Programming",
+    "Prefix Sum",
+    "Sliding Window",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> binary string <code>s</code> and two integers <code>minJump</code> and <code>maxJump</code>. In the beginning, you are standing at index <code>0</code>, which is equal to <code>'0'</code>. You can move from index <code>i</code> to index <code>j</code> if the following conditions are fulfilled:</p>\n\n<ul>\n\t<li><code>i + minJump &lt;= j &lt;= min(i + maxJump, s.length - 1)</code>, and</li>\n\t<li><code>s[j] == '0'</code>.</li>\n</ul>\n\n<p>Return <code>true</code><i> if you can reach index </i><code>s.length - 1</code><i> in </i><code>s</code><em>, or </em><code>false</code><em> otherwise.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"<u>0</u>11<u>0</u>1<u>0</u>\", minJump = 2, maxJump = 3\n<strong>Output:</strong> true\n<strong>Explanation:</strong>\nIn the first step, move from index 0 to index 3. \nIn the second step, move from index 3 to index 5.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"01101110\", minJump = 2, maxJump = 3\n<strong>Output:</strong> false\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>\n\t<li><code>s[0] == '0'</code></li>\n\t<li><code>1 &lt;= minJump &lt;= maxJump &lt; s.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2001-jump-game-vii/2001-jump-game-vii.cpp",
+      "source": "/*\n Problem: 2001. Jump Game VII\n Language: cpp\n Runtime: 8 ms (67.70%)\n Memory: 24.7 MB (44.35%)\n Tags: String, Dynamic Programming, Sliding Window, Prefix Sum\n*/\nclass Solution {\npublic:\n    bool canReach(string s, int minJump, int maxJump) {\n        int n = s.size();\n\n        vector<bool> visited(n, false);\n        queue<int> q;\n\n        q.push(0);\n        visited[0] = true;\n\n        int farthest = 0;\n\n        while (!q.empty()) {\n            int i = q.front();\n            q.pop();\n\n            if (i == n - 1) {\n                return true;\n            }\n\n            int start = max(i + minJump, farthest + 1);\n            int end = min(i + maxJump, n - 1);\n\n            for (int j = start; j <= end; j++) {\n                if (s[j] == '0' && !visited[j]) {\n                    visited[j] = true;\n                    q.push(j);\n                }\n            }\n\n            farthest = max(farthest, end);\n        }\n\n        return false;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2001-jump-game-vii/2001-jump-game-vii.cpp"
+    }
+  ]
+}

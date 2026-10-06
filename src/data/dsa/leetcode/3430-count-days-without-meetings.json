@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3430",
+  "platform": "leetcode",
+  "id": "3430",
+  "title": "Count Days Without Meetings",
+  "slug": "count-days-without-meetings",
+  "url": "https://leetcode.com/problems/count-days-without-meetings",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a positive integer <code>days</code> representing the total number of days an employee is available for work (starting from day 1). You are also given a 2D array <code>meetings</code> of size <code>n</code> where, <code>meetings[i] = [start_i, end_i]</code> represents the starting and ending days of meeting <code>i</code> (inclusive).</p>\n\n<p>Return the count of days when the employee is available for work but no meetings are scheduled.</p>\n\n<p><strong>Note: </strong>The meetings may overlap.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>days = 10, meetings = [[5,7],[1,3],[9,10]]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is no meeting scheduled on the 4<sup>th</sup> and 8<sup>th</sup> days.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>days = 5, meetings = [[2,4],[1,3]]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is no meeting scheduled on the 5<sup>th </sup>day.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>days = 6, meetings = [[1,6]]</span></p>\n\n<p><strong>Output:</strong> 0</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Meetings are scheduled for all working days.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= days &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= meetings.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>meetings[i].length == 2</code></li>\n\t<li><code>1 &lt;= meetings[i][0] &lt;= meetings[i][1] &lt;= days</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3430-count-days-without-meetings/3430-count-days-without-meetings.cpp",
+      "source": "/*\n Problem: 3430. Count Days Without Meetings\n Language: cpp\n Runtime: 71 ms (49.28%)\n Memory: 126.5 MB (57.58%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int countDays(int days, vector<vector<int>>& meetings) {\n        sort(meetings.begin(), meetings.end());\n\n        int freeDays = 0;\n        int lastEnd = 0;\n\n        for (const auto& meeting : meetings) {\n            int start = meeting[0], end = meeting[1];\n\n            if (start > lastEnd + 1) {\n                freeDays += (start - lastEnd - 1);\n            }\n\n            lastEnd = max(lastEnd, end);\n        }\n\n        if (lastEnd < days) {\n            freeDays += (days - lastEnd);\n        }\n\n        return freeDays;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3430-count-days-without-meetings/3430-count-days-without-meetings.cpp"
+    }
+  ]
+}

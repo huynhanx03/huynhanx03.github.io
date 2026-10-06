@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:69",
+  "platform": "leetcode",
+  "id": "69",
+  "title": "Sqrt(x)",
+  "slug": "sqrtx",
+  "url": "https://leetcode.com/problems/sqrtx",
+  "difficulty": "Easy",
+  "topics": [
+    "Binary Search",
+    "Math"
+  ],
+  "statementHtml": "<p>Given a non-negative integer <code>x</code>, return <em>the square root of </em><code>x</code><em> rounded down to the nearest integer</em>. The returned integer should be <strong>non-negative</strong> as well.</p>\n\n<p>You <strong>must not use</strong> any built-in exponent function or operator.</p>\n\n<ul>\n\t<li>For example, do not use <code>pow(x, 0.5)</code> in c++ or <code>x ** 0.5</code> in python.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> x = 4\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> The square root of 4 is 2, so we return 2.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> x = 8\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= x &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0069-sqrtx/0069-sqrtx.cpp",
+      "source": "/*\n Problem: 69. Sqrt(x)\n Language: cpp\n Runtime: 2 ms (20.62%)\n Memory: 8.3 MB (99.32%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int mySqrt(int x) {\n        return sqrt(x);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0069-sqrtx/0069-sqrtx.cpp"
+    }
+  ]
+}

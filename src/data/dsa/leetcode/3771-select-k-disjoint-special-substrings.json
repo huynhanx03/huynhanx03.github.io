@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:3771",
+  "platform": "leetcode",
+  "id": "3771",
+  "title": "Select K Disjoint Special Substrings",
+  "slug": "select-k-disjoint-special-substrings",
+  "url": "https://leetcode.com/problems/select-k-disjoint-special-substrings",
+  "difficulty": "Medium",
+  "topics": [
+    "Dynamic Programming",
+    "Greedy",
+    "Hash Table",
+    "Sorting",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> of length <code>n</code> and an integer <code>k</code>, determine whether it is possible to select <code>k</code> disjoint <strong>special substrings</strong>.</p>\n\n<p>A <strong>special substring</strong> is a <span>substring</span> where:</p>\n\n<ul>\n\t<li>Any character present inside the substring should not appear outside it in the string.</li>\n\t<li>The substring is not the entire string <code>s</code>.</li>\n</ul>\n\n<p><strong>Note</strong> that all <code>k</code> substrings must be disjoint, meaning they cannot overlap.</p>\n\n<p>Return <code>true</code> if it is possible to select <code>k</code> such disjoint special substrings; otherwise, return <code>false</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abcdbaefab\", k = 2</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>We can select two disjoint special substrings: <code>\"cd\"</code> and <code>\"ef\"</code>.</li>\n\t<li><code>\"cd\"</code> contains the characters <code>'c'</code> and <code>'d'</code>, which do not appear elsewhere in <code>s</code>.</li>\n\t<li><code>\"ef\"</code> contains the characters <code>'e'</code> and <code>'f'</code>, which do not appear elsewhere in <code>s</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"cdefdc\", k = 3</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There can be at most 2 disjoint special substrings: <code>\"e\"</code> and <code>\"f\"</code>. Since <code>k = 3</code>, the output is <code>false</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abeabe\", k = 0</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n == s.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= k &lt;= 26</code></li>\n\t<li><code>s</code> consists only of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3771-select-k-disjoint-special-substrings/3771-select-k-disjoint-special-substrings.cpp",
+      "source": "/*\n Problem: 3771. Select K Disjoint Special Substrings\n Language: cpp\n Runtime: 8 ms (72.73%)\n Memory: 14.4 MB (62.12%)\n Tags: Hash Table, String, Dynamic Programming, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    bool maxSubstringLength(string s, int k) {\nint n = s.size();\n\n        vector<pair<int, int>> pos(26, {n + 1, -1});\n\n        for (int i = 0; i < n; ++i) {\n            pos[s[i] - 'a'].first = min(pos[s[i] - 'a'].first, i);\n            pos[s[i] - 'a'].second = max(pos[s[i] - 'a'].second, i);\n        }\n\n        vector<pair<int, int>> v;\n\n        for (int l = 0; l < n; ++l) {\n            if (l != pos[s[l] - 'a'].first) continue;\n\n            int p = l;\n            int r = pos[s[l] - 'a'].second;\n            bool isOk = true;\n\n            while (p <= r) {\n                if (pos[s[p] - 'a'].first < l) {\n                    isOk = false;\n                    break;\n                }\n\n                r = max(r, pos[s[p] - 'a'].second);\n                ++p;\n            }\n\n            if (isOk && !(l == 0 && r == n - 1)) {\n                v.push_back({l, r});\n            }\n        }\n\n        sort(v.begin(), v.end(), [](pair<int, int> a, pair<int, int> b) {\n            return a.second < b.second;\n        });\n\n        int cnt = 0;\n        int lastIndex = -1;\n\n        for (const auto& bounds : v)\n        {\n            if (bounds.first > lastIndex)\n            {\n                cnt++;\n                lastIndex = bounds.second;\n            }\n        }\n\n        return cnt >= k;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3771-select-k-disjoint-special-substrings/3771-select-k-disjoint-special-substrings.cpp"
+    }
+  ]
+}

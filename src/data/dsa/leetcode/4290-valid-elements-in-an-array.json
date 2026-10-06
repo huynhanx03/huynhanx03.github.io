@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4290",
+  "platform": "leetcode",
+  "id": "4290",
+  "title": "Valid Elements in an Array",
+  "slug": "valid-elements-in-an-array",
+  "url": "https://leetcode.com/problems/valid-elements-in-an-array",
+  "difficulty": "Easy",
+  "topics": [
+    "None",
+    "Uncategorized"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>An element <code>nums[i]</code> is considered <strong>valid</strong> if it satisfies <strong>at least</strong> one of the following conditions:</p>\n\n<ul>\n\t<li>It is <strong>strictly greater</strong> than every element to its left.</li>\n\t<li>It is <strong>strictly greater</strong> than every element to its right.</li>\n</ul>\n\n<p>The first and last elements are always valid.</p>\n\n<p>Return an array of all valid elements in the same order as they appear in <code>nums</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,4,2,3,2]</span></p>\n\n<p><strong>Output:</strong> <span>[1,2,4,3,2]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li><code>nums[0]</code> and <code>nums[5]</code> are always valid.</li>\n\t<li><code>nums[1]</code> and <code>nums[2]</code> are strictly greater than every element to their left.</li>\n\t<li><code>nums[4]</code> is strictly greater than every element to its right.</li>\n\t<li>Thus, the answer is <code>[1, 2, 4, 3, 2]</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5,5,5,5]</span></p>\n\n<p><strong>Output:</strong> <span>[5,5]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The first and last elements are always valid.</li>\n\t<li>No other elements are strictly greater than all elements to their left or to their right.</li>\n\t<li>Thus, the answer is <code>[5, 5]</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1]</span></p>\n\n<p><strong>Output:</strong> <span>[1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Since there is only one element, it is always valid. Thus, the answer is <code>[1]</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4290-valid-elements-in-an-array/4290-valid-elements-in-an-array.cpp",
+      "source": "/*\n Problem: 4290. Valid Elements in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 32.3 MB (44.02%)\n Tags: None\n*/\nclass Solution {\npublic:\n    vector<int> findValidElements(vector<int>& nums) {\n        vector<int> ans;\n        int n = nums.size();\n        vector<int> suf(n + 1, INT_MIN);\n        \n        for (int i = n - 1; i >= 0; --i) {\n            suf[i] = max(suf[i + 1], nums[i]);\n        }\n\n        int pre = INT_MIN;\n        \n        for (int i = 0; i < n; ++i) {\n            if (nums[i] > pre || nums[i] > suf[i + 1]) ans.push_back(nums[i]);\n\n            pre = max(pre, nums[i]);\n        }\n        \n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4290-valid-elements-in-an-array/4290-valid-elements-in-an-array.cpp"
+    }
+  ]
+}

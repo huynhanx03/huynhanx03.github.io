@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:768",
+  "platform": "leetcode",
+  "id": "768",
+  "title": "Partition Labels",
+  "slug": "partition-labels",
+  "url": "https://leetcode.com/problems/partition-labels",
+  "difficulty": "Medium",
+  "topics": [
+    "Greedy",
+    "Hash Table",
+    "String",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code>. We want to partition the string into as many parts as possible so that each letter appears in at most one part. For example, the string <code>\"ababcc\"</code> can be partitioned into <code>[\"abab\", \"cc\"]</code>, but partitions such as <code>[\"aba\", \"bcc\"]</code> or <code>[\"ab\", \"ab\", \"cc\"]</code> are invalid.</p>\n\n<p>Note that the partition is done so that after concatenating all the parts in order, the resultant string should be <code>s</code>.</p>\n\n<p>Return <em>a list of integers representing the size of these parts</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"ababcbacadefegdehijhklij\"\n<strong>Output:</strong> [9,7,8]\n<strong>Explanation:</strong>\nThe partition is \"ababcbaca\", \"defegde\", \"hijhklij\".\nThis is a partition so that each letter appears in at most one part.\nA partition like \"ababcbacadefegde\", \"hijhklij\" is incorrect, because it splits s into less parts.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"eccbbbbdec\"\n<strong>Output:</strong> [10]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 500</code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0768-partition-labels/0768-partition-labels.cpp",
+      "source": "/*\n Problem: 768. Partition Labels\n Language: cpp\n Runtime: 3 ms (26.92%)\n Memory: 9.7 MB (5.10%)\n Tags: Hash Table, Two Pointers, String, Greedy\n*/\nclass Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        vector<int> ans;\n        \n        map<char, int> mp;\n\n        int start = 0;\n        int end = 0;\n        int n = s.size();\n\n        for (int i = 0; i < n; ++i) {\n            mp[s[i]] = i; // last\n        }\n\n        for (int i = 0; i < n; ++i) {\n            end = max(end, mp[s[i]]);\n\n            if (end == i) {\n                ans.push_back(end - start + 1);\n                start = end + 1;\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0768-partition-labels/0768-partition-labels.cpp"
+    }
+  ]
+}

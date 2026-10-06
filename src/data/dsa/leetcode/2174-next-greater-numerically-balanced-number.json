@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:2174",
+  "platform": "leetcode",
+  "id": "2174",
+  "title": "Next Greater Numerically Balanced Number",
+  "slug": "next-greater-numerically-balanced-number",
+  "url": "https://leetcode.com/problems/next-greater-numerically-balanced-number",
+  "difficulty": "Medium",
+  "topics": [
+    "Backtracking",
+    "Counting",
+    "Enumeration",
+    "Hash Table",
+    "Math"
+  ],
+  "statementHtml": "<p>An integer <code>x</code> is <strong>numerically balanced</strong> if for every digit <code>d</code> in the number <code>x</code>, there are <strong>exactly</strong> <code>d</code> occurrences of that digit in <code>x</code>.</p>\n\n<p>Given an integer <code>n</code>, return <em>the <strong>smallest numerically balanced</strong> number <strong>strictly greater</strong> than </em><code>n</code><em>.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 1\n<strong>Output:</strong> 22\n<strong>Explanation:</strong> \n22 is numerically balanced since:\n- The digit 2 occurs 2 times. \nIt is also the smallest numerically balanced number strictly greater than 1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 1000\n<strong>Output:</strong> 1333\n<strong>Explanation:</strong> \n1333 is numerically balanced since:\n- The digit 1 occurs 1 time.\n- The digit 3 occurs 3 times. \nIt is also the smallest numerically balanced number strictly greater than 1000.\nNote that 1022 cannot be the answer because 0 appeared more than 0 times.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> n = 3000\n<strong>Output:</strong> 3133\n<strong>Explanation:</strong> \n3133 is numerically balanced since:\n- The digit 1 occurs 1 time.\n- The digit 3 occurs 3 times.\nIt is also the smallest numerically balanced number strictly greater than 3000.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= n &lt;= 10<sup>6</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2174-next-greater-numerically-balanced-number/2174-next-greater-numerically-balanced-number.cpp",
+      "source": "/*\n Problem: 2174. Next Greater Numerically Balanced Number\n Language: cpp\n Runtime: 881 ms (10.87%)\n Memory: 257.2 MB (8.64%)\n Tags: Hash Table, Math, Backtracking, Counting, Enumeration\n*/\nclass Solution {\npublic:\n    bool isBalanced(int x) {\n        string s = to_string(x);\n        vector<int> count(10, 0);\n\n        for (char c : s) {\n            count[c - '0']++;\n        }\n\n        for (char c : s) {\n            int digit = c - '0';\n            if (count[digit] != digit) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    int nextBeautifulNumber(int n) {\n        n++;\n        while (true) {\n            if (isBalanced(n)) return n;\n            n++;\n        }\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2174-next-greater-numerically-balanced-number/2174-next-greater-numerically-balanced-number.cpp"
+    }
+  ]
+}

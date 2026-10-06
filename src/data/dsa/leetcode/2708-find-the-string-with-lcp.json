@@ -1,0 +1,26 @@
+{
+  "key": "leetcode:2708",
+  "platform": "leetcode",
+  "id": "2708",
+  "title": "Find the String with LCP",
+  "slug": "find-the-string-with-lcp",
+  "url": "https://leetcode.com/problems/find-the-string-with-lcp",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Greedy",
+    "Matrix",
+    "String",
+    "Union-Find"
+  ],
+  "statementHtml": "<p>We define the <code>lcp</code> matrix of any <strong>0-indexed</strong> string <code>word</code> of <code>n</code> lowercase English letters as an <code>n x n</code> grid such that:</p>\n\n<ul>\n\t<li><code>lcp[i][j]</code> is equal to the length of the <strong>longest common prefix</strong> between the substrings <code>word[i,n-1]</code> and <code>word[j,n-1]</code>.</li>\n</ul>\n\n<p>Given an <code>n x n</code> matrix <code>lcp</code>, return the alphabetically smallest string <code>word</code> that corresponds to <code>lcp</code>. If there is no such string, return an empty string.</p>\n\n<p>A string <code>a</code> is lexicographically smaller than a string <code>b</code> (of the same length) if in the first position where <code>a</code> and <code>b</code> differ, string <code>a</code> has a letter that appears earlier in the alphabet than the corresponding letter in <code>b</code>. For example, <code>\"aabd\"</code> is lexicographically smaller than <code>\"aaca\"</code> because the first position they differ is at the third letter, and <code>'b'</code> comes before <code>'c'</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> lcp = [[4,0,2,0],[0,3,0,1],[2,0,2,0],[0,1,0,1]]\n<strong>Output:</strong> \"abab\"\n<strong>Explanation:</strong> lcp corresponds to any 4 letter string with two alternating letters. The lexicographically smallest of them is \"abab\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> lcp = [[4,3,2,1],[3,3,2,1],[2,2,2,1],[1,1,1,1]]\n<strong>Output:</strong> \"aaaa\"\n<strong>Explanation:</strong> lcp corresponds to any 4 letter string with a single distinct letter. The lexicographically smallest of them is \"aaaa\". \n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> lcp = [[4,3,2,1],[3,3,2,1],[2,2,2,1],[1,1,1,3]]\n<strong>Output:</strong> \"\"\n<strong>Explanation:</strong> lcp[3][3] cannot be equal to 3 since word[3,...,3] consists of only a single letter; Thus, no answer exists.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == </code><code>lcp.length == </code><code>lcp[i].length</code> <code>&lt;= 1000</code></li>\n\t<li><code>0 &lt;= lcp[i][j] &lt;= n</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/2708-find-the-string-with-lcp/2708-find-the-string-with-lcp.cpp",
+      "source": "/*\n Problem: 2708. Find the String with LCP\n Language: cpp\n Runtime: 79 ms (7.23%)\n Memory: 77.2 MB (54.22%)\n Tags: Array, String, Dynamic Programming, Greedy, Union-Find, Matrix\n*/\nclass Solution {\npublic:\n    string findTheString(vector<vector<int>>& lcp) {\n        int n = lcp.size();\n        \n        vector<int> parent(n);\n        for (int i = 0; i < n; ++i) parent[i] = i;\n        \n        function<int(int)> find = [&](int x) {\n            return parent[x] == x ? x : parent[x] = find(parent[x]);\n        };\n        \n        auto unite = [&](int a, int b) {\n            a = find(a), b = find(b);\n            if (a != b) parent[b] = a;\n        };\n        \n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (lcp[i][j] > 0) unite(i, j);\n            }\n        }\n        \n        string res(n, '#');\n        unordered_map<int, char> mp;\n        char cur = 'a';\n        \n        for (int i = 0; i < n; ++i) {\n            int p = find(i);\n            if (!mp.count(p)) {\n                if (cur > 'z') return \"\";\n                mp[p] = cur++;\n            }\n            res[i] = mp[p];\n        }\n        \n        for (int i = n - 1; i >= 0; --i) {\n            for (int j = n - 1; j >= 0; --j) {\n                int expected = 0;\n                if (res[i] == res[j]) {\n                    if (i + 1 < n && j + 1 < n)\n                        expected = lcp[i + 1][j + 1] + 1;\n                    else\n                        expected = 1;\n                }\n                if (lcp[i][j] != expected) return \"\";\n            }\n        }\n        \n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/2708-find-the-string-with-lcp/2708-find-the-string-with-lcp.cpp"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:4055",
+  "platform": "leetcode",
+  "id": "4055",
+  "title": "Longest Balanced Substring I",
+  "slug": "longest-balanced-substring-i",
+  "url": "https://leetcode.com/problems/longest-balanced-substring-i",
+  "difficulty": "Medium",
+  "topics": [
+    "Counting",
+    "Enumeration",
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>\n\n<p>A <strong><span>substring</span></strong> of <code>s</code> is called <strong>balanced</strong> if all <strong>distinct</strong> characters in the <strong>substring</strong> appear the <strong>same</strong> number of times.</p>\n\n<p>Return the <strong>length</strong> of the <strong>longest balanced substring</strong> of <code>s</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abbac\"</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The longest balanced substring is <code>\"abba\"</code> because both distinct characters <code>'a'</code> and <code>'b'</code> each appear exactly 2 times.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"zzabccy\"</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The longest balanced substring is <code>\"zabc\"</code> because the distinct characters <code>'z'</code>, <code>'a'</code>, <code>'b'</code>, and <code>'c'</code> each appear exactly 1 time.​​​​​​​</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aba\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><strong>​​​​​​​</strong>One of the longest balanced substrings is <code>\"ab\"</code> because both distinct characters <code>'a'</code> and <code>'b'</code> each appear exactly 1 time. Another longest balanced substring is <code>\"ba\"</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4055-longest-balanced-substring-i/4055-longest-balanced-substring-i.cpp",
+      "source": "/*\n Problem: 4055. Longest Balanced Substring I\n Language: cpp\n Runtime: 191 ms (41.66%)\n Memory: 17.3 MB (63.99%)\n Tags: Hash Table, String, Counting, Enumeration\n*/\nclass Solution {\npublic:\n    int longestBalanced(string s) {\n        int n = s.length();\n        if (n == 0) return 0;\n\n        vector<pair<int, int>> v;\n        v.reserve(n);\n\n        for (int u = 1; u <= 26; ++u) {\n            for (int k = 1; k * u <= n; ++k) {\n                v.push_back({k * u, u});\n            }\n        }\n\n        sort(v.begin(), v.end(), [](const pair<int, int>& a, const pair<int, int>& b) {\n            return a.first > b.first;\n        });\n\n        int ans = 0;\n        for (const auto& p : v) {\n            int len = p.first;\n            int u = p.second;\n\n            if (len <= ans) break;\n\n            int target = len / u;\n            int cnt[26] = {0};\n            int distinct = 0;\n            int match = 0;\n\n            for (int i = 0; i < len; ++i) {\n                int idx = s[i] - 'a';\n                if (cnt[idx] == 0) ++distinct;\n                ++cnt[idx];\n                if (cnt[idx] == target) ++match;\n                else if (cnt[idx] == target + 1) --match;\n            }\n\n            if (distinct == u && match == u) {\n                ans = max(ans, len);\n                continue;\n            }\n\n            for (int i = len; i < n; ++i) {\n                int in = s[i] - 'a';\n                int out = s[i - len] - 'a';\n\n                if (cnt[in] == 0) ++distinct;\n                ++cnt[in];\n                if (cnt[in] == target) ++match;\n                else if (cnt[in] == target + 1) --match;\n\n                if (cnt[out] == target) --match;\n                else if (cnt[out] == target + 1) ++match;\n                --cnt[out];\n                if (cnt[out] == 0) --distinct;\n\n                if (distinct == u && match == u) {\n                    ans = max(ans, len);\n                    break; \n                }\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4055-longest-balanced-substring-i/4055-longest-balanced-substring-i.cpp"
+    }
+  ]
+}

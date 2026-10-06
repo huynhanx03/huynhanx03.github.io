@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:4135",
+  "platform": "leetcode",
+  "id": "4135",
+  "title": "Concatenate Non-Zero Digits and Multiply by Sum I",
+  "slug": "concatenate-non-zero-digits-and-multiply-by-sum-i",
+  "url": "https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i",
+  "difficulty": "Easy",
+  "topics": [
+    "Math"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code>.</p>\n\n<p>Form a new integer <code>x</code> by concatenating all the <strong>non-zero digits</strong> of <code>n</code> in their original order. If there are no <strong>non-zero</strong> digits, <code>x = 0</code>.</p>\n\n<p>Let <code>sum</code> be the <strong>sum of digits</strong> in <code>x</code>.</p>\n\n<p>Return an integer representing the value of <code>x * sum</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 10203004</span></p>\n\n<p><strong>Output:</strong> <span>12340</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The non-zero digits are 1, 2, 3, and 4. Thus, <code>x = 1234</code>.</li>\n\t<li>The sum of digits is <code>sum = 1 + 2 + 3 + 4 = 10</code>.</li>\n\t<li>Therefore, the answer is <code>x * sum = 1234 * 10 = 12340</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 1000</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The non-zero digit is 1, so <code>x = 1</code> and <code>sum = 1</code>.</li>\n\t<li>Therefore, the answer is <code>x * sum = 1 * 1 = 1</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= n &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4135-concatenate-non-zero-digits-and-multiply-by-sum-i/4135-concatenate-non-zero-digits-and-multiply-by-sum-i.cpp",
+      "source": "/*\n Problem: 4135. Concatenate Non-Zero Digits and Multiply by Sum I\n Language: cpp\n Runtime: 4 ms (3.04%)\n Memory: 9.2 MB (30.38%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    long long sumAndMultiply(int n) {\n        vector <int> digits;\n        while (n > 0) {\n            int tmp = n % 10;\n            if (tmp > 0) {\n                digits.push_back(tmp);\n            }\n            n /= 10;\n        }\n\n        long long ans = 0, sum = 0;\n        \n        for (int i = digits.size() - 1; i >= 0; --i) {\n            sum += digits[i];\n            ans = ans * 10 + digits[i];\n        }\n\n        return ans * sum;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4135-concatenate-non-zero-digits-and-multiply-by-sum-i/4135-concatenate-non-zero-digits-and-multiply-by-sum-i.cpp"
+    }
+  ]
+}

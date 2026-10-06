@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1716",
+  "platform": "leetcode",
+  "id": "1716",
+  "title": "Maximum Non Negative Product in a Matrix",
+  "slug": "maximum-non-negative-product-in-a-matrix",
+  "url": "https://leetcode.com/problems/maximum-non-negative-product-in-a-matrix",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix"
+  ],
+  "statementHtml": "<p>You are given a <code>m x n</code> matrix <code>grid</code>. Initially, you are located at the top-left corner <code>(0, 0)</code>, and in each step, you can only <strong>move right or down</strong> in the matrix.</p>\n\n<p>Among all possible paths starting from the top-left corner <code>(0, 0)</code> and ending in the bottom-right corner <code>(m - 1, n - 1)</code>, find the path with the <strong>maximum non-negative product</strong>. The product of a path is the product of all integers in the grid cells visited along the path.</p>\n\n<p>Return the <em>maximum non-negative product <strong>modulo</strong> </em><code>10<sup>9</sup> + 7</code>. <em>If the maximum product is <strong>negative</strong>, return </em><code>-1</code>.</p>\n\n<p>Notice that the modulo is performed after getting the maximum product.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[-1,-2,-3],[-2,-3,-3],[-3,-3,-2]]\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> It is not possible to get non-negative product in the path from (0, 0) to (2, 2), so return -1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[1,-2,1],[1,-2,1],[3,-4,1]]\n<strong>Output:</strong> 8\n<strong>Explanation:</strong> Maximum non-negative product is shown (1 * 1 * -2 * -4 * 1 = 8).\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[1,3],[0,-4]]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> Maximum non-negative product is shown (1 * 0 * -4 = 0).\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 15</code></li>\n\t<li><code>-4 &lt;= grid[i][j] &lt;= 4</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1716-maximum-non-negative-product-in-a-matrix/1716-maximum-non-negative-product-in-a-matrix.cpp",
+      "source": "/*\n Problem: 1716. Maximum Non Negative Product in a Matrix\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 14.1 MB (74.44%)\n Tags: Array, Dynamic Programming, Matrix\n*/\nclass Solution {\npublic:\n    int maxProductPath(vector<vector<int>>& grid) {\n        int n = grid.size();\n        int m = grid[0].size();\n        const long long MOD = 1e9 + 7;\n\n        vector<vector<long long>> maxDp(n, vector<long long>(m));\n        vector<vector<long long>> minDp(n, vector<long long>(m));\n\n        maxDp[0][0] = grid[0][0];\n        minDp[0][0] = grid[0][0];\n\n        for (int j = 1; j < m; ++j) {\n            maxDp[0][j] = maxDp[0][j - 1] * grid[0][j];\n            minDp[0][j] = maxDp[0][j];\n        }\n\n        for (int i = 1; i < n; ++i) {\n            maxDp[i][0] = maxDp[i - 1][0] * grid[i][0];\n            minDp[i][0] = maxDp[i][0];\n        }\n\n        for (int i = 1; i < n; ++i) {\n            for (int j = 1; j < m; ++j) {\n                maxDp[i][j] = max({\n                    maxDp[i - 1][j] * grid[i][j],\n                    maxDp[i][j - 1] * grid[i][j],\n                    minDp[i - 1][j] * grid[i][j],\n                    minDp[i][j - 1] * grid[i][j]\n                });\n\n                minDp[i][j] = min({\n                    maxDp[i - 1][j] * grid[i][j],\n                    maxDp[i][j - 1] * grid[i][j],\n                    minDp[i - 1][j] * grid[i][j],\n                    minDp[i][j - 1] * grid[i][j]\n                });\n            }\n        }\n\n        return maxDp[n - 1][m - 1] < 0 ? -1 : maxDp[n - 1][m - 1] % MOD;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1716-maximum-non-negative-product-in-a-matrix/1716-maximum-non-negative-product-in-a-matrix.cpp"
+    }
+  ]
+}

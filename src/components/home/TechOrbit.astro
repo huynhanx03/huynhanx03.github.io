@@ -1,0 +1,46 @@
+---
+import type { SkillCategory } from '../../data/types';
+import type { Messages } from '../../i18n';
+import { flattenSkills, getSkillIcon } from '../../lib/skill-icons';
+
+interface Props { categories: SkillCategory[]; copy: Messages }
+const { categories, copy } = Astro.props;
+const featuredSkills = [
+  ['Go', 'Go'], ['Java', 'Java'], ['C/C++', 'C/C++'],
+  ['MySQL', 'MySQL'], ['PostgreSQL', 'PostgreSQL'], ['Redis', 'Redis'], ['Elasticsearch', 'Elasticsearch'],
+  ['Gin', 'Gin'], ['RESTful API', 'RESTful'], ['gRPC', 'gRPC'], ['Kafka', 'Kafka'],
+  ['Docker', 'Docker'], ['Git', 'Git'],
+] as const;
+const availableSkills = new Set(flattenSkills(categories));
+const skills = featuredSkills.filter(([, sourceName]) => availableSkills.has(sourceName));
+---
+<nav class="skill-strip" aria-label={copy.home.skills}>
+  <ul>
+    {skills.map(([name, sourceName]) => {
+      const icon = getSkillIcon(sourceName);
+      return <li>
+        {icon ? <svg viewBox="0 0 24 24" aria-hidden="true" style={`--icon-color:#${icon.hex}`}><path fill="currentColor" d={icon.path} /></svg> : <span class="skill-fallback" aria-hidden="true">GR</span>}
+        <span>{name}</span>
+      </li>;
+    })}
+  </ul>
+</nav>
+
+<style>
+  .skill-strip { grid-column:1 / -1; width:100vw; margin:1.75rem calc(50% - 50vw) 0; padding:1rem 0; overflow-x:auto; border-block:1px solid color-mix(in srgb,var(--line) 72%,transparent); scrollbar-width:none; }
+  .skill-strip::-webkit-scrollbar { display:none; }
+  .skill-strip ul { display:flex; width:max-content; min-width:100%; flex-wrap:nowrap; align-items:center; justify-content:center; gap:clamp(.75rem,1.2vw,1.1rem); margin:0; padding:0; list-style:none; }
+  .skill-strip li { display:inline-flex; align-items:center; gap:.36rem; color:var(--text-soft); font:500 .72rem/1.3 var(--font-primary); white-space:nowrap; }
+  .skill-strip li+li { padding-left:.65rem; border-left:1px solid color-mix(in srgb,var(--line) 72%,transparent); }
+  .skill-strip svg { width:17px; height:17px; color:var(--icon-color,var(--accent)); }
+  .skill-fallback { display:grid; width:17px; height:17px; place-items:center; color:var(--accent); font:700 .55rem var(--font-mono); }
+  @media (max-width:860px) {
+    .skill-strip { margin-top:1.25rem; padding:.9rem 0; }
+    .skill-strip ul { justify-content:center; gap:1rem; padding-inline:0; }
+  }
+  @media (max-width:620px) {
+    .skill-strip { margin-top:.9rem; overscroll-behavior-inline:contain; scrollbar-width:thin; scrollbar-color:color-mix(in srgb,var(--accent) 42%,transparent) transparent; }
+    .skill-strip::-webkit-scrollbar { display:block; height:3px; }
+    .skill-strip::-webkit-scrollbar-thumb { background:color-mix(in srgb,var(--accent) 42%,transparent); border-radius:999px; }
+  }
+</style>

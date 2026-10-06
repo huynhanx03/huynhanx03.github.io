@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1970",
+  "platform": "leetcode",
+  "id": "1970",
+  "title": "Sorting the Sentence",
+  "slug": "sorting-the-sentence",
+  "url": "https://leetcode.com/problems/sorting-the-sentence",
+  "difficulty": "Easy",
+  "topics": [
+    "Sorting",
+    "String"
+  ],
+  "statementHtml": "<p>A <strong>sentence</strong> is a list of words that are separated by a single space with no leading or trailing spaces. Each word consists of lowercase and uppercase English letters.</p>\n\n<p>A sentence can be <strong>shuffled</strong> by appending the <strong>1-indexed word position</strong> to each word then rearranging the words in the sentence.</p>\n\n<ul>\n\t<li>For example, the sentence <code>\"This is a sentence\"</code> can be shuffled as <code>\"sentence4 a3 is2 This1\"</code> or <code>\"is2 sentence4 This1 a3\"</code>.</li>\n</ul>\n\n<p>Given a <strong>shuffled sentence</strong> <code>s</code> containing no more than <code>9</code> words, reconstruct and return <em>the original sentence</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"is2 sentence4 This1 a3\"\n<strong>Output:</strong> \"This is a sentence\"\n<strong>Explanation:</strong> Sort the words in s to their original positions \"This1 is2 a3 sentence4\", then remove the numbers.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"Myself2 Me1 I4 and3\"\n<strong>Output:</strong> \"Me Myself and I\"\n<strong>Explanation:</strong> Sort the words in s to their original positions \"Me1 Myself2 and3 I4\", then remove the numbers.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= s.length &lt;= 200</code></li>\n\t<li><code>s</code> consists of lowercase and uppercase English letters, spaces, and digits from <code>1</code> to <code>9</code>.</li>\n\t<li>The number of words in <code>s</code> is between <code>1</code> and <code>9</code>.</li>\n\t<li>The words in <code>s</code> are separated by a single space.</li>\n\t<li><code>s</code> contains no leading or trailing spaces.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1970-sorting-the-sentence/1970-sorting-the-sentence.cpp",
+      "source": "/*\n Problem: 1970. Sorting the Sentence\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 6.4 MB (100.00%)\n Tags: String, Sorting\n*/\nclass Solution {\npublic:\n    string sortSentence(string s) {\n        string c=\"\";\n        s+=' ';\n        vector<pair<int,string>> a;\n        for (int i=0;i<s.size();++i)\n        {\n            if (s[i]==' ' || i==s.size()-1)\n            {\n                int l=c.size();\n                string k=\"\";\n                int num=c[l-1]-'0';\n                for (int j=0; j<l-1;++j) k+=c[j];\n                a.push_back({num,k});\n                c=\"\";\n                continue;\n            }\n            c+=s[i];\n        }\n        sort(a.begin(), a.end());\n        string ans=\"\";\n        for(int i=0; i<a.size()-1;++i) ans+=a[i].second+' ';\n        ans+=a[a.size()-1].second;\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1970-sorting-the-sentence/1970-sorting-the-sentence.cpp"
+    }
+  ]
+}

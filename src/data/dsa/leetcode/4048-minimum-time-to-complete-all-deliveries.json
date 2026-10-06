@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4048",
+  "platform": "leetcode",
+  "id": "4048",
+  "title": "Minimum Time to Complete All Deliveries",
+  "slug": "minimum-time-to-complete-all-deliveries",
+  "url": "https://leetcode.com/problems/minimum-time-to-complete-all-deliveries",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Search",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given two integer arrays of size 2: <code>d = [d<sub>1</sub>, d<sub>2</sub>]</code> and <code>r = [r<sub>1</sub>, r<sub>2</sub>]</code>.</p>\n\n<p>Two delivery drones are tasked with completing a specific number of deliveries. Drone <code>i</code> must complete <code>d<sub>i</sub></code> deliveries.</p>\n\n<p>Each delivery takes <strong>exactly</strong> one hour and <strong>only one</strong> drone can make a delivery at any given hour.</p>\n\n<p>Additionally, both drones require recharging at specific intervals during which they cannot make deliveries. Drone <code>i</code> must recharge every <code>r<sub>i</sub></code> hours (i.e. at hours that are multiples of <code>r<sub>i</sub></code>).</p>\n\n<p>Return an integer denoting the <strong>minimum</strong> total time (in hours) required to complete all deliveries.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>d = [3,1], r = [2,3]</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The first drone delivers at hours 1, 3, 5 (recharges at hours 2, 4).</li>\n\t<li>The second drone delivers at hour 2 (recharges at hour 3).</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>d = [1,3], r = [2,2]</span></p>\n\n<p><strong>Output:</strong> <span>7</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The first drone delivers at hour 3 (recharges at hours 2, 4, 6).</li>\n\t<li>The second drone delivers at hours 1, 5, 7 (recharges at hours 2, 4, 6).</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>d = [2,1], r = [3,4]</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The first drone delivers at hours 1, 2 (recharges at hour 3).</li>\n\t<li>The second drone delivers at hour 3.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>d = [d<sub>1</sub>, d<sub>2</sub>]</code></li>\n\t<li><code>1 &lt;= d<sub>i</sub> &lt;= 10<sup>9</sup></code></li>\n\t<li><code>r = [r<sub>1</sub>, r<sub>2</sub>]</code></li>\n\t<li><code>2 &lt;= r<sub>i</sub> &lt;= 3 * 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4048-minimum-time-to-complete-all-deliveries/4048-minimum-time-to-complete-all-deliveries.cpp",
+      "source": "/*\n Problem: 4048. Minimum Time to Complete All Deliveries\n Language: cpp\n Runtime: 15 ms (5.04%)\n Memory: 54.8 MB (7.96%)\n Tags: Math, Binary Search\n*/\ntypedef long long ll;\n\nclass Solution {\nprivate:\n    ll lcmll(ll a, ll b) {\n        return a / gcd(a, b) * b;\n    }\n    \n    bool canFinish(ll t, vector<int>& d, vector<int>& r) {\n        int n = 2;\n        vector<ll> w(n);\n        ll bc = t / lcmll(r[0], r[1]);\n        ll qw = 0, qd = 0; \n        ll av = t - bc;\n        for (int i = 0; i < n; ++i) {\n            w[i] = t - t / r[i];\n            w[i] = min(w[i], 1LL * d[i]);\n            qw += w[i];\n            qd += d[i];\n        }\n        \n        return (w[0] >= d[0] && w[1] >= d[1] && min(av, qw) >= d[0] + d[1]);\n    }\n    \npublic:\n    long long minimumTime(vector<int>& d, vector<int>& r) {\n        ll l = 0, h = 1e18;\n        ll ans = h;\n\n        while (l <= h) {\n            ll mid = l + (h - l) / 2;\n\n            if (canFinish(mid, d, r)) {\n                ans = mid;\n                h = mid - 1;\n            } else {\n                l = mid + 1;\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4048-minimum-time-to-complete-all-deliveries/4048-minimum-time-to-complete-all-deliveries.cpp"
+    }
+  ]
+}

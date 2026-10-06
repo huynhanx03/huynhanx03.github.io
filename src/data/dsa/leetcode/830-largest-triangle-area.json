@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:830",
+  "platform": "leetcode",
+  "id": "830",
+  "title": "Largest Triangle Area",
+  "slug": "largest-triangle-area",
+  "url": "https://leetcode.com/problems/largest-triangle-area",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Geometry",
+    "Math"
+  ],
+  "statementHtml": "<p>Given an array of points on the <strong>X-Y</strong> plane <code>points</code> where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code>, return <em>the area of the largest triangle that can be formed by any three different points</em>. Answers within <code>10<sup>-5</sup></code> of the actual answer will be accepted.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> points = [[0,0],[0,1],[1,0],[0,2],[2,0]]\n<strong>Output:</strong> 2.00000\n<strong>Explanation:</strong> The five points are shown in the above figure. The red triangle is the largest.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> points = [[1,0],[0,0],[0,1]]\n<strong>Output:</strong> 0.50000\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= points.length &lt;= 50</code></li>\n\t<li><code>-50 &lt;= x<sub>i</sub>, y<sub>i</sub> &lt;= 50</code></li>\n\t<li>All the given points are <strong>unique</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0830-largest-triangle-area/0830-largest-triangle-area.cpp",
+      "source": "/*\n Problem: 830. Largest Triangle Area\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.5 MB (30.18%)\n Tags: Array, Math, Geometry\n*/\nclass Solution {\npublic:\n    double largestTriangleArea(vector<vector<int>>& points) {\n        double max_area = 0.0;\n        int n = points.size();\n        for (int i = 0; i < n; ++i) {\n            for (int j = i + 1; j < n; ++j) {\n                for (int k = j + 1; k < n; ++k) {\n                    int x1 = points[i][0], y1 = points[i][1];\n                    int x2 = points[j][0], y2 = points[j][1];\n                    int x3 = points[k][0], y3 = points[k][1];\n                    double area = 0.5 * abs(x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2));\n                    max_area = max(max_area, area);\n                }\n            }\n        }\n        return max_area;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0830-largest-triangle-area/0830-largest-triangle-area.cpp"
+    }
+  ]
+}

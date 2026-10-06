@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:645",
+  "platform": "leetcode",
+  "id": "645",
+  "title": "Set Mismatch",
+  "slug": "set-mismatch",
+  "url": "https://leetcode.com/problems/set-mismatch",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Bit Manipulation",
+    "Hash Table",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You have a set of integers <code>s</code>, which originally contains all the numbers from <code>1</code> to <code>n</code>. Unfortunately, due to some error, one of the numbers in <code>s</code> got duplicated to another number in the set, which results in <strong>repetition of one</strong> number and <strong>loss of another</strong> number.</p>\n\n<p>You are given an integer array <code>nums</code> representing the data status of this set after the error.</p>\n\n<p>Find the number that occurs twice and the number that is missing and return <em>them in the form of an array</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,2,4]\n<strong>Output:</strong> [2,3]\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,1]\n<strong>Output:</strong> [1,2]\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0645-set-mismatch/0645-set-mismatch.cpp",
+      "source": "/*\n Problem: 645. Set Mismatch\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 25.6 MB (59.67%)\n Tags: Array, Hash Table, Bit Manipulation, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> findErrorNums(vector<int>& nums) {\n        vector<bool> check(nums.size() + 1, 0);\n        int dup = -1, v = -1;\n\n        for (const auto& x : nums) {\n            if (check[x]) {\n                dup = x;\n            }\n\n            check[x] = 1;\n        }\n\n        for (int i = 1; i <= nums.size(); ++i) {\n            if (check[i]) continue;\n            v = i;\n            break;\n        }\n\n        return {dup, v};\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0645-set-mismatch/0645-set-mismatch.cpp"
+    }
+  ]
+}

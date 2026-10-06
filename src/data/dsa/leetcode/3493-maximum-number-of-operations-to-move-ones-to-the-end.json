@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3493",
+  "platform": "leetcode",
+  "id": "3493",
+  "title": "Maximum Number of Operations to Move Ones to the End",
+  "slug": "maximum-number-of-operations-to-move-ones-to-the-end",
+  "url": "https://leetcode.com/problems/maximum-number-of-operations-to-move-ones-to-the-end",
+  "difficulty": "Medium",
+  "topics": [
+    "Counting",
+    "Greedy",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a <span>binary string</span> <code>s</code>.</p>\n\n<p>You can perform the following operation on the string <strong>any</strong> number of times:</p>\n\n<ul>\n\t<li>Choose <strong>any</strong> index <code>i</code> from the string where <code>i + 1 &lt; s.length</code> such that <code>s[i] == '1'</code> and <code>s[i + 1] == '0'</code>.</li>\n\t<li>Move the character <code>s[i]</code> to the <strong>right</strong> until it reaches the end of the string or another <code>'1'</code>. For example, for <code>s = \"010010\"</code>, if we choose <code>i = 1</code>, the resulting string will be <code>s = \"0<strong><u>001</u></strong>10\"</code>.</li>\n</ul>\n\n<p>Return the <strong>maximum</strong> number of operations that you can perform.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"1001101\"</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We can perform the following operations:</p>\n\n<ul>\n\t<li>Choose index <code>i = 0</code>. The resulting string is <code>s = \"<u><strong>001</strong></u>1101\"</code>.</li>\n\t<li>Choose index <code>i = 4</code>. The resulting string is <code>s = \"0011<u><strong>01</strong></u>1\"</code>.</li>\n\t<li>Choose index <code>i = 3</code>. The resulting string is <code>s = \"001<strong><u>01</u></strong>11\"</code>.</li>\n\t<li>Choose index <code>i = 2</code>. The resulting string is <code>s = \"00<strong><u>01</u></strong>111\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"00111\"</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3493-maximum-number-of-operations-to-move-ones-to-the-end/3493-maximum-number-of-operations-to-move-ones-to-the-end.cpp",
+      "source": "/*\n Problem: 3493. Maximum Number of Operations to Move Ones to the End\n Language: cpp\n Runtime: 4 ms (71.28%)\n Memory: 15.9 MB (22.56%)\n Tags: String, Greedy, Counting\n*/\nclass Solution {\npublic:\n    int maxOperations(string s) {\n        int ones = 0, ans = 0;\n        int n = s.size();\n        \n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '1') {\n                ++ones;\n            } else if (i == n - 1 || s[i + 1] == '1') {\n                ans += ones;\n            }\n        }\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3493-maximum-number-of-operations-to-move-ones-to-the-end/3493-maximum-number-of-operations-to-move-ones-to-the-end.cpp"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import ExperienceList from '../../components/portfolio/ExperienceList.astro';
+import { getExperience, getSiteConfig } from '../../data/portfolio';
+import { getMessages, localizedSite, requireLocale } from '../../i18n';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls, localizedStaticPaths } from '../../lib/page-seo';
+
+export function getStaticPaths() { return localizedStaticPaths(); }
+const locale = requireLocale(Astro.props.locale);
+const copy = getMessages(locale);
+const site = localizedSite(getSiteConfig(), locale);
+const page = copy.pages.experience;
+const urls = getLocalizedPageUrls(locale, '/experience', Astro.site ?? Astro.url);
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: page.title, description: page.description, homeLabel: copy.nav.home, type: 'ProfilePage' });
+---
+<PortfolioLayout title={`${page.title} | ${site.name}`} description={page.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <section class="content-page container">
+    <header class="content-page-header"><h1>{page.title}</h1><p>{page.description}</p></header>
+    <ExperienceList experiences={getExperience()} />
+  </section>
+</PortfolioLayout>

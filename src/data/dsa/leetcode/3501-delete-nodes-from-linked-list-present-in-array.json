@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3501",
+  "platform": "leetcode",
+  "id": "3501",
+  "title": "Delete Nodes From Linked List Present in Array",
+  "slug": "delete-nodes-from-linked-list-present-in-array",
+  "url": "https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Linked List"
+  ],
+  "statementHtml": "<p>You are given an array of integers <code>nums</code> and the <code>head</code> of a linked list. Return the <code>head</code> of the modified linked list after <strong>removing</strong> all nodes from the linked list that have a value that exists in <code>nums</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3], head = [1,2,3,4,5]</span></p>\n\n<p><strong>Output:</strong> <span>[4,5]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><strong></strong></p>\n\n<p>Remove the nodes with values 1, 2, and 3.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1], head = [1,2,1,2,1,2]</span></p>\n\n<p><strong>Output:</strong> <span>[2,2,2]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n\n<p>Remove the nodes with value 1.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5], head = [1,2,3,4]</span></p>\n\n<p><strong>Output:</strong> <span>[1,2,3,4]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><strong></strong></p>\n\n<p>No node has value 5.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n\t<li>All elements in <code>nums</code> are unique.</li>\n\t<li>The number of nodes in the given list is in the range <code>[1, 10<sup>5</sup>]</code>.</li>\n\t<li><code>1 &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n\t<li>The input is generated such that there is at least one node in the linked list that has a value not present in <code>nums</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3501-delete-nodes-from-linked-list-present-in-array/3501-delete-nodes-from-linked-list-present-in-array.cpp",
+      "source": "/*\n Problem: 3501. Delete Nodes From Linked List Present in Array\n Language: cpp\n Runtime: 96 ms (61.81%)\n Memory: 263.4 MB (34.27%)\n Tags: Array, Hash Table, Linked List\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* modifiedList(vector<int>& nums, ListNode* head) {\n        unordered_set<int> removeSet(nums.begin(), nums.end());\n        ListNode dummy(0);\n        dummy.next = head;\n        ListNode* prev = &dummy;\n        ListNode* curr = head;\n\n        while (curr) {\n            if (removeSet.count(curr->val)) {\n                prev->next = curr->next;\n            } else {\n                prev = curr;\n            }\n            curr = curr->next;\n        }\n\n        return dummy.next;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3501-delete-nodes-from-linked-list-present-in-array/3501-delete-nodes-from-linked-list-present-in-array.cpp"
+    }
+  ]
+}

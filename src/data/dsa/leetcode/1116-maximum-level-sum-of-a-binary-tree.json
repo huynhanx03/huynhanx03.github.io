@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:1116",
+  "platform": "leetcode",
+  "id": "1116",
+  "title": "Maximum Level Sum of a Binary Tree",
+  "slug": "maximum-level-sum-of-a-binary-tree",
+  "url": "https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Tree",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given the <code>root</code> of a binary tree, the level of its root is <code>1</code>, the level of its children is <code>2</code>, and so on.</p>\n\n<p>Return the <strong>smallest</strong> level <code>x</code> such that the sum of all the values of nodes at level <code>x</code> is <strong>maximal</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [1,7,0,7,-8,null,null]\n<strong>Output:</strong> 2\n<strong>Explanation: </strong>\nLevel 1 sum = 1.\nLevel 2 sum = 7 + 0 = 7.\nLevel 3 sum = 7 + -8 = -1.\nSo we return the level with the maximum sum which is level 2.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [989,null,10250,98693,-89388,null,null,null,-32127]\n<strong>Output:</strong> 2\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1116-maximum-level-sum-of-a-binary-tree/1116-maximum-level-sum-of-a-binary-tree.cpp",
+      "source": "/*\n Problem: 1116. Maximum Level Sum of a Binary Tree\n Language: cpp\n Runtime: 4 ms (54.69%)\n Memory: 109.2 MB (80.67%)\n Tags: Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxLevelSum(TreeNode* root) {\n        if (!root) return 0;\n\n        queue<TreeNode*> q;\n        q.push(root);\n\n        int level = 1;\n        int answerLevel = 1;\n        long long maxSum = LLONG_MIN;\n\n        while (!q.empty()) {\n            int sz = q.size();\n            long long curSum = 0;\n\n            for (int i = 0; i < sz; i++) {\n                TreeNode* node = q.front();\n                q.pop();\n\n                curSum += node->val;\n\n                if (node->left)  q.push(node->left);\n                if (node->right) q.push(node->right);\n            }\n\n            if (curSum > maxSum) {\n                maxSum = curSum;\n                answerLevel = level;\n            }\n\n            level++;\n        }\n\n        return answerLevel;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1116-maximum-level-sum-of-a-binary-tree/1116-maximum-level-sum-of-a-binary-tree.cpp"
+    }
+  ]
+}

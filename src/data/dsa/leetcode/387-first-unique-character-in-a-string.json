@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:387",
+  "platform": "leetcode",
+  "id": "387",
+  "title": "First Unique Character in a String",
+  "slug": "first-unique-character-in-a-string",
+  "url": "https://leetcode.com/problems/first-unique-character-in-a-string",
+  "difficulty": "Easy",
+  "topics": [
+    "Counting",
+    "Hash Table",
+    "Queue",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code>, find the <strong>first</strong> non-repeating character in it and return its index. If it <strong>does not</strong> exist, return <code>-1</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"leetcode\"</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The character <code>'l'</code> at index 0 is the first character that does not occur at any other index.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"loveleetcode\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aabb\"</span></p>\n\n<p><strong>Output:</strong> <span>-1</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of only lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0387-first-unique-character-in-a-string/0387-first-unique-character-in-a-string.cpp",
+      "source": "/*\n Problem: 387. First Unique Character in a String\n Language: cpp\n Runtime: 8 ms (57.59%)\n Memory: 14.7 MB (72.52%)\n Tags: Hash Table, String, Queue, Counting\n*/\nclass Solution {\npublic:\n    int firstUniqChar(string s) {\n        vector <int> cnt(26, 0);\n        for (const auto& c : s) ++cnt[c - 'a'];\n        for (int i = 0; i < s.size(); ++i) if (cnt[s[i] - 'a'] == 1) return i;\n        return -1;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0387-first-unique-character-in-a-string/0387-first-unique-character-in-a-string.cpp"
+    }
+  ]
+}

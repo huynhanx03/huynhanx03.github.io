@@ -1,0 +1,18 @@
+{
+  "key": "cses:1068",
+  "platform": "cses",
+  "id": "1068",
+  "slug": "weird-algorithm",
+  "title": "Weird Algorithm",
+  "url": "https://cses.fi/problemset/task/1068/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>Consider an algorithm that takes as input a positive integer <span>n</span>. If <span>n</span> is even, the algorithm divides it by two, and if <span>n</span> is odd, the algorithm multiplies it by three and adds one. The algorithm repeats this, until <span>n</span> is one. For example, the sequence for <span>n=3</span> is as follows:\n<span> 3 \\rightarrow 10 \\rightarrow 5 \\rightarrow 16 \\rightarrow 8 \\rightarrow 4 \\rightarrow 2 \\rightarrow 1</span>\nYour task is to simulate the execution of the algorithm for a given value of <span>n</span>.</p>\n<h2>Input</h2>\n<p>The only input line contains an integer <span>n</span>.</p>\n<h2>Output</h2>\n<p>Print a line that contains all values of <span>n</span> during the algorithm.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n \\le 10^6</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>3\n</pre>\n<p>Output:</p>\n<pre>3 10 5 16 8 4 2 1\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Weird_Algorithm.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        unsigned long long n;\n        cin >> n;\n        while (n != 1) {\n            cout << n << \" \";\n            (n % 2 == 0) ? n /= 2 : n = 3 * n + 1;\n        }\n        cout << 1;\n    }\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Weird_Algorithm.cpp"
+    }
+  ]
+}

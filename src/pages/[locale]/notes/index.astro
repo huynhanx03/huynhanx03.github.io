@@ -1,0 +1,119 @@
+---
+import PortfolioLayout from '../../../layouts/PortfolioLayout.astro';
+import NoteCard from '../../../components/notes/NoteCard.astro';
+import TopicGuideCard from '../../../components/notes/TopicGuideCard.astro';
+import { getNotesByLocale, type NoteLocale } from '../../../content/notes';
+import { getTopicGuides } from '../../../content/notes/topic-guides';
+import { absoluteSiteUrl, sitePath } from '../../../lib/paths';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls, localizedStaticPaths } from '../../../lib/page-seo';
+import { getMessages, localizedSite, requireLocale } from '../../../i18n';
+import { getSiteConfig } from '../../../data/portfolio';
+
+export function getStaticPaths() { return localizedStaticPaths(); }
+const locale = requireLocale(Astro.props.locale);
+const notes = await getNotesByLocale(locale as NoteLocale);
+const topicGuides = await getTopicGuides(locale as NoteLocale);
+const categories = [...new Set(notes.map((note) => note.data.category))].sort();
+const categoryCounts = new Map(categories.map((category) => [category, notes.filter((note) => note.data.category === category).length]));
+const copy = getMessages(locale);
+const site = localizedSite(getSiteConfig(), locale);
+const urls = getLocalizedPageUrls(locale, '/notes', Astro.site ?? Astro.url);
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: copy.notes.title, description: copy.notes.description, homeLabel: copy.nav.home, items: notes.map((note) => ({ name: note.data.title, url: absoluteSiteUrl(sitePath(`/${note.locale}/notes/${note.slug}`), Astro.site ?? Astro.url) })) });
+const notesBase = sitePath(`/${locale}/notes`);
+---
+<PortfolioLayout title={`${copy.notes.title} | ${site.name}`} description={copy.notes.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <section class="container content-page notes-index-page">
+    <header class="content-page-header notes-page-header">
+      <h1>{copy.notes.title}</h1>
+      <p>{copy.notes.description}</p>
+    </header>
+  </section>
+  <section class="container notes-discovery" aria-label={copy.notes.filters}>
+    <div class="notes-toolbar">
+      <label class="search-field"><span aria-hidden="true">⌕</span><span class="sr-only">{copy.notes.search}</span><input type="search" placeholder={copy.notes.search} data-notes-search /></label>
+      <div class="category-pills" aria-label={copy.notes.filters}>
+        <a class="category-pill active" data-filter-value="all" href={notesBase}>{copy.notes.all}<span>{notes.length + topicGuides.length}</span></a>
+        <a class="category-pill" data-filter-value="type:note" href={`${notesBase}?filter=type%3Anote`}>{copy.notes.notesFilter}<span>{notes.length}</span></a>
+        <a class="category-pill" data-filter-value="type:topic" href={`${notesBase}?filter=type%3Atopic`}>{copy.notes.topicsFilter}<span>{topicGuides.length}</span></a>
+        {categories.map((category) => <a class="category-pill" data-filter-value={`category:${category.toLowerCase()}`} href={`${notesBase}?filter=${encodeURIComponent(`category:${category.toLowerCase()}`)}`}>{category}<span>{categoryCounts.get(category)}</span></a>)}
+      </div>
+    </div>
+    <p class="notes-filter-empty" data-filter-empty hidden>{copy.notes.noMatches}</p>
+    <div class="notes-list" data-pagefind-body aria-label={copy.notes.title}>
+      {topicGuides.map((guide) => <TopicGuideCard guide={guide} locale={locale} copy={copy} />)}
+      {notes.map((note) => <NoteCard note={note} locale={locale} copy={copy} />)}
+    </div>
+  </section>
+  <script type="module">
+    const pagefindBase = new URL(import.meta.env.BASE_URL || '/', location.origin).pathname.replace(/\/?$/u, '/');
+    const input = document.querySelector('[data-notes-search]');
+    const cards = [...document.querySelectorAll('[data-discovery-card]')];
+    const filterLinks = [...document.querySelectorAll('[data-filter-value]')];
+    const empty = document.querySelector('[data-filter-empty]');
+    const params = new URLSearchParams(location.search);
+    let selectedFilter = params.get('filter') || (params.has('category') ? `category:${params.get('category')}` : 'all');
+    let searchPaths = null;
+    let searchText = '';
+    let pagefind;
+    let searchGeneration = 0;
+    const normalizedPath = (value) => {
+      const path = new URL(value, location.href).pathname.replace(/\/index\.html$/u, '/');
+      return path.endsWith('/') ? path : `${path}/`;
+    };
+    const applyDiscovery = () => {
+      let visible = 0;
+      filterLinks.forEach((link) => link.classList.toggle('active', link.dataset.filterValue === selectedFilter));
+      cards.forEach((card) => {
+        const isTypeFilter = selectedFilter.startsWith('type:');
+        const isCategoryFilter = selectedFilter.startsWith('category:');
+        const matchesFilter = selectedFilter === 'all'
+          || (isTypeFilter && card.dataset.contentType === selectedFilter.slice('type:'.length))
+          || (isCategoryFilter && card.dataset.contentCategory === selectedFilter.slice('category:'.length));
+        const matchesCardText = card.textContent.toLowerCase().includes(searchText.toLowerCase());
+        const matchesSearch = !searchText
+          || matchesCardText
+          || searchPaths?.has(normalizedPath(card.dataset.contentPath))
+          || (card.dataset.topicNotePaths && JSON.parse(card.dataset.topicNotePaths).some((path) => searchPaths?.has(normalizedPath(path))));
+        card.hidden = !matchesFilter || !matchesSearch;
+        if (!card.hidden) visible += 1;
+      });
+      empty.hidden = visible > 0;
+    };
+    const updateSearch = async () => {
+      searchText = input.value.trim();
+      const generation = ++searchGeneration;
+      if (!searchText) {
+        searchPaths = null;
+        applyDiscovery();
+        return;
+      }
+      try {
+        pagefind ??= await import(`${pagefindBase}_pagefind/pagefind.js`);
+        const results = await pagefind.search(searchText);
+        const data = await Promise.all(results.results.map((result) => result.data()));
+        if (generation !== searchGeneration) return;
+        searchPaths = new Set(data.map((item) => normalizedPath(item.url)));
+      } catch {
+        searchPaths = null;
+      }
+      if (generation === searchGeneration) applyDiscovery();
+    };
+    filterLinks.forEach((link) => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      selectedFilter = link.dataset.filterValue;
+      const next = new URL(location.href);
+      if (selectedFilter === 'all') next.searchParams.delete('filter');
+      else next.searchParams.set('filter', selectedFilter);
+      next.searchParams.delete('category');
+      history.pushState({}, '', next);
+      applyDiscovery();
+    }));
+    input?.addEventListener('input', updateSearch);
+    addEventListener('popstate', () => {
+      const current = new URLSearchParams(location.search);
+      selectedFilter = current.get('filter') || (current.has('category') ? `category:${current.get('category')}` : 'all');
+      applyDiscovery();
+    });
+    applyDiscovery();
+  </script>
+</PortfolioLayout>

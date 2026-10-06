@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:1975",
+  "platform": "leetcode",
+  "id": "1975",
+  "title": "Minimum Distance to the Target Element",
+  "slug": "minimum-distance-to-the-target-element",
+  "url": "https://leetcode.com/problems/minimum-distance-to-the-target-element",
+  "difficulty": "Easy",
+  "topics": [
+    "Array"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code> <strong>(0-indexed)</strong> and two integers <code>target</code> and <code>start</code>, find an index <code>i</code> such that <code>nums[i] == target</code> and <code>abs(i - start)</code> is <strong>minimized</strong>. Note that <code>abs(x)</code> is the absolute value of <code>x</code>.</p>\n\n<p>Return <code>abs(i - start)</code>.</p>\n\n<p>It is <strong>guaranteed</strong> that <code>target</code> exists in <code>nums</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2,3,4,5], target = 5, start = 3\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> nums[4] = 5 is the only value equal to target, so the answer is abs(4 - 3) = 1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1], target = 1, start = 0\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> nums[0] = 1 is the only value equal to target, so the answer is abs(0 - 0) = 0.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,1,1,1,1,1,1,1,1,1], target = 1, start = 0\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> Every value of nums is 1, but nums[0] minimizes abs(i - start), which is abs(0 - 0) = 0.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 1000</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= start &lt; nums.length</code></li>\n\t<li><code>target</code> is in <code>nums</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1975-minimum-distance-to-the-target-element/1975-minimum-distance-to-the-target-element.cpp",
+      "source": "/*\n Problem: 1975. Minimum Distance to the Target Element\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.2 MB (83.73%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    int getMinDistance(vector<int>& nums, int target, int start) {\n        int mn = 1e9;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            if (nums[i] == target) mn = min(mn, abs(i - start));\n        }\n\n        return mn;   \n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1975-minimum-distance-to-the-target-element/1975-minimum-distance-to-the-target-element.cpp"
+    }
+  ]
+}

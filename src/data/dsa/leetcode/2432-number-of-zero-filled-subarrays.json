@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2432",
+  "platform": "leetcode",
+  "id": "2432",
+  "title": "Number of Zero-Filled Subarrays",
+  "slug": "number-of-zero-filled-subarrays",
+  "url": "https://leetcode.com/problems/number-of-zero-filled-subarrays",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Math"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code>, return <em>the number of <strong>subarrays</strong> filled with </em><code>0</code>.</p>\n\n<p>A <strong>subarray</strong> is a contiguous non-empty sequence of elements within an array.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,3,0,0,2,0,0,4]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> \nThere are 4 occurrences of [0] as a subarray.\nThere are 2 occurrences of [0,0] as a subarray.\nThere is no occurrence of a subarray with a size more than 2 filled with 0. Therefore, we return 6.</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [0,0,0,2,0,0]\n<strong>Output:</strong> 9\n<strong>Explanation:\n</strong>There are 5 occurrences of [0] as a subarray.\nThere are 3 occurrences of [0,0] as a subarray.\nThere is 1 occurrence of [0,0,0] as a subarray.\nThere is no occurrence of a subarray with a size more than 3 filled with 0. Therefore, we return 9.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [2,10,2019]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> There is no subarray filled with 0. Therefore, we return 0.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2432-number-of-zero-filled-subarrays/2432-number-of-zero-filled-subarrays.cpp",
+      "source": "/*\n Problem: 2432. Number of Zero-Filled Subarrays\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 111.4 MB (42.39%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    long long zeroFilledSubarray(vector<int>& nums) {\n        long long ans = 0, cnt = 0;\n\n        for (auto const& num: nums) {\n            cnt = num == 0 ? cnt + 1 : 0;\n            ans += cnt;\n        }    \n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2432-number-of-zero-filled-subarrays/2432-number-of-zero-filled-subarrays.cpp"
+    }
+  ]
+}

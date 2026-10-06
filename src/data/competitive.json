@@ -1,0 +1,24 @@
+{
+    "platforms": {
+        "codeforces": {
+            "username": "nhan43",
+            "profileUrl": "https://codeforces.com/profile/nhan43"
+        },
+        "leetcode": {
+            "username": "nhan43",
+            "profileUrl": "https://leetcode.com/nhan43"
+        },
+        "cses": {
+            "username": "nhan43",
+            "profileUrl": "https://cses.fi/user/381920"
+        },
+        "vnoi": {
+            "username": "nhan43",
+            "profileUrl": "https://oj.vnoi.info/user/nhan43"
+        },
+        "lqdoj": {
+            "username": "nhan43",
+            "profileUrl": "https://lqdoj.edu.vn/user/nhan43"
+        }
+    }
+}

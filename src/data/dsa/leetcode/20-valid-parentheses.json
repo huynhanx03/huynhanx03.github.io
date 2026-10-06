@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:20",
+  "platform": "leetcode",
+  "id": "20",
+  "title": "Valid Parentheses",
+  "slug": "valid-parentheses",
+  "url": "https://leetcode.com/problems/valid-parentheses",
+  "difficulty": "Easy",
+  "topics": [
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> containing just the characters <code>'('</code>, <code>')'</code>, <code>'{'</code>, <code>'}'</code>, <code>'['</code> and <code>']'</code>, determine if the input string is valid.</p>\n\n<p>An input string is valid if:</p>\n\n<ol>\n\t<li>Open brackets must be closed by the same type of brackets.</li>\n\t<li>Open brackets must be closed in the correct order.</li>\n\t<li>Every close bracket has a corresponding open bracket of the same type.</li>\n</ol>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"()\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"()[]{}\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"(]\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n</div>\n\n<p><strong>Example 4:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"([])\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n</div>\n\n<p><strong>Example 5:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"([)]\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of parentheses only <code>'()[]{}'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0020-valid-parentheses/0020-valid-parentheses.cpp",
+      "source": "/*\n Problem: 20. Valid Parentheses\n Language: cpp\n Runtime: 8 ms (1.39%)\n Memory: 6.4 MB (100.00%)\n Tags: String, Stack\n*/\nclass Solution {\npublic:\n    bool isValid(string s) {\n        map <char, char> mp {{')', '('}, {']', '['}, {'}', '{'}};\n\n        stack <int> st;\n        \n        for (auto c : s) {\n            if (st.empty()) st.push(c);\n            else {\n                if (c == ')' || c == ']' || c == '}') {\n                    if (st.top() == mp[c]) st.pop();\n                    else return 0;\n                } else st.push(c);\n            }\n        }\n        \n        return st.empty();\n            \n        \n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0020-valid-parentheses/0020-valid-parentheses.cpp"
+    }
+  ]
+}

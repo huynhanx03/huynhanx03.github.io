@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:2465",
+  "platform": "leetcode",
+  "id": "2465",
+  "title": "Shifting Letters II",
+  "slug": "shifting-letters-ii",
+  "url": "https://leetcode.com/problems/shifting-letters-ii",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Prefix Sum",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> of lowercase English letters and a 2D integer array <code>shifts</code> where <code>shifts[i] = [start<sub>i</sub>, end<sub>i</sub>, direction<sub>i</sub>]</code>. For every <code>i</code>, <strong>shift</strong> the characters in <code>s</code> from the index <code>start<sub>i</sub></code> to the index <code>end<sub>i</sub></code> (<strong>inclusive</strong>) forward if <code>direction<sub>i</sub> = 1</code>, or shift the characters backward if <code>direction<sub>i</sub> = 0</code>.</p>\n\n<p>Shifting a character <strong>forward</strong> means replacing it with the <strong>next</strong> letter in the alphabet (wrapping around so that <code>'z'</code> becomes <code>'a'</code>). Similarly, shifting a character <strong>backward</strong> means replacing it with the <strong>previous</strong> letter in the alphabet (wrapping around so that <code>'a'</code> becomes <code>'z'</code>).</p>\n\n<p>Return <em>the final string after all such shifts to </em><code>s</code><em> are applied</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"abc\", shifts = [[0,1,0],[1,2,1],[0,2,1]]\n<strong>Output:</strong> \"ace\"\n<strong>Explanation:</strong> Firstly, shift the characters from index 0 to index 1 backward. Now s = \"zac\".\nSecondly, shift the characters from index 1 to index 2 forward. Now s = \"zbd\".\nFinally, shift the characters from index 0 to index 2 forward. Now s = \"ace\".</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"dztz\", shifts = [[0,0,0],[1,1,1]]\n<strong>Output:</strong> \"catz\"\n<strong>Explanation:</strong> Firstly, shift the characters from index 0 to index 0 backward. Now s = \"cztz\".\nFinally, shift the characters from index 1 to index 1 forward. Now s = \"catz\".\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length, shifts.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>shifts[i].length == 3</code></li>\n\t<li><code>0 &lt;= start<sub>i</sub> &lt;= end<sub>i</sub> &lt; s.length</code></li>\n\t<li><code>0 &lt;= direction<sub>i</sub> &lt;= 1</code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2465-shifting-letters-ii/2465-shifting-letters-ii.cpp",
+      "source": "/*\n Problem: 2465. Shifting Letters II\n Language: cpp\n Runtime: 4 ms (72.72%)\n Memory: 97.8 MB (73.80%)\n Tags: Array, String, Prefix Sum\n*/\nclass Solution {\npublic:\n    string shiftingLetters(string s, vector<vector<int>>& shifts) {\n        int n = s.size(), cnt = 0;\n\n        vector<int> v(n + 5, 0);\n\n        for (const auto& shift : shifts) {\n            int start = shift[0];\n            int end = shift[1];\n            int direction = shift[2];\n\n            v[start] += direction == 1 ? 1 : -1;\n            v[end + 1] += direction == 1 ? -1 : 1;\n        }\n\n        for (int i = 0; i < n; ++i) {\n            cnt += v[i];\n\n            char c = (char) ((((s[i] - 'a' + cnt) % 26) + 26) % 26 + 'a');\n\n            s[i] = c;\n        }\n\n        return s;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2465-shifting-letters-ii/2465-shifting-letters-ii.cpp"
+    }
+  ]
+}

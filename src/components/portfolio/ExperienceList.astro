@@ -1,0 +1,40 @@
+---
+import type { Experience } from '../../data/types';
+interface Props { experiences: Experience[] }
+const { experiences } = Astro.props;
+const entries = experiences.flatMap((experience) => experience.roles.map((role, roleIndex) => ({ company: experience.company, role, firstRole: roleIndex === 0 })));
+---
+<div class="experience-timeline">
+  <div class="experience-timeline-line" aria-hidden="true"></div>
+  {entries.map((entry, index) => <article class:list={['experience-timeline-entry', { 'new-company': entry.firstRole && index > 0 }]}>
+    <div class="experience-timeline-period">{entry.role.period}</div>
+    <div class="experience-timeline-marker"><span class:list={['timeline-dot', { 'timeline-dot-primary': entry.firstRole }]}></span></div>
+    <div class="experience-timeline-card" tabindex="0">
+      {entry.firstRole && <div class="company-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5m-4 0h4" /></svg><span>{entry.company}</span></div>}
+      <h3>{entry.role.title}</h3>
+      <p>{entry.role.description}</p>
+    </div>
+  </article>)}
+</div>
+
+<style>
+  .experience-timeline { max-width:1000px; margin-inline:auto; }
+  .experience-timeline-entry { align-items:center; margin-bottom:1.2rem; }
+  .experience-timeline-entry.new-company { margin-top:1.75rem; }
+  .experience-timeline-period { padding-top:0; font-size:.8rem; }
+  .experience-timeline-marker { align-self:center; padding-top:0; }
+  .experience-timeline-card { padding:1.35rem 1.5rem; }
+  .experience-timeline-card:focus-visible { outline:2px solid color-mix(in srgb,var(--accent) 72%,transparent); outline-offset:4px; }
+  .experience-timeline-entry:hover .timeline-dot,
+  .experience-timeline-entry:focus-within .timeline-dot { background:linear-gradient(135deg,var(--accent),var(--blue)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent),0 0 22px color-mix(in srgb,var(--accent) 55%,transparent); transform:scale(1.35); }
+  .timeline-dot { transition:background .2s ease,box-shadow .2s ease,transform .2s ease; }
+  @media (max-width:760px) {
+    .experience-timeline-entry { align-items:start; }
+    .experience-timeline-period { padding-top:0; }
+    .experience-timeline-marker { padding-top:.25rem; }
+    .experience-timeline-card { padding:1rem 1.1rem; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .timeline-dot { transition:none; }
+  }
+</style>

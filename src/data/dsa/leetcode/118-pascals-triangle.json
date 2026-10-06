@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:118",
+  "platform": "leetcode",
+  "id": "118",
+  "title": "Pascal's Triangle",
+  "slug": "pascals-triangle",
+  "url": "https://leetcode.com/problems/pascals-triangle",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>Given an integer <code>numRows</code>, return the first numRows of <strong>Pascal's triangle</strong>.</p>\n\n<p>In <strong>Pascal's triangle</strong>, each number is the sum of the two numbers directly above it as shown:</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> numRows = 5\n<strong>Output:</strong> [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> numRows = 1\n<strong>Output:</strong> [[1]]\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= numRows &lt;= 30</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0118-pascals-triangle/0118-pascals-triangle.cpp",
+      "source": "/*\n Problem: 118. Pascal's Triangle\n Language: cpp\n Runtime: 3 ms (7.71%)\n Memory: 9.7 MB (30.60%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    vector<vector<int>> generate(int numRows) {\n        vector<vector<int>> result;\n        vector<int> prevRow;\n        \n        for (int i = 0; i < numRows; i++) {\n            vector<int> currentRow(i + 1, 1);\n            \n            for (int j = 1; j < i; j++) {\n                currentRow[j] = prevRow[j - 1] + prevRow[j];\n            }\n            \n            result.push_back(currentRow);\n            prevRow = currentRow;\n        }\n        \n        return result;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0118-pascals-triangle/0118-pascals-triangle.cpp"
+    }
+  ]
+}

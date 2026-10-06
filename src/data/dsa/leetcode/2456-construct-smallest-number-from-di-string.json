@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2456",
+  "platform": "leetcode",
+  "id": "2456",
+  "title": "Construct Smallest Number From DI String",
+  "slug": "construct-smallest-number-from-di-string",
+  "url": "https://leetcode.com/problems/construct-smallest-number-from-di-string",
+  "difficulty": "Medium",
+  "topics": [
+    "Backtracking",
+    "Greedy",
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> string <code>pattern</code> of length <code>n</code> consisting of the characters <code>'I'</code> meaning <strong>increasing</strong> and <code>'D'</code> meaning <strong>decreasing</strong>.</p>\n\n<p>A <strong>0-indexed</strong> string <code>num</code> of length <code>n + 1</code> is created using the following conditions:</p>\n\n<ul>\n\t<li><code>num</code> consists of the digits <code>'1'</code> to <code>'9'</code>, where each digit is used <strong>at most</strong> once.</li>\n\t<li>If <code>pattern[i] == 'I'</code>, then <code>num[i] &lt; num[i + 1]</code>.</li>\n\t<li>If <code>pattern[i] == 'D'</code>, then <code>num[i] &gt; num[i + 1]</code>.</li>\n</ul>\n\n<p>Return <em>the lexicographically <strong>smallest</strong> possible string </em><code>num</code><em> that meets the conditions.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> pattern = \"IIIDIDDD\"\n<strong>Output:</strong> \"123549876\"\n<strong>Explanation:\n</strong>At indices 0, 1, 2, and 4 we must have that num[i] &lt; num[i+1].\nAt indices 3, 5, 6, and 7 we must have that num[i] &gt; num[i+1].\nSome possible values of num are \"245639871\", \"135749862\", and \"123849765\".\nIt can be proven that \"123549876\" is the smallest possible num that meets the conditions.\nNote that \"123414321\" is not possible because the digit '1' is used more than once.</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> pattern = \"DDD\"\n<strong>Output:</strong> \"4321\"\n<strong>Explanation:</strong>\nSome possible values of num are \"9876\", \"7321\", and \"8742\".\nIt can be proven that \"4321\" is the smallest possible num that meets the conditions.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= pattern.length &lt;= 8</code></li>\n\t<li><code>pattern</code> consists of only the letters <code>'I'</code> and <code>'D'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2456-construct-smallest-number-from-di-string/2456-construct-smallest-number-from-di-string.cpp",
+      "source": "/*\n Problem: 2456. Construct Smallest Number From DI String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (30.51%)\n Tags: String, Backtracking, Stack, Greedy\n*/\nclass Solution {\npublic:\n    string smallestNumber(string pattern) {\n        int n = pattern.length();\n        string result;\n        stack<int> stk;\n\n        for (int i = 0; i <= n; ++i) {\n            stk.push(i + 1);\n            if (i == n || pattern[i] == 'I') {\n                while (!stk.empty()) {\n                    result += to_string(stk.top());\n                    stk.pop();\n                }\n            }\n        }\n\n        return result;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2456-construct-smallest-number-from-di-string/2456-construct-smallest-number-from-di-string.cpp"
+    }
+  ]
+}

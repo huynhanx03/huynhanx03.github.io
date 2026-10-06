@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3455",
+  "platform": "leetcode",
+  "id": "3455",
+  "title": "Minimum Length of String After Operations",
+  "slug": "minimum-length-of-string-after-operations",
+  "url": "https://leetcode.com/problems/minimum-length-of-string-after-operations",
+  "difficulty": "Medium",
+  "topics": [
+    "Counting",
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code>.</p>\n\n<p>You can perform the following process on <code>s</code> <strong>any</strong> number of times:</p>\n\n<ul>\n\t<li>Choose an index <code>i</code> in the string such that there is <strong>at least</strong> one character to the left of index <code>i</code> that is equal to <code>s[i]</code>, and <strong>at least</strong> one character to the right that is also equal to <code>s[i]</code>.</li>\n\t<li>Delete the <strong>closest</strong> occurrence of <code>s[i]</code> located to the <strong>left</strong> of <code>i</code>.</li>\n\t<li>Delete the <strong>closest</strong> occurrence of <code>s[i]</code> located to the <strong>right</strong> of <code>i</code>.</li>\n</ul>\n\n<p>Return the <strong>minimum</strong> length of the final string <code>s</code> that you can achieve.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abaacbcbb\"</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong><br>\nWe do the following operations:</p>\n\n<ul>\n\t<li>Choose index 2, then remove the characters at indices 0 and 3. The resulting string is <code>s = \"bacbcbb\"</code>.</li>\n\t<li>Choose index 3, then remove the characters at indices 0 and 5. The resulting string is <code>s = \"acbcb\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aa\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong><br>\nWe cannot perform any operations, so we return the length of the original string.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 2 * 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists only of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3455-minimum-length-of-string-after-operations/3455-minimum-length-of-string-after-operations.cpp",
+      "source": "/*\n Problem: 3455. Minimum Length of String After Operations\n Language: cpp\n Runtime: 22 ms (63.48%)\n Memory: 31.9 MB (89.17%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int minimumLength(string s) {\n        vector<int> cnt(26, 0);\n\n        int ans = 0;\n\n        for (const auto& c: s) {\n            int v = c - 'a';\n            \n            ++ans;\n            \n            if (++cnt[v] >= 3) {\n                cnt[v] -= 2;\n                ans -= 2;\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3455-minimum-length-of-string-after-operations/3455-minimum-length-of-string-after-operations.cpp"
+    }
+  ]
+}

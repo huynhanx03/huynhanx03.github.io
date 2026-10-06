@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3730",
+  "platform": "leetcode",
+  "id": "3730",
+  "title": "Maximum Subarray Sum After Multiplier",
+  "slug": "maximum-subarray-sum-after-multiplier",
+  "url": "https://leetcode.com/problems/maximum-subarray-sum-after-multiplier",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> and a positive integer <code>k</code>.</p>\n\n<p>You must choose <strong>exactly</strong> one <span>subarray</span> of <code>nums</code> and perform <strong>exactly</strong> one of the following operations:</p>\n\n<ol>\n\t<li>Multiply each number in the chosen subarray by <code>k</code>.</li>\n\t<li>Divide each number in the chosen subarray by <code>k</code>.\n\t<ul>\n\t\t<li>When dividing a positive number by <code>k</code>, use the <strong>floor</strong> value of the division result.</li>\n\t\t<li>When dividing a negative number by <code>k</code>, use the <strong>ceiling</strong> value of the division result.</li>\n\t</ul>\n\t</li>\n</ol>\n\n<p>Return the <strong>maximum</strong> possible sum of a <strong>non-empty</strong> subarray in the resulting array.</p>\n\n<p>Note that the subarray chosen for the operation and the subarray chosen for the sum may be <strong>different</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,-2,3,4,-5], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>14</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Multiply each number in the subarray <code>[3, 4]</code> by 2.</li>\n\t<li>This results in <code>nums = [1, -2, 6, 8, -5]</code>.</li>\n\t<li>The subarray with the largest sum is <code>[6, 8]</code>, so the output is <code>6 + 8 = 14</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [-5,-4,-3], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>-1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Divide each number in the subarray <code>[-3]</code> by 2.</li>\n\t<li>This results in <code>nums = [-5, -4, -1]</code>.</li>\n\t<li>The subarray with the largest sum is <code>[-1]</code>, so the output is -1.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>5</sup> &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3730-maximum-subarray-sum-after-multiplier/3730-maximum-subarray-sum-after-multiplier.cpp",
+      "source": "/*\n Problem: 3730. Maximum Subarray Sum After Multiplier\n Language: cpp\n Runtime: 46 ms (56.99%)\n Memory: 147.1 MB (45.28%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\nprivate:\n    long long solve(vector<int>& nums, int k, bool multiply) {\n        const long long INF = 4e18;\n\n        long long dp0 = 0;\n        long long dp1 = -INF;\n        long long dp2 = -INF;\n\n        long long ans = -INF;\n\n        for (const long long &x : nums) {\n            long long y = multiply ? x * k : x / k;\n\n            long long ndp0 = max(x, dp0 + x);\n            long long ndp1 = max({y, dp0 + y, dp1 + y});\n            long long ndp2 = max(dp1 + x, dp2 + x);\n\n            dp0 = ndp0;\n            dp1 = ndp1;\n            dp2 = ndp2;\n\n            ans = max({ans, dp1, dp2});\n        }\n\n        return ans;\n    }\n\n    long long kadane(vector<int>& nums) {\n        long long cur = 0;\n        long long ans = LLONG_MIN;\n\n        for (const auto& x : nums) {\n            cur = max((long long)x, cur + x);\n            ans = max(ans, cur);\n        }\n\n        return ans;\n    }\n\npublic:\n    long long maxSubarraySum(vector<int>& nums, int k) {\n        long long ans = kadane(nums);\n\n        ans = max(ans, solve(nums, k, true));\n        ans = max(ans, solve(nums, k, false));\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3730-maximum-subarray-sum-after-multiplier/3730-maximum-subarray-sum-after-multiplier.cpp"
+    }
+  ]
+}

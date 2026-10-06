@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:502",
+  "platform": "leetcode",
+  "id": "502",
+  "title": "IPO",
+  "slug": "ipo",
+  "url": "https://leetcode.com/problems/ipo",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Heap (Priority Queue)",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Suppose LeetCode will start its <strong>IPO</strong> soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the <strong>IPO</strong>. Since it has limited resources, it can only finish at most <code>k</code> distinct projects before the <strong>IPO</strong>. Help LeetCode design the best way to maximize its total capital after finishing at most <code>k</code> distinct projects.</p>\n\n<p>You are given <code>n</code> projects where the <code>i<sup>th</sup></code> project has a pure profit <code>profits[i]</code> and a minimum capital of <code>capital[i]</code> is needed to start it.</p>\n\n<p>Initially, you have <code>w</code> capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.</p>\n\n<p>Pick a list of <strong>at most</strong> <code>k</code> distinct projects from given projects to <strong>maximize your final capital</strong>, and return <em>the final maximized capital</em>.</p>\n\n<p>The answer is guaranteed to fit in a 32-bit signed integer.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> Since your initial capital is 0, you can only start the project indexed 0.\nAfter finishing it you will obtain profit 1 and your capital becomes 1.\nWith capital 1, you can either start the project indexed 1 or the project indexed 2.\nSince you can choose at most 2 projects, you need to finish the project indexed 2 to get the maximum capital.\nTherefore, output the final maximized capital, which is 0 + 1 + 3 = 4.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]\n<strong>Output:</strong> 6\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= w &lt;= 10<sup>9</sup></code></li>\n\t<li><code>n == profits.length</code></li>\n\t<li><code>n == capital.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= profits[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= capital[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/0502-ipo/0502-ipo.cpp",
+      "source": "/*\n Problem: 502. IPO\n Language: cpp\n Runtime: 50 ms (99.56%)\n Memory: 135.7 MB (16.01%)\n Tags: Array, Greedy, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {\n        vector<pair<int, int>> projects;\n\n        for (int i = 0; i < profits.size(); ++i) {\n            projects.emplace_back(capital[i], profits[i]);\n        }\n\n        sort(projects.begin(), projects.end());\n\n        int i = 0, n = projects.size();\n\n        while (k--> 0) {\n            while (i < n && projects[i].first <= w) {\n                addHeap({projects[i].second, projects[i].first});\n                ++i;\n            }\n\n            if (heap.empty()) break;\n\n            auto key = heap[0];\n            popHeap();\n\n            w += key.first;\n        }\n\n        return w;\n    }\n\nprivate:\n    vector<pair<int, int>> heap;\n\n    bool compare(pair<int, int>& a, pair<int, int>& b) {\n        return a.first < b.first;\n    }\n\n    int sizeHeap;\n\n    int parent(int i) { return (i - 1) >> 1; }\n\n    int left(int i) { return (i << 1) + 1; }\n\n    int right(int i) { return (i << 1) + 2; }\n\n    void heapify(int i) {\n        int l = left(i);\n        int r = right(i);\n\n        int cur = i;\n\n        if (l < sizeHeap && compare(heap[cur], heap[l])) {\n            cur = l;\n        }\n\n        if (r < sizeHeap && compare(heap[cur], heap[r])) {\n            cur = r;\n        }\n\n        if (cur != i) {\n            swap(heap[cur], heap[i]);\n            heapify(cur);\n        }\n    }\n\n    void addHeap(pair<int, int> p) {\n        heap.push_back(p);\n        sizeHeap = heap.size();\n        int i = sizeHeap - 1;\n        while (i > 0 && compare(heap[parent(i)], heap[i])) {\n            swap(heap[i], heap[parent(i)]);\n            i = parent(i);\n        }\n    }\n\n    void popHeap() {\n        swap(heap[0], heap[--sizeHeap]);\n        heapify(0);\n        heap.pop_back();\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0502-ipo/0502-ipo.cpp"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:74",
+  "platform": "leetcode",
+  "id": "74",
+  "title": "Search a 2D Matrix",
+  "slug": "search-a-2d-matrix",
+  "url": "https://leetcode.com/problems/search-a-2d-matrix",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Matrix"
+  ],
+  "statementHtml": "<p>You are given an <code>m x n</code> integer matrix <code>matrix</code> with the following two properties:</p>\n\n<ul>\n\t<li>Each row is sorted in non-decreasing order.</li>\n\t<li>The first integer of each row is greater than the last integer of the previous row.</li>\n</ul>\n\n<p>Given an integer <code>target</code>, return <code>true</code> <em>if</em> <code>target</code> <em>is in</em> <code>matrix</code> <em>or</em> <code>false</code> <em>otherwise</em>.</p>\n\n<p>You must write a solution in <code>O(log(m * n))</code> time complexity.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3\n<strong>Output:</strong> true\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13\n<strong>Output:</strong> false\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == matrix.length</code></li>\n\t<li><code>n == matrix[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 100</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= matrix[i][j], target &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0074-search-a-2d-matrix/0074-search-a-2d-matrix.cpp",
+      "source": "/*\n Problem: 74. Search a 2D Matrix\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.4 MB (7.86%)\n Tags: Array, Binary Search, Matrix\n*/\nclass Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        int n = matrix.size(), m = matrix[0].size();\n\n        int l = 0;\n        int r = n - 1;\n        int c = -1;\n\n        while (l <= r)\n        {\n            int mid = l + (r - l) / 2;\n            if (target >= matrix[mid][0]) {\n                l = mid + 1;\n                c = mid;\n            }\n            else\n                r = mid - 1;\n        }\n\n        c = c == -1 ? l : c;\n        l = 0;\n        r = m - 1;\n\n        while (l <= r)\n        {\n            int mid = l + (r - l) / 2;\n\n            if (target == matrix[c][mid])\n                return true;\n\n            if (target > matrix[c][mid])\n                l = mid + 1;\n            else\n                r = mid - 1;\n        }\n\n        return false;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0074-search-a-2d-matrix/0074-search-a-2d-matrix.cpp"
+    }
+  ]
+}

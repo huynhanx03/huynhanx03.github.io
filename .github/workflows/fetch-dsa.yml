@@ -1,0 +1,39 @@
+name: Sync DSA solutions
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.6.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26.10.0
+          cache: pnpm
+      - name: Install dependencies
+        run: make install
+      - name: Fetch and validate DSA data
+        run: make fetch-dsa
+        env:
+          LEETCODE_SESSION: ${{ secrets.LEETCODE_SESSION }}
+          LEETCODE_CSRF: ${{ secrets.LEETCODE_CSRF }}
+          DSA_SYNC_ARTIFACT_DIR: ${{ runner.temp }}/dsa-fetch-output
+      - name: Add sync summary
+        run: cat "${RUNNER_TEMP}/dsa-fetch-output/sync-summary.json" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: problem-solving-data
+          path: |
+            src/data/dsa-index.json
+            src/data/dsa/**
+            ${{ runner.temp }}/dsa-fetch-output/
+          if-no-files-found: error

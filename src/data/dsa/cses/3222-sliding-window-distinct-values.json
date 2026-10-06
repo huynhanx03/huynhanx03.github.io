@@ -1,0 +1,18 @@
+{
+  "key": "cses:3222",
+  "platform": "cses",
+  "id": "3222",
+  "slug": "sliding-window-distinct-values",
+  "title": "Sliding Window Distinct Values",
+  "url": "https://cses.fi/problemset/task/3222/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>You are given an array of <span>n</span> integers. Your task is to calculate the number of distinct values in each window of <span>k</span> elements, from left to right.</p>\n<h2>Input</h2>\n<p>The first line contains two integers <span>n</span> and <span>k</span>: the number of elements and the size of the window.</p>\n<p>Then there are <span>n</span> integers <span>x_1,x_2,\\ldots,x_n</span>: the contents of the array.</p>\n<h2>Output</h2>\n<p>Print <span>n-k+1</span> values: the numbers of distinct values.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le k \\le n \\le 2 \\cdot 10^5</span></li>\n<li><span>1 \\le x_i \\le 10^9</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>8 3\n1 2 3 2 5 2 2 2\n</pre>\n<p>Output:</p>\n<pre>3 2 3 2 2 1\n</pre></div>",
+  "solutions": [
+    {
+      "language": "Rust",
+      "relativePath": "cses/Sliding_Window_Problems/Sliding_Window_Distinct_Values.rs",
+      "source": "use std::collections::HashMap;\nuse std::io::{self, Read};\n\nfn main() {\n    let mut input = String::new();\n    if io::stdin().read_to_string(&mut input).is_err() {\n        return;\n    }\n    let mut scanner = input.split_whitespace();\n\n    let n: usize = scanner.next().unwrap().parse().unwrap();\n    let k: usize = scanner.next().unwrap().parse().unwrap();\n\n    let mut v: Vec<i64> = Vec::new();\n    for _ in 0..n {\n        v.push(scanner.next().unwrap().parse().unwrap());\n    }\n\n    let mut cnt: HashMap<i64, i64> = HashMap::new();\n\n    for i in 0..n {\n        *cnt.entry(v[i]).or_insert(0) += 1;\n\n        if i >= k {\n            *cnt.entry(v[i - k]).or_insert(0) -= 1;\n            if *cnt.get(&v[i - k]).unwrap() == 0 {\n                cnt.remove(&v[i - k]);\n            }\n        }\n\n        if i >= k - 1 {\n            print!(\"{} \", cnt.len());\n        }\n    }\n}\n\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Sliding_Window_Problems/Sliding_Window_Distinct_Values.rs"
+    }
+  ]
+}

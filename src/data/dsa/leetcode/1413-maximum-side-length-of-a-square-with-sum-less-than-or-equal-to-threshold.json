@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:1413",
+  "platform": "leetcode",
+  "id": "1413",
+  "title": "Maximum Side Length of a Square with Sum Less than or Equal to Threshold",
+  "slug": "maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold",
+  "url": "https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Matrix",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>Given a <code>m x n</code> matrix <code>mat</code> and an integer <code>threshold</code>, return <em>the maximum side-length of a square with a sum less than or equal to </em><code>threshold</code><em> or return </em><code>0</code><em> if there is no such square</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> mat = [[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], threshold = 4\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> The maximum side length of square with sum less than or equal to 4 is 2 as shown.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> mat = [[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2]], threshold = 1\n<strong>Output:</strong> 0\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == mat.length</code></li>\n\t<li><code>n == mat[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 300</code></li>\n\t<li><code>0 &lt;= mat[i][j] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= threshold &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1413-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/1413-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold.cpp",
+      "source": "/*\n Problem: 1413. Maximum Side Length of a Square with Sum Less than or Equal to Threshold\n Language: cpp\n Runtime: 8 ms (84.50%)\n Memory: 32.6 MB (89.30%)\n Tags: Array, Binary Search, Matrix, Prefix Sum\n*/\nclass Solution {\npublic:\n    int maxSideLength(vector<vector<int>>& mat, int threshold) {\n        int m = mat.size(), n = mat[0].size();\n        vector<vector<int>> pre(m + 1, vector<int>(n + 1, 0));\n\n        for (int i = 1; i <= m; ++i)\n            for (int j = 1; j <= n; ++j)\n                pre[i][j] = mat[i - 1][j - 1] + pre[i - 1][j] + pre[i][j - 1] - pre[i - 1][j - 1];\n\n        int ans = 0;\n        for (int k = 1; k <= min(m, n); ++k) {\n            bool ok = false;\n            for (int i = k; i <= m && !ok; ++i) {\n                for (int j = k; j <= n; ++j) {\n                    int sum = pre[i][j] - pre[i - k][j] - pre[i][j - k] + pre[i - k][j - k];\n                    if (sum <= threshold) {\n                        ok = true;\n                        break;\n                    }\n                }\n            }\n            if (ok) ans = k;\n            else break;\n        }\n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1413-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/1413-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold.cpp"
+    }
+  ]
+}

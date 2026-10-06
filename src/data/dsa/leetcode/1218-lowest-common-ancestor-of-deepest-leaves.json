@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:1218",
+  "platform": "leetcode",
+  "id": "1218",
+  "title": "Lowest Common Ancestor of Deepest Leaves",
+  "slug": "lowest-common-ancestor-of-deepest-leaves",
+  "url": "https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Tree",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Hash Table",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given the <code>root</code> of a binary tree, return <em>the lowest common ancestor of its deepest leaves</em>.</p>\n\n<p>Recall that:</p>\n\n<ul>\n\t<li>The node of a binary tree is a leaf if and only if it has no children</li>\n\t<li>The depth of the root of the tree is <code>0</code>. if the depth of a node is <code>d</code>, the depth of each of its children is <code>d + 1</code>.</li>\n\t<li>The lowest common ancestor of a set <code>S</code> of nodes, is the node <code>A</code> with the largest depth such that every node in <code>S</code> is in the subtree with root <code>A</code>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [3,5,1,6,2,0,8,null,null,7,4]\n<strong>Output:</strong> [2,7,4]\n<strong>Explanation:</strong> We return the node with value 2, colored in yellow in the diagram.\nThe nodes coloured in blue are the deepest leaf-nodes of the tree.\nNote that nodes 6, 0, and 8 are also leaf nodes, but the depth of them is 2, but the depth of nodes 7 and 4 is 3.</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [1]\n<strong>Output:</strong> [1]\n<strong>Explanation:</strong> The root is the deepest node in the tree, and it's the lca of itself.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> root = [0,1,3,null,2]\n<strong>Output:</strong> [2]\n<strong>Explanation:</strong> The deepest leaf node in the tree is 2, the lca of one node is itself.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree will be in the range <code>[1, 1000]</code>.</li>\n\t<li><code>0 &lt;= Node.val &lt;= 1000</code></li>\n\t<li>The values of the nodes in the tree are <strong>unique</strong>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Note:</strong> This question is the same as 865: <a href=\"https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/\" target=\"_blank\" rel=\"noopener noreferrer\">https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/</a></p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1218-lowest-common-ancestor-of-deepest-leaves/1218-lowest-common-ancestor-of-deepest-leaves.cpp",
+      "source": "/*\n Problem: 1218. Lowest Common Ancestor of Deepest Leaves\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 22.1 MB (67.82%)\n Tags: Hash Table, Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),\n * right(right) {}\n * };\n */\nclass Solution {\nprivate:\n    pair<int, TreeNode*> dfs(TreeNode* node) {\n        if (!node)\n            return {0, nullptr};\n\n        auto left = dfs(node->left);\n        auto right = dfs(node->right);\n\n        if (left.first == right.first) {\n            return {left.first + 1, node};\n        } else if (left.first > right.first) {\n            return {left.first + 1, left.second};\n        } else {\n            return {right.first + 1, right.second};\n        }\n    }\n\npublic:\n    TreeNode* lcaDeepestLeaves(TreeNode* root) { return dfs(root).second; }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1218-lowest-common-ancestor-of-deepest-leaves/1218-lowest-common-ancestor-of-deepest-leaves.cpp"
+    }
+  ]
+}

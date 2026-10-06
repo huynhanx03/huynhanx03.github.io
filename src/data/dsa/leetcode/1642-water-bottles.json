@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1642",
+  "platform": "leetcode",
+  "id": "1642",
+  "title": "Water Bottles",
+  "slug": "water-bottles",
+  "url": "https://leetcode.com/problems/water-bottles",
+  "difficulty": "Easy",
+  "topics": [
+    "Math",
+    "Simulation"
+  ],
+  "statementHtml": "<p>There are <code>numBottles</code> water bottles that are initially full of water. You can exchange <code>numExchange</code> empty water bottles from the market with one full water bottle.</p>\n\n<p>The operation of drinking a full water bottle turns it into an empty bottle.</p>\n\n<p>Given the two integers <code>numBottles</code> and <code>numExchange</code>, return <em>the <strong>maximum</strong> number of water bottles you can drink</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> numBottles = 9, numExchange = 3\n<strong>Output:</strong> 13\n<strong>Explanation:</strong> You can exchange 3 empty bottles to get 1 full water bottle.\nNumber of water bottles you can drink: 9 + 3 + 1 = 13.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> numBottles = 15, numExchange = 4\n<strong>Output:</strong> 19\n<strong>Explanation:</strong> You can exchange 4 empty bottles to get 1 full water bottle. \nNumber of water bottles you can drink: 15 + 3 + 1 = 19.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= numBottles &lt;= 100</code></li>\n\t<li><code>2 &lt;= numExchange &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1642-water-bottles/1642-water-bottles.cpp",
+      "source": "/*\n Problem: 1642. Water Bottles\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (78.78%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    int numWaterBottles(int numBottles, int numExchange) {\n        int totalDrunk = numBottles;\n        int empty = numBottles;\n\n        while (empty >= numExchange) {\n            int newFull = empty / numExchange;\n            totalDrunk += newFull;\n            empty = empty % numExchange + newFull;\n        }\n\n        return totalDrunk;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1642-water-bottles/1642-water-bottles.cpp"
+    }
+  ]
+}

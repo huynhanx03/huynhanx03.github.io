@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:205",
+  "platform": "leetcode",
+  "id": "205",
+  "title": "Isomorphic Strings",
+  "slug": "isomorphic-strings",
+  "url": "https://leetcode.com/problems/isomorphic-strings",
+  "difficulty": "Easy",
+  "topics": [
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>Given two strings <code>s</code> and <code>t</code>, <em>determine if they are isomorphic</em>.</p>\n\n<p>Two strings <code>s</code> and <code>t</code> are isomorphic if the characters in <code>s</code> can be replaced to get <code>t</code>.</p>\n\n<p>All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"egg\", t = \"add\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The strings <code>s</code> and <code>t</code> can be made identical by:</p>\n\n<ul>\n\t<li>Mapping <code>'e'</code> to <code>'a'</code>.</li>\n\t<li>Mapping <code>'g'</code> to <code>'d'</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"f11\", t = \"b23\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The strings <code>s</code> and <code>t</code> can not be made identical as <code>'1'</code> needs to be mapped to both <code>'2'</code> and <code>'3'</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"paper\", t = \"title\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>t.length == s.length</code></li>\n\t<li><code>s</code> and <code>t</code> consist of any valid ascii character.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0205-isomorphic-strings/0205-isomorphic-strings.cpp",
+      "source": "/*\n Problem: 205. Isomorphic Strings\n Language: cpp\n Runtime: 12 ms (6.72%)\n Memory: 9.5 MB (27.66%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    bool isIsomorphic(string s, string t) {\n        int nS = s.size();\n        int nT = s.size();\n\n        if (nS != nT)\n            return false;\n\n        map<char, int> pS;\n        map<char, int> pT;\n\n        for (int i = 0; i < nS; ++i) {\n            if (pS[s[i]] != pT[t[i]])\n                return false;\n\n            pS[s[i]] = i + 1;\n            pT[t[i]] = i + 1;\n        }\n\n        return true;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0205-isomorphic-strings/0205-isomorphic-strings.cpp"
+    }
+  ]
+}

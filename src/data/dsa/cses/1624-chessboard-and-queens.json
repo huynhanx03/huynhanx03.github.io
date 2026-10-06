@@ -1,0 +1,18 @@
+{
+  "key": "cses:1624",
+  "platform": "cses",
+  "id": "1624",
+  "slug": "chessboard-and-queens",
+  "title": "Chessboard and Queens",
+  "url": "https://cses.fi/problemset/task/1624/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>Your task is to place eight queens on a chessboard so that no two queens are attacking each other. As an additional challenge, each square is either free or reserved, and you can only place queens on the free squares. However, the reserved squares do not prevent queens from attacking each other.</p>\n<p>How many possible ways are there to place the queens?</p>\n<h2>Input</h2>\n<p>The input has eight lines, and each of them has eight characters. Each square is either free (<code>.</code>) or reserved (<code>*</code>).</p>\n<h2>Output</h2>\n<p>Print one integer: the number of ways you can place the queens.</p>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>........\n........\n..*.....\n........\n........\n.....**.\n...*....\n........\n</pre>\n<p>Output:</p>\n<pre>65\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Chessboard_and_Queens.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        vector <string> board(8);\n        for (auto& x : board) {\n            cin >> x;\n        }\n\n        int ans = 0;\n        \n        vector<int> col(8, 0);\n        vector<int> diag1(15, 0);\n        vector<int> diag2(15, 0);\n\n        auto dfs = [&](auto self, int i) -> void {\n            if (i == 8) {\n                ++ans;\n                return;\n            }\n\n            for (int j = 0; j < 8; ++j) {\n                if (board[i][j] == '*' || col[j] || diag1[i + j] || diag2[i - j + 7]) continue;\n                \n                col[j] = diag1[i + j] = diag2[i - j + 7] = 1;\n                self(self, i + 1);\n                col[j] = diag1[i + j] = diag2[i - j + 7] = 0;\n            }\n        };\n\n        dfs(dfs, 0);\n\n        cout << ans << '\\n';\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Chessboard_and_Queens.cpp"
+    }
+  ]
+}

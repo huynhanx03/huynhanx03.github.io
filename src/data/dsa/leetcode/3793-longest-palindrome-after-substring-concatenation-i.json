@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3793",
+  "platform": "leetcode",
+  "id": "3793",
+  "title": "Longest Palindrome After Substring Concatenation I",
+  "slug": "longest-palindrome-after-substring-concatenation-i",
+  "url": "https://leetcode.com/problems/longest-palindrome-after-substring-concatenation-i",
+  "difficulty": "Medium",
+  "topics": [
+    "Dynamic Programming",
+    "Enumeration",
+    "String",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given two strings, <code>s</code> and <code>t</code>.</p>\n\n<p>You can create a new string by selecting a <span>substring</span> from <code>s</code> (possibly empty) and a substring from <code>t</code> (possibly empty), then concatenating them <strong>in order</strong>.</p>\n\n<p>Return the length of the <strong>longest</strong> <span>palindrome</span> that can be formed this way.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"a\", t = \"a\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Concatenating <code>\"a\"</code> from <code>s</code> and <code>\"a\"</code> from <code>t</code> results in <code>\"aa\"</code>, which is a palindrome of length 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abc\", t = \"def\"</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Since all characters are different, the longest palindrome is any single character, so the answer is 1.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"b\", t = \"aaaa\"</span></p>\n\n<p><strong>Output:</strong> 4</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Selecting \"<code>aaaa</code>\" from <code>t</code> is the longest palindrome, so the answer is 4.</p>\n</div>\n\n<p><strong>Example 4:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abcde\", t = \"ecdba\"</span></p>\n\n<p><strong>Output:</strong> 5</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Concatenating <code>\"abc\"</code> from <code>s</code> and <code>\"ba\"</code> from <code>t</code> results in <code>\"abcba\"</code>, which is a palindrome of length 5.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length, t.length &lt;= 30</code></li>\n\t<li><code>s</code> and <code>t</code> consist of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3793-longest-palindrome-after-substring-concatenation-i/3793-longest-palindrome-after-substring-concatenation-i.cpp",
+      "source": "/*\n Problem: 3793. Longest Palindrome After Substring Concatenation I\n Language: cpp\n Runtime: 914 ms (50.74%)\n Memory: 216.8 MB (43.28%)\n Tags: Two Pointers, String, Dynamic Programming, Enumeration\n*/\nclass Solution {\nprivate:\n    bool isPalindrome(const string& str) {\n        int left = 0, right = str.size() - 1;\n        while (left < right) {\n            if (str[left] != str[right])\n                return false;\n            left++;\n            right--;\n        }\n        return true;\n    }\n\npublic:\n    int longestPalindrome(string s, string t) {\n        int maxLen = 0;\n        int n = s.size(), m = t.size();\n\n        for (int i = 0; i <= n; i++) {\n            for (int j = i; j <= n; j++) {\n                string subS = s.substr(i, j - i);\n\n                for (int k = 0; k <= m; k++) {\n                    for (int l = k; l <= m; l++) {\n                        string subT = t.substr(k, l - k);\n                        string combined = subS + subT;\n\n                        if (isPalindrome(combined)) {\n                            maxLen = max(maxLen, (int)combined.size());\n                        }\n                    }\n                }\n            }\n        }\n\n        return maxLen;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3793-longest-palindrome-after-substring-concatenation-i/3793-longest-palindrome-after-substring-concatenation-i.cpp"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:4160",
+  "platform": "leetcode",
+  "id": "4160",
+  "title": "Maximum Sum of Three Numbers Divisible by Three",
+  "slug": "maximum-sum-of-three-numbers-divisible-by-three",
+  "url": "https://leetcode.com/problems/maximum-sum-of-three-numbers-divisible-by-three",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Heap (Priority Queue)",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>Your task is to choose <strong>exactly three</strong> integers from <code>nums</code> such that their sum is divisible by three.</p>\n\n<p>Return the <strong>maximum</strong> possible sum of such a triplet. If no such triplet exists, return 0.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,2,3,1]</span></p>\n\n<p><strong>Output:</strong> <span>9</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The valid triplets whose sum is divisible by 3 are:</p>\n\n<ul>\n\t<li><code>(4, 2, 3)</code> with a sum of <code>4 + 2 + 3 = 9</code>.</li>\n\t<li><code>(2, 3, 1)</code> with a sum of <code>2 + 3 + 1 = 6</code>.</li>\n</ul>\n\n<p>Thus, the answer is 9.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,1,5]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>No triplet forms a sum divisible by 3, so the answer is 0.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4160-maximum-sum-of-three-numbers-divisible-by-three/4160-maximum-sum-of-three-numbers-divisible-by-three.cpp",
+      "source": "/*\n Problem: 4160. Maximum Sum of Three Numbers Divisible by Three\n Language: cpp\n Runtime: 236 ms (29.04%)\n Memory: 292.1 MB (14.48%)\n Tags: Array, Greedy, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    int maximumSum(vector<int>& nums) {\n        vector <vector<int>> dim(3);\n\n        for (const auto& x : nums) {\n            dim[x % 3].push_back(x);\n        }\n\n        int s = 0;\n        for (auto& d : dim) {\n            sort(d.rbegin(), d.rend());\n        }\n\n        if (dim[0].size() >= 3) {\n            s = max(s, dim[0][0] + dim[0][1] + dim[0][2]);\n        }\n\n        if (dim[1].size() >= 3) {\n            s = max(s, dim[1][0] + dim[1][1] + dim[1][2]);\n        }\n\n        if (dim[2].size() >= 3) {\n            s = max(s, dim[2][0] + dim[2][1] + dim[2][2]);\n        }\n\n        if (!dim[0].empty() && !dim[1].empty() && !dim[2].empty()) {\n            s = max(s, dim[0][0] + dim[1][0] + dim[2][0]);\n        }\n\n        return s;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4160-maximum-sum-of-three-numbers-divisible-by-three/4160-maximum-sum-of-three-numbers-divisible-by-three.cpp"
+    }
+  ]
+}

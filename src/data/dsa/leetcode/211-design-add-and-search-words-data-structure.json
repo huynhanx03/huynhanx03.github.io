@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:211",
+  "platform": "leetcode",
+  "id": "211",
+  "title": "Design Add and Search Words Data Structure",
+  "slug": "design-add-and-search-words-data-structure",
+  "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure",
+  "difficulty": "Medium",
+  "topics": [
+    "Depth-First Search",
+    "Design",
+    "String",
+    "Trie"
+  ],
+  "statementHtml": "<p>Design a data structure that supports adding new words and finding if a string matches any previously added string.</p>\n\n<p>Implement the <code>WordDictionary</code> class:</p>\n\n<ul>\n\t<li><code>WordDictionary()</code> Initializes the object.</li>\n\t<li><code>void addWord(word)</code> Adds <code>word</code> to the data structure, it can be matched later.</li>\n\t<li><code>bool search(word)</code> Returns <code>true</code> if there is any string in the data structure that matches <code>word</code> or <code>false</code> otherwise. <code>word</code> may contain dots <code>'.'</code> where dots can be matched with any letter.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example:</strong></p>\n\n<pre><strong>Input</strong>\n[\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"]\n[[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]\n<strong>Output</strong>\n[null,null,null,null,false,true,true,true]\n\n<strong>Explanation</strong>\nWordDictionary wordDictionary = new WordDictionary();\nwordDictionary.addWord(\"bad\");\nwordDictionary.addWord(\"dad\");\nwordDictionary.addWord(\"mad\");\nwordDictionary.search(\"pad\"); // return False\nwordDictionary.search(\"bad\"); // return True\nwordDictionary.search(\".ad\"); // return True\nwordDictionary.search(\"b..\"); // return True\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= word.length &lt;= 25</code></li>\n\t<li><code>word</code> in <code>addWord</code> consists of lowercase English letters.</li>\n\t<li><code>word</code> in <code>search</code> consist of <code>'.'</code> or lowercase English letters.</li>\n\t<li>There will be at most <code>2</code> dots in <code>word</code> for <code>search</code> queries.</li>\n\t<li>At most <code>10<sup>4</sup></code> calls will be made to <code>addWord</code> and <code>search</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0211-design-add-and-search-words-data-structure/0211-design-add-and-search-words-data-structure.cpp",
+      "source": "/*\n Problem: 211. Design Add and Search Words Data Structure\n Language: cpp\n Runtime: 386 ms (57.22%)\n Memory: 568.3 MB (37.71%)\n Tags: String, Depth-First Search, Design, Trie\n*/\nclass WordDictionary {\npublic:\n    WordDictionary() { root = new TrieNode; }\n\n    void addWord(string word) {\n        TrieNode* node = root;\n        for (char c : word) {\n            int index = c - 'a';\n\n            if (!node->children[index]) {\n                node->children[index] = new TrieNode();\n            }\n\n            node = node->children[index];\n        }\n\n        node->isEndOfWord = true;\n    }\n\n    bool search(string word) {\n        return searchInNode(word, root);\n    }\n\nprivate:\n    struct TrieNode {\n        TrieNode* children[26];\n        bool isEndOfWord;\n\n        TrieNode() {\n            isEndOfWord = false;\n            for (int i = 0; i < 26; ++i) {\n                children[i] = nullptr;\n            }\n        }\n    };\n\n    TrieNode* root;\n\n    bool searchInNode(string word, TrieNode* node) {\n        for (int i = 0; i < word.size(); ++i) {\n            char c = word[i];\n            if (c == '.') {\n                for (int j = 0; j < 26; ++j) {\n                    if (node->children[j] &&\n                        searchInNode(word.substr(i + 1), node->children[j])) {\n                        return true;\n                    }\n                }\n                return false;\n            } else {\n                int index = c - 'a';\n                if (!node->children[index]) {\n                    return false;\n                }\n                node = node->children[index];\n            }\n        }\n        return node->isEndOfWord;\n    }\n};\n\n/**\n * Your WordDictionary object will be instantiated and called as such:\n * WordDictionary* obj = new WordDictionary();\n * obj->addWord(word);\n * bool param_2 = obj->search(word);\n */",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0211-design-add-and-search-words-data-structure/0211-design-add-and-search-words-data-structure.cpp"
+    }
+  ]
+}

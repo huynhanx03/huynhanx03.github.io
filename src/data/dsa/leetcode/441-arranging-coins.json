@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:441",
+  "platform": "leetcode",
+  "id": "441",
+  "title": "Arranging Coins",
+  "slug": "arranging-coins",
+  "url": "https://leetcode.com/problems/arranging-coins",
+  "difficulty": "Easy",
+  "topics": [
+    "Binary Search",
+    "Math"
+  ],
+  "statementHtml": "<p>You have <code>n</code> coins and you want to build a staircase with these coins. The staircase consists of <code>k</code> rows where the <code>i<sup>th</sup></code> row has exactly <code>i</code> coins. The last row of the staircase <strong>may be</strong> incomplete.</p>\n\n<p>Given the integer <code>n</code>, return <em>the number of <strong>complete rows</strong> of the staircase you will build</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 5\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> Because the 3<sup>rd</sup> row is incomplete, we return 2.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 8\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> Because the 4<sup>th</sup> row is incomplete, we return 3.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0441-arranging-coins/0441-arranging-coins.cpp",
+      "source": "/*\n Problem: 441. Arranging Coins\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (35.85%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int arrangeCoins(int n) {\n        return static_cast<int>(sqrt(2.0 * static_cast<long>(n) + 0.25) - 0.5);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0441-arranging-coins/0441-arranging-coins.cpp"
+    }
+  ]
+}

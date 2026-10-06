@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:215",
+  "platform": "leetcode",
+  "id": "215",
+  "title": "Kth Largest Element in an Array",
+  "slug": "kth-largest-element-in-an-array",
+  "url": "https://leetcode.com/problems/kth-largest-element-in-an-array",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Divide and Conquer",
+    "Heap (Priority Queue)",
+    "Quickselect",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return <em>the</em> <code>k<sup>th</sup></code> <em>largest element in the array</em>.</p>\n\n<p>Note that it is the <code>k<sup>th</sup></code> largest element in the sorted order, not the <code>k<sup>th</sup></code> distinct element.</p>\n\n<p>Can you solve it without sorting?</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [3,2,1,5,6,4], k = 2\n<strong>Output:</strong> 5\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [3,2,3,1,2,4,5,5,6], k = 4\n<strong>Output:</strong> 4\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0215-kth-largest-element-in-an-array/0215-kth-largest-element-in-an-array.cpp",
+      "source": "/*\n Problem: 215. Kth Largest Element in an Array\n Language: cpp\n Runtime: 27 ms (68.42%)\n Memory: 59.3 MB (86.81%)\n Tags: Array, Divide and Conquer, Sorting, Heap (Priority Queue), Quickselect\n*/\nclass Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        buildHeap(nums);\n\n        for (int i = 0; i < k - 1; ++i) {\n            swap(nums[0], nums[--sizeHeap]);            \n            heapify(nums, 0);\n        }\n\n        return nums[0];\n    }\n\nprivate:\n    int sizeHeap;\n\n    int left(int i) {\n        return (i << 1) + 1;\n    }\n\n    int right(int i) {\n        return (i << 1) + 2;\n    }\n\n    void heapify(vector<int>& nums, int i) {\n        int l = left(i);\n        int r = right(i);\n\n        int cur = i;\n\n        if (l < sizeHeap && nums[l] > nums[cur]) {\n            cur = l;\n        }\n\n        if (r < sizeHeap && nums[r] > nums[cur]) {\n            cur = r;\n        }\n\n        if (cur != i) {\n            swap(nums[cur], nums[i]);\n            heapify(nums, cur);\n        }\n    }\n\n    void buildHeap(vector<int>& nums) {\n        sizeHeap = nums.size();\n\n        for (int i = (sizeHeap >> 1) - 1; i >= 0; --i) {\n            heapify(nums, i);\n        }\n    } \n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0215-kth-largest-element-in-an-array/0215-kth-largest-element-in-an-array.cpp"
+    }
+  ]
+}

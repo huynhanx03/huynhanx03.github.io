@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:98",
+  "platform": "leetcode",
+  "id": "98",
+  "title": "Validate Binary Search Tree",
+  "slug": "validate-binary-search-tree",
+  "url": "https://leetcode.com/problems/validate-binary-search-tree",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Search Tree",
+    "Binary Tree",
+    "Depth-First Search",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given the <code>root</code> of a binary tree, <em>determine if it is a valid binary search tree (BST)</em>.</p>\n\n<p>A <strong>valid BST</strong> is defined as follows:</p>\n\n<ul>\n\t<li>The left <span>subtree</span> of a node contains only nodes with keys <strong>strictly less than</strong> the node's key.</li>\n\t<li>The right subtree of a node contains only nodes with keys <strong>strictly greater than</strong> the node's key.</li>\n\t<li>Both the left and right subtrees must also be binary search trees.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [2,1,3]\n<strong>Output:</strong> true\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [5,1,4,null,null,3,6]\n<strong>Output:</strong> false\n<strong>Explanation:</strong> The root node's value is 5 but its right child's value is 4.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-2<sup>31</sup> &lt;= Node.val &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0098-validate-binary-search-tree/0098-validate-binary-search-tree.cpp",
+      "source": "/*\n Problem: 98. Validate Binary Search Tree\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 21.9 MB (44.74%)\n Tags: Tree, Depth-First Search, Binary Search Tree, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isValidBST(TreeNode* root) {\n        return valid(root, LONG_MIN, LONG_MAX);        \n    }\nprivate:\n    bool valid(TreeNode* node, long minimum, long maximum) {\n        if (!node) return true;\n\n        if (!(node->val > minimum && node->val < maximum)) return false;\n\n        return valid(node->left, minimum, node->val) && valid(node->right, node->val, maximum);\n    }    \n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0098-validate-binary-search-tree/0098-validate-binary-search-tree.cpp"
+    }
+  ]
+}

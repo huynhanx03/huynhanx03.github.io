@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:4086",
+  "platform": "leetcode",
+  "id": "4086",
+  "title": "Lexicographically Smallest String After Deleting Duplicate Characters",
+  "slug": "lexicographically-smallest-string-after-deleting-duplicate-characters",
+  "url": "https://leetcode.com/problems/lexicographically-smallest-string-after-deleting-duplicate-characters",
+  "difficulty": "Hard",
+  "topics": [
+    "Greedy",
+    "Hash Table",
+    "Monotonic Stack",
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> that consists of lowercase English letters.</p>\n\n<p>You can perform the following operation any number of times (possibly zero times):</p>\n\n<ul>\n\t<li>Choose any letter that appears <strong>at least twice</strong> in the current string <code>s</code> and delete any <strong>one</strong> occurrence.</li>\n</ul>\n\n<p>Return the <strong><span>lexicographically smallest</span></strong> resulting string that can be formed this way.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aaccb\"</span></p>\n\n<p><strong>Output:</strong> <span>\"aacb\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We can form the strings <code>\"acb\"</code>, <code>\"aacb\"</code>, <code>\"accb\"</code>, and <code>\"aaccb\"</code>. <code>\"aacb\"</code> is the lexicographically smallest one.</p>\n\n<p>For example, we can obtain <code>\"aacb\"</code> by choosing <code>'c'</code> and deleting its first occurrence.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"z\"</span></p>\n\n<p><strong>Output:</strong> <span>\"z\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We cannot perform any operations. The only string we can form is <code>\"z\"</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> contains lowercase English letters only.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/4086-lexicographically-smallest-string-after-deleting-duplicate-characters/4086-lexicographically-smallest-string-after-deleting-duplicate-characters.cpp",
+      "source": "/*\n Problem: 4086. Lexicographically Smallest String After Deleting Duplicate Characters\n Language: cpp\n Runtime: 104 ms (57.20%)\n Memory: 42.4 MB (28.44%)\n Tags: Hash Table, String, Stack, Greedy, Monotonic Stack\n*/\nclass Solution {\npublic:\n    string lexSmallestAfterDeletion(string s) {\n        vector <int> cnt(26);\n        for (const auto& c : s) ++cnt[c - 'a'];\n\n        string res = \"\";\n\n        vector <int> incnt(26);\n\n        for (const auto& c : s) {\n            --cnt[c - 'a'];\n            while (!res.empty() && res.back() > c) {\n                char top = res.back();\n                if (cnt[top - 'a'] > 0 || incnt[top - 'a'] > 1) {\n                    --incnt[top - 'a'];\n                    res.pop_back();\n                } else {\n                    break;\n                }\n            }\n\n            res.push_back(c);\n            ++incnt[c - 'a'];\n        }\n\n        while (!res.empty()) {\n            char b = res.back();\n            if (incnt[b - 'a'] > 1) {\n                --incnt[b - 'a'];\n                res.pop_back();\n            } else {\n                break;\n            }\n        }\n        \n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/4086-lexicographically-smallest-string-after-deleting-duplicate-characters/4086-lexicographically-smallest-string-after-deleting-duplicate-characters.cpp"
+    }
+  ]
+}

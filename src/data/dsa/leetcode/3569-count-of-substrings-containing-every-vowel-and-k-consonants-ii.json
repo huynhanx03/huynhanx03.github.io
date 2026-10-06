@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3569",
+  "platform": "leetcode",
+  "id": "3569",
+  "title": "Count of Substrings Containing Every Vowel and K Consonants II",
+  "slug": "count-of-substrings-containing-every-vowel-and-k-consonants-ii",
+  "url": "https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Sliding Window",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>word</code> and a <strong>non-negative</strong> integer <code>k</code>.</p>\n\n<p>Return the total number of <span>substrings</span> of <code>word</code> that contain every vowel (<code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, and <code>'u'</code>) <strong>at least</strong> once and <strong>exactly</strong> <code>k</code> consonants.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>word = \"aeioqq\", k = 1</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is no substring with every vowel.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>word = \"aeiou\", k = 0</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The only substring with every vowel and zero consonants is <code>word[0..4]</code>, which is <code>\"aeiou\"</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>word = \"</span>ieaouqqieaouqq<span>\", k = 1</span></p>\n\n<p><strong>Output:</strong> 3</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The substrings with every vowel and one consonant are:</p>\n\n<ul>\n\t<li><code>word[0..5]</code>, which is <code>\"ieaouq\"</code>.</li>\n\t<li><code>word[6..11]</code>, which is <code>\"qieaou\"</code>.</li>\n\t<li><code>word[7..12]</code>, which is <code>\"ieaouq\"</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>5 &lt;= word.length &lt;= 2 * 10<sup>5</sup></code></li>\n\t<li><code>word</code> consists only of lowercase English letters.</li>\n\t<li><code>0 &lt;= k &lt;= word.length - 5</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3569-count-of-substrings-containing-every-vowel-and-k-consonants-ii/3569-count-of-substrings-containing-every-vowel-and-k-consonants-ii.cpp",
+      "source": "/*\n Problem: 3569. Count of Substrings Containing Every Vowel and K Consonants II\n Language: cpp\n Runtime: 201 ms (43.04%)\n Memory: 30.6 MB (93.35%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\nprivate:\n    string vw = \"aeiou\";\n    long long countAtLeastK(string& w, int k) {\n        long long res = 0;\n        int j = 0, need = 0;\n        vector<int> cnt(6);\n\n        for (int i = 0; i < w.size(); ++i) {\n            int p = vw.find(w[i]) + 1;\n            need += ++cnt[p] == 1 && p;\n            while (need == 5 && cnt[0] >= k) {\n                res += w.size() - i;\n                int p = vw.find(w[j++]) + 1;\n                need -= --cnt[p] == 0 && p;\n            }\n        }\n        return res;\n    }\n\npublic:\n    long long countOfSubstrings(string w, int k) {\n        return countAtLeastK(w, k) - countAtLeastK(w, k + 1);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3569-count-of-substrings-containing-every-vowel-and-k-consonants-ii/3569-count-of-substrings-containing-every-vowel-and-k-consonants-ii.cpp"
+    }
+  ]
+}

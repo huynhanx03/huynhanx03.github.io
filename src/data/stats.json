@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-10-04T10:36:18.937Z",
+  "codeforces": {
+    "username": "nhan43",
+    "rating": 2021,
+    "rank": "candidate master",
+    "solved": 660
+  },
+  "leetcode": {
+    "username": "nhan43",
+    "rating": 1606.6088229258742,
+    "topPercentage": 23.58,
+    "solved": 821
+  },
+  "cses": {
+    "username": "nhan43",
+    "solved": 45
+  },
+  "vnoi": {
+    "username": "nhan43",
+    "solved": 352
+  },
+  "lqdoj": {
+    "username": "nhan43",
+    "solved": 161
+  },
+  "sources": {
+    "codeforces": "https://codeforces.com/api/user.status?handle=nhan43",
+    "leetcode": "https://leetcode.com/graphql",
+    "cses": "https://cses.fi/user/381920",
+    "vnoi": "https://oj.vnoi.info/user/nhan43",
+    "lqdoj": "https://lqdoj.edu.vn/user/nhan43/solved"
+  }
+}

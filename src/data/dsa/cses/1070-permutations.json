@@ -1,0 +1,18 @@
+{
+  "key": "cses:1070",
+  "platform": "cses",
+  "id": "1070",
+  "slug": "permutations",
+  "title": "Permutations",
+  "url": "https://cses.fi/problemset/task/1070/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>A permutation of integers <span>1,2,\\ldots,n</span> is called <em>beautiful</em> if there are no adjacent elements whose difference is <span>1</span>.</p>\n<p>Given <span>n</span>, construct a beautiful permutation if such a permutation exists.</p>\n<h2>Input</h2>\n<p>The only input line contains an integer <span>n</span>.</p>\n<h2>Output</h2>\n<p>Print a beautiful permutation of integers <span>1,2,\\ldots,n</span>. If there are several solutions, you may print any of them. If there are no solutions, print \"NO SOLUTION\".</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n \\le 10^6</span></li>\n</ul>\n<h2>Example 1</h2>\n<p>Input:</p>\n<pre>5\n</pre>\n<p>Output:</p>\n<pre>4 2 5 3 1\n</pre><h2>Example 2</h2>\n<p>Input:</p>\n<pre>3\n</pre>\n<p>Output:</p>\n<pre>NO SOLUTION\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Permutations.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        int n;\n        cin >> n;\n        \n        if (n == 1) {\n            cout << \"1\";\n            return;\n        }\n\n        if (n <= 3) {\n            cout << \"NO SOLUTION\";\n            return;\n        }\n\n        for (int i = 2; i <= n; i += 2) cout << i << \" \";\n        for (int i = 1; i <= n; i += 2) cout << i << \" \";\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        // INPUT\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Permutations.cpp"
+    }
+  ]
+}

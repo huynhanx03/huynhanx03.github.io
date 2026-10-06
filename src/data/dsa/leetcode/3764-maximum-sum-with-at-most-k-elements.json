@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:3764",
+  "platform": "leetcode",
+  "id": "3764",
+  "title": "Maximum Sum With at Most K Elements",
+  "slug": "maximum-sum-with-at-most-k-elements",
+  "url": "https://leetcode.com/problems/maximum-sum-with-at-most-k-elements",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Heap (Priority Queue)",
+    "Matrix",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a 2D integer matrix <code>grid</code> of size <code>n x m</code>, an integer array <code>limits</code> of length <code>n</code>, and an integer <code>k</code>. The task is to find the <strong>maximum sum</strong> of <strong>at most</strong> <code>k</code> elements from the matrix <code>grid</code> such that:</p>\n\n<ul>\n\t<li>\n\t<p>The number of elements taken from the <code>i<sup>th</sup></code> row of <code>grid</code> does not exceed <code>limits[i]</code>.</p>\n\t</li>\n</ul>\n\n<p>Return the <strong>maximum sum</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[1,2],[3,4]], limits = [1,2], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>7</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>From the second row, we can take at most 2 elements. The elements taken are 4 and 3.</li>\n\t<li>The maximum possible sum of at most 2 selected elements is <code>4 + 3 = 7</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[5,3,7],[8,2,6]], limits = [2,2], k = 3</span></p>\n\n<p><strong>Output:</strong> <span>21</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>From the first row, we can take at most 2 elements. The element taken is 7.</li>\n\t<li>From the second row, we can take at most 2 elements. The elements taken are 8 and 6.</li>\n\t<li>The maximum possible sum of at most 3 selected elements is <code>7 + 8 + 6 = 21</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == grid.length == limits.length</code></li>\n\t<li><code>m == grid[i].length</code></li>\n\t<li><code>1 &lt;= n, m &lt;= 500</code></li>\n\t<li><code>0 &lt;= grid[i][j] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= limits[i] &lt;= m</code></li>\n\t<li><code>0 &lt;= k &lt;= min(n * m, sum(limits))</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3764-maximum-sum-with-at-most-k-elements/3764-maximum-sum-with-at-most-k-elements.cpp",
+      "source": "/*\n Problem: 3764. Maximum Sum With at Most K Elements\n Language: cpp\n Runtime: 187 ms (42.36%)\n Memory: 133.9 MB (11.15%)\n Tags: Array, Greedy, Sorting, Heap (Priority Queue), Matrix\n*/\n#include <vector>\n#include <queue>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    long long maxSum(vector<vector<int>>& grid, vector<int>& limits, int k) {\n        priority_queue<pair<int, int>> pq;\n\n        for (int i = 0; i < grid.size(); i++) {\n            for (int j = 0; j < grid[i].size(); j++) {\n                pq.emplace(grid[i][j], i);\n            }\n        }\n\n        vector<int> count(grid.size(), 0); \n        long long sum = 0;\n\n        while (!pq.empty() && k > 0) {\n            auto [value, row] = pq.top(); pq.pop();\n            if (count[row] < limits[row]) {\n                sum += value;\n                count[row]++;\n                k--;\n            }\n        }\n\n        return sum;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3764-maximum-sum-with-at-most-k-elements/3764-maximum-sum-with-at-most-k-elements.cpp"
+    }
+  ]
+}

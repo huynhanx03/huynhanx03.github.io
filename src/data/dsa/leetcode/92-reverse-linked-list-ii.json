@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:92",
+  "platform": "leetcode",
+  "id": "92",
+  "title": "Reverse Linked List II",
+  "slug": "reverse-linked-list-ii",
+  "url": "https://leetcode.com/problems/reverse-linked-list-ii",
+  "difficulty": "Medium",
+  "topics": [
+    "Linked List"
+  ],
+  "statementHtml": "<p>Given the <code>head</code> of a singly linked list and two integers <code>left</code> and <code>right</code> where <code>left &lt;= right</code>, reverse the nodes of the list from position <code>left</code> to position <code>right</code>, and return <em>the reversed list</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,2,3,4,5], left = 2, right = 4\n<strong>Output:</strong> [1,4,3,2,5]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> head = [5], left = 1, right = 1\n<strong>Output:</strong> [5]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is <code>n</code>.</li>\n\t<li><code>1 &lt;= n &lt;= 500</code></li>\n\t<li><code>-500 &lt;= Node.val &lt;= 500</code></li>\n\t<li><code>1 &lt;= left &lt;= right &lt;= n</code></li>\n</ul>\n\n<p> </p>\n<strong>Follow up:</strong> Could you do it in one pass?",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0092-reverse-linked-list-ii/0092-reverse-linked-list-ii.cpp",
+      "source": "/*\n Problem: 92. Reverse Linked List II\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.1 MB (71.15%)\n Tags: Linked List\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseBetween(ListNode* head, int left, int right) {\n        if (!head || left == right)\n            return head;\n        \n        ListNode dummy(0);\n        dummy.next = head;\n        ListNode* prev = &dummy;\n        \n        for (int i = 1; i < left; ++i) {\n            prev = prev->next;\n        }\n\n        ListNode* curr = prev->next;\n        ListNode* next = nullptr;\n        \n        for (int i = 0; i < right - left; ++i) {\n            next = curr->next;\n            curr->next = next->next;\n            next->next = prev->next;\n            prev->next = next;\n        }\n\n        return dummy.next;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0092-reverse-linked-list-ii/0092-reverse-linked-list-ii.cpp"
+    }
+  ]
+}

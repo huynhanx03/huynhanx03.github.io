@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3811",
+  "platform": "leetcode",
+  "id": "3811",
+  "title": "Reverse Degree of a String",
+  "slug": "reverse-degree-of-a-string",
+  "url": "https://leetcode.com/problems/reverse-degree-of-a-string",
+  "difficulty": "Easy",
+  "topics": [
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code>, calculate its <strong>reverse degree</strong>.</p>\n\n<p>The <strong>reverse degree</strong> is calculated as follows:</p>\n\n<ol>\n\t<li>For each character, multiply its position in the <em>reversed</em> alphabet (<code>'a'</code> = 26, <code>'b'</code> = 25, ..., <code>'z'</code> = 1) with its position in the string <strong>(1-indexed)</strong>.</li>\n\t<li>Sum these products for all characters in the string.</li>\n</ol>\n\n<p>Return the <strong>reverse degree</strong> of <code>s</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abc\"</span></p>\n\n<p><strong>Output:</strong> <span>148</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<table>\n\t<tbody>\n\t\t<tr>\n\t\t\t<th>Letter</th>\n\t\t\t<th>Index in Reversed Alphabet</th>\n\t\t\t<th>Index in String</th>\n\t\t\t<th>Product</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'a'</code></td>\n\t\t\t<td>26</td>\n\t\t\t<td>1</td>\n\t\t\t<td>26</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'b'</code></td>\n\t\t\t<td>25</td>\n\t\t\t<td>2</td>\n\t\t\t<td>50</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'c'</code></td>\n\t\t\t<td>24</td>\n\t\t\t<td>3</td>\n\t\t\t<td>72</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p>The reversed degree is <code>26 + 50 + 72 = 148</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"zaza\"</span></p>\n\n<p><strong>Output:</strong> <span>160</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<table>\n\t<tbody>\n\t\t<tr>\n\t\t\t<th>Letter</th>\n\t\t\t<th>Index in Reversed Alphabet</th>\n\t\t\t<th>Index in String</th>\n\t\t\t<th>Product</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'z'</code></td>\n\t\t\t<td>1</td>\n\t\t\t<td>1</td>\n\t\t\t<td>1</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'a'</code></td>\n\t\t\t<td>26</td>\n\t\t\t<td>2</td>\n\t\t\t<td>52</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'z'</code></td>\n\t\t\t<td>1</td>\n\t\t\t<td>3</td>\n\t\t\t<td>3</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>'a'</code></td>\n\t\t\t<td>26</td>\n\t\t\t<td>4</td>\n\t\t\t<td>104</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p>The reverse degree is <code>1 + 52 + 3 + 104 = 160</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> contains only lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3811-reverse-degree-of-a-string/3811-reverse-degree-of-a-string.cpp",
+      "source": "/*\n Problem: 3811. Reverse Degree of a String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.7 MB (48.89%)\n Tags: String, Simulation\n*/\nclass Solution {\npublic:\n    int reverseDegree(string s) {\n        int cnt = 0;\n\n        for (int i = 0; i < s.size(); ++i) {\n            cnt += (26 - (s[i] - 'a')) * (i + 1);\n        }\n        \n        return cnt;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3811-reverse-degree-of-a-string/3811-reverse-degree-of-a-string.cpp"
+    }
+  ]
+}

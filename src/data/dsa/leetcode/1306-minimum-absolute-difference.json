@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1306",
+  "platform": "leetcode",
+  "id": "1306",
+  "title": "Minimum Absolute Difference",
+  "slug": "minimum-absolute-difference",
+  "url": "https://leetcode.com/problems/minimum-absolute-difference",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array of <strong>distinct</strong> integers <code>arr</code>, find all pairs of elements with the minimum absolute difference of any two elements.</p>\n\n<p>Return a list of pairs in ascending order(with respect to pairs), each pair <code>[a, b]</code> follows</p>\n\n<ul>\n\t<li><code>a, b</code> are from <code>arr</code></li>\n\t<li><code>a &lt; b</code></li>\n\t<li><code>b - a</code> equals to the minimum absolute difference of any two elements in <code>arr</code></li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> arr = [4,2,1,3]\n<strong>Output:</strong> [[1,2],[2,3],[3,4]]\n<strong>Explanation: </strong>The minimum absolute difference is 1. List all pairs with difference equal to 1 in ascending order.</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> arr = [1,3,6,10,15]\n<strong>Output:</strong> [[1,3]]\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> arr = [3,8,-10,23,19,-4,-14,27]\n<strong>Output:</strong> [[-14,-10],[19,23],[23,27]]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= arr.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>6</sup> &lt;= arr[i] &lt;= 10<sup>6</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1306-minimum-absolute-difference/1306-minimum-absolute-difference.cpp",
+      "source": "/*\n Problem: 1306. Minimum Absolute Difference\n Language: cpp\n Runtime: 15 ms (72.35%)\n Memory: 36.6 MB (66.36%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        sort(arr.begin(), arr.end());\n        int diff = arr[1] - arr[0];\n        vector<vector<int>> ans;\n        for (int i = 1; i < arr.size(); ++i) {\n            diff = min(diff, arr[i] - arr[i - 1]);\n        }\n        for (int i = 1; i < arr.size(); ++i) {\n            if (arr[i] - arr[i - 1] == diff) ans.push_back({arr[i - 1], arr[i]});\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1306-minimum-absolute-difference/1306-minimum-absolute-difference.cpp"
+    }
+  ]
+}

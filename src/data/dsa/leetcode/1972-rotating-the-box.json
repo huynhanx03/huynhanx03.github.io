@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1972",
+  "platform": "leetcode",
+  "id": "1972",
+  "title": "Rotating the Box",
+  "slug": "rotating-the-box",
+  "url": "https://leetcode.com/problems/rotating-the-box",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given an <code>m x n</code> matrix of characters <code>boxGrid</code> representing a side-view of a box. Each cell of the box is one of the following:</p>\n\n<ul>\n\t<li>A stone <code>'#'</code></li>\n\t<li>A stationary obstacle <code>'*'</code></li>\n\t<li>Empty <code>'.'</code></li>\n</ul>\n\n<p>The box is rotated <strong>90 degrees clockwise</strong>, causing some of the stones to fall due to gravity. Each stone falls down until it lands on an obstacle, another stone, or the bottom of the box. Gravity <strong>does not</strong> affect the obstacles' positions, and the inertia from the box's rotation <strong>does not </strong>affect the stones' horizontal positions.</p>\n\n<p>It is <strong>guaranteed</strong> that each stone in <code>boxGrid</code> rests on an obstacle, another stone, or the bottom of the box.</p>\n\n<p>Return <em>an </em><code>n x m</code><em> matrix representing the box after the rotation described above</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<p></p>\n\n<pre><strong>Input:</strong> boxGrid = [[\"#\",\".\",\"#\"]]\n<strong>Output:</strong> [[\".\"],\n         [\"#\"],\n         [\"#\"]]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<p></p>\n\n<pre><strong>Input:</strong> boxGrid = [[\"#\",\".\",\"*\",\".\"],\n              [\"#\",\"#\",\"*\",\".\"]]\n<strong>Output:</strong> [[\"#\",\".\"],\n         [\"#\",\"#\"],\n         [\"*\",\"*\"],\n         [\".\",\".\"]]\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<p></p>\n\n<pre><strong>Input:</strong> boxGrid = [[\"#\",\"#\",\"*\",\".\",\"*\",\".\"],\n              [\"#\",\"#\",\"#\",\"*\",\".\",\".\"],\n              [\"#\",\"#\",\"#\",\".\",\"#\",\".\"]]\n<strong>Output:</strong> [[\".\",\"#\",\"#\"],\n         [\".\",\"#\",\"#\"],\n         [\"#\",\"#\",\"*\"],\n         [\"#\",\"*\",\".\"],\n         [\"#\",\".\",\"*\"],\n         [\"#\",\".\",\".\"]]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == boxGrid.length</code></li>\n\t<li><code>n == boxGrid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 500</code></li>\n\t<li><code>boxGrid[i][j]</code> is either <code>'#'</code>, <code>'*'</code>, or <code>'.'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1972-rotating-the-box/1972-rotating-the-box.cpp",
+      "source": "/*\n Problem: 1972. Rotating the Box\n Language: cpp\n Runtime: 11 ms (63.34%)\n Memory: 56.9 MB (11.42%)\n Tags: Array, Two Pointers, Matrix\n*/\nclass Solution {\npublic:\n    vector<vector<char>> rotateTheBox(vector<vector<char>>& boxGrid) {\n        int m = boxGrid.size(), n = boxGrid[0].size();\n        vector<vector<char>> ans(n, vector<char>(m, '.'));\n\n        for (int i = 0; i < m; ++i) {\n            int pos = n - 1;\n            for (int j = n - 1; j >= 0; --j) {\n                if (boxGrid[i][j] == '*') {\n                    ans[j][m - 1 - i] = '*';\n                    pos = j - 1;\n                } else if (boxGrid[i][j] == '#') {\n                    ans[pos][m - 1 - i] = '#';\n                    --pos;\n                }\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1972-rotating-the-box/1972-rotating-the-box.cpp"
+    }
+  ]
+}

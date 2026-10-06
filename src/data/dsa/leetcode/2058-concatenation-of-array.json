@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2058",
+  "platform": "leetcode",
+  "id": "2058",
+  "title": "Concatenation of Array",
+  "slug": "concatenation-of-array",
+  "url": "https://leetcode.com/problems/concatenation-of-array",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Simulation"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code> of length <code>n</code>, you want to create an array <code>ans</code> of length <code>2n</code> where <code>ans[i] == nums[i]</code> and <code>ans[i + n] == nums[i]</code> for <code>0 &lt;= i &lt; n</code> (<strong>0-indexed</strong>).</p>\n\n<p>Specifically, <code>ans</code> is the <strong>concatenation</strong> of two <code>nums</code> arrays.</p>\n\n<p>Return <em>the array </em><code>ans</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2,1]\n<strong>Output:</strong> [1,2,1,1,2,1]\n<strong>Explanation:</strong> The array ans is formed as follows:\n- ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]]\n- ans = [1,2,1,1,2,1]</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,3,2,1]\n<strong>Output:</strong> [1,3,2,1,1,3,2,1]\n<strong>Explanation:</strong> The array ans is formed as follows:\n- ans = [nums[0],nums[1],nums[2],nums[3],nums[0],nums[1],nums[2],nums[3]]\n- ans = [1,3,2,1,1,3,2,1]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 1000</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/2058-concatenation-of-array/2058-concatenation-of-array.cpp",
+      "source": "/*\n Problem: 2058. Concatenation of Array\n Language: cpp\n Runtime: 3 ms (10.36%)\n Memory: 16.7 MB (94.77%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> getConcatenation(vector<int>& nums) {\n        int n = nums.size();\n        vector <int> ans(n * 2);\n\n        for (int i = 0; i < n; ++i) {\n            ans[i] = nums[i];\n            ans[i + n] = ans[i];\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2058-concatenation-of-array/2058-concatenation-of-array.cpp"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "key": "cses:1743",
+  "platform": "cses",
+  "id": "1743",
+  "slug": "string-reorder",
+  "title": "String Reorder",
+  "url": "https://cses.fi/problemset/task/1743/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>Your task is to reorder the characters of a string so that no two adjacent characters are the same. What is the lexicographically minimal such string?</p>\n<h2>Input</h2>\n<p>The only line has a string of length <span>n</span> consisting of characters A–Z.</p>\n<h2>Output</h2>\n<p>Print the lexicographically minimal reordered string where no two adjacent characters are the same. If it is not possible to create such a string, print <span>-1</span>.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n \\le 10^6</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>HATTIVATTI\n</pre>\n<p>Output:</p>\n<pre>AHATITITVT\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/String_Reorder.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        string s;\n        cin >> s;\n\n        vector <int> cnt(26, 0);\n        for (const auto& c : s) {\n            ++cnt[c - 'A'];\n        }\n\n        int n = s.size();\n        if (*max_element(cnt.begin(), cnt.end()) > (n + 1) / 2) {\n            cout << -1;\n            return;\n        }\n\n        string ans = \"\";\n        int prev = -1;\n\n        for (int pos = 0; pos < n; ++pos) {\n            for (int c = 0; c < 26; ++c) {\n                if (cnt[c] == 0) continue;\n                if (prev != -1 && c == prev) continue;\n\n                --cnt[c];\n\n                int rem = n - pos - 1;\n                int mx = *max_element(cnt.begin(), cnt.end());\n\n                if (mx <= (rem + 1) / 2) {\n                    ans += char(c + 'A');\n                    prev = c;\n                    break;\n                }\n\n                ++cnt[c];\n            }\n        }\n        cout << ans << '\\n';\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/String_Reorder.cpp"
+    }
+  ]
+}

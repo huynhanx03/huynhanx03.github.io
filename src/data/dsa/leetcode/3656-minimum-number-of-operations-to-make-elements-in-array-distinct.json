@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3656",
+  "platform": "leetcode",
+  "id": "3656",
+  "title": "Minimum Number of Operations to Make Elements in Array Distinct",
+  "slug": "minimum-number-of-operations-to-make-elements-in-array-distinct",
+  "url": "https://leetcode.com/problems/minimum-number-of-operations-to-make-elements-in-array-distinct",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>. You need to ensure that the elements in the array are <strong>distinct</strong>. To achieve this, you can perform the following operation any number of times:</p>\n\n<ul>\n\t<li>Remove 3 elements from the beginning of the array. If the array has fewer than 3 elements, remove all remaining elements.</li>\n</ul>\n\n<p><strong>Note</strong> that an empty array is considered to have distinct elements. Return the <strong>minimum</strong> number of operations needed to make the elements in the array distinct.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,4,2,3,3,5,7]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>In the first operation, the first 3 elements are removed, resulting in the array <code>[4, 2, 3, 3, 5, 7]</code>.</li>\n\t<li>In the second operation, the next 3 elements are removed, resulting in the array <code>[3, 5, 7]</code>, which has distinct elements.</li>\n</ul>\n\n<p>Therefore, the answer is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,5,6,4,4]</span></p>\n\n<p><strong>Output:</strong> 2</p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>In the first operation, the first 3 elements are removed, resulting in the array <code>[4, 4]</code>.</li>\n\t<li>In the second operation, all remaining elements are removed, resulting in an empty array.</li>\n</ul>\n\n<p>Therefore, the answer is 2.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [6,7,8,9]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The array already contains distinct elements. Therefore, the answer is 0.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3656-minimum-number-of-operations-to-make-elements-in-array-distinct/3656-minimum-number-of-operations-to-make-elements-in-array-distinct.cpp",
+      "source": "/*\n Problem: 3656. Minimum Number of Operations to Make Elements in Array Distinct\n Language: cpp\n Runtime: 3 ms (62.87%)\n Memory: 28.2 MB (43.38%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int minimumOperations(vector<int>& nums) {\n        map<int, pair<int, int>> mp;\n        int n = nums.size();\n        for (int i = 0; i < n; ++i) {\n            if (mp.find(nums[i]) == mp.end()) {\n                mp[nums[i]].first = -1;\n            } else {\n                mp[nums[i]].first = mp[nums[i]].second;\n            }\n            mp[nums[i]].second = i;\n        }\n\n        int mx = 0;\n\n        for (const auto& [v, p]: mp) {\n            mx = max(mx, p.first + 1);\n        }\n\n        return mx / 3 + (mx % 3 != 0);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3656-minimum-number-of-operations-to-make-elements-in-array-distinct/3656-minimum-number-of-operations-to-make-elements-in-array-distinct.cpp"
+    }
+  ]
+}

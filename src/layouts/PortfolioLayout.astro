@@ -1,0 +1,33 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import type { Locale } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  locale?: Locale;
+  alternateUrl?: string;
+  alternateUrls?: Partial<Record<Locale, string>>;
+  localeSwitchUrl?: string;
+  pagefindCategory?: string;
+  pagefindKind?: string;
+  openGraphType?: 'website' | 'article';
+  updated?: Date;
+  image?: string;
+  noindex?: boolean;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const props = Astro.props;
+---
+<BaseLayout {...props}>
+  <div class="site-frame">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader locale={props.locale ?? 'en'} localeSwitchUrl={props.localeSwitchUrl} />
+    <main id="main-content" class="site-main"><slot /></main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

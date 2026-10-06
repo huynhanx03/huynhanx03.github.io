@@ -1,0 +1,29 @@
+---
+import { absoluteSiteUrl, sitePath } from '../../lib/paths';
+
+interface Props { target: string; label?: string }
+const { target, label = 'Continue' } = Astro.props;
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const destination = target.startsWith('http') ? target : (base && target.startsWith(`${base}/`) ? target : sitePath(target));
+const canonical = target.startsWith('http') ? target : absoluteSiteUrl(destination, Astro.site ?? Astro.url);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="x-route-redirect" content={canonical} />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <link rel="canonical" href={canonical} />
+    <title>Redirecting</title>
+  </head>
+  <body>
+    <main class="container route-redirect">
+      <p>Redirecting…</p>
+    <a href={destination}>{label}</a>
+    </main>
+    <script is:inline define:vars={{ destination }}>
+      window.location.replace(destination);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4090",
+  "platform": "leetcode",
+  "id": "4090",
+  "title": "Minimum String Length After Balanced Removals",
+  "slug": "minimum-string-length-after-balanced-removals",
+  "url": "https://leetcode.com/problems/minimum-string-length-after-balanced-removals",
+  "difficulty": "Medium",
+  "topics": [
+    "Counting",
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting only of the characters <code>'a'</code> and <code>'b'</code>.</p>\n\n<p>You are allowed to repeatedly remove <strong>any <span>substring</span></strong> where the number of <code>'a'</code> characters is equal to the number of <code>'b'</code> characters. After each removal, the remaining parts of the string are concatenated together without gaps.</p>\n\n<p>Return an integer denoting the <strong>minimum possible length</strong> of the string after performing any number of such operations.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = <code>\"aabbab\"</code></span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The substring <code>\"aabbab\"</code> has three <code>'a'</code> and three <code>'b'</code>. Since their counts are equal, we can remove the entire string directly. The minimum length is 0.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = <code>\"aaaa\"</code></span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Every substring of <code>\"aaaa\"</code> contains only <code>'a'</code> characters. No substring can be removed as a result, so the minimum length remains 4.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = <code>\"aaabb\"</code></span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>First, remove the substring <code>\"ab\"</code>, leaving <code>\"aab\"</code>. Next, remove the new substring <code>\"ab\"</code>, leaving <code>\"a\"</code>. No further removals are possible, so the minimum length is 1.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s[i]</code> is either <code>'a'</code> or <code>'b'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4090-minimum-string-length-after-balanced-removals/4090-minimum-string-length-after-balanced-removals.cpp",
+      "source": "/*\n Problem: 4090. Minimum String Length After Balanced Removals\n Language: cpp\n Runtime: 1 ms (74.56%)\n Memory: 15.1 MB (33.77%)\n Tags: String, Stack, Counting\n*/\nclass Solution {\npublic:\n    int minLengthAfterRemovals(string s) {\n        vector<int>cnt(2, 0);\n        int n = s.size();\n        int ans = n;\n        for (int i = 0; i < n; ++i) {\n            ++cnt[s[i] - 'a'];\n\n            if (cnt[0] != 0 && cnt[1] != 0) {\n                int diff = min(cnt[0], cnt[1]);\n                ans -= diff * 2;\n                cnt[0] -= diff;\n                cnt[1] -= diff;\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4090-minimum-string-length-after-balanced-removals/4090-minimum-string-length-after-balanced-removals.cpp"
+    }
+  ]
+}

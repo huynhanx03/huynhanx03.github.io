@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3934",
+  "platform": "leetcode",
+  "id": "3934",
+  "title": "Coupon Code Validator",
+  "slug": "coupon-code-validator",
+  "url": "https://leetcode.com/problems/coupon-code-validator",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sorting",
+    "String"
+  ],
+  "statementHtml": "<p>You are given three arrays of length <code>n</code> that describe the properties of <code>n</code> coupons: <code>code</code>, <code>businessLine</code>, and <code>isActive</code>. The <code>i<sup>th</sup> </code>coupon has:</p>\n\n<ul>\n\t<li><code>code[i]</code>: a <strong>string</strong> representing the coupon identifier.</li>\n\t<li><code>businessLine[i]</code>: a <strong>string</strong> denoting the business category of the coupon.</li>\n\t<li><code>isActive[i]</code>: a <strong>boolean</strong> indicating whether the coupon is currently active.</li>\n</ul>\n\n<p>A coupon is considered <strong>valid</strong> if all of the following conditions hold:</p>\n\n<ol>\n\t<li><code>code[i]</code> is non-empty and consists only of alphanumeric characters (a-z, A-Z, 0-9) and underscores (<code>_</code>).</li>\n\t<li><code>businessLine[i]</code> is one of the following four categories: <code>\"electronics\"</code>, <code>\"grocery\"</code>, <code>\"pharmacy\"</code>, <code>\"restaurant\"</code>.</li>\n\t<li><code>isActive[i]</code> is <strong>true</strong>.</li>\n</ol>\n\n<p>Return an array of the <strong>codes</strong> of all valid coupons, <strong>sorted</strong> first by their <strong>businessLine</strong> in the order: <code>\"electronics\"</code>, <code>\"grocery\"</code>, <code>\"pharmacy\", \"restaurant\"</code>, and then by <strong>code</strong> in lexicographical (ascending) order within each category.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>code = [\"SAVE20\",\"\",\"PHARMA5\",\"SAVE@20\"], businessLine = [\"restaurant\",\"grocery\",\"pharmacy\",\"restaurant\"], isActive = [true,true,true,true]</span></p>\n\n<p><strong>Output:</strong> <span>[\"PHARMA5\",\"SAVE20\"]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>First coupon is valid.</li>\n\t<li>Second coupon has empty code (invalid).</li>\n\t<li>Third coupon is valid.</li>\n\t<li>Fourth coupon has special character <code>@</code> (invalid).</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>code = [\"GROCERY15\",\"ELECTRONICS_50\",\"DISCOUNT10\"], businessLine = [\"grocery\",\"electronics\",\"invalid\"], isActive = [false,true,true]</span></p>\n\n<p><strong>Output:</strong> <span>[\"ELECTRONICS_50\"]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>First coupon is inactive (invalid).</li>\n\t<li>Second coupon is valid.</li>\n\t<li>Third coupon has invalid business line (invalid).</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == code.length == businessLine.length == isActive.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 100</code></li>\n\t<li><code>0 &lt;= code[i].length, businessLine[i].length &lt;= 100</code></li>\n\t<li><code>code[i]</code> and <code>businessLine[i]</code> consist of printable ASCII characters.</li>\n\t<li><code>isActive[i]</code> is either <code>true</code> or <code>false</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Easy/3934-coupon-code-validator/3934-coupon-code-validator.py",
+      "source": "\"\"\"\n Problem: 3934. Coupon Code Validator\n Language: python3\n Runtime: 2 ms (95.72%)\n Memory: 18.2 MB (82.62%)\n Tags: Array, Hash Table, String, Sorting\n\"\"\"\nfrom typing import List\nimport re\n\nclass Solution:\n    def validateCoupons(\n        self,\n        code: List[str],\n        businessLine: List[str],\n        isActive: List[bool]\n    ) -> List[str]:\n\n        order = [\"electronics\", \"grocery\", \"pharmacy\", \"restaurant\"]\n        order_idx = {v: i for i, v in enumerate(order)}\n        valid_bl = set(order)\n        pattern = re.compile(r'^[A-Za-z0-9_]+$')\n\n        valid = []\n\n        for c, b, a in zip(code, businessLine, isActive):\n            if (\n                a\n                and b in valid_bl\n                and c\n                and pattern.match(c)\n            ):\n                valid.append((order_idx[b], c))\n\n        valid.sort()\n        return [c for _, c in valid]\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3934-coupon-code-validator/3934-coupon-code-validator.py"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:3612",
+  "platform": "leetcode",
+  "id": "3612",
+  "title": "Adjacent Increasing Subarrays Detection I",
+  "slug": "adjacent-increasing-subarrays-detection-i",
+  "url": "https://leetcode.com/problems/adjacent-increasing-subarrays-detection-i",
+  "difficulty": "Easy",
+  "topics": [
+    "Array"
+  ],
+  "statementHtml": "<p>Given an array <code>nums</code> of <code>n</code> integers and an integer <code>k</code>, determine whether there exist <strong>two</strong> <strong>adjacent</strong> <span>subarrays</span> of length <code>k</code> such that both subarrays are <strong>strictly</strong> <strong>increasing</strong>. Specifically, check if there are <strong>two</strong> subarrays starting at indices <code>a</code> and <code>b</code> (<code>a &lt; b</code>), where:</p>\n\n<ul>\n\t<li>Both subarrays <code>nums[a..a + k - 1]</code> and <code>nums[b..b + k - 1]</code> are <strong>strictly increasing</strong>.</li>\n\t<li>The subarrays must be <strong>adjacent</strong>, meaning <code>b = a + k</code>.</li>\n</ul>\n\n<p>Return <code>true</code> if it is <em>possible</em> to find <strong>two </strong>such subarrays, and <code>false</code> otherwise.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,5,7,8,9,2,3,4,3,1], k = 3</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The subarray starting at index <code>2</code> is <code>[7, 8, 9]</code>, which is strictly increasing.</li>\n\t<li>The subarray starting at index <code>5</code> is <code>[2, 3, 4]</code>, which is also strictly increasing.</li>\n\t<li>These two subarrays are adjacent, so the result is <code>true</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,4,4,4,4,5,6,7], k = 5</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt; 2 * k &lt;= nums.length</code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3612-adjacent-increasing-subarrays-detection-i/3612-adjacent-increasing-subarrays-detection-i.cpp",
+      "source": "/*\n Problem: 3612. Adjacent Increasing Subarrays Detection I\n Language: cpp\n Runtime: 13 ms (51.47%)\n Memory: 41.5 MB (5.72%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool hasIncreasingSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (n < 2 * k) return false;\n\n        vector<int> cnt(n, 0);\n        cnt[0] = 1;\n\n        for (int i = 1; i < n; ++i) {\n            cnt[i] = nums[i] > nums[i - 1] ? cnt[i - 1] + 1 : 1;\n        }\n\n        for (int i = k - 1; i <= n - k - 1; ++i) {\n            if (cnt[i] >= k && cnt[i + k] >= k) {\n                return true;\n            }\n        }\n\n        return false;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3612-adjacent-increasing-subarrays-detection-i/3612-adjacent-increasing-subarrays-detection-i.cpp"
+    }
+  ]
+}

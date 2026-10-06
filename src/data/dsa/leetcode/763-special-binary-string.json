@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:763",
+  "platform": "leetcode",
+  "id": "763",
+  "title": "Special Binary String",
+  "slug": "special-binary-string",
+  "url": "https://leetcode.com/problems/special-binary-string",
+  "difficulty": "Hard",
+  "topics": [
+    "Divide and Conquer",
+    "Sorting",
+    "String"
+  ],
+  "statementHtml": "<p><strong>Special binary strings</strong> are binary strings with the following two properties:</p>\n\n<ul>\n\t<li>The number of <code>0</code>'s is equal to the number of <code>1</code>'s.</li>\n\t<li>Every prefix of the binary string has at least as many <code>1</code>'s as <code>0</code>'s.</li>\n</ul>\n\n<p>You are given a <strong>special binary</strong> string <code>s</code>.</p>\n\n<p>A move consists of choosing two consecutive, non-empty, special substrings of <code>s</code>, and swapping them. Two strings are consecutive if the last character of the first string is exactly one index before the first character of the second string.</p>\n\n<p>Return <em>the lexicographically largest resulting string possible after applying the mentioned operations on the string</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"11011000\"\n<strong>Output:</strong> \"11100100\"\n<strong>Explanation:</strong> The strings \"10\" [occuring at s[1]] and \"1100\" [at s[3]] are swapped.\nThis is the lexicographically largest string possible after some number of swaps.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"10\"\n<strong>Output:</strong> \"10\"\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 50</code></li>\n\t<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>\n\t<li><code>s</code> is a special binary string.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Rust",
+      "relativePath": "leetcode/Hard/0763-special-binary-string/0763-special-binary-string.rs",
+      "source": "/*\n Problem: 763. Special Binary String\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.2 MB (32.25%)\n Tags: String, Divide and Conquer, Sorting\n*/\nimpl Solution {\n    pub fn make_largest_special(s: String) -> String {\n        let bytes = s.as_bytes();\n        let mut cnt = 0;\n        let mut l = 0;\n        let mut blocks : Vec<String> = Vec::new();\n        \n        for i in 0..bytes.len() {\n            cnt += if bytes[i] == b'1' { 1 } else { -1 };\n\n            if cnt == 0 {\n                let block = Self::make_largest_special(s[l+1..i].to_string());\n                blocks.push(format!(\"1{}0\", block));\n                l = i + 1;\n            }\n        }\n\n        blocks.sort_by(|a, b| b.cmp(a));\n\n        blocks.concat()\n    }\n}",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0763-special-binary-string/0763-special-binary-string.rs"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+---
+import PortfolioLayout from '../../../../layouts/PortfolioLayout.astro';
+import { getTopicGuides } from '../../../../content/notes/topic-guides';
+import { notePath, type NoteLocale } from '../../../../content/notes';
+import { getReadingStats } from '../../../../content/notes/reading-time';
+import { getNoteViews } from '../../../../lib/analytics/note-views';
+import { absoluteSiteUrl, sitePath } from '../../../../lib/paths';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls } from '../../../../lib/page-seo';
+import { getMessages, localizedSite, requireLocale } from '../../../../i18n';
+import { getSiteConfig } from '../../../../data/portfolio';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const locale of ['en', 'vi'] as const) {
+    const guides = await getTopicGuides(locale);
+    for (const guide of guides) paths.push({ params: { locale, slug: guide.slug }, props: { locale, slug: guide.slug } });
+  }
+  return paths;
+}
+
+const locale = requireLocale(Astro.props.locale) as NoteLocale;
+const { slug } = Astro.props as { locale: NoteLocale; slug: string };
+const copy = getMessages(locale);
+const site = localizedSite(getSiteConfig(), locale);
+const guide = (await getTopicGuides(locale)).find((candidate) => candidate.slug === slug);
+if (!guide) throw new Error(`Missing topic guide ${locale}/${slug}`);
+const urls = getLocalizedPageUrls(locale, `/notes/topics/${slug}`, Astro.site ?? Astro.url);
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: guide.title, description: guide.description, homeLabel: copy.nav.home, items: guide.steps.map((step) => ({ name: step.note.data.title, url: absoluteSiteUrl(notePath(step.note), Astro.site ?? Astro.url) })) });
+---
+<PortfolioLayout title={`${guide.title} | ${copy.notes.topic} | ${site.name}`} description={guide.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <article class="container topic-guide-page" data-topic-guide={guide.slug} data-topic-guide-total={guide.steps.length}>
+    <header class="topic-guide-page-header">
+      <a class="back-link" href={sitePath(`/${locale}/notes`)}>← {copy.notes.title}</a>
+      <p class="eyebrow">{copy.notes.topic}</p>
+      <h1>{guide.title}</h1>
+      <p class="topic-guide-intro">{guide.description}</p>
+      <p class="topic-guide-prerequisite"><strong>{copy.notes.prerequisites}:</strong> {guide.prerequisites}</p>
+      <div class="topic-guide-summary"><span>{guide.steps.length} {copy.notes.steps}</span><span>{guide.minutes} {copy.notes.minuteRead}</span></div>
+      <div class="topic-guide-progress-head"><span>{copy.notes.progress}</span><strong data-topic-guide-progress-count>0 / {guide.steps.length} {copy.notes.completed}</strong></div>
+      <div class="topic-guide-progress" role="progressbar" aria-label={copy.notes.progress} aria-valuemin="0" aria-valuemax={guide.steps.length} aria-valuenow="0" data-topic-guide-progress><span data-topic-guide-progress-fill></span></div>
+    </header>
+    <div class="topic-guide-sections">
+      {guide.sections.map((stage) => <section class="topic-guide-section" aria-labelledby={`stage-${stage.steps[0]?.order}`}>
+        <h2 id={`stage-${stage.steps[0]?.order}`}>{stage.title}</h2>
+        <ol class="topic-guide-steps">
+          {stage.steps.map((step) => {
+            const stats = getReadingStats(step.note.entry.body ?? '', locale);
+            const views = getNoteViews(notePath(step.note));
+            const formattedUpdatedAt = views ? new Date(`${views.updatedAt}T00:00:00`).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : null;
+            const checkboxId = `topic-guide-${slug}-${step.order}`;
+            return <li class="topic-guide-step" data-topic-guide-step-row>
+              <span class="topic-guide-step-number">{String(step.order).padStart(2, '0')}</span>
+              <div class="topic-guide-step-copy">
+                <a class="topic-guide-step-title" href={notePath(step.note)}>{step.note.data.title}</a>
+                {step.note.data.description && <p>{step.note.data.description}</p>}
+                <div class="topic-guide-step-meta"><span>{step.note.data.category}</span><span>{stats.minutes} {copy.notes.minuteRead}</span>{views && <span title={formattedUpdatedAt ? `${copy.notes.updated} ${formattedUpdatedAt}` : undefined}>{views.count.toLocaleString(locale === 'vi' ? 'vi-VN' : 'en-US')} {copy.notes.views}</span>}</div>
+              </div>
+              <label class="topic-guide-step-check" for={checkboxId}>
+                <input id={checkboxId} type="checkbox" data-topic-guide-check={step.note.translationKey} aria-label={`${copy.notes.completed}: ${step.note.data.title}`} />
+                <span aria-hidden="true"></span>
+              </label>
+            </li>;
+          })}
+        </ol>
+      </section>)}
+    </div>
+  </article>
+  <script is:inline>
+    const guide = document.querySelector('[data-topic-guide]');
+    const storageKey = `notes-topic-guide:${guide?.dataset.topicGuide}`;
+    const checks = [...document.querySelectorAll('[data-topic-guide-check]')];
+    const progress = document.querySelector('[data-topic-guide-progress]');
+    const progressFill = document.querySelector('[data-topic-guide-progress-fill]');
+    const progressCount = document.querySelector('[data-topic-guide-progress-count]');
+    let completed = new Set();
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      if (Array.isArray(saved)) completed = new Set(saved.filter((key) => typeof key === 'string'));
+    } catch {}
+    const updateProgress = () => {
+      const count = checks.filter((check) => check.checked).length;
+      progress.setAttribute('aria-valuenow', String(count));
+      progressCount.textContent = `${count} / ${checks.length} ${document.documentElement.lang === 'vi' ? 'đã hoàn thành' : 'completed'}`;
+      progressFill.style.width = `${checks.length ? (count / checks.length) * 100 : 0}%`;
+    };
+    checks.forEach((check) => {
+      check.checked = completed.has(check.dataset.topicGuideCheck);
+      check.addEventListener('change', () => {
+        if (check.checked) completed.add(check.dataset.topicGuideCheck);
+        else completed.delete(check.dataset.topicGuideCheck);
+        try { localStorage.setItem(storageKey, JSON.stringify([...completed])); } catch {}
+        updateProgress();
+      });
+    });
+    updateProgress();
+  </script>
+</PortfolioLayout>

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4009",
+  "platform": "leetcode",
+  "id": "4009",
+  "title": "Bitwise OR of Even Numbers in an Array",
+  "slug": "bitwise-or-of-even-numbers-in-an-array",
+  "url": "https://leetcode.com/problems/bitwise-or-of-even-numbers-in-an-array",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Bit Manipulation",
+    "Simulation"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>Return the bitwise <strong>OR</strong> of all <strong>even</strong> numbers in the array.</p>\n\n<p>If there are no even numbers in <code>nums</code>, return 0.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,4,5,6]</span></p>\n\n<p><strong>Output:</strong> <span>6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The even numbers are 2, 4, and 6. Their bitwise OR equals 6.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [7,9,11]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There are no even numbers, so the result is 0.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,8,16]</span></p>\n\n<p><strong>Output:</strong> <span>24</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The even numbers are 8 and 16. Their bitwise OR equals 24.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4009-bitwise-or-of-even-numbers-in-an-array/4009-bitwise-or-of-even-numbers-in-an-array.cpp",
+      "source": "/*\n Problem: 4009. Bitwise OR of Even Numbers in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 24.6 MB (37.87%)\n Tags: Array, Bit Manipulation, Simulation\n*/\nclass Solution {\npublic:\n    int evenNumberBitwiseORs(vector<int>& nums) {\n        int res = 0;\n        for (int x : nums) {\n            if (x % 2 == 0) res |= x;\n        }\n        return res;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4009-bitwise-or-of-even-numbers-in-an-array/4009-bitwise-or-of-even-numbers-in-an-array.cpp"
+    }
+  ]
+}

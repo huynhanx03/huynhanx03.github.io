@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3263",
+  "platform": "leetcode",
+  "id": "3263",
+  "title": "Divide an Array Into Subarrays With Minimum Cost I",
+  "slug": "divide-an-array-into-subarrays-with-minimum-cost-i",
+  "url": "https://leetcode.com/problems/divide-an-array-into-subarrays-with-minimum-cost-i",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Enumeration",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an array of integers <code>nums</code> of length <code>n</code>.</p>\n\n<p>The <strong>cost</strong> of an array is the value of its <strong>first</strong> element. For example, the cost of <code>[1,2,3]</code> is <code>1</code> while the cost of <code>[3,4,1]</code> is <code>3</code>.</p>\n\n<p>You need to divide <code>nums</code> into <code>3</code> <strong>disjoint contiguous </strong><span>subarrays</span>.</p>\n\n<p>Return <em>the <strong>minimum</strong> possible <strong>sum</strong> of the cost of these subarrays</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2,3,12]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The best possible way to form 3 subarrays is: [1], [2], and [3,12] at a total cost of 1 + 2 + 3 = 6.\nThe other possible ways to form 3 subarrays are:\n- [1], [2,3], and [12] at a total cost of 1 + 2 + 12 = 15.\n- [1,2], [3], and [12] at a total cost of 1 + 3 + 12 = 16.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [5,4,3]\n<strong>Output:</strong> 12\n<strong>Explanation:</strong> The best possible way to form 3 subarrays is: [5], [4], and [3] at a total cost of 5 + 4 + 3 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [10,3,1,1]\n<strong>Output:</strong> 12\n<strong>Explanation:</strong> The best possible way to form 3 subarrays is: [10,3], [1], and [1] at a total cost of 10 + 1 + 1 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= n &lt;= 50</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 50</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3263-divide-an-array-into-subarrays-with-minimum-cost-i/3263-divide-an-array-into-subarrays-with-minimum-cost-i.cpp",
+      "source": "/*\n Problem: 3263. Divide an Array Into Subarrays With Minimum Cost I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.6 MB (45.03%)\n Tags: Array, Sorting, Enumeration\n*/\nclass Solution {\npublic:\n    int minimumCost(vector<int>& nums) {\n        int minPrefix = nums[1];\n        int ans = INT_MAX;\n        \n        for (int i = 2; i < nums.size(); i++) {\n            ans = min(ans, nums[0] + minPrefix + nums[i]);\n            minPrefix = min(minPrefix, nums[i]);\n        }\n        \n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3263-divide-an-array-into-subarrays-with-minimum-cost-i/3263-divide-an-array-into-subarrays-with-minimum-cost-i.cpp"
+    }
+  ]
+}

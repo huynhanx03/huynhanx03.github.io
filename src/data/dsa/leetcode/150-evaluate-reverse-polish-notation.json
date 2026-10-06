@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:150",
+  "platform": "leetcode",
+  "id": "150",
+  "title": "Evaluate Reverse Polish Notation",
+  "slug": "evaluate-reverse-polish-notation",
+  "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Math",
+    "Stack"
+  ],
+  "statementHtml": "<p>You are given an array of strings <code>tokens</code> that represents an arithmetic expression in a <a href=\"http://en.wikipedia.org/wiki/Reverse_Polish_notation\" target=\"_blank\" rel=\"noopener noreferrer\">Reverse Polish Notation</a>.</p>\n\n<p>Evaluate the expression. Return <em>an integer that represents the value of the expression</em>.</p>\n\n<p><strong>Note</strong> that:</p>\n\n<ul>\n\t<li>The valid operators are <code>'+'</code>, <code>'-'</code>, <code>'*'</code>, and <code>'/'</code>.</li>\n\t<li>Each operand may be an integer or another expression.</li>\n\t<li>The division between two integers always <strong>truncates toward zero</strong>.</li>\n\t<li>There will not be any division by zero.</li>\n\t<li>The input represents a valid arithmetic expression in a reverse polish notation.</li>\n\t<li>The answer and all the intermediate calculations can be represented in a <strong>32-bit</strong> integer.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> tokens = [\"2\",\"1\",\"+\",\"3\",\"*\"]\n<strong>Output:</strong> 9\n<strong>Explanation:</strong> ((2 + 1) * 3) = 9\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> tokens = [\"4\",\"13\",\"5\",\"/\",\"+\"]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> (4 + (13 / 5)) = 6\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> tokens = [\"10\",\"6\",\"9\",\"3\",\"+\",\"-11\",\"*\",\"/\",\"*\",\"17\",\"+\",\"5\",\"+\"]\n<strong>Output:</strong> 22\n<strong>Explanation:</strong> ((10 * (6 / ((9 + 3) * -11))) + 17) + 5\n= ((10 * (6 / (12 * -11))) + 17) + 5\n= ((10 * (6 / -132)) + 17) + 5\n= ((10 * 0) + 17) + 5\n= (0 + 17) + 5\n= 17 + 5\n= 22\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= tokens.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>tokens[i]</code> is either an operator: <code>\"+\"</code>, <code>\"-\"</code>, <code>\"*\"</code>, or <code>\"/\"</code>, or an integer in the range <code>[-200, 200]</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0150-evaluate-reverse-polish-notation/0150-evaluate-reverse-polish-notation.cpp",
+      "source": "/*\n Problem: 150. Evaluate Reverse Polish Notation\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.2 MB (15.37%)\n Tags: Array, Math, Stack\n*/\nclass Solution {\npublic:\n    int evalRPN(vector<string>& tokens) {\n        stack<double> st;\n\n        for (auto& x : tokens) {\n            if (x == \"+\" || x == \"-\" || x == \"*\" || x == \"/\") {\n                int num1 = st.top();\n                st.pop();\n\n                int num2 = st.top();\n                st.pop();\n\n                int result = 0;\n\n                if (x == \"+\") {\n                    result = num1 + num2;\n                } else if (x == \"-\") {\n                    result = num2 - num1;\n                } else if (x == \"*\") {\n                    result = num1 * num2;\n                } else if (x == \"/\") {\n                    result = num2 / num1;\n                }\n\n                st.push(result);\n\n            } else {\n                st.push(stoi(x));\n            }\n        }\n\n        return st.top();\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0150-evaluate-reverse-polish-notation/0150-evaluate-reverse-polish-notation.cpp"
+    }
+  ]
+}

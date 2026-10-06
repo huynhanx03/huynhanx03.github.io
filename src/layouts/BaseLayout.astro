@@ -1,0 +1,115 @@
+---
+import '../styles/global.css';
+import { absoluteSiteUrl, sitePath } from '../lib/paths';
+import type { Locale } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  locale?: Locale;
+  alternateUrl?: string;
+  alternateUrls?: Partial<Record<Locale, string>>;
+  localeSwitchUrl?: string;
+  pagefindCategory?: string;
+  pagefindKind?: string;
+  openGraphType?: 'website' | 'article';
+  updated?: Date;
+  image?: string;
+  noindex?: boolean;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = absoluteSiteUrl('/', Astro.site ?? Astro.url),
+  locale = 'en',
+  alternateUrl,
+  alternateUrls = {},
+  pagefindCategory,
+  pagefindKind,
+  openGraphType = 'website',
+  updated,
+  image = '/images/og-default.png',
+  noindex = false,
+  structuredData,
+} = Astro.props;
+const absoluteImage = image.startsWith('http') ? image : absoluteSiteUrl(image, Astro.site ?? Astro.url);
+const otherLocale = locale === 'en' ? 'vi' : 'en';
+const languageAlternates = { ...alternateUrls, ...(alternateUrl ? { [otherLocale]: alternateUrl } : {}), [locale]: canonicalUrl } as Partial<Record<Locale, string>>;
+const defaultEnglish = languageAlternates.en ?? canonicalUrl;
+const robots = noindex ? 'noindex, nofollow' : 'index, follow';
+const goatCounterCode = import.meta.env.PUBLIC_GOATCOUNTER_CODE?.trim();
+const localeCode = locale === 'vi' ? 'vi_VN' : 'en_US';
+const alternateLocaleCode = locale === 'vi' ? 'en_US' : 'vi_VN';
+const hasAlternateLocale = Boolean(languageAlternates[otherLocale]);
+const jsonLd = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]).map((schema) => ({ '@context': 'https://schema.org', ...schema })) : [];
+---
+<!doctype html>
+<html lang={locale} dir="ltr" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Huỳnh Mai Cao Nhân" />
+    <meta name="description" content={description} />
+    <meta data-pagefind-meta="title" content={title} />
+    {pagefindCategory && <meta data-pagefind-meta="category" content={pagefindCategory} />}
+    {pagefindKind && <meta data-pagefind-meta="kind" content={pagefindKind} />}
+    <meta name="robots" content={robots} />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
+    {!noindex && Object.entries(languageAlternates).map(([language, href]) => href && <link rel="alternate" hreflang={language} href={href} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={defaultEnglish} />}
+    <link rel="icon" type="image/svg+xml" href={sitePath('/favicon.svg')} />
+    <link rel="alternate" type="application/atom+xml" title={locale === 'vi' ? 'Ghi chú — Atom feed' : 'Notes — Atom feed'} href={sitePath(locale === 'vi' ? '/atom-vi.xml' : '/atom.xml')} />
+    <meta property="og:type" content={openGraphType} />
+    <meta property="og:site_name" content="Huỳnh Mai Cao Nhân" />
+    <meta property="og:locale" content={localeCode} />
+    {hasAlternateLocale && <meta property="og:locale:alternate" content={alternateLocaleCode} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={title} />
+    {updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImage} />
+    <meta name="twitter:image:alt" content={title} />
+    <title>{title}</title>
+    {jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+    <script is:inline>
+      const themeKey = 'portfolio-theme';
+      let stored;
+      try {
+        stored = localStorage.getItem(themeKey);
+      } catch {}
+      const prefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches ?? false;
+      document.documentElement.dataset.theme = stored === 'light' || stored === 'dark'
+        ? stored
+        : prefersLight ? 'light' : 'dark';
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(document.documentElement.dataset.theme === 'light'));
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem('portfolio-theme', next);
+          } catch {}
+          button.setAttribute('aria-pressed', String(next === 'light'));
+        });
+      });
+    </script>
+    {goatCounterCode && <script is:inline async data-goatcounter={`https://${goatCounterCode}.goatcounter.com/count`} src="https://gc.zgo.at/count.js"></script>}
+  </body>
+</html>

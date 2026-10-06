@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:4089",
+  "platform": "leetcode",
+  "id": "4089",
+  "title": "Maximize Points After Choosing K Tasks",
+  "slug": "maximize-points-after-choosing-k-tasks",
+  "url": "https://leetcode.com/problems/maximize-points-after-choosing-k-tasks",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Heap (Priority Queue)",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given two integer arrays, <code>technique1</code> and <code>technique2</code>, each of length <code>n</code>, where <code>n</code> represents the number of tasks to complete.</p>\n\n<ul>\n\t<li>If the <code>i<sup>th</sup></code> task is completed using technique 1, you earn <code>technique1[i]</code> points.</li>\n\t<li>If it is completed using technique 2, you earn <code>technique2[i]</code> points.</li>\n</ul>\n\n<p>You are also given an integer <code>k</code>, representing the <strong>minimum</strong> number of tasks that <strong>must</strong> be completed using technique 1.</p>\n\n<p>You <strong>must</strong> complete <strong>at least</strong> <code>k</code> tasks using technique 1 (they do not need to be the first <code>k</code> tasks).</p>\n\n<p>The remaining tasks may be completed using <strong>either</strong> technique.</p>\n\n<p>Return an integer denoting the <strong>maximum total points</strong> you can earn.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>technique1 = [5,2,10], technique2 = [10,3,8], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>22</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We must complete at least <code>k = 2</code> tasks using <code>technique1</code>.</p>\n\n<p>Choosing <code>technique1[1]</code> and <code>technique1[2]</code> (completed using technique 1), and <code>technique2[0]</code> (completed using technique 2), yields the maximum points: <code>2 + 10 + 10 = 22</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>technique1 = [10,20,30], technique2 = [5,15,25], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>60</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We must complete at least <code>k = 2</code> tasks using <code>technique1</code>.</p>\n\n<p>Choosing all tasks using technique 1 yields the maximum points: <code>10 + 20 + 30 = 60</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>technique1 = [1,2,3], technique2 = [4,5,6], k = 0</span></p>\n\n<p><strong>Output:</strong> <span>15</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Since <code>k = 0</code>, we are not required to choose any task using <code>technique1</code>.</p>\n\n<p>Choosing all tasks using technique 2 yields the maximum points: <code>4 + 5 + 6 = 15</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == technique1.length == technique2.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= technique1[i], technique2​​​​​​​[i] &lt;= 10<sup>​​​​​​​5</sup></code></li>\n\t<li><code>0 &lt;= k &lt;= n</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4089-maximize-points-after-choosing-k-tasks/4089-maximize-points-after-choosing-k-tasks.cpp",
+      "source": "/*\n Problem: 4089. Maximize Points After Choosing K Tasks\n Language: cpp\n Runtime: 48 ms (72.47%)\n Memory: 213.8 MB (75.56%)\n Tags: Array, Greedy, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    long long maxPoints(vector<int>& technique1, vector<int>& technique2, int k) {\n        int n = technique1.size();\n        vector<long long> gain(n);\n        long long base = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            base += technique2[i];\n            gain[i] = (long long) technique1[i] - technique2[i];\n        }\n\n        sort(gain.begin(), gain.end(), greater<long long>());\n        for (int i = 0; i < k; ++i) {\n            base += gain[i];\n        }\n\n        for (int i = k; i < n; ++i) {\n            if (gain[i] > 0) base += gain[i];\n        }\n\n        return base;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4089-maximize-points-after-choosing-k-tasks/4089-maximize-points-after-choosing-k-tasks.cpp"
+    }
+  ]
+}

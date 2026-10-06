@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1064",
+  "platform": "leetcode",
+  "id": "1064",
+  "title": "Smallest Integer Divisible by K",
+  "slug": "smallest-integer-divisible-by-k",
+  "url": "https://leetcode.com/problems/smallest-integer-divisible-by-k",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Math"
+  ],
+  "statementHtml": "<p>Given a positive integer <code>k</code>, you need to find the <strong>length</strong> of the <strong>smallest</strong> positive integer <code>n</code> such that <code>n</code> is divisible by <code>k</code>, and <code>n</code> only contains the digit <code>1</code>.</p>\n\n<p>Return <em>the <strong>length</strong> of </em><code>n</code>. If there is no such <code>n</code>, return -1.</p>\n\n<p><strong>Note:</strong> <code>n</code> may not fit in a 64-bit signed integer.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> k = 1\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The smallest answer is n = 1, which has length 1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> k = 2\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> There is no such positive integer n divisible by 2.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> k = 3\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The smallest answer is n = 111, which has length 3.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1064-smallest-integer-divisible-by-k/1064-smallest-integer-divisible-by-k.cpp",
+      "source": "/*\n Problem: 1064. Smallest Integer Divisible by K\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (52.35%)\n Tags: Hash Table, Math\n*/\nclass Solution {\npublic:\n    int smallestRepunitDivByK(int k) {\n        if (k % 2 == 0 || k % 5 == 0)\n            return -1;\n\n        int remainder = 0;\n        for (int len = 1; len <= k; ++len) {\n            remainder = (remainder * 10 + 1) % k;\n            if (remainder == 0)\n                return len;\n        }\n        return -1;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1064-smallest-integer-divisible-by-k/1064-smallest-integer-divisible-by-k.cpp"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1834",
+  "platform": "leetcode",
+  "id": "1834",
+  "title": "Minimum Number of People to Teach",
+  "slug": "minimum-number-of-people-to-teach",
+  "url": "https://leetcode.com/problems/minimum-number-of-people-to-teach",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Hash Table"
+  ],
+  "statementHtml": "<p>On a social network consisting of <code>m</code> users and some friendships between users, two users can communicate with each other if they know a common language.</p>\n\n<p>You are given an integer <code>n</code>, an array <code>languages</code>, and an array <code>friendships</code> where:</p>\n\n<ul>\n\t<li>There are <code>n</code> languages numbered <code>1</code> through <code>n</code>,</li>\n\t<li><code>languages[i]</code> is the set of languages the <code>i<sup>​​​​​​th</sup></code>​​​​ user knows, and</li>\n\t<li><code>friendships[i] = [u<sub>​​​​​​i</sub>​​​, v<sub>​​​​​​i</sub>]</code> denotes a friendship between the users <code>u<sup>​​​​​</sup><sub>​​​​​​i</sub></code>​​​​​ and <code>v<sub>i</sub></code>.</li>\n</ul>\n\n<p>You can choose <strong>one</strong> language and teach it to some users so that all friends can communicate with each other. Return <i>the</i> <i><strong>minimum</strong> </i><i>number of users you need to teach.</i></p>\nNote that friendships are not transitive, meaning if <code>x</code> is a friend of <code>y</code> and <code>y</code> is a friend of <code>z</code>, this doesn't guarantee that <code>x</code> is a friend of <code>z</code>.\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 2, languages = [[1],[2],[1,2]], friendships = [[1,2],[1,3],[2,3]]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> You can either teach user 1 the second language or user 2 the first language.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 3, languages = [[2],[1,3],[1,2],[3]], friendships = [[1,4],[1,2],[3,4],[2,3]]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> Teach the third language to users 1 and 3, yielding two users to teach.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n &lt;= 500</code></li>\n\t<li><code>languages.length == m</code></li>\n\t<li><code>1 &lt;= m &lt;= 500</code></li>\n\t<li><code>1 &lt;= languages[i].length &lt;= n</code></li>\n\t<li><code>1 &lt;= languages[i][j] &lt;= n</code></li>\n\t<li><code>1 &lt;= u<sub>​​​​​​i</sub> &lt; v<sub>​​​​​​i</sub> &lt;= languages.length</code></li>\n\t<li><code>1 &lt;= friendships.length &lt;= 500</code></li>\n\t<li>All tuples <code>(u<sub>​​​​​i, </sub>v<sub>​​​​​​i</sub>)</code> are unique</li>\n\t<li><code>languages[i]</code> contains only unique values</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1834-minimum-number-of-people-to-teach/1834-minimum-number-of-people-to-teach.cpp",
+      "source": "/*\n Problem: 1834. Minimum Number of People to Teach\n Language: cpp\n Runtime: 231 ms (48.84%)\n Memory: 152.9 MB (33.72%)\n Tags: Array, Hash Table, Greedy\n*/\nclass Solution {\npublic:\n    int minimumTeachings(int n, vector<vector<int>>& languages, vector<vector<int>>& friendships) {\n        int m = languages.size();\n        vector<unordered_set<int>> knows(m);\n        for (int i = 0; i < m; i++) {\n            for (int lang : languages[i]) knows[i].insert(lang);\n        }\n        vector<pair<int,int>> conflicts;\n        for (auto &fr : friendships) {\n            int u = fr[0] - 1, v = fr[1] - 1;\n            bool ok = false;\n            for (int lang : knows[u]) {\n                if (knows[v].count(lang)) {\n                    ok = true;\n                    break;\n                }\n            }\n            if (!ok) conflicts.push_back({u,v});\n        }\n        if (conflicts.empty()) return 0;\n        int ans = INT_MAX;\n        for (int lang = 1; lang <= n; lang++) {\n            unordered_set<int> needTeach;\n            for (auto &p : conflicts) {\n                if (!knows[p.first].count(lang)) needTeach.insert(p.first);\n                if (!knows[p.second].count(lang)) needTeach.insert(p.second);\n            }\n            ans = min(ans, (int)needTeach.size());\n        }\n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1834-minimum-number-of-people-to-teach/1834-minimum-number-of-people-to-teach.cpp"
+    }
+  ]
+}

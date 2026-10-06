@@ -1,0 +1,26 @@
+{
+  "key": "leetcode:268",
+  "platform": "leetcode",
+  "id": "268",
+  "title": "Missing Number",
+  "slug": "missing-number",
+  "url": "https://leetcode.com/problems/missing-number",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Bit Manipulation",
+    "Hash Table",
+    "Math",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array <code>nums</code> containing <code>n</code> distinct numbers in the range <code>[0, n]</code>, return <em>the only number in the range that is missing from the array.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,0,1]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>n = 3</code> since there are 3 numbers, so all numbers are in the range <code>[0,3]</code>. 2 is the missing number in the range since it does not appear in <code>nums</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [0,1]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>n = 2</code> since there are 2 numbers, so all numbers are in the range <code>[0,2]</code>. 2 is the missing number in the range since it does not appear in <code>nums</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [9,6,4,2,3,5,7,0,1]</span></p>\n\n<p><strong>Output:</strong> <span>8</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>n = 9</code> since there are 9 numbers, so all numbers are in the range <code>[0,9]</code>. 8 is the missing number in the range since it does not appear in <code>nums</code>.</p>\n</div>\n\n<div>\n<div>\n<div> </div>\n\n<div>\n<div>\n<div> </div>\n\n<div>\n<p> </p>\n\n<p> </p>\n</div>\n</div>\n</div>\n</div>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= n</code></li>\n\t<li>All the numbers of <code>nums</code> are <strong>unique</strong>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Follow up:</strong> Could you implement a solution using only <code>O(1)</code> extra space complexity and <code>O(n)</code> runtime complexity?</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0268-missing-number/0268-missing-number.cpp",
+      "source": "/*\n Problem: 268. Missing Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 21.8 MB (69.50%)\n Tags: Array, Hash Table, Math, Binary Search, Bit Manipulation, Sorting\n*/\nclass Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        int n = nums.size();\n        int sum = n * (n + 1) / 2;\n\n        for (const auto& num : nums) {\n            sum -= num;\n        }\n\n        return sum;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0268-missing-number/0268-missing-number.cpp"
+    }
+  ]
+}

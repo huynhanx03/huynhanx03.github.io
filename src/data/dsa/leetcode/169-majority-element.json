@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:169",
+  "platform": "leetcode",
+  "id": "169",
+  "title": "Majority Element",
+  "slug": "majority-element",
+  "url": "https://leetcode.com/problems/majority-element",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Counting",
+    "Divide and Conquer",
+    "Hash Table",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array <code>nums</code> of size <code>n</code>, return <em>the majority element</em>.</p>\n\n<p>The majority element is the element that appears more than <code>⌊n / 2⌋</code> times. You may assume that the majority element always exists in the array.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [3,2,3]\n<strong>Output:</strong> 3\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [2,2,1,1,1,2,2]\n<strong>Output:</strong> 2\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li>The input is generated such that a majority element will exist in the array.</li>\n</ul>\n\n<p> </p>\n<strong>Follow-up:</strong> Could you solve the problem in linear time and in <code>O(1)</code> space?",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0169-majority-element/0169-majority-element.cpp",
+      "source": "/*\n Problem: 169. Majority Element\n Language: cpp\n Runtime: 10 ms (8.17%)\n Memory: 27.1 MB (99.97%)\n Tags: Array, Hash Table, Divide and Conquer, Sorting, Counting\n*/\nclass Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        map<int, int> mp;\n\n        for (auto& num : nums)\n            ++mp[num];\n\n        int cnt = 0;\n        int ans = -1;\n\n        for (auto& it : mp) {\n            if (it .second > cnt) {\n                cnt = it .second;\n                ans = it .first;\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0169-majority-element/0169-majority-element.cpp"
+    }
+  ]
+}

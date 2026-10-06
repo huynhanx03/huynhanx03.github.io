@@ -1,0 +1,15 @@
+---
+import LocaleRedirect from '../../components/layout/LocaleRedirect.astro';
+import { getAllNotes } from '../../content/notes';
+import { localizedPath, isLocale, type Locale } from '../../i18n';
+
+export async function getStaticPaths() {
+  const notes = await getAllNotes();
+  return notes.map((note) => ({ params: { locale: note.locale, slug: note.slug }, props: { locale: note.locale as Locale, slug: note.slug } }));
+}
+
+const locale = Astro.props.locale as Locale;
+const slug = Astro.props.slug as string;
+if (!isLocale(locale)) throw new Error(`Unsupported locale: ${locale}`);
+---
+<LocaleRedirect target={localizedPath(locale, `/notes/${slug}`)} label={locale === 'vi' ? 'Mở ghi chú' : 'Open note'} />

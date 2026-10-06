@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:3983",
+  "platform": "leetcode",
+  "id": "3983",
+  "title": "Minimum Operations to Equalize Binary String",
+  "slug": "minimum-operations-to-equalize-binary-string",
+  "url": "https://leetcode.com/problems/minimum-operations-to-equalize-binary-string",
+  "difficulty": "Hard",
+  "topics": [
+    "Breadth-First Search",
+    "Math",
+    "Ordered Set",
+    "String",
+    "Union-Find"
+  ],
+  "statementHtml": "<p>You are given a binary string <code>s</code>, and an integer <code>k</code>.</p>\n\n<p>In one operation, you must choose <strong>exactly</strong> <code>k</code> <strong>different</strong> indices and <strong>flip</strong> each <code>'0'</code> to <code>'1'</code> and each <code>'1'</code> to <code>'0'</code>.</p>\n\n<p>Return the <strong>minimum</strong> number of operations required to make all characters in the string equal to <code>'1'</code>. If it is not possible, return -1.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"110\", k = 1</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>There is one <code>'0'</code> in <code>s</code>.</li>\n\t<li>Since <code>k = 1</code>, we can flip it directly in one operation.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"0101\", k = 3</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>One optimal set of operations choosing <code>k = 3</code> indices in each operation is:</p>\n\n<ul>\n\t<li><strong>Operation 1</strong>: Flip indices <code>[0, 1, 3]</code>. <code>s</code> changes from <code>\"0101\"</code> to <code>\"1000\"</code>.</li>\n\t<li><strong>Operation 2</strong>: Flip indices <code>[1, 2, 3]</code>. <code>s</code> changes from <code>\"1000\"</code> to <code>\"1111\"</code>.</li>\n</ul>\n\n<p>Thus, the minimum number of operations is 2.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"101\", k = 2</span></p>\n\n<p><strong>Output:</strong> <span>-1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Since <code>k = 2</code> and <code>s</code> has only one <code>'0'</code>, it is impossible to flip exactly <code>k</code> indices to make all <code>'1'</code>. Hence, the answer is -1.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>​​​​​​​5</sup></code></li>\n\t<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>\n\t<li><code>1 &lt;= k &lt;= s.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/3983-minimum-operations-to-equalize-binary-string/3983-minimum-operations-to-equalize-binary-string.cpp",
+      "source": "/*\n Problem: 3983. Minimum Operations to Equalize Binary String\n Language: cpp\n Runtime: 3 ms (81.17%)\n Memory: 19.1 MB (66.94%)\n Tags: Math, String, Breadth-First Search, Union-Find, Ordered Set\n*/\nclass Solution {\npublic:\n    int minOperations(string s, int k) {\n        int n = s.size();\n        \n        int z = 0;\n        for (const auto& c : s) {\n            z += ~c & 1;\n        }\n\n        if (!z) {\n            return 0;\n        }\n\n        if (k == n) {\n            return ((z == n) << 1) - 1;\n        }\n\n        int base = n - k;\n\n        int odd = max(\n            (z + k - 1) / k,\n            (n - z + base - 1) / base\n        );\n        odd += ~odd & 1;\n\n        int even = max(\n            (z + k - 1) / k,\n            (z + base - 1) / base\n        );\n        even += even & 1;\n\n        int ans = INT_MAX;\n\n        if ((k & 1) == (z & 1)) {\n            ans = min(ans, odd);\n        }\n\n        if (~z & 1) {\n            ans = min(ans, even);\n        }\n\n        return ans == INT_MAX ? -1 : ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/3983-minimum-operations-to-equalize-binary-string/3983-minimum-operations-to-equalize-binary-string.cpp"
+    }
+  ]
+}

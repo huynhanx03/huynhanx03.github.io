@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:41",
+  "platform": "leetcode",
+  "id": "41",
+  "title": "First Missing Positive",
+  "slug": "first-missing-positive",
+  "url": "https://leetcode.com/problems/first-missing-positive",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Hash Table"
+  ],
+  "statementHtml": "<p>Given an unsorted integer array <code>nums</code>. Return the <em>smallest positive integer</em> that is <em>not present</em> in <code>nums</code>.</p>\n\n<p>You must implement an algorithm that runs in <code>O(n)</code> time and uses <code>O(1)</code> auxiliary space.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2,0]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The numbers in the range [1,2] are all in the array.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [3,4,-1,1]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> 1 is in the array but 2 is missing.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [7,8,9,11,12]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The smallest positive integer 1 is missing.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/0041-first-missing-positive/0041-first-missing-positive.cpp",
+      "source": "/*\n Problem: 41. First Missing Positive\n Language: cpp\n Runtime: 4 ms (42.91%)\n Memory: 55.1 MB (62.65%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        int n = nums.size();\n        \n        // loại <= 0, > n\n        for (auto&num: nums) {\n            if (num <= 0 || num > n) num = n + 1;\n        }\n\n        // gán giá trị âm để\n        // giá trị âm thì i tại đó không nhận\n        for (const auto&num: nums) {\n            int v = abs(num);\n\n            if (v <= n) {\n                // đảm bảo luôn âm khi đã có value v\n                nums[v - 1] = -abs(nums[v - 1]);\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            if (nums[i] > 0) return i + 1;\n        }\n\n        return n + 1;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0041-first-missing-positive/0041-first-missing-positive.cpp"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+---
+import PortfolioLayout from '../../../layouts/PortfolioLayout.astro';
+import index from '../../../data/dsa-index.json';
+import { Code } from 'astro:components';
+const details = import.meta.glob('../../../data/dsa/**/*.json', { eager: true, import: 'default' }) as Record<string, Record<string, any>>;
+import { getMessages, localizedSite, requireLocale } from '../../../i18n';
+import { getSiteConfig } from '../../../data/portfolio';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls } from '../../../lib/page-seo';
+
+export async function getStaticPaths() {
+  return ['en', 'vi'].flatMap((locale) => (index as { problems: Array<{ key: string }> }).problems.map((problem) => ({ params: { locale, key: encodeURIComponent(problem.key) }, props: { locale } })));
+}
+const locale = requireLocale(Astro.props.locale);
+const key = decodeURIComponent(Astro.params.key ?? '');
+const summary = (index as { problems: Array<{ key: string; slug: string }> }).problems.find((problem) => problem.key === key);
+if (!summary) throw new Error(`Missing generated problem summary: ${key}`);
+const detailKey = `../../../data/dsa/${key.split(':')[0]}/${key.slice(key.indexOf(':') + 1)}-${summary.slug}.json`;
+const problem = details[detailKey] as {
+  key: string; platform: string; id: string; slug: string; title: string; url: string; difficulty?: string; topics: string[];
+  statementHtml: string; solutions: Array<{ language: string; relativePath: string; source: string }>;
+};
+if (!problem) throw new Error(`Missing generated problem detail: ${detailKey}`);
+const copy = getMessages(locale).problemSolving;
+const platformName = problem.platform === 'leetcode' ? copy.leetcode : copy.cses;
+const site = localizedSite(getSiteConfig(), locale);
+const urls = getLocalizedPageUrls(locale, `/problem-solving/${encodeURIComponent(key)}`, Astro.site ?? Astro.url);
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: problem.title, description: `${problem.title} — ${copy.statement}`, homeLabel: getMessages(locale).nav.home, type: 'WebPage' });
+const shikiLanguages = { 'C++': 'cpp', Java: 'java', Python: 'python', Rust: 'rust' } as const;
+---
+<PortfolioLayout title={`${problem.title} | ${copy.title}`} description={`${problem.title} — ${copy.statement}`} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas} openGraphType="article">
+  <article class="container ps-detail">
+    <a class="ps-back" href={`/${locale}/problem-solving/`}>← {copy.back}</a>
+    <header class="ps-detail-header">
+      <div class="ps-detail-topline">
+        <p class="ps-eyebrow">{platformName} <span>·</span> {problem.id}{problem.difficulty && <span class:list={['ps-difficulty', 'ps-header-difficulty', `difficulty-${problem.difficulty.toLowerCase()}`]}>{problem.difficulty}</span>}</p>
+        <a class="ps-original-link" href={problem.url} target="_blank" rel="noopener noreferrer" aria-label={copy.openProblem} title={copy.openProblem}><span aria-hidden="true">↗</span></a>
+      </div>
+      <h1>{problem.title}</h1>
+      {problem.topics.length > 0 && <div class="ps-detail-meta">{problem.topics.map((topic) => <span class="ps-topic-tag">{topic}</span>)}</div>}
+    </header>
+    <section class="ps-statement-section">
+      <h2>{copy.statement}</h2>
+      <div class="ps-statement" set:html={problem.statementHtml} />
+    </section>
+    <section class="ps-solutions-section">
+      <div class="ps-section-heading ps-solutions-heading"><p class="ps-eyebrow">{copy.solutions}</p><span>{problem.solutions.length} {problem.solutions.length === 1 ? copy.solution : copy.solutions}</span></div>
+      <div class="ps-solution-switcher" data-solution-switcher>
+        <div class="ps-language-tabs" role="tablist" aria-label={copy.language}>
+          {problem.solutions.map((solution, index) => <button type="button" class="ps-language-tab" id={`solution-${index}-tab`} role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`solution-${index}-panel`} tabindex={index === 0 ? 0 : -1} data-solution-tab={index}>{solution.language}</button>)}
+        </div>
+        {problem.solutions.map((solution, index) => <div class="ps-code-panel" id={`solution-${index}-panel`} role="tabpanel" aria-labelledby={`solution-${index}-tab`} tabindex="0" data-solution-panel hidden={index !== 0}>
+          <div class="ps-code-wrap"><Code code={solution.source} lang={shikiLanguages[solution.language as keyof typeof shikiLanguages] ?? 'plaintext'} themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} /></div>
+        </div>)}
+      </div>
+    </section>
+  </article>
+  <script>
+    const switcher = document.querySelector<HTMLElement>('[data-solution-switcher]');
+    const tabs = [...(switcher?.querySelectorAll<HTMLButtonElement>('[data-solution-tab]') ?? [])];
+    const panels = [...(switcher?.querySelectorAll<HTMLElement>('[data-solution-panel]') ?? [])];
+    const activate = (index: number, moveFocus = false) => {
+      tabs.forEach((tab, tabIndex) => {
+        const selected = tabIndex === index;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        panels[tabIndex].hidden = !selected;
+      });
+      if (moveFocus) tabs[index]?.focus();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activate(index));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') { event.preventDefault(); activate((index + 1) % tabs.length, true); }
+        if (event.key === 'ArrowLeft') { event.preventDefault(); activate((index - 1 + tabs.length) % tabs.length, true); }
+        if (event.key === 'Home') { event.preventDefault(); activate(0, true); }
+        if (event.key === 'End') { event.preventDefault(); activate(tabs.length - 1, true); }
+      });
+    });
+  </script>
+</PortfolioLayout>

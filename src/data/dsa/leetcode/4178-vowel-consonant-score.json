@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4178",
+  "platform": "leetcode",
+  "id": "4178",
+  "title": "Vowel-Consonant Score",
+  "slug": "vowel-consonant-score",
+  "url": "https://leetcode.com/problems/vowel-consonant-score",
+  "difficulty": "Easy",
+  "topics": [
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English letters, spaces, and digits.</p>\n\n<p>Let <code>v</code> be the number of vowels in <code>s</code> and <code>c</code> be the number of consonants in <code>s</code>.</p>\n\n<p>A vowel is one of the letters <code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, or <code>'u'</code>, while any other letter in the English alphabet is considered a consonant.</p>\n\n<p>The <strong>score</strong> of the string <code>s</code> is defined as follows:</p>\n\n<ul>\n\t<li>If <code>c &gt; 0</code>, the <code>score = floor(v / c)</code> where floor denotes <strong>rounding down</strong> to the nearest integer.</li>\n\t<li>Otherwise, the <code>score = 0</code>.</li>\n</ul>\n\n<p>Return an integer denoting the score of the string.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"cooear\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The string <code>s = \"cooear\"</code> contains <code>v = 4</code> vowels <code>('o', 'o', 'e', 'a')</code> and <code>c = 2</code> consonants <code>('c', 'r')</code>.</p>\n\n<p>The score is <code>floor(v / c) = floor(4 / 2) = 2</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"axeyizou\"</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The string <code>s = \"axeyizou\"</code> contains <code>v = 5</code> vowels <code>('a', 'e', 'i', 'o', 'u')</code> and <code>c = 3</code> consonants <code>('x', 'y', 'z')</code>.</p>\n\n<p>The score is <code>floor(v / c) = floor(5 / 3) = 1</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"au 123\"</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The string <code>s = \"au 123\"</code> contains no consonants <code>(c = 0)</code>, so the score is 0.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists of lowercase English letters, spaces and digits.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4178-vowel-consonant-score/4178-vowel-consonant-score.cpp",
+      "source": "/*\n Problem: 4178. Vowel-Consonant Score\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.1 MB (34.46%)\n Tags: String, Simulation\n*/\nclass Solution {\npublic:\n    int vowelConsonantScore(string s) {\n        vector <bool> check(26, 0);\n        check['a' - 'a'] = 1;\n        check['e' - 'a'] = 1;\n        check['i' - 'a'] = 1;\n        check['o' - 'a'] = 1;\n        check['u' - 'a'] = 1;\n        int d1 = 0, d2 = 0;\n        for (char x : s) {\n            if (!(x >= 'a' && x <= 'z')) continue;\n            \n            if (check[x - 'a']) ++d1;\n            else ++d2;\n        }\n\n        if (d2 > 0) return d1 / d2;\n        return 0;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4178-vowel-consonant-score/4178-vowel-consonant-score.cpp"
+    }
+  ]
+}

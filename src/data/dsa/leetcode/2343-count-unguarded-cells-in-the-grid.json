@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:2343",
+  "platform": "leetcode",
+  "id": "2343",
+  "title": "Count Unguarded Cells in the Grid",
+  "slug": "count-unguarded-cells-in-the-grid",
+  "url": "https://leetcode.com/problems/count-unguarded-cells-in-the-grid",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Simulation"
+  ],
+  "statementHtml": "<p>You are given two integers <code>m</code> and <code>n</code> representing a <strong>0-indexed</strong> <code>m x n</code> grid. You are also given two 2D integer arrays <code>guards</code> and <code>walls</code> where <code>guards[i] = [row<sub>i</sub>, col<sub>i</sub>]</code> and <code>walls[j] = [row<sub>j</sub>, col<sub>j</sub>]</code> represent the positions of the <code>i<sup>th</sup></code> guard and <code>j<sup>th</sup></code> wall respectively.</p>\n\n<p>A guard can see <b>every</b> cell in the four cardinal directions (north, east, south, or west) starting from their position unless <strong>obstructed</strong> by a wall or another guard. A cell is <strong>guarded</strong> if there is <strong>at least</strong> one guard that can see it.</p>\n\n<p>Return<em> the number of unoccupied cells that are <strong>not</strong> <strong>guarded</strong>.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> m = 4, n = 6, guards = [[0,0],[1,1],[2,3]], walls = [[0,1],[2,2],[1,4]]\n<strong>Output:</strong> 7\n<strong>Explanation:</strong> The guarded and unguarded cells are shown in red and green respectively in the above diagram.\nThere are a total of 7 unguarded cells, so we return 7.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> m = 3, n = 3, guards = [[1,1]], walls = [[0,1],[1,0],[2,1],[1,2]]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The unguarded cells are shown in green in the above diagram.\nThere are a total of 4 unguarded cells, so we return 4.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= m, n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>2 &lt;= m * n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= guards.length, walls.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>2 &lt;= guards.length + walls.length &lt;= m * n</code></li>\n\t<li><code>guards[i].length == walls[j].length == 2</code></li>\n\t<li><code>0 &lt;= row<sub>i</sub>, row<sub>j</sub> &lt; m</code></li>\n\t<li><code>0 &lt;= col<sub>i</sub>, col<sub>j</sub> &lt; n</code></li>\n\t<li>All the positions in <code>guards</code> and <code>walls</code> are <strong>unique</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2343-count-unguarded-cells-in-the-grid/2343-count-unguarded-cells-in-the-grid.cpp",
+      "source": "/*\n Problem: 2343. Count Unguarded Cells in the Grid\n Language: cpp\n Runtime: 75 ms (40.40%)\n Memory: 167.7 MB (85.94%)\n Tags: Array, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) {\n        vector<vector<char>> g(m, vector<char>(n));\n        for (auto &x: guards) g[x[0]][x[1]] = 1;\n        for (auto &x: walls) g[x[0]][x[1]] = 2;\n        for (int i = 0; i < m; ++i) {\n            bool seen = false;\n            for (int j = 0; j < n; ++j) {\n                if (g[i][j] == 2) seen = false;\n                else if (g[i][j] == 1) seen = true;\n                else if (seen) g[i][j] = 3;\n            }\n            seen = false;\n            for (int j = n - 1; j >= 0; --j) {\n                if (g[i][j] == 2) seen = false;\n                else if (g[i][j] == 1) seen = true;\n                else if (seen) g[i][j] = 3;\n            }\n        }\n        for (int j = 0; j < n; ++j) {\n            bool seen = false;\n            for (int i = 0; i < m; ++i) {\n                if (g[i][j] == 2) seen = false;\n                else if (g[i][j] == 1) seen = true;\n                else if (seen) g[i][j] = 3;\n            }\n            seen = false;\n            for (int i = m - 1; i >= 0; --i) {\n                if (g[i][j] == 2) seen = false;\n                else if (g[i][j] == 1) seen = true;\n                else if (seen) g[i][j] = 3;\n            }\n        }\n        int res = 0;\n        for (int i = 0; i < m; ++i)\n            for (int j = 0; j < n; ++j)\n                res += g[i][j] == 0;\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2343-count-unguarded-cells-in-the-grid/2343-count-unguarded-cells-in-the-grid.cpp"
+    }
+  ]
+}

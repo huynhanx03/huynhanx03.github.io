@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:474",
+  "platform": "leetcode",
+  "id": "474",
+  "title": "Ones and Zeroes",
+  "slug": "ones-and-zeroes",
+  "url": "https://leetcode.com/problems/ones-and-zeroes",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "String"
+  ],
+  "statementHtml": "<p>You are given an array of binary strings <code>strs</code> and two integers <code>m</code> and <code>n</code>.</p>\n\n<p>Return <em>the size of the largest subset of <code>strs</code> such that there are <strong>at most</strong> </em><code>m</code><em> </em><code>0</code><em>'s and </em><code>n</code><em> </em><code>1</code><em>'s in the subset</em>.</p>\n\n<p>A set <code>x</code> is a <strong>subset</strong> of a set <code>y</code> if all elements of <code>x</code> are also elements of <code>y</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> strs = [\"10\",\"0001\",\"111001\",\"1\",\"0\"], m = 5, n = 3\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The largest subset with at most 5 0's and 3 1's is {\"10\", \"0001\", \"1\", \"0\"}, so the answer is 4.\nOther valid but smaller subsets include {\"0001\", \"1\"} and {\"10\", \"1\", \"0\"}.\n{\"111001\"} is an invalid subset because it contains 4 1's, greater than the maximum of 3.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> strs = [\"10\",\"0\",\"1\"], m = 1, n = 1\n<strong>Output:</strong> 2\n<b>Explanation:</b> The largest subset is {\"0\", \"1\"}, so the answer is 2.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= strs.length &lt;= 600</code></li>\n\t<li><code>1 &lt;= strs[i].length &lt;= 100</code></li>\n\t<li><code>strs[i]</code> consists only of digits <code>'0'</code> and <code>'1'</code>.</li>\n\t<li><code>1 &lt;= m, n &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0474-ones-and-zeroes/0474-ones-and-zeroes.cpp",
+      "source": "/*\n Problem: 474. Ones and Zeroes\n Language: cpp\n Runtime: 51 ms (76.72%)\n Memory: 13.7 MB (81.75%)\n Tags: Array, String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int findMaxForm(vector<string>& strs, int m, int n) {\n        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));\n\n        for (auto &s : strs) {\n            int zeros = 0, ones = 0;\n            for (char c : s) {\n                if (c == '0') zeros++;\n                else ones++;\n            }\n\n            for (int i = m; i >= zeros; i--) {\n                for (int j = n; j >= ones; j--) {\n                    dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1);\n                }\n            }\n        }\n\n        return dp[m][n];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0474-ones-and-zeroes/0474-ones-and-zeroes.cpp"
+    }
+  ]
+}

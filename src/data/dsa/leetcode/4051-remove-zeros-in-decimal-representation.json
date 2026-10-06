@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4051",
+  "platform": "leetcode",
+  "id": "4051",
+  "title": "Remove Zeros in Decimal Representation",
+  "slug": "remove-zeros-in-decimal-representation",
+  "url": "https://leetcode.com/problems/remove-zeros-in-decimal-representation",
+  "difficulty": "Easy",
+  "topics": [
+    "Math",
+    "Simulation"
+  ],
+  "statementHtml": "<p>You are given a <strong>positive</strong> integer <code>n</code>.</p>\n\n<p>Return the integer obtained by removing all zeros from the decimal representation of <code>n</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 1020030</span></p>\n\n<p><strong>Output:</strong> <span>123</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>After removing all zeros from 1<strong><u>0</u></strong>2<strong><u>00</u></strong>3<strong><u>0</u></strong>, we get 123.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 1</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>1 has no zero in its decimal representation. Therefore, the answer is 1.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>15</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4051-remove-zeros-in-decimal-representation/4051-remove-zeros-in-decimal-representation.cpp",
+      "source": "/*\n Problem: 4051. Remove Zeros in Decimal Representation\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (43.45%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    long long removeZeros(long long n) {\n        vector<int> v;\n        \n        while (n > 0) {\n            int rem = n % 10;\n            if (rem > 0) v.push_back(rem);\n            n /= 10;\n        }\n\n        long long ans = 0;\n\n        for (int i = v.size() - 1; i >= 0; --i) {\n            ans = ans * 10 + v[i];\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4051-remove-zeros-in-decimal-representation/4051-remove-zeros-in-decimal-representation.cpp"
+    }
+  ]
+}

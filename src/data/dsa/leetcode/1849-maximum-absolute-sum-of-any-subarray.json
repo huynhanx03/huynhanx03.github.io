@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1849",
+  "platform": "leetcode",
+  "id": "1849",
+  "title": "Maximum Absolute Sum of Any Subarray",
+  "slug": "maximum-absolute-sum-of-any-subarray",
+  "url": "https://leetcode.com/problems/maximum-absolute-sum-of-any-subarray",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>. The <strong>absolute sum</strong> of a subarray <code>[nums<sub>l</sub>, nums<sub>l+1</sub>, ..., nums<sub>r-1</sub>, nums<sub>r</sub>]</code> is <code>abs(nums<sub>l</sub> + nums<sub>l+1</sub> + ... + nums<sub>r-1</sub> + nums<sub>r</sub>)</code>.</p>\n\n<p>Return <em>the <strong>maximum</strong> absolute sum of any <strong>(possibly empty)</strong> subarray of </em><code>nums</code>.</p>\n\n<p>Note that <code>abs(x)</code> is defined as follows:</p>\n\n<ul>\n\t<li>If <code>x</code> is a negative integer, then <code>abs(x) = -x</code>.</li>\n\t<li>If <code>x</code> is a non-negative integer, then <code>abs(x) = x</code>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,-3,2,3,-4]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> The subarray [2,3] has absolute sum = abs(2+3) = abs(5) = 5.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [2,-5,1,-4,3,-2]\n<strong>Output:</strong> 8\n<strong>Explanation:</strong> The subarray [-5,1,-4] has absolute sum = abs(-5+1-4) = abs(-8) = 8.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1849-maximum-absolute-sum-of-any-subarray/1849-maximum-absolute-sum-of-any-subarray.cpp",
+      "source": "/*\n Problem: 1849. Maximum Absolute Sum of Any Subarray\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 45 MB (86.81%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxAbsoluteSum(vector<int>& nums) {\n        int max_sum = 0, min_sum = 0, sum = 0, max_ans = 0, min_ans = 0;\n        \n        for (int num : nums) {\n            sum += num;\n            max_sum = max(max_sum + num, num);\n            max_ans = max(max_ans, max_sum);\n            min_sum = min(min_sum + num, num);\n            min_ans = min(min_ans, min_sum);\n        }\n        \n        return max(max_ans, abs(min_ans));\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1849-maximum-absolute-sum-of-any-subarray/1849-maximum-absolute-sum-of-any-subarray.cpp"
+    }
+  ]
+}

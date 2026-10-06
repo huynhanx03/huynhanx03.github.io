@@ -1,0 +1,27 @@
+{
+  "key": "leetcode:2588",
+  "platform": "leetcode",
+  "id": "2588",
+  "title": "Maximum Number of Points From Grid Queries",
+  "slug": "maximum-number-of-points-from-grid-queries",
+  "url": "https://leetcode.com/problems/maximum-number-of-points-from-grid-queries",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Breadth-First Search",
+    "Heap (Priority Queue)",
+    "Matrix",
+    "Sorting",
+    "Two Pointers",
+    "Union-Find"
+  ],
+  "statementHtml": "<p>You are given an <code>m x n</code> integer matrix <code>grid</code> and an array <code>queries</code> of size <code>k</code>.</p>\n\n<p>Find an array <code>answer</code> of size <code>k</code> such that for each integer <code>queries[i]</code> you start in the <strong>top left</strong> cell of the matrix and repeat the following process:</p>\n\n<ul>\n\t<li>If <code>queries[i]</code> is <strong>strictly</strong> greater than the value of the current cell that you are in, then you get one point if it is your first time visiting this cell, and you can move to any <strong>adjacent</strong> cell in all <code>4</code> directions: up, down, left, and right.</li>\n\t<li>Otherwise, you do not get any points, and you end this process.</li>\n</ul>\n\n<p>After the process, <code>answer[i]</code> is the <strong>maximum</strong> number of points you can get. <strong>Note</strong> that for each query you are allowed to visit the same cell <strong>multiple</strong> times.</p>\n\n<p>Return <em>the resulting array</em> <code>answer</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[1,2,3],[2,5,7],[3,5,1]], queries = [5,6,2]\n<strong>Output:</strong> [5,8,1]\n<strong>Explanation:</strong> The diagrams above show which cells we visit to get points for each query.</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[5,2,1],[1,1,2]], queries = [3]\n<strong>Output:</strong> [0]\n<strong>Explanation:</strong> We can not get any points because the value of the top left cell is already greater than or equal to 3.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>2 &lt;= m, n &lt;= 1000</code></li>\n\t<li><code>4 &lt;= m * n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>k == queries.length</code></li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= grid[i][j], queries[i] &lt;= 10<sup>6</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/2588-maximum-number-of-points-from-grid-queries/2588-maximum-number-of-points-from-grid-queries.cpp",
+      "source": "/*\n Problem: 2588. Maximum Number of Points From Grid Queries\n Language: cpp\n Runtime: 86 ms (86.26%)\n Memory: 40 MB (100.00%)\n Tags: Array, Two Pointers, Breadth-First Search, Union-Find, Sorting, Heap (Priority Queue), Matrix\n*/\nclass Solution {\npublic:\n    vector<int> maxPoints(vector<vector<int>>& grid, vector<int>& queries) {\n        int m = grid.size(), n = grid[0].size();\n        vector<int> answer(queries.size());\n        vector<pair<int, int>> indexedQueries;\n\n        for (int i = 0; i < queries.size(); ++i)\n            indexedQueries.emplace_back(queries[i], i);\n\n        sort(indexedQueries.begin(), indexedQueries.end());\n\n        vector<vector<bool>> visited(m, vector<bool>(n, false));\n        int dd[5] = {0, -1, 0, 1, 0};\n        priority_queue<pair<int, pair<int, int>>,\n                       vector<pair<int, pair<int, int>>>, greater<>>\n            pq;\n\n        pq.push({grid[0][0], {0, 0}});\n        visited[0][0] = true;\n        int points = 0;\n\n        for (auto& [query, idx] : indexedQueries) {\n            while (!pq.empty() && pq.top().first < query) {\n                auto [value, cell] = pq.top();\n                pq.pop();\n                int x = cell.first, y = cell.second;\n\n                ++points;\n\n                for (int i = 0; i < 4; ++i) {\n                    int nx = x + dd[i], ny = y + dd[i + 1];\n                    if (nx >= 0 && nx < m && ny >= 0 && ny < n && !visited[nx][ny]) {\n                        visited[nx][ny] = true;\n                        pq.push({grid[nx][ny], {nx, ny}});\n                    }\n                }\n            }\n\n            answer[idx] = points;\n        }\n\n        return answer;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/2588-maximum-number-of-points-from-grid-queries/2588-maximum-number-of-points-from-grid-queries.cpp"
+    }
+  ]
+}

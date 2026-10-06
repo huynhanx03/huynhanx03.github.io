@@ -1,0 +1,30 @@
+{
+  "key": "leetcode:67",
+  "platform": "leetcode",
+  "id": "67",
+  "title": "Add Binary",
+  "slug": "add-binary",
+  "url": "https://leetcode.com/problems/add-binary",
+  "difficulty": "Easy",
+  "topics": [
+    "Bit Manipulation",
+    "Math",
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>Given two binary strings <code>a</code> and <code>b</code>, return <em>their sum as a binary string</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> a = \"11\", b = \"1\"\n<strong>Output:</strong> \"100\"\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> a = \"1010\", b = \"1011\"\n<strong>Output:</strong> \"10101\"\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= a.length, b.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>a</code> and <code>b</code> consist only of <code>'0'</code> or <code>'1'</code> characters.</li>\n\t<li>Each string does not contain leading zeros except for the zero itself.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0067-add-binary/0067-add-binary.cpp",
+      "source": "/*\n Problem: 67. Add Binary\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (82.65%)\n Tags: Math, String, Bit Manipulation, Simulation\n*/\nclass Solution {\npublic:\n    string addBinary(string a, string b) {\n        int pa = a.size() - 1;\n        int pb = b.size() - 1;\n        string ans = \"\";\n        int carry = 0;\n\n        while (pa >= 0 || pb >= 0 || carry) {\n            int sum = carry;\n            if (pa >= 0)\n                sum += a[pa--] - '0';\n            if (pb >= 0)\n                sum += b[pb--] - '0';\n            ans += (sum % 2) + '0';\n            carry = sum / 2;\n        }\n        \n        reverse(ans.begin(), ans.end());\n        \n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0067-add-binary/0067-add-binary.cpp"
+    },
+    {
+      "language": "Rust",
+      "relativePath": "leetcode/Easy/0067-add-binary/0067-add-binary.rs",
+      "source": "/*\n Problem: 67. Add Binary\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.2 MB (16.32%)\n Tags: Math, String, Bit Manipulation, Simulation\n*/\nimpl Solution {\n    pub fn add_binary(a: String, b: String) -> String {\n        let bytes_a = a.as_bytes();\n        let bytes_b = b.as_bytes();\n\n        let mut i: i32 = bytes_a.len() as i32 - 1;\n        let mut j: i32 = bytes_b.len() as i32 - 1;\n\n        let mut carry = 0;\n        let mut result: Vec<char> = Vec::new();\n\n        while i >= 0 || j >= 0 || carry > 0 {\n            let mut sum = carry;\n\n            if i >= 0 {\n                sum += (bytes_a[i as usize] - b'0') as i32;\n                i -= 1;\n            }\n\n            if j >= 0 {\n                sum += (bytes_b[j as usize] - b'0') as i32;\n                j -= 1;\n            }\n\n            result.push(char::from(b'0' + (sum % 2) as u8));\n            carry = sum / 2;\n        }\n\n        result.iter().rev().collect()\n    }\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0067-add-binary/0067-add-binary.rs"
+    }
+  ]
+}

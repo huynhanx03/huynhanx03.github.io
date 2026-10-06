@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1466",
+  "platform": "leetcode",
+  "id": "1466",
+  "title": "Jump Game V",
+  "slug": "jump-game-v",
+  "url": "https://leetcode.com/problems/jump-game-v",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array of integers <code>arr</code> and an integer <code>d</code>. In one step you can jump from index <code>i</code> to index:</p>\n\n<ul>\n\t<li><code>i + x</code> where: <code>i + x &lt; arr.length</code> and <code> 0 &lt; x &lt;= d</code>.</li>\n\t<li><code>i - x</code> where: <code>i - x &gt;= 0</code> and <code> 0 &lt; x &lt;= d</code>.</li>\n</ul>\n\n<p>In addition, you can only jump from index <code>i</code> to index <code>j</code> if <code>arr[i] &gt; arr[j]</code> and <code>arr[i] &gt; arr[k]</code> for all indices <code>k</code> between <code>i</code> and <code>j</code> (More formally <code>min(i, j) &lt; k &lt; max(i, j)</code>).</p>\n\n<p>You can choose any index of the array and start jumping. Return <em>the maximum number of indices</em> you can visit.</p>\n\n<p>Notice that you can not jump outside of the array at any time.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> arr = [6,4,14,6,8,13,9,7,10,6,12], d = 2\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> You can start at index 10. You can jump 10 --&gt; 8 --&gt; 6 --&gt; 7 as shown.\nNote that if you start at index 6 you can only jump to index 7. You cannot jump to index 5 because 13 &gt; 9. You cannot jump to index 4 because index 5 is between index 4 and 6 and 13 &gt; 9.\nSimilarly You cannot jump from index 3 to index 2 or index 1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> arr = [3,3,3,3,3], d = 3\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> You can start at any index. You always cannot jump to any index.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> arr = [7,6,5,4,3,2,1], d = 1\n<strong>Output:</strong> 7\n<strong>Explanation:</strong> Start at index 0. You can visit all the indicies. \n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 1000</code></li>\n\t<li><code>1 &lt;= arr[i] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= d &lt;= arr.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/1466-jump-game-v/1466-jump-game-v.cpp",
+      "source": "/*\n Problem: 1466. Jump Game V\n Language: cpp\n Runtime: 12 ms (52.67%)\n Memory: 19.1 MB (56.81%)\n Tags: Array, Dynamic Programming, Sorting\n*/\nclass Solution {\npublic:\n    int maxJumps(vector<int>& arr, int d) {\n        int n = arr.size();\n        vector<int> dp(n, -1);\n\n        auto dfs = [&](auto&& self, int i) -> int {\n\n            if (dp[i] != -1)\n                return dp[i];\n\n            int ans = 1;\n\n            for (int j = i - 1; j >= max(0, i - d); --j) {\n\n                if (arr[j] >= arr[i])\n                    break;\n\n                ans = max(ans, 1 + self(self, j));\n            }\n\n            for (int j = i + 1; j <= min(n - 1, i + d); ++j) {\n\n                if (arr[j] >= arr[i])\n                    break;\n\n                ans = max(ans, 1 + self(self, j));\n            }\n\n            return dp[i] = ans;\n        };\n\n        int res = 1;\n\n        for (int i = 0; i < n; ++i) {\n            res = max(res, dfs(dfs, i));\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1466-jump-game-v/1466-jump-game-v.cpp"
+    }
+  ]
+}

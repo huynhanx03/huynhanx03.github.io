@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3750",
+  "platform": "leetcode",
+  "id": "3750",
+  "title": "Closest Equal Element Queries",
+  "slug": "closest-equal-element-queries",
+  "url": "https://leetcode.com/problems/closest-equal-element-queries",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Hash Table"
+  ],
+  "statementHtml": "<p>You are given a <strong>circular</strong> array <code>nums</code> and an array <code>queries</code>.</p>\n\n<p>For each query <code>i</code>, you have to find the following:</p>\n\n<ul>\n\t<li>The <strong>minimum</strong> distance between the element at index <code>queries[i]</code> and <strong>any</strong> other index <code>j</code> in the <strong>circular</strong> array, where <code>nums[j] == nums[queries[i]]</code>. If no such index exists, the answer for that query should be -1.</li>\n</ul>\n\n<p>Return an array <code>answer</code> of the <strong>same</strong> size as <code>queries</code>, where <code>answer[i]</code> represents the result for query <code>i</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,3,1,4,1,3,2], queries = [0,3,5]</span></p>\n\n<p><strong>Output:</strong> <span>[2,-1,3]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Query 0: The element at <code>queries[0] = 0</code> is <code>nums[0] = 1</code>. The nearest index with the same value is 2, and the distance between them is 2.</li>\n\t<li>Query 1: The element at <code>queries[1] = 3</code> is <code>nums[3] = 4</code>. No other index contains 4, so the result is -1.</li>\n\t<li>Query 2: The element at <code>queries[2] = 5</code> is <code>nums[5] = 3</code>. The nearest index with the same value is 1, and the distance between them is 3 (following the circular path: <code>5 -&gt; 6 -&gt; 0 -&gt; 1</code>).</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,4], queries = [0,1,2,3]</span></p>\n\n<p><strong>Output:</strong> <span>[-1,-1,-1,-1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Each value in <code>nums</code> is unique, so no index shares the same value as the queried element. This results in -1 for all queries.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= queries.length &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>6</sup></code></li>\n\t<li><code>0 &lt;= queries[i] &lt; nums.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3750-closest-equal-element-queries/3750-closest-equal-element-queries.cpp",
+      "source": "/*\n Problem: 3750. Closest Equal Element Queries\n Language: cpp\n Runtime: 181 ms (83.58%)\n Memory: 217.1 MB (30.35%)\n Tags: Array, Hash Table, Binary Search\n*/\nclass Solution {\npublic:\n    vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {\n        int n = nums.size();\n        unordered_map<int, vector<int>> mp;\n\n        for (int i = 0; i < n; ++i) {\n            mp[nums[i]].push_back(i);\n        }\n\n        vector<int> dist(n);\n\n        for (const auto& [_, arr] : mp) {\n            int m = arr.size();\n            if (m == 1) {\n                dist[arr[0]] = -1;\n                continue;\n            }\n\n            for (int i = 0; i < m; ++i) {\n                int cur = arr[i];\n                int l = arr[(i - 1 + m) % m];\n                int r = arr[(i + 1) % m];\n\n                int d1 = abs(cur - l);\n                int d2 = abs(cur - r);\n\n                d1 = min(d1, n - d1);\n                d2 = min(d2, n - d2);\n\n                dist[cur] = min(d1, d2);\n            }\n        }\n\n        vector<int> res;\n        res.reserve(queries.size());\n        for (const auto& q : queries)\n            res.push_back(dist[q]);\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3750-closest-equal-element-queries/3750-closest-equal-element-queries.cpp"
+    }
+  ]
+}

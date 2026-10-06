@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3872",
+  "platform": "leetcode",
+  "id": "3872",
+  "title": "Find Most Frequent Vowel and Consonant",
+  "slug": "find-most-frequent-vowel-and-consonant",
+  "url": "https://leetcode.com/problems/find-most-frequent-vowel-and-consonant",
+  "difficulty": "Easy",
+  "topics": [
+    "Counting",
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English letters (<code>'a'</code> to <code>'z'</code>). </p>\n\n<p>Your task is to:</p>\n\n<ul>\n\t<li>Find the vowel (one of <code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, or <code>'u'</code>) with the <strong>maximum</strong> frequency.</li>\n\t<li>Find the consonant (all other letters excluding vowels) with the <strong>maximum</strong> frequency.</li>\n</ul>\n\n<p>Return the sum of the two frequencies.</p>\n\n<p><strong>Note</strong>: If multiple vowels or consonants have the same maximum frequency, you may choose any one of them. If there are no vowels or no consonants in the string, consider their frequency as 0.</p>\nThe <strong>frequency</strong> of a letter <code>x</code> is the number of times it occurs in the string.\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"successes\"</span></p>\n\n<p><strong>Output:</strong> <span>6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The vowels are: <code>'u'</code> (frequency 1), <code>'e'</code> (frequency 2). The maximum frequency is 2.</li>\n\t<li>The consonants are: <code>'s'</code> (frequency 4), <code>'c'</code> (frequency 2). The maximum frequency is 4.</li>\n\t<li>The output is <code>2 + 4 = 6</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aeiaeia\"</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The vowels are: <code>'a'</code> (frequency 3), <code>'e'</code> ( frequency 2), <code>'i'</code> (frequency 2). The maximum frequency is 3.</li>\n\t<li>There are no consonants in <code>s</code>. Hence, maximum consonant frequency = 0.</li>\n\t<li>The output is <code>3 + 0 = 3</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists of lowercase English letters only.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3872-find-most-frequent-vowel-and-consonant/3872-find-most-frequent-vowel-and-consonant.cpp",
+      "source": "/*\n Problem: 3872. Find Most Frequent Vowel and Consonant\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.5 MB (60.14%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int maxFreqSum(string s) {\n        vector<int> cnt(26, 0);\n        int mx1 = 0, mx2 = 0;\n        for (int i = 0; i < s.size(); ++i) {\n            char c = s[i];\n            ++cnt[c - 'a'];\n            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {\n                mx1 = max(mx1, cnt[c - 'a']);\n            } else {\n                mx2 = max(mx2, cnt[c - 'a']);\n            }\n        }\n\n        return mx1 + mx2;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3872-find-most-frequent-vowel-and-consonant/3872-find-most-frequent-vowel-and-consonant.cpp"
+    }
+  ]
+}

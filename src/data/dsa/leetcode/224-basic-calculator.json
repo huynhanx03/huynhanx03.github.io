@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:224",
+  "platform": "leetcode",
+  "id": "224",
+  "title": "Basic Calculator",
+  "slug": "basic-calculator",
+  "url": "https://leetcode.com/problems/basic-calculator",
+  "difficulty": "Hard",
+  "topics": [
+    "Math",
+    "Recursion",
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> representing a valid expression, implement a basic calculator to evaluate it, and return <em>the result of the evaluation</em>.</p>\n\n<p><strong>Note:</strong> You are <strong>not</strong> allowed to use any built-in function which evaluates strings as mathematical expressions, such as <code>eval()</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"1 + 1\"\n<strong>Output:</strong> 2\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \" 2-1 + 2 \"\n<strong>Output:</strong> 3\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"(1+(4+5+2)-3)+(6+8)\"\n<strong>Output:</strong> 23\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 3 * 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of digits, <code>'+'</code>, <code>'-'</code>, <code>'('</code>, <code>')'</code>, and <code>' '</code>.</li>\n\t<li><code>s</code> represents a valid expression.</li>\n\t<li><code>'+'</code> is <strong>not</strong> used as a unary operation (i.e., <code>\"+1\"</code> and <code>\"+(2 + 3)\"</code> is invalid).</li>\n\t<li><code>'-'</code> could be used as a unary operation (i.e., <code>\"-1\"</code> and <code>\"-(2 + 3)\"</code> is valid).</li>\n\t<li>There will be no two consecutive operators in the input.</li>\n\t<li>Every number and running calculation will fit in a signed 32-bit integer.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/0224-basic-calculator/0224-basic-calculator.cpp",
+      "source": "/*\n Problem: 224. Basic Calculator\n Language: cpp\n Runtime: 16 ms (13.71%)\n Memory: 285.9 MB (5.01%)\n Tags: Math, String, Stack, Recursion\n*/\nclass Solution {\npublic:\n    int idx;\n\n    int calculate(string s) {\n        idx = 0;\n        return cal(s, s.size());\n    }\n\n    int cal(string s, int sz) {\n        int num = 0, res = 0, sign = 1;\n\n        while (idx < sz) {\n            char c = s[idx++];\n\n            if (c == ' ')\n                continue;\n            else if (c >= '0' && c <= '9')\n                num = num * 10 + (c - '0');\n            else if (c == '+' || c == '-') {\n                res += num * sign;\n                num = 0;\n                sign = c == '+' ? 1 : -1;\n            } else if (c == '(') {\n                num = cal(s, sz);\n            } else if (c == ')') {\n                return res + num * sign;\n            }\n        }\n\n        return res + num * sign;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0224-basic-calculator/0224-basic-calculator.cpp"
+    }
+  ]
+}

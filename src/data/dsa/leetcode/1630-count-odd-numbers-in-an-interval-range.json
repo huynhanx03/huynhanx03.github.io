@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:1630",
+  "platform": "leetcode",
+  "id": "1630",
+  "title": "Count Odd Numbers in an Interval Range",
+  "slug": "count-odd-numbers-in-an-interval-range",
+  "url": "https://leetcode.com/problems/count-odd-numbers-in-an-interval-range",
+  "difficulty": "Easy",
+  "topics": [
+    "Math"
+  ],
+  "statementHtml": "<p>Given two non-negative integers <code>low</code> and <code>high</code>. Return the <em>count of odd numbers between </em><code>low</code><em> and </em><code>high</code><em> (inclusive)</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> low = 3, high = 7\n<strong>Output:</strong> 3\n<b>Explanation: </b>The odd numbers between 3 and 7 are [3,5,7].</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> low = 8, high = 10\n<strong>Output:</strong> 1\n<b>Explanation: </b>The odd numbers between 8 and 10 are [9].</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= low &lt;= high &lt;= 10^9</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1630-count-odd-numbers-in-an-interval-range/1630-count-odd-numbers-in-an-interval-range.cpp",
+      "source": "/*\n Problem: 1630. Count Odd Numbers in an Interval Range\n Language: cpp\n Runtime: 2 ms (74.99%)\n Memory: 7.8 MB (69.92%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int countOdds(int low, int high) {\n        return (high + 1) / 2 - low / 2;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1630-count-odd-numbers-in-an-interval-range/1630-count-odd-numbers-in-an-interval-range.cpp"
+    }
+  ]
+}

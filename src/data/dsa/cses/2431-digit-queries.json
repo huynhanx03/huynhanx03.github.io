@@ -1,0 +1,18 @@
+{
+  "key": "cses:2431",
+  "platform": "cses",
+  "id": "2431",
+  "slug": "digit-queries",
+  "title": "Digit Queries",
+  "url": "https://cses.fi/problemset/task/2431/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>Consider an infinite string that consists of all positive integers in increasing order:</p>\n<p>12345678910111213141516171819202122232425...</p>\n<p>Your task is to process <span>q</span> queries of the form: what is the digit at position <span>k</span> in the string?</p>\n<h2>Input</h2>\n<p>The first input line has an integer <span>q</span>: the number of queries.</p>\n<p>After this, there are <span>q</span> lines that describe the queries. Each line has an integer <span>k</span>: a <span>1</span>-indexed position in the string.</p>\n<h2>Output</h2>\n<p>For each query, print the corresponding digit.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le q \\le 1000</span></li>\n<li><span>1 \\le k \\le 10^{18}</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>3\n7\n19\n12\n</pre>\n<p>Output:</p>\n<pre>7\n4\n1\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Digit_Queries.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        long long k;\n        cin >> k;\n\n        long long d = 1;\n        long long cnt = 9;\n        long long start = 1;\n\n        while (k > cnt * d) {\n            k -= cnt * d;\n            d++;\n            cnt *= 10;\n            start *= 10;\n        }\n\n        long long idx = (k - 1) / d;\n        long long num = start + idx;\n\n        int digit = (k - 1) % d;\n        string s = to_string(num);\n\n        cout << s[digit] << '\\n';\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Digit_Queries.cpp"
+    }
+  ]
+}

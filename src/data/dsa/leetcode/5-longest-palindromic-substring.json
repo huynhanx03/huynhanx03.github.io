@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:5",
+  "platform": "leetcode",
+  "id": "5",
+  "title": "Longest Palindromic Substring",
+  "slug": "longest-palindromic-substring",
+  "url": "https://leetcode.com/problems/longest-palindromic-substring",
+  "difficulty": "Medium",
+  "topics": [
+    "Dynamic Programming",
+    "String",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code>, return <em>the longest</em> <span><em>palindromic</em></span> <span><em>substring</em></span> in <code>s</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"babad\"\n<strong>Output:</strong> \"bab\"\n<strong>Explanation:</strong> \"aba\" is also a valid answer.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"cbbd\"\n<strong>Output:</strong> \"bb\"\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> consist of only digits and English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0005-longest-palindromic-substring/0005-longest-palindromic-substring.cpp",
+      "source": "/*\n Problem: 5. Longest Palindromic Substring\n Language: cpp\n Runtime: 7 ms (86.59%)\n Memory: 9.5 MB (55.80%)\n Tags: Two Pointers, String, Dynamic Programming\n*/\n#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    string longestPalindrome(string s) {\n        if (s.empty()) return \"\";\n        int n = s.size();\n        int start = 0, maxLength = 1;\n\n        for (int i = 0; i < n; ++i) {\n            int len1 = expandAroundCenter(s, i, i);\n            int len2 = expandAroundCenter(s, i, i + 1);\n\n            int len = max(len1, len2);\n            if (len > maxLength) {\n                start = i - (len - 1) / 2;\n                maxLength = len;\n            }\n        }\n\n        return s.substr(start, maxLength);\n    }\nprivate:\n    int expandAroundCenter(const string& s, int left, int right) {\n        while (left >= 0 && right < s.size() && s[left] == s[right]) {\n            --left;\n            ++right;\n        }\n        return right - left - 1;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0005-longest-palindromic-substring/0005-longest-palindromic-substring.cpp"
+    }
+  ]
+}

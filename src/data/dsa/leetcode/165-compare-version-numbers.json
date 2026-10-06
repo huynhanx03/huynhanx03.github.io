@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:165",
+  "platform": "leetcode",
+  "id": "165",
+  "title": "Compare Version Numbers",
+  "slug": "compare-version-numbers",
+  "url": "https://leetcode.com/problems/compare-version-numbers",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>Given two <strong>version strings</strong>, <code>version1</code> and <code>version2</code>, compare them. A version string consists of <strong>revisions</strong> separated by dots <code>'.'</code>. The <strong>value of the revision</strong> is its <strong>integer conversion</strong> ignoring leading zeros.</p>\n\n<p>To compare version strings, compare their revision values in <strong>left-to-right order</strong>. If one of the version strings has fewer revisions, treat the missing revision values as <code>0</code>.</p>\n\n<p>Return the following:</p>\n\n<ul>\n\t<li>If <code>version1 &lt; version2</code>, return -1.</li>\n\t<li>If <code>version1 &gt; version2</code>, return 1.</li>\n\t<li>Otherwise, return 0.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>version1 = \"1.2\", version2 = \"1.10\"</span></p>\n\n<p><strong>Output:</strong> <span>-1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>version1's second revision is \"2\" and version2's second revision is \"10\": 2 &lt; 10, so version1 &lt; version2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>version1 = \"1.01\", version2 = \"1.001\"</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Ignoring leading zeroes, both \"01\" and \"001\" represent the same integer \"1\".</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>version1 = \"1.0\", version2 = \"1.0.0.0\"</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>version1 has less revisions, which means every missing revision are treated as \"0\".</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= version1.length, version2.length &lt;= 500</code></li>\n\t<li><code>version1</code> and <code>version2</code> only contain digits and <code>'.'</code>.</li>\n\t<li><code>version1</code> and <code>version2</code> <strong>are valid version numbers</strong>.</li>\n\t<li>All the given revisions in <code>version1</code> and <code>version2</code> can be stored in a <strong>32-bit integer</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Medium/0165-compare-version-numbers/0165-compare-version-numbers.py",
+      "source": "\"\"\"\n Problem: 165. Compare Version Numbers\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 17.7 MB (93.37%)\n Tags: Two Pointers, String\n\"\"\"\nclass Solution:\n    def compareVersion(self, version1: str, version2: str) -> int:\n        v1 = version1.split(\".\")\n        v2 = version2.split(\".\")\n\n        max_len = max(len(v1), len(v2))\n        v1 += [\"0\"] * (max_len - len(v1))\n        v2 += [\"0\"] * (max_len - len(v2))\n\n        for i in range(max_len):\n            n1, n2 = int(v1[i]), int(v2[i])\n            if n1 < n2:\n                return -1\n            elif n1 > n2:\n                return 1\n\n        return 0\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0165-compare-version-numbers/0165-compare-version-numbers.py"
+    }
+  ]
+}

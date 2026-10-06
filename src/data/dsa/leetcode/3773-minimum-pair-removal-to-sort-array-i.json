@@ -1,0 +1,27 @@
+{
+  "key": "leetcode:3773",
+  "platform": "leetcode",
+  "id": "3773",
+  "title": "Minimum Pair Removal to Sort Array I",
+  "slug": "minimum-pair-removal-to-sort-array-i",
+  "url": "https://leetcode.com/problems/minimum-pair-removal-to-sort-array-i",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Doubly-Linked List",
+    "Hash Table",
+    "Heap (Priority Queue)",
+    "Linked List",
+    "Ordered Set",
+    "Simulation"
+  ],
+  "statementHtml": "<p>Given an array <code>nums</code>, you can perform the following operation any number of times:</p>\n\n<ul>\n\t<li>Select the <strong>adjacent</strong> pair with the <strong>minimum</strong> sum in <code>nums</code>. If multiple such pairs exist, choose the leftmost one.</li>\n\t<li>Replace the pair with their sum.</li>\n</ul>\n\n<p>Return the <strong>minimum number of operations</strong> needed to make the array <strong>non-decreasing</strong>.</p>\n\n<p>An array is said to be <strong>non-decreasing</strong> if each element is greater than or equal to its previous element (if it exists).</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5,2,3,1]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The pair <code>(3,1)</code> has the minimum sum of 4. After replacement, <code>nums = [5,2,4]</code>.</li>\n\t<li>The pair <code>(2,4)</code> has the minimum sum of 6. After replacement, <code>nums = [5,6]</code>.</li>\n</ul>\n\n<p>The array <code>nums</code> became non-decreasing in two operations.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,2]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The array <code>nums</code> is already sorted.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 50</code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3773-minimum-pair-removal-to-sort-array-i/3773-minimum-pair-removal-to-sort-array-i.cpp",
+      "source": "/*\n Problem: 3773. Minimum Pair Removal to Sort Array I\n Language: cpp\n Runtime: 7 ms (15.96%)\n Memory: 29.8 MB (5.12%)\n Tags: Array, Hash Table, Linked List, Heap (Priority Queue), Simulation, Doubly-Linked List, Ordered Set\n*/\nclass Solution {\npublic:\n    int minimumPairRemoval(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 2) return 0;\n\n        vector<long long> v(nums.begin(), nums.end());\n        vector<int> l(n), r(n);\n        \n        for (int i = 0; i < n; ++i) {\n            l[i] = i - 1;\n            r[i] = i + 1;\n        }\n        r[n - 1] = -1;\n\n        set<pair<long long, int>> s;\n        int bad = 0;\n\n        auto isBad = [&](int i) {\n            if (i == -1 || r[i] == -1) return false;\n            return v[i] > v[r[i]];\n        };\n\n        for (int i = 0; i < n - 1; ++i) {\n            s.insert({v[i] + v[i + 1], i});\n            if (v[i] > v[i + 1]) bad++;\n        }\n\n        int ops = 0;\n        while (bad > 0) {\n            int i = s.begin()->second;\n            int j = r[i];\n\n            if (l[i] != -1) {\n                s.erase({v[l[i]] + v[i], l[i]});\n                if (isBad(l[i])) bad--;\n            }\n            \n            s.erase({v[i] + v[j], i});\n            if (isBad(i)) bad--;\n\n            if (r[j] != -1) {\n                s.erase({v[j] + v[r[j]], j});\n                if (isBad(j)) bad--;\n            }\n\n            v[i] += v[j];\n            r[i] = r[j];\n            if (r[i] != -1) l[r[i]] = i;\n\n            if (l[i] != -1) {\n                s.insert({v[l[i]] + v[i], l[i]});\n                if (isBad(l[i])) bad++;\n            }\n\n            if (r[i] != -1) {\n                s.insert({v[i] + v[r[i]], i});\n                if (isBad(i)) bad++;\n            }\n\n            ops++;\n        }\n\n        return ops;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3773-minimum-pair-removal-to-sort-array-i/3773-minimum-pair-removal-to-sort-array-i.cpp"
+    }
+  ]
+}

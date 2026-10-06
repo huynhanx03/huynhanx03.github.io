@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4087",
+  "platform": "leetcode",
+  "id": "4087",
+  "title": "Maximum Substrings With Distinct Start",
+  "slug": "maximum-substrings-with-distinct-start",
+  "url": "https://leetcode.com/problems/maximum-substrings-with-distinct-start",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>\n\n<p>Return an integer denoting the <strong>maximum</strong> number of <span>substrings</span> you can split <code>s</code> into such that each <strong>substring</strong> starts with a <strong>distinct</strong> character (i.e., no two substrings start with the same character).</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abab\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Split <code>\"abab\"</code> into <code>\"a\"</code> and <code>\"bab\"</code>.</li>\n\t<li>Each substring starts with a distinct character i.e <code>'a'</code> and <code>'b'</code>. Thus, the answer is 2.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abcd\"</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Split <code>\"abcd\"</code> into <code>\"a\"</code>, <code>\"b\"</code>, <code>\"c\"</code>, and <code>\"d\"</code>.</li>\n\t<li>Each substring starts with a distinct character. Thus, the answer is 4.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aaaa\"</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>All characters in <code>\"aaaa\"</code> are <code>'a'</code>.</li>\n\t<li>Only one substring can start with <code>'a'</code>. Thus, the answer is 1.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4087-maximum-substrings-with-distinct-start/4087-maximum-substrings-with-distinct-start.cpp",
+      "source": "/*\n Problem: 4087. Maximum Substrings With Distinct Start\n Language: cpp\n Runtime: 31 ms (47.52%)\n Memory: 25.4 MB (8.45%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int maxDistinct(string s) {\n        set<char> st;\n        for (const auto& c : s) {\n            st.insert(c);\n        }\n\n        return st.size();\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4087-maximum-substrings-with-distinct-start/4087-maximum-substrings-with-distinct-start.cpp"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:398",
+  "platform": "leetcode",
+  "id": "398",
+  "title": "Random Pick Index",
+  "slug": "random-pick-index",
+  "url": "https://leetcode.com/problems/random-pick-index",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Math",
+    "Randomized",
+    "Reservoir Sampling"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code> with possible <strong>duplicates</strong>, randomly output the index of a given <code>target</code> number. You can assume that the given target number must exist in the array.</p>\n\n<p>Implement the <code>Solution</code> class:</p>\n\n<ul>\n\t<li><code>Solution(int[] nums)</code> Initializes the object with the array <code>nums</code>.</li>\n\t<li><code>int pick(int target)</code> Picks a random index <code>i</code> from <code>nums</code> where <code>nums[i] == target</code>. If there are multiple valid i's, then each index should have an equal probability of returning.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input</strong>\n[\"Solution\", \"pick\", \"pick\", \"pick\"]\n[[[1, 2, 3, 3, 3]], [3], [1], [3]]\n<strong>Output</strong>\n[null, 4, 0, 2]\n\n<strong>Explanation</strong>\nSolution solution = new Solution([1, 2, 3, 3, 3]);\nsolution.pick(3); // It should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.\nsolution.pick(1); // It should return 0. Since in the array only nums[0] is equal to 1.\nsolution.pick(3); // It should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n\t<li><code>target</code> is an integer from <code>nums</code>.</li>\n\t<li>At most <code>10<sup>4</sup></code> calls will be made to <code>pick</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0398-random-pick-index/0398-random-pick-index.cpp",
+      "source": "/*\n Problem: 398. Random Pick Index\n Language: cpp\n Runtime: 1623 ms (17.55%)\n Memory: 50.5 MB (78.49%)\n Tags: Hash Table, Math, Reservoir Sampling, Randomized\n*/\nclass Solution {\npublic:\n    vector<int> a;\n\n    Solution(vector<int>& nums) {\n        a = nums;\n    }\n    \n    int pick(int target) {\n        int cnt = 0, ans = -1;\n        for (int i = 0; i < a.size(); ++i) {\n            if (a[i] == target) {\n                ++cnt;\n                if (rand() % cnt == 0) ans = i;\n            }\n        }\n        return ans;\n    }\n};\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution* obj = new Solution(nums);\n * int param_1 = obj->pick(target);\n */",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0398-random-pick-index/0398-random-pick-index.cpp"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:136",
+  "platform": "leetcode",
+  "id": "136",
+  "title": "Single Number",
+  "slug": "single-number",
+  "url": "https://leetcode.com/problems/single-number",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Bit Manipulation"
+  ],
+  "statementHtml": "<p>Given a <strong>non-empty</strong> array of integers <code>nums</code>, every element appears <em>twice</em> except for one. Find that single one.</p>\n\n<p>You must implement a solution with a linear runtime complexity and use only constant extra space.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,2,1]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,1,2,1,2]</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>-3 * 10<sup>4</sup> &lt;= nums[i] &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li>Each element in the array appears twice except for one element which appears only once.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0136-single-number/0136-single-number.cpp",
+      "source": "/*\n Problem: 136. Single Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 20.7 MB (58.16%)\n Tags: Array, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        int ans = nums[0];\n\n        for (int i = 1; i < nums.size(); ++i) {\n            ans ^= nums[i];\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0136-single-number/0136-single-number.cpp"
+    }
+  ]
+}

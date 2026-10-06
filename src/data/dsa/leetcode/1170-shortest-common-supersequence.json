@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1170",
+  "platform": "leetcode",
+  "id": "1170",
+  "title": "Shortest Common Supersequence",
+  "slug": "shortest-common-supersequence",
+  "url": "https://leetcode.com/problems/shortest-common-supersequence",
+  "difficulty": "Hard",
+  "topics": [
+    "Dynamic Programming",
+    "String"
+  ],
+  "statementHtml": "<p>Given two strings <code>str1</code> and <code>str2</code>, return <em>the shortest string that has both </em><code>str1</code><em> and </em><code>str2</code><em> as <strong>subsequences</strong></em>. If there are multiple valid strings, return <strong>any</strong> of them.</p>\n\n<p>A string <code>s</code> is a <strong>subsequence</strong> of string <code>t</code> if deleting some number of characters from <code>t</code> (possibly <code>0</code>) results in the string <code>s</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> str1 = \"abac\", str2 = \"cab\"\n<strong>Output:</strong> \"cabac\"\n<strong>Explanation:</strong> \nstr1 = \"abac\" is a subsequence of \"cabac\" because we can delete the first \"c\".\nstr2 = \"cab\" is a subsequence of \"cabac\" because we can delete the last \"ac\".\nThe answer provided is the shortest such string that satisfies these properties.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> str1 = \"aaaaaaaa\", str2 = \"aaaaaaaa\"\n<strong>Output:</strong> \"aaaaaaaa\"\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= str1.length, str2.length &lt;= 1000</code></li>\n\t<li><code>str1</code> and <code>str2</code> consist of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/1170-shortest-common-supersequence/1170-shortest-common-supersequence.cpp",
+      "source": "/*\n Problem: 1170. Shortest Common Supersequence \n Language: cpp\n Runtime: 28 ms (17.37%)\n Memory: 26.8 MB (71.25%)\n Tags: String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    string shortestCommonSupersequence(string str1, string str2) {\n        int n = str1.size(), m = str2.size();\n\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n\n        for (int i = 1; i <= n; ++i) {\n            for (int j = 1; j <= m; ++j) {\n                if (str1[i - 1] == str2[j - 1])\n                    dp[i][j] = dp[i - 1][j - 1] + 1;\n                else\n                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);\n            }\n        }\n\n        string result = \"\";\n        int i = n, j = m;\n\n        while (i > 0 && j > 0) {\n            if (str1[i - 1] == str2[j - 1]) {\n                result += str1[i - 1];\n                --i;\n                --j;\n            } else if (dp[i - 1][j] >= dp[i][j - 1]) {\n                result += str1[i - 1];\n                --i;\n            } else {\n                result += str2[j - 1];\n                --j;\n            }\n        }\n\n        while (i > 0)\n            result += str1[--i];\n        while (j > 0)\n            result += str2[--j];\n\n        reverse(result.begin(), result.end());\n\n        return result;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1170-shortest-common-supersequence/1170-shortest-common-supersequence.cpp"
+    }
+  ]
+}

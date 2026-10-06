@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2037",
+  "platform": "leetcode",
+  "id": "2037",
+  "title": "Count Square Sum Triples",
+  "slug": "count-square-sum-triples",
+  "url": "https://leetcode.com/problems/count-square-sum-triples",
+  "difficulty": "Easy",
+  "topics": [
+    "Enumeration",
+    "Math"
+  ],
+  "statementHtml": "<p>A <strong>square triple</strong> <code>(a,b,c)</code> is a triple where <code>a</code>, <code>b</code>, and <code>c</code> are <strong>integers</strong> and <code>a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></code>.</p>\n\n<p>Given an integer <code>n</code>, return <em>the number of <strong>square triples</strong> such that </em><code>1 &lt;= a, b, c &lt;= n</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 5\n<strong>Output:</strong> 2\n<strong>Explanation</strong>: The square triples are (3,4,5) and (4,3,5).\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 10\n<strong>Output:</strong> 4\n<strong>Explanation</strong>: The square triples are (3,4,5), (4,3,5), (6,8,10), and (8,6,10).\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 250</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/2037-count-square-sum-triples/2037-count-square-sum-triples.cpp",
+      "source": "/*\n Problem: 2037. Count Square Sum Triples\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (85.60%)\n Tags: Math, Enumeration\n*/\nclass Solution {\npublic:\n    int countTriples(int N) {\n        int count = 0;\n\n        for (int m = 2; 1ll * m * m <= N; m++) {\n            for (int n = 1; n < m; n++) {\n                if (((m - n) & 1) == 0) continue;\n                if (gcd(m, n) != 1) continue;\n\n                int a = m*m - n*n;\n                int b = 2*m*n;\n                int c = m*m + n*n;\n\n                if (c > N) break;\n\n                for (int k = 1; k * c <= N; k++) {\n                    int A = a * k;\n                    int B = b * k;\n                    if (A <= N && B <= N) count += 2;\n                }\n            }\n        }\n\n        return count;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2037-count-square-sum-triples/2037-count-square-sum-triples.cpp"
+    }
+  ]
+}

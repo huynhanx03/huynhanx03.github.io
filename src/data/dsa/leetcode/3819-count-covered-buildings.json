@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3819",
+  "platform": "leetcode",
+  "id": "3819",
+  "title": "Count Covered Buildings",
+  "slug": "count-covered-buildings",
+  "url": "https://leetcode.com/problems/count-covered-buildings",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a positive integer <code>n</code>, representing an <code>n x n</code> city. You are also given a 2D grid <code>buildings</code>, where <code>buildings[i] = [x, y]</code> denotes a <strong>unique</strong> building located at coordinates <code>[x, y]</code>.</p>\n\n<p>A building is <strong>covered</strong> if there is at least one building in all <strong>four</strong> directions: left, right, above, and below.</p>\n\n<p>Return the number of <strong>covered</strong> buildings.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<p></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 3, buildings = [[1,2],[2,2],[3,2],[2,1],[2,3]]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Only building <code>[2,2]</code> is covered as it has at least one building:\n\n\t<ul>\n\t\t<li>above (<code>[1,2]</code>)</li>\n\t\t<li>below (<code>[3,2]</code>)</li>\n\t\t<li>left (<code>[2,1]</code>)</li>\n\t\t<li>right (<code>[2,3]</code>)</li>\n\t</ul>\n\t</li>\n\t<li>Thus, the count of covered buildings is 1.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<p></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 3, buildings = [[1,1],[1,2],[2,1],[2,2]]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>No building has at least one building in all four directions.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<p></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 5, buildings = [[1,3],[3,2],[3,3],[3,5],[5,3]]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Only building <code>[3,3]</code> is covered as it has at least one building:\n\n\t<ul>\n\t\t<li>above (<code>[1,3]</code>)</li>\n\t\t<li>below (<code>[5,3]</code>)</li>\n\t\t<li>left (<code>[3,2]</code>)</li>\n\t\t<li>right (<code>[3,5]</code>)</li>\n\t</ul>\n\t</li>\n\t<li>Thus, the count of covered buildings is 1.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= buildings.length &lt;= 10<sup>5</sup> </code></li>\n\t<li><code>buildings[i] = [x, y]</code></li>\n\t<li><code>1 &lt;= x, y &lt;= n</code></li>\n\t<li>All coordinates of <code>buildings</code> are <strong>unique</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3819-count-covered-buildings/3819-count-covered-buildings.cpp",
+      "source": "/*\n Problem: 3819. Count Covered Buildings\n Language: cpp\n Runtime: 16 ms (92.83%)\n Memory: 283.8 MB (86.76%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    int countCoveredBuildings(int n, vector<vector<int>>& buildings) {\n        vector<int> row_min(n, n), row_max(n, -1);\n        vector<int> col_min(n, n), col_max(n, -1);\n        for (auto &b : buildings) {\n            int x = b[0] - 1;\n            int y = b[1] - 1;\n            if (y < row_min[x]) row_min[x] = y;\n            if (y > row_max[x]) row_max[x] = y;\n            if (x < col_min[y]) col_min[y] = x;\n            if (x > col_max[y]) col_max[y] = x;\n        }\n        int ans = 0;\n        for (auto &b : buildings) {\n            int x = b[0] - 1;\n            int y = b[1] - 1;\n            if (row_min[x] < y && y < row_max[x] &&\n                col_min[y] < x && x < col_max[y])\n                ++ans;\n        }\n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3819-count-covered-buildings/3819-count-covered-buildings.cpp"
+    }
+  ]
+}

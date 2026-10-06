@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4158",
+  "platform": "leetcode",
+  "id": "4158",
+  "title": "Absolute Difference Between Maximum and Minimum K Elements",
+  "slug": "absolute-difference-between-maximum-and-minimum-k-elements",
+  "url": "https://leetcode.com/problems/absolute-difference-between-maximum-and-minimum-k-elements",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> and an integer <code>k</code>.</p>\n\n<p>Find the absolute difference between:</p>\n\n<ul>\n\t<li>the <strong>sum</strong> of the <code>k</code> <strong>largest</strong> elements in the array; and</li>\n\t<li>the <strong>sum</strong> of the <code>k</code> <strong>smallest</strong> elements in the array.</li>\n</ul>\n\n<p>Return an integer denoting this difference.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5,2,2,4], k = 2</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The <code>k = 2</code> largest elements are 4 and 5. Their sum is <code>4 + 5 = 9</code>.</li>\n\t<li>The <code>k = 2</code> smallest elements are 2 and 2. Their sum is <code>2 + 2 = 4</code>.</li>\n\t<li>The absolute difference is <code>abs(9 - 4) = 5</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [100], k = 1</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The largest element is 100.</li>\n\t<li>The smallest element is 100.</li>\n\t<li>The absolute difference is <code>abs(100 - 100) = 0</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n\t<li><code>1 &lt;= k &lt;= n</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4158-absolute-difference-between-maximum-and-minimum-k-elements/4158-absolute-difference-between-maximum-and-minimum-k-elements.cpp",
+      "source": "/*\n Problem: 4158. Absolute Difference Between Maximum and Minimum K Elements\n Language: cpp\n Runtime: 4 ms (8.87%)\n Memory: 32.3 MB (15.71%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int absDifference(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        \n        int res = 0;\n        int n = nums.size();\n\n        for (int i = 0; i < k; ++i) {\n            res += nums[i];\n            res -= nums[n - i - 1];\n        }\n\n        return abs(res);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4158-absolute-difference-between-maximum-and-minimum-k-elements/4158-absolute-difference-between-maximum-and-minimum-k-elements.cpp"
+    }
+  ]
+}

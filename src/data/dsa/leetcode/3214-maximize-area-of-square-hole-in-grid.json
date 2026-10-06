@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3214",
+  "platform": "leetcode",
+  "id": "3214",
+  "title": "Maximize Area of Square Hole in Grid",
+  "slug": "maximize-area-of-square-hole-in-grid",
+  "url": "https://leetcode.com/problems/maximize-area-of-square-hole-in-grid",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given the two integers, <code>n</code> and <code>m</code> and two integer arrays, <code>hBars</code> and <code>vBars</code>. The grid has <code>n + 2</code> horizontal and <code>m + 2</code> vertical bars, creating 1 x 1 unit cells. The bars are indexed starting from <code>1</code>.</p>\n\n<p>You can <strong>remove</strong> some of the bars in <code>hBars</code> from horizontal bars and some of the bars in <code>vBars</code> from vertical bars. Note that other bars are fixed and cannot be removed.</p>\n\n<p>Return an integer denoting the <strong>maximum area</strong> of a <em>square-shaped</em> hole in the grid, after removing some bars (possibly none).</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<p></p>\n\n<div>\n<p><strong>Input: </strong><span>n = 2, m = 1, hBars = [2,3], vBars = [2]</span></p>\n\n<p><strong>Output: </strong><span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The left image shows the initial grid formed by the bars. The horizontal bars are <code>[1,2,3,4]</code>, and the vertical bars are <code>[1,2,3]</code>.</p>\n\n<p>One way to get the maximum square-shaped hole is by removing horizontal bar 2 and vertical bar 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<p></p>\n\n<div>\n<p><strong>Input: </strong><span>n = 1, m = 1, hBars = [2], vBars = [2]</span></p>\n\n<p><strong>Output: </strong><span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>To get the maximum square-shaped hole, we remove horizontal bar 2 and vertical bar 2.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<p></p>\n\n<div>\n<p><strong>Input: </strong><span>n = 2, m = 3, hBars = [2,3], vBars = [2,4]</span></p>\n\n<p><strong>Output: </strong><span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><span>One way to get the maximum square-shaped hole is by removing horizontal bar 3, and vertical bar 4.</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= m &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= hBars.length &lt;= 100</code></li>\n\t<li><code>2 &lt;= hBars[i] &lt;= n + 1</code></li>\n\t<li><code>1 &lt;= vBars.length &lt;= 100</code></li>\n\t<li><code>2 &lt;= vBars[i] &lt;= m + 1</code></li>\n\t<li>All values in <code>hBars</code> are distinct.</li>\n\t<li>All values in <code>vBars</code> are distinct.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3214-maximize-area-of-square-hole-in-grid/3214-maximize-area-of-square-hole-in-grid.cpp",
+      "source": "/*\n Problem: 3214. Maximize Area of Square Hole in Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.9 MB (69.44%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int longestConsecutive(vector<int>& bars) {\n        if (bars.empty()) return 0;\n        sort(bars.begin(), bars.end());\n\n        int best = 1, cur = 1;\n        for (int i = 1; i < bars.size(); i++) {\n            if (bars[i] == bars[i - 1] + 1)\n                ++cur;\n            else\n                cur = 1;\n            best = max(best, cur);\n        }\n        return best;\n    }\n\n    int maximizeSquareHoleArea(int n, int m, vector<int>& hBars, vector<int>& vBars) {\n        int maxH = longestConsecutive(hBars);\n        int maxV = longestConsecutive(vBars);\n\n        int side = min(maxH + 1, maxV + 1);\n        return side * side;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3214-maximize-area-of-square-hole-in-grid/3214-maximize-area-of-square-hole-in-grid.cpp"
+    }
+  ]
+}

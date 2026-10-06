@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:3640",
+  "platform": "leetcode",
+  "id": "3640",
+  "title": "Maximum Frequency of an Element After Performing Operations II",
+  "slug": "maximum-frequency-of-an-element-after-performing-operations-ii",
+  "url": "https://leetcode.com/problems/maximum-frequency-of-an-element-after-performing-operations-ii",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Binary Search",
+    "Prefix Sum",
+    "Sliding Window",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> and two integers <code>k</code> and <code>numOperations</code>.</p>\n\n<p>You must perform an <strong>operation</strong> <code>numOperations</code> times on <code>nums</code>, where in each operation you:</p>\n\n<ul>\n\t<li>Select an index <code>i</code> that was <strong>not</strong> selected in any previous operations.</li>\n\t<li>Add an integer in the range <code>[-k, k]</code> to <code>nums[i]</code>.</li>\n</ul>\n\n<p>Return the <strong>maximum</strong> possible <span>frequency</span> of any element in <code>nums</code> after performing the <strong>operations</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,4,5], k = 1, numOperations = 2</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We can achieve a maximum frequency of two by:</p>\n\n<ul>\n\t<li>Adding 0 to <code>nums[1]</code>, after which <code>nums</code> becomes <code>[1, 4, 5]</code>.</li>\n\t<li>Adding -1 to <code>nums[2]</code>, after which <code>nums</code> becomes <code>[1, 4, 4]</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5,11,20,20], k = 5, numOperations = 1</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We can achieve a maximum frequency of two by:</p>\n\n<ul>\n\t<li>Adding 0 to <code>nums[1]</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>0 &lt;= k &lt;= 10<sup>9</sup></code></li>\n\t<li><code>0 &lt;= numOperations &lt;= nums.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/3640-maximum-frequency-of-an-element-after-performing-operations-ii/3640-maximum-frequency-of-an-element-after-performing-operations-ii.cpp",
+      "source": "/*\n Problem: 3640. Maximum Frequency of an Element After Performing Operations II\n Language: cpp\n Runtime: 336 ms (73.82%)\n Memory: 104.3 MB (79.71%)\n Tags: Array, Binary Search, Sliding Window, Sorting, Prefix Sum\n*/\nclass Solution {\npublic:\n    int maxFrequency(vector<int>& nums, int k, int numOperations) {\n        vector<int> vals;\n        vals.reserve(nums.size() * 3);\n        for (int x : nums) {\n            vals.push_back(x);\n            vals.push_back(x - k);\n            vals.push_back(x + k);\n        }\n\n        // Nén số\n        sort(vals.begin(), vals.end());\n        vals.erase(unique(vals.begin(), vals.end()), vals.end());\n\n        int m = vals.size();\n        vector<int> freq(m, 0);\n\n        // Đếm tần suất theo chỉ số nén\n        for (int x : nums) {\n            int idx = lower_bound(vals.begin(), vals.end(), x) - vals.begin();\n            freq[idx]++;\n        }\n\n        // Prefix sum\n        vector<int> prefix(m, 0);\n        prefix[0] = freq[0];\n        for (int i = 1; i < m; i++) prefix[i] = prefix[i - 1] + freq[i];\n\n        int ans = 0;\n        for (int i = 0; i < m; i++) {\n            int cur = freq[i];\n            long long center = vals[i];\n            long long left_val = center - k;\n            long long right_val = center + k;\n\n            // Tìm index tương ứng với khoảng [center - k, center + k]\n            int left = lower_bound(vals.begin(), vals.end(), left_val) - vals.begin();\n            int right = upper_bound(vals.begin(), vals.end(), right_val) - vals.begin() - 1;\n\n            // Tổng số phần tử trong [left, right], trừ phần tử trung tâm\n            int allVal = prefix[right] - (left > 0 ? prefix[left - 1] : 0) - cur;\n\n            ans = max(ans, min(allVal, numOperations) + cur);\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/3640-maximum-frequency-of-an-element-after-performing-operations-ii/3640-maximum-frequency-of-an-element-after-performing-operations-ii.cpp"
+    }
+  ]
+}

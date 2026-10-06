@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1079",
+  "platform": "leetcode",
+  "id": "1079",
+  "title": "Sum of Root To Leaf Binary Numbers",
+  "slug": "sum-of-root-to-leaf-binary-numbers",
+  "url": "https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers",
+  "difficulty": "Easy",
+  "topics": [
+    "Binary Tree",
+    "Depth-First Search",
+    "Tree"
+  ],
+  "statementHtml": "<p>You are given the <code>root</code> of a binary tree where each node has a value <code>0</code> or <code>1</code>. Each root-to-leaf path represents a binary number starting with the most significant bit.</p>\n\n<ul>\n\t<li>For example, if the path is <code>0 -&gt; 1 -&gt; 1 -&gt; 0 -&gt; 1</code>, then this could represent <code>01101</code> in binary, which is <code>13</code>.</li>\n</ul>\n\n<p>For all leaves in the tree, consider the numbers represented by the path from the root to that leaf. Return <em>the sum of these numbers</em>.</p>\n\n<p>The test cases are generated so that the answer fits in a <strong>32-bits</strong> integer.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [1,0,1,0,1,0,1]\n<strong>Output:</strong> 22\n<strong>Explanation: </strong>(100) + (101) + (110) + (111) = 4 + 5 + 6 + 7 = 22\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [0]\n<strong>Output:</strong> 0\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 1000]</code>.</li>\n\t<li><code>Node.val</code> is <code>0</code> or <code>1</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Rust",
+      "relativePath": "leetcode/Easy/1079-sum-of-root-to-leaf-binary-numbers/1079-sum-of-root-to-leaf-binary-numbers.rs",
+      "source": "/*\n Problem: 1079. Sum of Root To Leaf Binary Numbers\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.3 MB (26.45%)\n Tags: Tree, Depth-First Search, Binary Tree\n*/\n// Definition for a binary tree node.\n// #[derive(Debug, PartialEq, Eq)]\n// pub struct TreeNode {\n//   pub val: i32,\n//   pub left: Option<Rc<RefCell<TreeNode>>>,\n//   pub right: Option<Rc<RefCell<TreeNode>>>,\n// }\n// \n// impl TreeNode {\n//   #[inline]\n//   pub fn new(val: i32) -> Self {\n//     TreeNode {\n//       val,\n//       left: None,\n//       right: None\n//     }\n//   }\n// }\nuse std::rc::Rc;\nuse std::cell::RefCell;\n\nimpl Solution {\n    fn dfs(node: Option<Rc<RefCell<TreeNode>>>, cur: i32) -> i32 {\n        if let Some(n) = node {\n            let n_ref = n.borrow();\n            let val = (cur << 1) | n_ref.val;\n\n            if n_ref.left.is_none() && n_ref.right.is_none() {\n                return val;\n            }\n\n            Solution::dfs(n_ref.left.clone(), val) +\n            Solution::dfs(n_ref.right.clone(), val)\n        } else {\n            0\n        }\n    }\n\n    pub fn sum_root_to_leaf(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        Solution::dfs(root, 0)\n    }\n}",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1079-sum-of-root-to-leaf-binary-numbers/1079-sum-of-root-to-leaf-binary-numbers.rs"
+    }
+  ]
+}

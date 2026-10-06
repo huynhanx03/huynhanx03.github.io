@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3897",
+  "platform": "leetcode",
+  "id": "3897",
+  "title": "Count Number of Trapezoids II",
+  "slug": "count-number-of-trapezoids-ii",
+  "url": "https://leetcode.com/problems/count-number-of-trapezoids-ii",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Geometry",
+    "Hash Table",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given a 2D integer array <code>points</code> where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> represents the coordinates of the <code>i<sup>th</sup></code> point on the Cartesian plane.</p>\n\n<p>Return <em>the number of unique </em><em>trapezoids</em> that can be formed by choosing any four distinct points from <code>points</code>.</p>\n\n<p>A<b> </b><strong>trapezoid</strong> is a convex quadrilateral with <strong>at least one pair</strong> of parallel sides. Two lines are parallel if and only if they have the same slope.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>points = [[-3,2],[3,0],[2,3],[3,2],[2,-3]]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p> </p>\n\n<p>There are two distinct ways to pick four points that form a trapezoid:</p>\n\n<ul>\n\t<li>The points <code>[-3,2], [2,3], [3,2], [2,-3]</code> form one trapezoid.</li>\n\t<li>The points <code>[2,3], [3,2], [3,0], [2,-3]</code> form another trapezoid.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>points = [[0,0],[1,0],[0,1],[2,1]]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n\n<p>There is only one trapezoid which can be formed.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>4 &lt;= points.length &lt;= 500</code></li>\n\t<li><code>–1000 &lt;= x<sub>i</sub>, y<sub>i</sub> &lt;= 1000</code></li>\n\t<li>All points are pairwise distinct.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/3897-count-number-of-trapezoids-ii/3897-count-number-of-trapezoids-ii.cpp",
+      "source": "/*\n Problem: 3897. Count Number of Trapezoids II\n Language: cpp\n Runtime: 1955 ms (40.00%)\n Memory: 555.7 MB (20.00%)\n Tags: Array, Hash Table, Math, Geometry\n*/\nclass Solution {\npublic:\n    int countTrapezoids(const vector<vector<int>>& points) {\n        unordered_map<int, unordered_map<int, int>> slopeInterceptMap, vectorInterceptMap;\n\n        for (size_t i = 0; i < points.size(); ++i) {\n            for (size_t j = i + 1; j < points.size(); ++j) {\n                int dx = points[j][0] - points[i][0];\n                int dy = points[j][1] - points[i][1];\n\n                if (dx < 0 || (dx == 0 && dy < 0)) {\n                    dx = -dx;\n                    dy = -dy;\n                }\n\n                int g = gcd(dx, abs(dy));\n                int slopeX = dx / g;\n                int slopeY = dy / g;\n\n                int intercept = slopeX * points[i][1] - slopeY * points[i][0];\n\n                int slopeKey = (slopeX << 12) | (slopeY + 2000);\n                int vectorKey = (dx << 12) | (dy + 2000);\n\n                slopeInterceptMap[slopeKey][intercept]++;\n                vectorInterceptMap[vectorKey][intercept]++;\n            }\n        }\n\n        return countPairs(slopeInterceptMap) - countPairs(vectorInterceptMap) / 2;\n    }\n\nprivate:\n    long long countPairs(const unordered_map<int, unordered_map<int, int>>& map) {\n        long long total = 0;\n        for (auto& [_, innerMap] : map) {\n            long long sum = 0;\n            for (auto& [__, count] : innerMap) sum += count;\n\n            for (auto& [__, count] : innerMap) total += count * (sum -= count);\n        }\n        return total;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/3897-count-number-of-trapezoids-ii/3897-count-number-of-trapezoids-ii.cpp"
+    }
+  ]
+}

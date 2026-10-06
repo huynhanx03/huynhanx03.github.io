@@ -1,0 +1,29 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import OrbitalHero from '../../components/home/OrbitalHero.astro';
+import { getCompetitiveData, getSiteConfig, getSkills, getStatsSnapshot } from '../../data/portfolio';
+import { getMessages, localizedSite, requireLocale } from '../../i18n';
+import { getLocalizedPageUrls, localizedStaticPaths } from '../../lib/page-seo';
+import { buildPersonSchema, buildWebsiteSchema, buildWebPageSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return localizedStaticPaths();
+}
+
+const locale = requireLocale(Astro.props.locale);
+const copy = getMessages(locale);
+const siteConfig = getSiteConfig();
+const site = localizedSite(siteConfig, locale);
+const skills = getSkills();
+const competitive = getCompetitiveData();
+const stats = getStatsSnapshot();
+const urls = getLocalizedPageUrls(locale, '/', Astro.site ?? Astro.url);
+const schemas = [
+  buildPersonSchema(site, urls.canonical),
+  buildWebsiteSchema(site, urls.canonical, locale),
+  buildWebPageSchema({ name: copy.seo.homeTitle, description: copy.seo.homeDescription, url: urls.canonical, locale, type: 'ProfilePage' }),
+];
+---
+<PortfolioLayout title={copy.seo.homeTitle} description={copy.seo.homeDescription} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <OrbitalHero site={site} englishRole={siteConfig.role} englishSummary={siteConfig.summary} locale={locale} copy={copy} techCategories={skills} competitive={competitive} stats={stats} />
+</PortfolioLayout>

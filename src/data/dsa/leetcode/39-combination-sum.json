@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:39",
+  "platform": "leetcode",
+  "id": "39",
+  "title": "Combination Sum",
+  "slug": "combination-sum",
+  "url": "https://leetcode.com/problems/combination-sum",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Backtracking"
+  ],
+  "statementHtml": "<p>Given an array of <strong>distinct</strong> integers <code>candidates</code> and a target integer <code>target</code>, return <em>a list of all <strong>unique combinations</strong> of </em><code>candidates</code><em> where the chosen numbers sum to </em><code>target</code><em>.</em> You may return the combinations in <strong>any order</strong>.</p>\n\n<p>The <strong>same</strong> number may be chosen from <code>candidates</code> an <strong>unlimited number of times</strong>. Two combinations are unique if the <span>frequency</span> of at least one of the chosen numbers is different.</p>\n\n<p>The test cases are generated such that the number of unique combinations that sum up to <code>target</code> is less than <code>150</code> combinations for the given input.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> candidates = [2,3,6,7], target = 7\n<strong>Output:</strong> [[2,2,3],[7]]\n<strong>Explanation:</strong>\n2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.\n7 is a candidate, and 7 = 7.\nThese are the only two combinations.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> candidates = [2,3,5], target = 8\n<strong>Output:</strong> [[2,2,2,2],[2,3,3],[3,5]]\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> candidates = [2], target = 1\n<strong>Output:</strong> []\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= candidates.length &lt;= 30</code></li>\n\t<li><code>2 &lt;= candidates[i] &lt;= 40</code></li>\n\t<li>All elements of <code>candidates</code> are <strong>distinct</strong>.</li>\n\t<li><code>1 &lt;= target &lt;= 40</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0039-combination-sum/0039-combination-sum.cpp",
+      "source": "/*\n Problem: 39. Combination Sum\n Language: cpp\n Runtime: 15 ms (18.91%)\n Memory: 18.4 MB (19.50%)\n Tags: Array, Backtracking\n*/\nclass Solution {\n    void combination(vector<int>& candidates, int target, vector<int> currComb, int currSum, int currIndex, vector<vector<int>>& ans){\n        if(currSum>target) return; \n        \n        if(currSum==target){\n            ans.push_back(currComb); \n            return;\n        }\n        \n        for(int i=currIndex; i < candidates.size(); i++){ \n            \n            currComb.push_back(candidates[i]);\n            currSum+=candidates[i];\n\n            combination(candidates, target, currComb, currSum, i, ans); \n\n            currComb.pop_back(); \n            currSum-=candidates[i];\n        }\n        \n    }\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n        vector<vector<int>> ans;\n        vector<int> currComb;\n        combination(candidates, target, currComb, 0, 0, ans);\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0039-combination-sum/0039-combination-sum.cpp"
+    }
+  ]
+}

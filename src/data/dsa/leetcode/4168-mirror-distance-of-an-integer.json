@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:4168",
+  "platform": "leetcode",
+  "id": "4168",
+  "title": "Mirror Distance of an Integer",
+  "slug": "mirror-distance-of-an-integer",
+  "url": "https://leetcode.com/problems/mirror-distance-of-an-integer",
+  "difficulty": "Easy",
+  "topics": [
+    "Math"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code>.</p>\n\n<p>Define its <strong>mirror distance</strong> as: <code>abs(n - reverse(n))</code>​​​​​​​ where <code>reverse(n)</code> is the integer formed by reversing the digits of <code>n</code>.</p>\n\n<p>Return an integer denoting the mirror distance of <code>n</code>​​​​​​​.</p>\n\n<p><code>abs(x)</code> denotes the absolute value of <code>x</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 25</span></p>\n\n<p><strong>Output:</strong> <span>27</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li><code>reverse(25) = 52</code>.</li>\n\t<li>Thus, the answer is <code>abs(25 - 52) = 27</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 10</span></p>\n\n<p><strong>Output:</strong> <span>9</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li><code>reverse(10) = 01</code> which is 1.</li>\n\t<li>Thus, the answer is <code>abs(10 - 1) = 9</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 7</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li><code>reverse(7) = 7</code>.</li>\n\t<li>Thus, the answer is <code>abs(7 - 7) = 0</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4168-mirror-distance-of-an-integer/4168-mirror-distance-of-an-integer.cpp",
+      "source": "/*\n Problem: 4168. Mirror Distance of an Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (86.21%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int mirrorDistance(int n) {\n        int x = n;\n        int rev = 0;\n\n        while (x > 0) {\n            rev = rev * 10 + x % 10;\n            x /= 10;\n        }\n\n        return abs(rev - n);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4168-mirror-distance-of-an-integer/4168-mirror-distance-of-an-integer.cpp"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "key": "cses:3217",
+  "platform": "cses",
+  "id": "3217",
+  "slug": "knight-moves-grid",
+  "title": "Knight Moves Grid",
+  "url": "https://cses.fi/problemset/task/3217/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>There is a knight on an <span>n \\times n</span> chessboard. For each square, print the minimum number of moves the knight needs to do to reach the top-left corner.</p>\n<h2>Input</h2>\n<p>The only line has an integer <span>n</span>.</p>\n<h2>Output</h2>\n<p>Print the number of moves for each square.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>4 \\le n \\le 1000</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>8\n</pre>\n<p>Output:</p>\n<pre>0 3 2 3 2 3 4 5 \n3 4 1 2 3 4 3 4 \n2 1 4 3 2 3 4 5 \n3 2 3 2 3 4 3 4 \n2 3 2 3 4 3 4 5 \n3 4 3 4 3 4 5 4 \n4 3 4 3 4 5 4 5 \n5 4 5 4 5 4 5 6 \n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Knight_Moves_Grid.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        int n;\n        cin >> n;\n\n        vector<vector<int>> ans(n, vector<int>(n, -1));\n        queue<pair<int,int>> q;\n        \n        const int dx[] = {1,2,2,1,-1,-2,-2,-1};\n        const int dy[] = {2,1,-1,-2,-2,-1,1,2};\n\n        ans[0][0] = 0;\n        q.push({0, 0});\n\n        while (!q.empty()) {\n            auto [x, y] = q.front(); q.pop();\n\n            for (int i = 0; i < 8; i++) {\n                int nx = x + dx[i];\n                int ny = y + dy[i];\n\n                if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;\n                if (ans[nx][ny] != -1) continue;\n\n                ans[nx][ny] = ans[x][y] + 1;\n                q.push({nx, ny});\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                cout << ans[i][j] << \" \";\n            }\n            cout << \"\\n\";\n        }\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Knight_Moves_Grid.cpp"
+    }
+  ]
+}

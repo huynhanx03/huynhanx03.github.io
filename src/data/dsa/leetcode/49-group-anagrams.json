@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:49",
+  "platform": "leetcode",
+  "id": "49",
+  "title": "Group Anagrams",
+  "slug": "group-anagrams",
+  "url": "https://leetcode.com/problems/group-anagrams",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sorting",
+    "String"
+  ],
+  "statementHtml": "<p>Given an array of strings <code>strs</code>, group the <span>anagrams</span> together. You can return the answer in <strong>any order</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]</span></p>\n\n<p><strong>Output:</strong> <span>[[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>There is no string in strs that can be rearranged to form <code>\"bat\"</code>.</li>\n\t<li>The strings <code>\"nat\"</code> and <code>\"tan\"</code> are anagrams as they can be rearranged to form each other.</li>\n\t<li>The strings <code>\"ate\"</code>, <code>\"eat\"</code>, and <code>\"tea\"</code> are anagrams as they can be rearranged to form each other.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>strs = [\"\"]</span></p>\n\n<p><strong>Output:</strong> <span>[[\"\"]]</span></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>strs = [\"a\"]</span></p>\n\n<p><strong>Output:</strong> <span>[[\"a\"]]</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= strs.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= strs[i].length &lt;= 100</code></li>\n\t<li><code>strs[i]</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0049-group-anagrams/0049-group-anagrams.cpp",
+      "source": "/*\n Problem: 49. Group Anagrams\n Language: cpp\n Runtime: 37 ms (18.91%)\n Memory: 24.8 MB (91.02%)\n Tags: Array, Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        map<string, vector<string>> hm;\n\n        for (auto str: strs) {\n            string strSort = str;\n            sort(strSort.begin(), strSort.end());\n\n            hm[strSort].push_back(str);\n        }\n\n        vector<vector<string>> ans;\n\n        for (auto vstring: hm)\n            ans.push_back(vstring.second);\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0049-group-anagrams/0049-group-anagrams.cpp"
+    }
+  ]
+}

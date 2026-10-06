@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3470",
+  "platform": "leetcode",
+  "id": "3470",
+  "title": "Maximum Score From Grid Operations",
+  "slug": "maximum-score-from-grid-operations",
+  "url": "https://leetcode.com/problems/maximum-score-from-grid-operations",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>You are given a 2D matrix <code>grid</code> of size <code>n x n</code>. Initially, all cells of the grid are colored white. In one operation, you can select any cell of indices <code>(i, j)</code>, and color black all the cells of the <code>j<sup>th</sup></code> column starting from the top row down to the <code>i<sup>th</sup></code> row.</p>\n\n<p>The grid score is the sum of all <code>grid[i][j]</code> such that cell <code>(i, j)</code> is white and it has a horizontally adjacent black cell.</p>\n\n<p>Return the <strong>maximum</strong> score that can be achieved after some number of operations.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[0,0,0,0,0],[0,0,3,0,0],[0,1,0,0,0],[5,0,0,3,0],[0,0,0,0,2]]</span></p>\n\n<p><strong>Output:</strong> <span>11</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>In the first operation, we color all cells in column 1 down to row 3, and in the second operation, we color all cells in column 4 down to the last row. The score of the resulting grid is <code>grid[3][0] + grid[1][2] + grid[3][3]</code> which is equal to 11.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[10,9,0,0,15],[7,1,0,8,0],[5,20,0,11,0],[0,0,0,1,2],[8,12,1,10,3]]</span></p>\n\n<p><strong>Output:</strong> <span>94</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We perform operations on 1, 2, and 3 down to rows 1, 4, and 0, respectively. The score of the resulting grid is <code>grid[0][0] + grid[1][0] + grid[2][1] + grid[4][1] + grid[1][3] + grid[2][3] + grid[3][3] + grid[4][3] + grid[0][4]</code> which is equal to 94.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == grid.length &lt;= 100</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>0 &lt;= grid[i][j] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/3470-maximum-score-from-grid-operations/3470-maximum-score-from-grid-operations.cpp",
+      "source": "/*\n Problem: 3470. Maximum Score From Grid Operations\n Language: cpp\n Runtime: 631 ms (20.88%)\n Memory: 637.5 MB (5.09%)\n Tags: Array, Dynamic Programming, Matrix, Prefix Sum\n*/\nclass Solution {\npublic:\n    long long maximumScore(vector<vector<int>>& grid) {\n        int n = grid.size();\n        if (n == 1) return 0;\n\n        vector<vector<long long>> prefix(n, vector<long long>(n + 1));\n\n        for (int j = 0; j < n; ++j)\n            for (int i = 0; i < n; ++i)\n                prefix[j][i + 1] = prefix[j][i] + grid[i][j];\n\n        int m = n + 1;\n        long long neg = -4e18;\n\n        vector<vector<long long>> dp(m, vector<long long>(m, neg));\n\n        for (int i = 0; i <= n; ++i)\n            for (int j = 0; j <= n; ++j)\n                dp[i][j] = j > i ? prefix[0][j] - prefix[0][i] : 0;\n\n        for (int col = 1; col < n - 1; ++col) {\n            vector<vector<long long>> newDp(m, vector<long long>(m, neg));\n\n            for (int j = 0; j <= n; ++j) {\n                vector<long long> pref(m, neg), mid(m + 1, neg), suf(m + 1, neg);\n\n                pref[0] = dp[0][j];\n                for (int i = 1; i <= n; ++i)\n                    pref[i] = max(pref[i - 1], dp[i][j]);\n\n                for (int i = j; i >= 0; --i)\n                    mid[i] = max(mid[i + 1], dp[i][j]);\n\n                for (int i = n; i >= 0; --i)\n                    suf[i] = max(suf[i + 1], dp[i][j] + prefix[col][i]);\n\n                for (int k = 0; k <= n; ++k) {\n                    long long best = pref[k];\n\n                    if (k > j)\n                        best += prefix[col][k] - prefix[col][j];\n\n                    if (k < j)\n                        best = max(best, mid[k + 1]);\n\n                    int start = max(j, k) + 1;\n                    if (start <= n)\n                        best = max(best, suf[start] - prefix[col][j]);\n\n                    newDp[j][k] = best;\n                }\n            }\n\n            dp = newDp;\n        }\n\n        long long ans = 0;\n\n        for (int i = 0; i <= n; ++i)\n            for (int j = 0; j <= n; ++j)\n                ans = max(ans, dp[i][j] + (i > j ? prefix[n - 1][i] - prefix[n - 1][j] : 0));\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/3470-maximum-score-from-grid-operations/3470-maximum-score-from-grid-operations.cpp"
+    }
+  ]
+}

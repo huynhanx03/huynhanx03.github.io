@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1250",
+  "platform": "leetcode",
+  "id": "1250",
+  "title": "Longest Common Subsequence",
+  "slug": "longest-common-subsequence",
+  "url": "https://leetcode.com/problems/longest-common-subsequence",
+  "difficulty": "Medium",
+  "topics": [
+    "Dynamic Programming",
+    "String"
+  ],
+  "statementHtml": "<p>Given two strings <code>text1</code> and <code>text2</code>, return <em>the length of their longest <strong>common subsequence</strong>. </em>If there is no <strong>common subsequence</strong>, return <code>0</code>.</p>\n\n<p>A <strong>subsequence</strong> of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.</p>\n\n<ul>\n\t<li>For example, <code>\"ace\"</code> is a subsequence of <code>\"abcde\"</code>.</li>\n</ul>\n\n<p>A <strong>common subsequence</strong> of two strings is a subsequence that is common to both strings.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> text1 = \"abcde\", text2 = \"ace\" \n<strong>Output:</strong> 3  \n<strong>Explanation:</strong> The longest common subsequence is \"ace\" and its length is 3.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> text1 = \"abc\", text2 = \"abc\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The longest common subsequence is \"abc\" and its length is 3.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> text1 = \"abc\", text2 = \"def\"\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> There is no such common subsequence, so the result is 0.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= text1.length, text2.length &lt;= 1000</code></li>\n\t<li><code>text1</code> and <code>text2</code> consist of only lowercase English characters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1250-longest-common-subsequence/1250-longest-common-subsequence.cpp",
+      "source": "/*\n Problem: 1250. Longest Common Subsequence\n Language: cpp\n Runtime: 27 ms (58.62%)\n Memory: 27.5 MB (53.27%)\n Tags: String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int longestCommonSubsequence(string text1, string text2) {\n        int n = text1.size(), m = text2.size();\n\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j <= m; j++) {\n                if (text1[i - 1] == text2[j - 1])\n                    dp[i][j] = dp[i - 1][j - 1] + 1;\n                else\n                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);\n            }\n        }\n\n        return dp[n][m];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1250-longest-common-subsequence/1250-longest-common-subsequence.cpp"
+    }
+  ]
+}

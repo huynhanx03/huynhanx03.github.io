@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:485",
+  "platform": "leetcode",
+  "id": "485",
+  "title": "Max Consecutive Ones",
+  "slug": "max-consecutive-ones",
+  "url": "https://leetcode.com/problems/max-consecutive-ones",
+  "difficulty": "Easy",
+  "topics": [
+    "Array"
+  ],
+  "statementHtml": "<p>Given a binary array <code>nums</code>, return <em>the maximum number of consecutive </em><code>1</code><em>'s in the array</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,1,0,1,1,1]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,0,1,1,0,1]\n<strong>Output:</strong> 2\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>nums[i]</code> is either <code>0</code> or <code>1</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0485-max-consecutive-ones/0485-max-consecutive-ones.cpp",
+      "source": "/*\n Problem: 485. Max Consecutive Ones\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 50.2 MB (67.30%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    int findMaxConsecutiveOnes(vector<int>& nums) {\n        int ans = 0;\n\n        int cnt = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            if (nums[i] == 1) ++cnt;\n            else {\n                ans = max(ans, cnt);\n                cnt = 0;\n            }\n        }\n\n        return max(cnt, ans);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0485-max-consecutive-ones/0485-max-consecutive-ones.cpp"
+    }
+  ]
+}

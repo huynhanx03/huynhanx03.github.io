@@ -1,0 +1,35 @@
+{
+  "key": "leetcode:1667",
+  "platform": "leetcode",
+  "id": "1667",
+  "title": "Find Kth Bit in Nth Binary String",
+  "slug": "find-kth-bit-in-nth-binary-string",
+  "url": "https://leetcode.com/problems/find-kth-bit-in-nth-binary-string",
+  "difficulty": "Medium",
+  "topics": [
+    "Recursion",
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>Given two positive integers <code>n</code> and <code>k</code>, the binary string <code>S<sub>n</sub></code> is formed as follows:</p>\n\n<ul>\n\t<li><code>S<sub>1</sub> = \"0\"</code></li>\n\t<li><code>S<sub>i</sub> = S<sub>i - 1</sub> + \"1\" + reverse(invert(S<sub>i - 1</sub>))</code> for <code>i &gt; 1</code></li>\n</ul>\n\n<p>Where <code>+</code> denotes the concatenation operation, <code>reverse(x)</code> returns the reversed string <code>x</code>, and <code>invert(x)</code> inverts all the bits in <code>x</code> (<code>0</code> changes to <code>1</code> and <code>1</code> changes to <code>0</code>).</p>\n\n<p>For example, the first four strings in the above sequence are:</p>\n\n<ul>\n\t<li><code>S<sub>1 </sub>= \"0\"</code></li>\n\t<li><code>S<sub>2 </sub>= \"0<strong>1</strong>1\"</code></li>\n\t<li><code>S<sub>3 </sub>= \"011<strong>1</strong>001\"</code></li>\n\t<li><code>S<sub>4</sub> = \"0111001<strong>1</strong>0110001\"</code></li>\n</ul>\n\n<p>Return <em>the</em> <code>k<sup>th</sup></code> <em>bit</em> <em>in</em> <code>S<sub>n</sub></code>. It is guaranteed that <code>k</code> is valid for the given <code>n</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 3, k = 1\n<strong>Output:</strong> \"0\"\n<strong>Explanation:</strong> S<sub>3</sub> is \"<strong><u>0</u></strong>111001\".\nThe 1<sup>st</sup> bit is \"0\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 4, k = 11\n<strong>Output:</strong> \"1\"\n<strong>Explanation:</strong> S<sub>4</sub> is \"0111001101<strong><u>1</u></strong>0001\".\nThe 11<sup>th</sup> bit is \"1\".\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 20</code></li>\n\t<li><code>1 &lt;= k &lt;= 2<sup>n</sup> - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1667-find-kth-bit-in-nth-binary-string/1667-find-kth-bit-in-nth-binary-string.cpp",
+      "source": "/*\n Problem: 1667. Find Kth Bit in Nth Binary String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (63.07%)\n Tags: String, Recursion, Simulation\n*/\nclass Solution {\npublic:\n    char findKthBit(int n, int k) {\n        if (n == 1) return '0';\n        \n        int mid = 1 << (n - 1);\n        \n        if (k == mid) return '1';\n        \n        if (k < mid)\n            return findKthBit(n - 1, k);\n        \n        char res = findKthBit(n - 1, (1 << n) - k);\n        return res == '0' ? '1' : '0';\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1667-find-kth-bit-in-nth-binary-string/1667-find-kth-bit-in-nth-binary-string.cpp"
+    },
+    {
+      "language": "Java",
+      "relativePath": "leetcode/Medium/1667-find-kth-bit-in-nth-binary-string/1667-find-kth-bit-in-nth-binary-string.java",
+      "source": "/*\n Problem: 1667. Find Kth Bit in Nth Binary String\n Language: java\n Runtime: 0 ms (100.00%)\n Memory: 42.5 MB (87.38%)\n Tags: String, Recursion, Simulation\n*/\nclass Solution {\n    public char findKthBit(int n, int k) {\n        if (n == 1) return '0';\n        \n        int mid = 1 << (n - 1);\n        \n        if (k == mid) return '1';\n        \n        if (k < mid)\n            return findKthBit(n - 1, k);\n        \n        char res = findKthBit(n - 1, (1 << n) - k);\n        return res == '0' ? '1' : '0';\n    }\n}",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1667-find-kth-bit-in-nth-binary-string/1667-find-kth-bit-in-nth-binary-string.java"
+    },
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Medium/1667-find-kth-bit-in-nth-binary-string/1667-find-kth-bit-in-nth-binary-string.py",
+      "source": "\"\"\"\n Problem: 1667. Find Kth Bit in Nth Binary String\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 19.2 MB (94.49%)\n Tags: String, Recursion, Simulation\n\"\"\"\nclass Solution:\n    def findKthBit(self, n: int, k: int) -> str:\n        if n == 1:\n            return \"0\"\n        \n        mid = 1 << (n - 1)\n        \n        if k == mid:\n            return \"1\"\n        \n        if k < mid:\n            return self.findKthBit(n - 1, k)\n        \n        res = self.findKthBit(n - 1, (1 << n) - k)\n        return \"1\" if res == \"0\" else \"0\"",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1667-find-kth-bit-in-nth-binary-string/1667-find-kth-bit-in-nth-binary-string.py"
+    }
+  ]
+}

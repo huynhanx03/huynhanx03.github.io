@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1402",
+  "platform": "leetcode",
+  "id": "1402",
+  "title": "Count Square Submatrices with All Ones",
+  "slug": "count-square-submatrices-with-all-ones",
+  "url": "https://leetcode.com/problems/count-square-submatrices-with-all-ones",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix"
+  ],
+  "statementHtml": "<p>Given a <code>m * n</code> matrix of ones and zeros, return how many <strong>square</strong> submatrices have all ones.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> matrix =\n[\n  [0,1,1,1],\n  [1,1,1,1],\n  [0,1,1,1]\n]\n<strong>Output:</strong> 15\n<strong>Explanation:</strong> \nThere are <strong>10</strong> squares of side 1.\nThere are <strong>4</strong> squares of side 2.\nThere is  <strong>1</strong> square of side 3.\nTotal number of squares = 10 + 4 + 1 = <strong>15</strong>.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> matrix = \n[\n  [1,0,1],\n  [1,1,0],\n  [1,1,0]\n]\n<strong>Output:</strong> 7\n<strong>Explanation:</strong> \nThere are <b>6</b> squares of side 1.  \nThere is <strong>1</strong> square of side 2. \nTotal number of squares = 6 + 1 = <b>7</b>.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 300</code></li>\n\t<li><code>1 &lt;= arr[0].length &lt;= 300</code></li>\n\t<li><code>0 &lt;= arr[i][j] &lt;= 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1402-count-square-submatrices-with-all-ones/1402-count-square-submatrices-with-all-ones.cpp",
+      "source": "/*\n Problem: 1402. Count Square Submatrices with All Ones\n Language: cpp\n Runtime: 6 ms (60.80%)\n Memory: 27.6 MB (86.31%)\n Tags: Array, Dynamic Programming, Matrix\n*/\nclass Solution {\npublic:\n    int countSquares(vector<vector<int>>& matrix) {\n        int res = 0;\n\n        for (int i = 0; i < matrix.size(); ++i) {\n            for (int j = 0; j < matrix[0].size(); ++j) {\n                if (matrix[i][j] && i > 0 && j > 0) {\n                    matrix[i][j] = min({matrix[i - 1][j], \n                        matrix[i][j - 1], matrix[i - 1][j - 1]}) + 1;\n                }\n\n                res += matrix[i][j];\n            }\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1402-count-square-submatrices-with-all-ones/1402-count-square-submatrices-with-all-ones.cpp"
+    }
+  ]
+}

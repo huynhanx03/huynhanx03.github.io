@@ -1,0 +1,28 @@
+---
+import type { NoteSummary } from '../../content/notes';
+import { getNoteDescription, notePath } from '../../content/notes';
+import type { Locale, Messages } from '../../i18n';
+import { termLabel } from '../../i18n';
+import { getReadingStats } from '../../content/notes/reading-time';
+import { getNoteViews } from '../../lib/analytics/note-views';
+
+interface Props { note: NoteSummary; locale: Locale; copy: Messages }
+const { note, locale, copy } = Astro.props;
+const excerpt = getNoteDescription(note);
+const reading = getReadingStats(note.entry.body ?? '', locale);
+const views = getNoteViews(notePath(note));
+const viewsUpdatedAt = views ? new Date(`${views.updatedAt}T00:00:00`).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : null;
+---
+<a class="note-card" data-pagefind-body data-discovery-card data-content-type="note" data-content-category={note.data.category.toLowerCase()} data-content-path={notePath(note)} href={notePath(note)}>
+  <div class="note-card-topline">
+    <span class="note-category">{note.data.category}</span>
+    {note.data.kind !== 'note' && <span class="note-kind">{termLabel(locale, note.data.kind)}</span>}
+    <div class="note-card-stats">
+      <span title={views ? (viewsUpdatedAt ? `${copy.notes.updated} ${viewsUpdatedAt}` : undefined) : copy.notes.viewsUnavailable}>{views ? views.count.toLocaleString(locale === 'vi' ? 'vi-VN' : 'en-US') : '—'} {copy.notes.views}</span>
+      <span>{reading.minutes} {copy.notes.minuteRead}</span>
+    </div>
+  </div>
+  <h2>{note.data.title}</h2>
+  <p>{excerpt}</p>
+  <span class="note-card-arrow" aria-hidden="true">↗</span>
+</a>

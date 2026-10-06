@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:637",
+  "platform": "leetcode",
+  "id": "637",
+  "title": "Average of Levels in Binary Tree",
+  "slug": "average-of-levels-in-binary-tree",
+  "url": "https://leetcode.com/problems/average-of-levels-in-binary-tree",
+  "difficulty": "Easy",
+  "topics": [
+    "Binary Tree",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Tree"
+  ],
+  "statementHtml": "Given the <code>root</code> of a binary tree, return <em>the average value of the nodes on each level in the form of an array</em>. Answers within <code>10<sup>-5</sup></code> of the actual answer will be accepted.\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [3,9,20,null,null,15,7]\n<strong>Output:</strong> [3.00000,14.50000,11.00000]\nExplanation: The average value of nodes on level 0 is 3, on level 1 is 14.5, and on level 2 is 11.\nHence return [3, 14.5, 11].\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [3,9,20,15,7]\n<strong>Output:</strong> [3.00000,14.50000,11.00000]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-2<sup>31</sup> &lt;= Node.val &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0637-average-of-levels-in-binary-tree/0637-average-of-levels-in-binary-tree.cpp",
+      "source": "/*\n Problem: 637. Average of Levels in Binary Tree\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 24 MB (23.26%)\n Tags: Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<double> averageOfLevels(TreeNode* root) {\n        queue<TreeNode*> qu;\n        qu.push(root);\n\n        int cnt = 1;\n\n        vector<double> result;\n\n        while (!qu.empty()) {\n            long long av = 0;\n            int count = 0;\n\n            for (int i = 0; i < cnt; ++i) {\n                auto t = qu.front();\n                qu.pop();\n\n                av += t->val;\n\n                if (t->left) {\n                    ++count;\n                    qu.push(t->left);\n                }\n\n                if (t->right) {\n                    ++count;\n                    qu.push(t->right);\n                }\n            }\n\n            result.push_back((double) av / cnt);\n            cnt = count;\n        }\n\n        return result;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0637-average-of-levels-in-binary-tree/0637-average-of-levels-in-binary-tree.cpp"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+---
+import type { CompetitiveData, SiteConfig, SkillCategory, StatsSnapshot } from '../../data/types';
+import type { Locale, Messages } from '../../i18n';
+import { localizedPath } from '../../i18n';
+import { sitePath } from '../../lib/paths';
+import SocialLinks from '../layout/SocialLinks.astro';
+import CompetitiveShowcase from './CompetitiveShowcase.astro';
+import TechOrbit from './TechOrbit.astro';
+
+interface Props { site: SiteConfig; englishRole: string; englishSummary: string; locale: Locale; copy: Messages; techCategories: SkillCategory[]; competitive: CompetitiveData; stats: StatsSnapshot }
+const { site, englishRole, englishSummary, locale, copy, techCategories, competitive, stats } = Astro.props;
+const firstName = site.name.split(' ').at(-1) ?? site.name;
+---
+<section class="orbital-hero">
+  <div class="orbital-layout">
+    <div class="orbital-copy">
+      <p class="greeting-badge"><span aria-hidden="true">//</span> {copy.home.greeting}</p>
+      <h1>I'm <span>{firstName}</span></h1>
+      <p class="hero-role">{englishRole}</p><p class="hero-summary">“{englishSummary}”</p>
+    </div>
+    <div class="orbital-stage" aria-label={site.name}>
+      <div class="orbital-avatar-ring" aria-hidden="true"></div>
+      <div class="orbital-avatar">{site.avatar ? <img src={sitePath(site.avatar)} alt={`${site.name} ${locale === 'vi' ? 'ảnh đại diện' : 'avatar'}`} width="460" height="460" fetchpriority="high" /> : <span>{firstName.charAt(0)}</span>}</div>
+    </div>
+    <div class="hero-footer">
+      <div class="hero-actions"><a class="hero-cta" href={localizedPath(locale, '/projects')}>{copy.home.viewProjects} <span aria-hidden="true">→</span></a><SocialLinks links={site.links} class="hero-socials" /></div>
+      <CompetitiveShowcase competitive={competitive} stats={stats} copy={copy} />
+    </div>
+    <TechOrbit categories={techCategories} copy={copy} />
+  </div>
+</section>
+
+<style>
+  .orbital-hero { position:relative; display:grid; align-items:center; min-height:0; overflow:hidden; padding:clamp(5.5rem,7vw,6.5rem) 0 1.5rem; isolation:isolate; }
+  .orbital-hero::before { position:absolute; z-index:-1; inset:0; background:radial-gradient(circle at 76% 48%,rgb(37 99 235 / 0.15),transparent 30rem),radial-gradient(circle at 34% 50%,rgb(8 145 178 / 0.09),transparent 24rem); content:""; }
+  .orbital-hero::after { position:absolute; z-index:-1; inset:0; background-image:linear-gradient(rgb(148 163 184 / 0.035) 1px,transparent 1px),linear-gradient(90deg,rgb(148 163 184 / 0.035) 1px,transparent 1px); background-size:44px 44px; mask-image:radial-gradient(ellipse at 72% 50%,black,transparent 68%); content:""; pointer-events:none; }
+  .orbital-layout { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-areas:"copy stage" "footer footer" "skills skills"; grid-template-rows:minmax(0,1fr) auto auto; align-items:center; column-gap:clamp(1rem,3vw,3.2rem); row-gap:0; width:min(1040px,calc(100% - 2rem)); margin-inline:auto; }
+  .orbital-copy { grid-area:copy; position:relative; z-index:2; min-width:0; }.orbital-copy h1 { max-width:650px; margin:1.3rem 0 .7rem; color:var(--text); font-size:clamp(3.4rem,7vw,6.5rem); line-height:.94; letter-spacing:-.065em; }
+  .orbital-copy h1 span { background:linear-gradient(110deg,var(--accent),#60a5fa 52%,var(--violet)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }.orbital-copy h1 b { display:inline-block; margin-left:.035em; color:var(--accent); font-weight:700; letter-spacing:normal; }.orbital-copy .hero-summary { max-width:560px; }
+  .orbital-stage { grid-area:stage; position:relative; left:clamp(0px,8vw,6rem); width:min(100%,620px); height:clamp(340px,29vw,400px); min-height:0; margin:auto; perspective:1600px; transform-style:preserve-3d; }
+  .orbital-stage::before { position:absolute; inset:17%; border-radius:50%; background:radial-gradient(circle,rgb(34 211 238 / 0.1),transparent 68%); filter:blur(16px); content:""; }
+  .orbital-avatar { position:absolute; z-index:4; top:58%; left:50%; display:grid; place-items:center; width:clamp(190px,27vw,258px); aspect-ratio:1; overflow:hidden; border:5px solid var(--bg); border-radius:50%; background:var(--surface-strong); box-shadow:0 0 0 1px rgb(103 232 249 / 0.25),0 0 48px rgb(34 211 238 / 0.24),0 20px 40px rgb(2 6 23 / 0.35); transform:translate(-50%,-50%); }
+  .orbital-avatar img,.orbital-avatar>span { width:100%; height:100%; border-radius:inherit; background:var(--surface-strong); object-fit:cover; }.orbital-avatar>span { display:grid; place-items:center; color:var(--accent); font-size:4rem; font-weight:800; }
+  .orbital-avatar-ring { position:absolute; z-index:3; top:58%; left:50%; width:clamp(220px,31vw,292px); aspect-ratio:1; border:2px solid transparent; border-radius:50%; background:conic-gradient(from 0deg,var(--accent),transparent 22%,var(--blue) 52%,transparent 72%,var(--violet)) border-box; mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0); mask-composite:exclude; animation:avatar-orbit 24s linear infinite; transform:translate(-50%,-50%); pointer-events:none; }
+  .orbital-avatar-ring::after { position:absolute; inset:-8px; border:1px dashed rgb(103 232 249 / .17); border-radius:inherit; content:""; }
+  .hero-footer { grid-area:footer; position:relative; z-index:6; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:center; gap:clamp(1rem,3vw,3.2rem); margin-top:-1.25rem; }
+  .hero-actions { display:flex; grid-column:1; align-items:center; justify-content:flex-start; gap:1rem; min-width:0; margin-top:0; }
+  .hero-footer :global(.competitive-showcase) { position:relative; left:clamp(0px,8vw,6rem); }
+  .orbital-layout :global(.skill-strip) { grid-area:skills; }
+  @keyframes avatar-orbit { to { transform:translate(-50%,-50%) rotate(360deg); } }
+  @media (max-width:1050px) { .orbital-layout { column-gap:1.5rem; }.orbital-copy h1 { font-size:clamp(3.3rem,6.5vw,5.5rem); } }
+  @media (max-width:860px) { .orbital-hero { min-height:0; padding:6.5rem 0 2.5rem; }.orbital-layout { grid-template-columns:1fr; grid-template-areas:"copy" "stage" "footer" "skills"; grid-template-rows:auto auto auto auto; width:min(760px,calc(100% - 2rem)); }.orbital-copy { max-width:680px; margin-inline:auto; text-align:center; }.orbital-copy h1,.orbital-copy .hero-summary { margin-inline:auto; }.orbital-stage { left:0; width:min(100%,650px); height:min(400px,58vw); margin-top:-.35rem; }.orbital-avatar,.orbital-avatar-ring { top:50%; }.hero-footer { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; margin-top:-2.75rem; }.hero-footer :global(.competitive-showcase) { left:0; transform:none; }.hero-actions { justify-content:center; gap:.65rem; } }
+  @media (max-width:760px) { .orbital-layout { width:min(100% - 2rem,520px); }.hero-footer { display:flex; flex-direction:column-reverse; gap:1rem; margin-top:-1.25rem; }.hero-actions { flex-wrap:wrap; justify-content:center; } }
+  @media (max-width:620px) { .orbital-hero { padding:6.25rem 0 2rem; }.orbital-copy h1 { margin:.9rem 0 .45rem; font-size:clamp(3rem,14vw,4.5rem); }.orbital-copy .hero-summary { box-sizing:border-box; width:min(100%,22rem); max-width:22rem; margin:.8rem auto 0; padding-inline:.25rem; font-size:.92rem; text-wrap:pretty; overflow-wrap:anywhere; }.orbital-stage { height:250px; min-height:0; aspect-ratio:auto; }.orbital-avatar { top:50%; width:138px; }.orbital-avatar-ring { top:50%; width:164px; }.hero-actions { align-items:center; flex-direction:column; margin-top:.15rem; }.hero-footer { gap:.6rem; } }
+  @media (prefers-reduced-motion:reduce) { .orbital-avatar-ring { animation:none; } }
+</style>

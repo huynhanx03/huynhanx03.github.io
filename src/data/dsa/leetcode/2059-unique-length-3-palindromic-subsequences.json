@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2059",
+  "platform": "leetcode",
+  "id": "2059",
+  "title": "Unique Length-3 Palindromic Subsequences",
+  "slug": "unique-length-3-palindromic-subsequences",
+  "url": "https://leetcode.com/problems/unique-length-3-palindromic-subsequences",
+  "difficulty": "Medium",
+  "topics": [
+    "Bit Manipulation",
+    "Hash Table",
+    "Prefix Sum",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code>, return <em>the number of <strong>unique palindromes of length three</strong> that are a <strong>subsequence</strong> of </em><code>s</code>.</p>\n\n<p>Note that even if there are multiple ways to obtain the same subsequence, it is still only counted <strong>once</strong>.</p>\n\n<p>A <strong>palindrome</strong> is a string that reads the same forwards and backwards.</p>\n\n<p>A <strong>subsequence</strong> of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.</p>\n\n<ul>\n\t<li>For example, <code>\"ace\"</code> is a subsequence of <code>\"<u>a</u>b<u>c</u>d<u>e</u>\"</code>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"aabca\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The 3 palindromic subsequences of length 3 are:\n- \"aba\" (subsequence of \"<u>a</u>a<u>b</u>c<u>a</u>\")\n- \"aaa\" (subsequence of \"<u>aa</u>bc<u>a</u>\")\n- \"aca\" (subsequence of \"<u>a</u>ab<u>ca</u>\")\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"adc\"\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> There are no palindromic subsequences of length 3 in \"adc\".\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"bbcbaba\"\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The 4 palindromic subsequences of length 3 are:\n- \"bbb\" (subsequence of \"<u>bb</u>c<u>b</u>aba\")\n- \"bcb\" (subsequence of \"<u>b</u>b<u>cb</u>aba\")\n- \"bab\" (subsequence of \"<u>b</u>bcb<u>ab</u>a\")\n- \"aba\" (subsequence of \"bbcb<u>aba</u>\")\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of only lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2059-unique-length-3-palindromic-subsequences/2059-unique-length-3-palindromic-subsequences.cpp",
+      "source": "/*\n Problem: 2059. Unique Length-3 Palindromic Subsequences\n Language: cpp\n Runtime: 19 ms (94.98%)\n Memory: 14 MB (86.78%)\n Tags: Hash Table, String, Bit Manipulation, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countPalindromicSubsequence(string s) {\n        vector<int> first(26, -1), last(26, -1);\n        int n = s.size();\n        for(int i = 0; i < n; ++i) {\n            int c = s[i]-'a';\n            if(first[c] == -1) first[c] = i;\n            last[c] = i;\n        }\n\n        int ans = 0;\n        for(int c = 0; c < 26; ++c) {\n            if(first[c] == last[c]) continue;\n            bool seen[26] = {false};\n            for(int i = first[c]+1; i < last[c]; ++i)\n                seen[s[i]-'a'] = true;\n            for(int k = 0; k < 26; ++k)\n                if(seen[k]) ans++;\n        }\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2059-unique-length-3-palindromic-subsequences/2059-unique-length-3-palindromic-subsequences.cpp"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1586",
+  "platform": "leetcode",
+  "id": "1586",
+  "title": "Longest Subarray of 1's After Deleting One Element",
+  "slug": "longest-subarray-of-1s-after-deleting-one-element",
+  "url": "https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>Given a binary array <code>nums</code>, you should delete one element from it.</p>\n\n<p>Return <em>the size of the longest non-empty subarray containing only </em><code>1</code><em>'s in the resulting array</em>. Return <code>0</code> if there is no such subarray.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,1,0,1]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> After deleting the number in position 2, [1,1,1] contains 3 numbers with value of 1's.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [0,1,1,1,0,1,1,0,1]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> After deleting the number in position 4, [0,1,1,1,1,1,0,1] longest subarray with value of 1's is [1,1,1,1,1].\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,1,1]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> You must delete one element.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>nums[i]</code> is either <code>0</code> or <code>1</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1586-longest-subarray-of-1s-after-deleting-one-element/1586-longest-subarray-of-1s-after-deleting-one-element.cpp",
+      "source": "/*\n Problem: 1586. Longest Subarray of 1's After Deleting One Element\n Language: cpp\n Runtime: 2 ms (30.34%)\n Memory: 60 MB (78.23%)\n Tags: Array, Dynamic Programming, Sliding Window\n*/\nclass Solution {\npublic:\n    int longestSubarray(vector<int>& nums) {\n        vector <int> cnt(2, 0);\n        int ans = 0;\n        bool isDelete = 1;\n\n        for (const auto& num : nums) {\n            if (num) {\n                ++cnt[1];\n            } else {\n                ans = max(ans, cnt[0] + cnt[1]);\n                cnt[0] = cnt[1];\n                cnt[1] = 0;\n                isDelete = 0;\n            }\n        }\n\n        return max(ans, cnt[0] + cnt[1] - isDelete);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1586-longest-subarray-of-1s-after-deleting-one-element/1586-longest-subarray-of-1s-after-deleting-one-element.cpp"
+    }
+  ]
+}

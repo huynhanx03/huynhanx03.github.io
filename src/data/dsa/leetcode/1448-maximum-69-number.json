@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1448",
+  "platform": "leetcode",
+  "id": "1448",
+  "title": "Maximum 69 Number",
+  "slug": "maximum-69-number",
+  "url": "https://leetcode.com/problems/maximum-69-number",
+  "difficulty": "Easy",
+  "topics": [
+    "Greedy",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given a positive integer <code>num</code> consisting only of digits <code>6</code> and <code>9</code>.</p>\n\n<p>Return <em>the maximum number you can get by changing <strong>at most</strong> one digit (</em><code>6</code><em> becomes </em><code>9</code><em>, and </em><code>9</code><em> becomes </em><code>6</code><em>)</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> num = 9669\n<strong>Output:</strong> 9969\n<strong>Explanation:</strong> \nChanging the first digit results in 6669.\nChanging the second digit results in 9969.\nChanging the third digit results in 9699.\nChanging the fourth digit results in 9666.\nThe maximum number is 9969.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> num = 9996\n<strong>Output:</strong> 9999\n<strong>Explanation:</strong> Changing the last digit 6 to 9 results in the maximum number.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> num = 9999\n<strong>Output:</strong> 9999\n<strong>Explanation:</strong> It is better not to apply any change.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= num &lt;= 10<sup>4</sup></code></li>\n\t<li><code>num</code> consists of only <code>6</code> and <code>9</code> digits.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Easy/1448-maximum-69-number/1448-maximum-69-number.py",
+      "source": "\"\"\"\n Problem: 1448. Maximum 69 Number\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 18 MB (88.74%)\n Tags: Math, Greedy\n\"\"\"\nclass Solution:\n    def maximum69Number (self, num: int) -> int:\n        return int(str(num).replace('6', '9', 1))",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1448-maximum-69-number/1448-maximum-69-number.py"
+    }
+  ]
+}

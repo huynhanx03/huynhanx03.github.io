@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4299",
+  "platform": "leetcode",
+  "id": "4299",
+  "title": "Concatenate Array With Reverse",
+  "slug": "concatenate-array-with-reverse",
+  "url": "https://leetcode.com/problems/concatenate-array-with-reverse",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Simulation"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> of length <code>n</code>.</p>\n\n<p>Construct a new array <code>ans</code> of length <code>2 * n</code> such that the first <code>n</code> elements are the same as <code>nums</code>, and the next <code>n</code> elements are the elements of <code>nums</code> in reverse order.</p>\n\n<p>Formally, for <code>0 &lt;= i &lt;= n - 1</code>:</p>\n\n<ul>\n\t<li><code>ans[i] = nums[i]</code></li>\n\t<li><code>ans[i + n] = nums[n - i - 1]</code></li>\n</ul>\n\n<p>Return an integer array <code>ans</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3]</span></p>\n\n<p><strong>Output:</strong> <span>[1,2,3,3,2,1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The first <code>n</code> elements of <code>ans</code> are the same as <code>nums</code>.</p>\n\n<p>For the next <code>n = 3</code> elements, each element is taken from <code>nums</code> in reverse order:</p>\n\n<ul>\n\t<li><code>ans[3] = nums[2] = 3</code></li>\n\t<li><code>ans[4] = nums[1] = 2</code></li>\n\t<li><code>ans[5] = nums[0] = 1</code></li>\n</ul>\n\n<p>Thus, <code>ans = [1, 2, 3, 3, 2, 1]</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1]</span></p>\n\n<p><strong>Output:</strong> <span>[1,1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The array remains the same when reversed. Thus, <code>ans = [1, 1]</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4299-concatenate-array-with-reverse/4299-concatenate-array-with-reverse.cpp",
+      "source": "/*\n Problem: 4299. Concatenate Array With Reverse\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.3 MB (64.83%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> concatWithReverse(vector<int>& nums) {\n        vector<int> ans = nums;;\n\n        for (int i = nums.size() - 1; i >= 0; --i) ans.push_back(nums[i]);\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4299-concatenate-array-with-reverse/4299-concatenate-array-with-reverse.cpp"
+    }
+  ]
+}

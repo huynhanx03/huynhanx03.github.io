@@ -1,0 +1,26 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import ProjectCard from '../../components/portfolio/ProjectCard.astro';
+import { getProjects, getSiteConfig } from '../../data/portfolio';
+import { getMessages, localizedSite, requireLocale } from '../../i18n';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls, localizedStaticPaths } from '../../lib/page-seo';
+
+export function getStaticPaths() { return localizedStaticPaths(); }
+const locale = requireLocale(Astro.props.locale);
+const copy = getMessages(locale);
+const site = localizedSite(getSiteConfig(), locale);
+const page = copy.pages.projects;
+const projects = getProjects().filter((project) => !project.hidden);
+const contributions = projects.filter((project) => project.category === 'contribution');
+const personal = projects.filter((project) => project.category === 'personal');
+const urls = getLocalizedPageUrls(locale, '/projects', Astro.site ?? Astro.url);
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: page.title, description: page.description, homeLabel: copy.nav.home, items: projects.map((project) => ({ name: project.name, url: project.github ?? project.demo ?? urls.canonical })) });
+---
+<PortfolioLayout title={`${page.title} | ${site.name}`} description={page.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <section class="content-page container">
+    <header class="content-page-header"><h1>{page.title}</h1><p>{page.description}</p></header>
+    {contributions.length > 0 && <section class="content-page-section"><div class="section-heading"><h2>{page.openSource}</h2><span></span></div><div class="project-grid">{contributions.map((project) => <ProjectCard project={project} copy={copy} />)}</div></section>}
+    {personal.length > 0 && <section class="content-page-section"><div class="section-heading"><h2>{page.personal}</h2><span></span></div><div class="project-grid">{personal.map((project) => <ProjectCard project={project} copy={copy} />)}</div></section>}
+    {projects.length === 0 && <p class="empty-state">{page.empty}</p>}
+  </section>
+</PortfolioLayout>

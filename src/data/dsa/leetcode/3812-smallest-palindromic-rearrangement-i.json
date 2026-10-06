@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3812",
+  "platform": "leetcode",
+  "id": "3812",
+  "title": "Smallest Palindromic Rearrangement I",
+  "slug": "smallest-palindromic-rearrangement-i",
+  "url": "https://leetcode.com/problems/smallest-palindromic-rearrangement-i",
+  "difficulty": "Medium",
+  "topics": [
+    "Counting Sort",
+    "Sorting",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a <strong><span>palindromic</span></strong> string <code>s</code>.</p>\n\n<p>Return the <strong><span>lexicographically smallest</span></strong> palindromic <span>permutation</span> of <code>s</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"z\"</span></p>\n\n<p><strong>Output:</strong> <span>\"z\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>A string of only one character is already the lexicographically smallest palindrome.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"babab\"</span></p>\n\n<p><strong>Output:</strong> <span>\"abbba\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Rearranging <code>\"babab\"</code> → <code>\"abbba\"</code> gives the smallest lexicographic palindrome.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"daccad\"</span></p>\n\n<p><strong>Output:</strong> <span>\"acddca\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Rearranging <code>\"daccad\"</code> → <code>\"acddca\"</code> gives the smallest lexicographic palindrome.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n\t<li><code>s</code> is guaranteed to be palindromic.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3812-smallest-palindromic-rearrangement-i/3812-smallest-palindromic-rearrangement-i.cpp",
+      "source": "/*\n Problem: 3812. Smallest Palindromic Rearrangement I\n Language: cpp\n Runtime: 51 ms (55.56%)\n Memory: 75.2 MB (38.38%)\n Tags: String, Sorting, Counting Sort\n*/\nclass Solution {\npublic:\n    string smallestPalindrome(string str) {\n        vector<int> cnt(26, 0);\n\n        for (const auto& c : str) ++cnt[c - 'a'];\n\n        string s = \"\";\n        char mid = '.';\n\n        for (int i = 0; i < 26; ++i) {\n            int count = cnt[i] / 2;\n            char c = i + 'a';\n            if (cnt[i] % 2) mid = c;\n\n            for (int j = 1; j <= count; ++j) s += c;\n        }\n\n        return mid == '.' ? s + string(s.rbegin(), s.rend()) : s + mid + string(s.rbegin(), s.rend());\n\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3812-smallest-palindromic-rearrangement-i/3812-smallest-palindromic-rearrangement-i.cpp"
+    }
+  ]
+}

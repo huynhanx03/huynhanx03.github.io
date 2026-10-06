@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1036",
+  "platform": "leetcode",
+  "id": "1036",
+  "title": "Rotting Oranges",
+  "slug": "rotting-oranges",
+  "url": "https://leetcode.com/problems/rotting-oranges",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Breadth-First Search",
+    "Matrix"
+  ],
+  "statementHtml": "<p>You are given an <code>m x n</code> <code>grid</code> where each cell can have one of three values:</p>\n\n<ul>\n\t<li><code>0</code> representing an empty cell,</li>\n\t<li><code>1</code> representing a fresh orange, or</li>\n\t<li><code>2</code> representing a rotten orange.</li>\n</ul>\n\n<p>Every minute, any fresh orange that is <strong>4-directionally adjacent</strong> to a rotten orange becomes rotten.</p>\n\n<p>Return <em>the minimum number of minutes that must elapse until no cell has a fresh orange</em>. If <em>this is impossible, return</em> <code>-1</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[2,1,1],[1,1,0],[0,1,1]]\n<strong>Output:</strong> 4\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[2,1,1],[0,1,1],[1,0,1]]\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[0,2]]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> Since there are already no fresh oranges at minute 0, the answer is just 0.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 10</code></li>\n\t<li><code>grid[i][j]</code> is <code>0</code>, <code>1</code>, or <code>2</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1036-rotting-oranges/1036-rotting-oranges.cpp",
+      "source": "/*\n Problem: 1036. Rotting Oranges\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.2 MB (30.83%)\n Tags: Array, Breadth-First Search, Matrix\n*/\nclass Solution {\nprivate:\n    int dd[5] = {0, 1, 0, -1, 0};\n\npublic:\n    int orangesRotting(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n\n        vector<vector<bool>> check(n, vector<bool>(m, false));\n\n        queue<pair<int, pair<int, int>>> qu;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j)\n                if (grid[i][j] == 2) {\n                    qu.push({0, {i, j}});\n                    check[i][j] = true;\n                }\n\n        int ans = 0;\n\n        while (!qu.empty()) {\n            auto [cnt, pos] = qu.front();\n            auto [x, y] = pos;\n            \n            ans = max(ans, cnt);\n\n            qu.pop();\n\n            for (int i = 0; i < 4; ++i) {\n                int nx = x + dd[i];\n                int ny = y + dd[i + 1];\n\n                if (nx < 0 || ny < 0 || nx >= n || ny >= m || check[nx][ny] || grid[nx][ny] != 1) continue;\n\n                qu.push({cnt + 1, {nx, ny}});\n\n                check[nx][ny] = true;\n            }\n        }\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j)\n                if (grid[i][j] == 1 && !check[i][j]) {\n                    return -1;\n                }\n\n        return ans;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1036-rotting-oranges/1036-rotting-oranges.cpp"
+    }
+  ]
+}

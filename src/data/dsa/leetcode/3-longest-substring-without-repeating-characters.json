@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3",
+  "platform": "leetcode",
+  "id": "3",
+  "title": "Longest Substring Without Repeating Characters",
+  "slug": "longest-substring-without-repeating-characters",
+  "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "Sliding Window",
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code>, find the length of the <strong>longest</strong> <span><strong>substring</strong></span> without duplicate characters.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"abcabcbb\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The answer is \"abc\", with the length of 3. Note that <code>\"bca\"</code> and <code>\"cab\"</code> are also correct answers.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"bbbbb\"\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The answer is \"b\", with the length of 1.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"pwwkew\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The answer is \"wke\", with the length of 3.\nNotice that the answer must be a substring, \"pwke\" is a subsequence and not a substring.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of English letters, digits, symbols and spaces.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0003-longest-substring-without-repeating-characters/0003-longest-substring-without-repeating-characters.cpp",
+      "source": "/*\n Problem: 3. Longest Substring Without Repeating Characters\n Language: cpp\n Runtime: 3 ms (79.42%)\n Memory: 11.6 MB (74.59%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        vector<int> dict(256, -1);\n        int maxLen = 0, start = -1;\n        for (int i = 0; i != s.length(); i++) {\n            if (dict[s[i]] > start)\n                start = dict[s[i]];\n            dict[s[i]] = i;\n            maxLen = max(maxLen, i - start);\n        }\n        return maxLen;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0003-longest-substring-without-repeating-characters/0003-longest-substring-without-repeating-characters.cpp"
+    }
+  ]
+}

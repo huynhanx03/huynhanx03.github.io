@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3019",
+  "platform": "leetcode",
+  "id": "3019",
+  "title": "Furthest Point From Origin",
+  "slug": "furthest-point-from-origin",
+  "url": "https://leetcode.com/problems/furthest-point-from-origin",
+  "difficulty": "Easy",
+  "topics": [
+    "Counting",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>moves</code> of length <code>n</code> consisting only of characters <code>'L'</code>, <code>'R'</code>, and <code>'_'</code>. The string represents your movement on a number line starting from the origin <code>0</code>.</p>\n\n<p>In the <code>i<sup>th</sup></code> move, you can choose one of the following directions:</p>\n\n<ul>\n\t<li>move to the left if <code>moves[i] = 'L'</code> or <code>moves[i] = '_'</code></li>\n\t<li>move to the right if <code>moves[i] = 'R'</code> or <code>moves[i] = '_'</code></li>\n</ul>\n\n<p>Return <em>the <strong>distance from the origin</strong> of the <strong>furthest</strong> point you can get to after </em><code>n</code><em> moves</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> moves = \"L_RL__R\"\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> moves = \"_R__LL_\"\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> moves = \"_______\"\n<strong>Output:</strong> 7\n<strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= moves.length == n &lt;= 50</code></li>\n\t<li><code>moves</code> consists only of characters <code>'L'</code>, <code>'R'</code> and <code>'_'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3019-furthest-point-from-origin/3019-furthest-point-from-origin.cpp",
+      "source": "/*\n Problem: 3019. Furthest Point From Origin\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (30.54%)\n Tags: String, Counting\n*/\nclass Solution {\npublic:\n    int furthestDistanceFromOrigin(string moves) {\n        int cnt = 0;\n        int ans = 0;\n\n        for (const auto& c : moves) {\n            if (c == '_') ++cnt;\n            else ans += (c == 'L' ? -1 : 1);\n        }\n\n        return max(abs(ans + cnt), abs(ans - cnt));\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3019-furthest-point-from-origin/3019-furthest-point-from-origin.cpp"
+    }
+  ]
+}

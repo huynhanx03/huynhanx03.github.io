@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:57",
+  "platform": "leetcode",
+  "id": "57",
+  "title": "Insert Interval",
+  "slug": "insert-interval",
+  "url": "https://leetcode.com/problems/insert-interval",
+  "difficulty": "Medium",
+  "topics": [
+    "Array"
+  ],
+  "statementHtml": "<p>You are given an array of non-overlapping intervals <code>intervals</code> where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code> represent the start and the end of the <code>i<sup>th</sup></code> interval and <code>intervals</code> is sorted in ascending order by <code>start<sub>i</sub></code>. You are also given an interval <code>newInterval = [start, end]</code> that represents the start and end of another interval.</p>\n\n<p>Insert <code>newInterval</code> into <code>intervals</code> such that <code>intervals</code> is still sorted in ascending order by <code>start<sub>i</sub></code> and <code>intervals</code> still does not have any overlapping intervals (merge overlapping intervals if necessary).</p>\n\n<p>Return <code>intervals</code><em> after the insertion</em>.</p>\n\n<p><strong>Note</strong> that you don't need to modify <code>intervals</code> in-place. You can make a new array and return it.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[1,3],[6,9]], newInterval = [2,5]\n<strong>Output:</strong> [[1,5],[6,9]]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]\n<strong>Output:</strong> [[1,2],[3,10],[12,16]]\n<strong>Explanation:</strong> Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= intervals.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>intervals[i].length == 2</code></li>\n\t<li><code>0 &lt;= start<sub>i</sub> &lt;= end<sub>i</sub> &lt;= 10<sup>5</sup></code></li>\n\t<li><code>intervals</code> is sorted by <code>start<sub>i</sub></code> in <strong>ascending</strong> order.</li>\n\t<li><code>newInterval.length == 2</code></li>\n\t<li><code>0 &lt;= start &lt;= end &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0057-insert-interval/0057-insert-interval.cpp",
+      "source": "/*\n Problem: 57. Insert Interval\n Language: cpp\n Runtime: 2 ms (32.85%)\n Memory: 21.7 MB (75.76%)\n Tags: Array\n*/\nclass Solution {\npublic:\n   vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        int n = intervals.size(), i = 0;\n        vector<vector<int>> res;\n        //case 1: no overlapping case before the merge intervals\n\t\t//compare ending point of intervals to starting point of newInterval\n        while(i < n && intervals[i][1] < newInterval[0]){\n            res.push_back(intervals[i]);\n            i++;\n        }                           \n\t\t//case 2: overlapping case and merging of intervals\n        while(i < n && newInterval[1] >= intervals[i][0]){\n            newInterval[0] = min(newInterval[0], intervals[i][0]);\n            newInterval[1] = max(newInterval[1], intervals[i][1]);\n            i++;\n        }\n        res.push_back(newInterval);\n        // case 3: no overlapping of intervals after newinterval being merged\n        while(i < n){\n            res.push_back(intervals[i]);\n            i++;\n        }\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0057-insert-interval/0057-insert-interval.cpp"
+    }
+  ]
+}

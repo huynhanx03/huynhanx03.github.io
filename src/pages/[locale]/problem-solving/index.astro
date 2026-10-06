@@ -1,0 +1,126 @@
+---
+import PortfolioLayout from '../../../layouts/PortfolioLayout.astro';
+import index from '../../../data/dsa-index.json';
+import { getMessages, localizedSite, requireLocale } from '../../../i18n';
+import { getSiteConfig } from '../../../data/portfolio';
+import { absoluteSiteUrl } from '../../../lib/paths';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls, localizedStaticPaths } from '../../../lib/page-seo';
+
+export function getStaticPaths() { return localizedStaticPaths(); }
+const locale = requireLocale(Astro.props.locale);
+const copy = getMessages(locale).problemSolving;
+const site = localizedSite(getSiteConfig(), locale);
+const urls = getLocalizedPageUrls(locale, '/problem-solving', Astro.site ?? Astro.url);
+const dsaIndex = index as {
+  counts: Record<string, number>; filters: { topics: string[]; difficulties: string[]; languages: string[] };
+  problems: Array<{ key: string; platform: string; id: string; title: string; url: string; difficulty?: string; topics: string[]; languages: string[] }>;
+};
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: copy.title, description: copy.description, homeLabel: getMessages(locale).nav.home, type: 'CollectionPage', items: dsaIndex.problems.map((problem) => ({ name: problem.title, url: absoluteSiteUrl(`/${locale}/problem-solving/${encodeURIComponent(problem.key)}`, Astro.site ?? Astro.url) })) });
+const formatCount = (value: number) => new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US').format(value);
+---
+<PortfolioLayout title={`${copy.title} | ${site.name}`} description={copy.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <section class="container content-page ps-page" data-ps-page>
+    <header class="content-page-header ps-header">
+      <h1>{copy.title}</h1>
+      <p>{copy.description}</p>
+    </header>
+
+    <section class="ps-discovery" aria-label={copy.title}>
+      <label class="ps-search"><span class="ps-search-icon" aria-hidden="true">⌕</span><span class="sr-only">{copy.search}</span><input type="search" placeholder={copy.search} data-ps-search autocomplete="off" enterkeyhint="search" /><button type="button" class="ps-search-clear" data-search-clear aria-label={copy.clearSearch} hidden>×</button><kbd class="ps-search-hint" aria-hidden="true">/</kbd></label>
+      <div class="ps-filter-row" aria-label={copy.title}>
+        <div class="ps-platform-filters" role="group" aria-label="Platform">
+          <button type="button" class="ps-filter-chip is-active" data-platform="all">{copy.all} <span>{formatCount(dsaIndex.counts.all ?? dsaIndex.problems.length)}</span></button>
+          <button type="button" class="ps-filter-chip" data-platform="leetcode">{copy.leetcode} <span>{formatCount(dsaIndex.counts.leetcode ?? 0)}</span></button>
+          <button type="button" class="ps-filter-chip" data-platform="cses">{copy.cses} <span>{formatCount(dsaIndex.counts.cses ?? 0)}</span></button>
+          <button type="button" class="ps-clear" data-clear aria-label={copy.clear} title={copy.clear} hidden><span aria-hidden="true">×</span></button>
+        </div>
+        {[{ key: 'topic', label: copy.topic, values: dsaIndex.filters.topics }, { key: 'difficulty', label: copy.difficulty, values: dsaIndex.filters.difficulties }, { key: 'language', label: copy.language, values: dsaIndex.filters.languages }].map(({ key, label, values }) => <div class="ps-filter-menu" data-filter-menu data-filter={key}>
+          <button type="button" class="ps-select" data-filter-trigger aria-expanded="false" aria-controls={`ps-filter-${key}-options`}><span class="ps-select-label">{label}</span><span class="ps-select-value" data-filter-value>{copy.any}</span><span class="ps-select-chevron" aria-hidden="true">⌄</span></button>
+          <div class="ps-select-popover" id={`ps-filter-${key}-options`} data-filter-popover hidden>
+            {key === 'topic' && <label class="ps-option-search"><span aria-hidden="true">⌕</span><input type="search" placeholder={copy.searchTopics} data-option-search /><span class="sr-only">{copy.searchTopics}</span></label>}
+            <div class="ps-option-list" aria-label={label} data-option-list>
+              <button type="button" class="ps-option is-selected" aria-pressed="true" data-option="">{copy.any}<span aria-hidden="true">✓</span></button>
+              {values.map((value) => <button type="button" class="ps-option" aria-pressed="false" data-option={value}>{value}<span aria-hidden="true">✓</span></button>)}
+            </div>
+          </div>
+        </div>)}
+      </div>
+      <p class="ps-result-count" data-result-count data-problem-word={copy.problem} data-problems-word={copy.problems} data-results-of={copy.resultsOf} aria-live="polite"></p>
+    </section>
+
+    <p class="ps-empty" data-ps-empty hidden>{copy.noMatches}</p>
+    <div class="ps-problem-list" data-ps-list>
+      {dsaIndex.problems.map((problem) => <a class="ps-problem-row" href={`/${locale}/problem-solving/${encodeURIComponent(problem.key)}/`} data-problem-row data-platform-value={problem.platform} data-topic-values={JSON.stringify(problem.topics)} data-difficulty-values={JSON.stringify(problem.difficulty ? [problem.difficulty] : [])} data-language-values={JSON.stringify(problem.languages)} data-search-value={`${problem.title} ${problem.id} ${problem.topics.join(' ')} ${problem.languages.join(' ')}`}>
+        <span class:list={['ps-platform-mark', `platform-${problem.platform}`]}>{problem.platform === 'leetcode' ? 'LC' : 'CS'}</span>
+        <span class="ps-problem-main"><span class="ps-problem-title">{problem.title}</span>{problem.topics.length > 0 && <span class="ps-problem-meta">{problem.topics.slice(0, 3).map((topic) => <span>{topic}</span>)}</span>}</span>
+        <span class="ps-problem-trailing">{problem.difficulty && <span class:list={['ps-difficulty', `difficulty-${problem.difficulty.toLowerCase()}`]}>{problem.difficulty}</span>}<span class="ps-solution-count">{problem.languages.length} {problem.languages.length === 1 ? copy.solution : copy.solutions}</span><span class="ps-row-arrow" aria-hidden="true">↗</span></span>
+      </a>)}
+    </div>
+  </section>
+  <script>
+    const input = document.querySelector<HTMLInputElement>('[data-ps-search]');
+    const rows = [...document.querySelectorAll<HTMLElement>('[data-problem-row]')];
+    const platformButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-platform]')];
+    const filterMenus = [...document.querySelectorAll<HTMLElement>('[data-filter-menu]')];
+    const filters = filterMenus.map((menu) => ({ menu, key: menu.dataset.filter ?? '', trigger: menu.querySelector<HTMLButtonElement>('[data-filter-trigger]')!, value: menu.querySelector<HTMLElement>('[data-filter-value]')!, popover: menu.querySelector<HTMLElement>('[data-filter-popover]')!, options: [...menu.querySelectorAll<HTMLButtonElement>('[data-option]')], search: menu.querySelector<HTMLInputElement>('[data-option-search]') }));
+    const clear = document.querySelector<HTMLButtonElement>('[data-clear]');
+    const searchClear = document.querySelector<HTMLButtonElement>('[data-search-clear]');
+    const resultCount = document.querySelector<HTMLElement>('[data-result-count]');
+    const numberFormat = new Intl.NumberFormat(document.documentElement.lang === 'vi' ? 'vi-VN' : 'en-US');
+    const empty = document.querySelector<HTMLElement>('[data-ps-empty]');
+    let platform = new URLSearchParams(location.search).get('platform') || 'all';
+    const params = new URLSearchParams(location.search);
+    for (const filter of filters) setFilter(filter, params.get(filter.key) ?? '');
+    if (input) input.value = params.get('q') ?? '';
+    function setFilter(filter: typeof filters[number], value: string) {
+      const selected = filter.options.find((option) => option.dataset.option === value) ?? filter.options[0];
+      filter.value.textContent = selected.textContent?.replace('✓', '').trim() ?? '';
+      filter.options.forEach((option) => { const active = option === selected; option.classList.toggle('is-selected', active); option.setAttribute('aria-pressed', String(active)); });
+      filter.menu.dataset.value = selected.dataset.option ?? '';
+    }
+    const closeMenus = (except?: HTMLElement) => filters.forEach((filter) => { if (filter.menu !== except) { filter.popover.hidden = true; filter.trigger.setAttribute('aria-expanded', 'false'); } });
+    const apply = () => {
+      let visible = 0;
+      platformButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.platform === platform));
+      rows.forEach((row) => {
+        const matches = (platform === 'all' || row.dataset.platformValue === platform)
+          && filters.every((filter) => !filter.menu.dataset.value || JSON.parse(row.dataset[`${filter.key}Values`] ?? '[]').includes(filter.menu.dataset.value!))
+          && (!input?.value.trim() || normalize(row.dataset.searchValue ?? '').includes(normalize(input.value.trim())));
+        row.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      if (empty) empty.hidden = visible > 0;
+      if (resultCount) resultCount.textContent = `${numberFormat.format(visible)} ${visible === 1 ? resultCount.dataset.problemWord : resultCount.dataset.problemsWord} ${resultCount.dataset.resultsOf} ${numberFormat.format(rows.length)}`;
+      if (searchClear) searchClear.hidden = !input?.value;
+      if (clear) clear.hidden = platform === 'all' && filters.every((filter) => !filter.menu.dataset.value) && !input?.value;
+      const next = new URL(location.href);
+      if (platform === 'all') next.searchParams.delete('platform'); else next.searchParams.set('platform', platform);
+      filters.forEach((filter) => filter.menu.dataset.value ? next.searchParams.set(filter.key, filter.menu.dataset.value) : next.searchParams.delete(filter.key));
+      input?.value.trim() ? next.searchParams.set('q', input.value.trim()) : next.searchParams.delete('q');
+      history.replaceState({}, '', next);
+    };
+    platformButtons.forEach((button) => button.addEventListener('click', () => { platform = button.dataset.platform ?? 'all'; apply(); }));
+    filters.forEach((filter) => {
+      filter.trigger.addEventListener('click', () => { const open = filter.popover.hidden; closeMenus(filter.menu); filter.popover.hidden = !open; filter.trigger.setAttribute('aria-expanded', String(open)); if (open) (filter.search ?? filter.options[0])?.focus(); });
+      filter.options.forEach((option) => option.addEventListener('click', () => { setFilter(filter, option.dataset.option ?? ''); filter.popover.hidden = true; filter.trigger.setAttribute('aria-expanded', 'false'); filter.trigger.focus(); apply(); }));
+      filter.search?.addEventListener('input', () => { const query = normalize(filter.search?.value ?? ''); filter.options.forEach((option) => { option.hidden = !normalize(option.dataset.option ?? '').includes(query); }); });
+      filter.menu.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') { filter.popover.hidden = true; filter.trigger.setAttribute('aria-expanded', 'false'); filter.trigger.focus(); return; }
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          const visibleOptions = filter.options.filter((option) => !option.hidden);
+          const current = visibleOptions.indexOf(document.activeElement as HTMLButtonElement);
+          const direction = event.key === 'ArrowDown' ? 1 : -1;
+          const next = current < 0 ? (direction > 0 ? 0 : visibleOptions.length - 1) : (current + direction + visibleOptions.length) % visibleOptions.length;
+          event.preventDefault(); visibleOptions[next]?.focus();
+        }
+      });
+    });
+    function normalize(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase(); }
+    document.addEventListener('click', (event) => { if (!(event.target instanceof Element) || !event.target.closest('[data-filter-menu]')) closeMenus(); });
+    document.addEventListener('keydown', (event) => { if (event.key === '/' && !event.metaKey && !event.ctrlKey && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLTextAreaElement)) { event.preventDefault(); input?.focus(); } });
+    input?.addEventListener('input', apply);
+    searchClear?.addEventListener('click', () => { if (input) { input.value = ''; input.focus(); } apply(); });
+    clear?.addEventListener('click', () => { platform = 'all'; filters.forEach((filter) => setFilter(filter, '')); if (input) input.value = ''; apply(); });
+    apply();
+  </script>
+</PortfolioLayout>

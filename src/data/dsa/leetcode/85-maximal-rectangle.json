@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:85",
+  "platform": "leetcode",
+  "id": "85",
+  "title": "Maximal Rectangle",
+  "slug": "maximal-rectangle",
+  "url": "https://leetcode.com/problems/maximal-rectangle",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix",
+    "Monotonic Stack",
+    "Stack"
+  ],
+  "statementHtml": "<p>Given a <code>rows x cols</code> binary <code>matrix</code> filled with <code>0</code>'s and <code>1</code>'s, find the largest rectangle containing only <code>1</code>'s and return <em>its area</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The maximal rectangle is shown in the above picture.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[\"0\"]]\n<strong>Output:</strong> 0\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[\"1\"]]\n<strong>Output:</strong> 1\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>rows == matrix.length</code></li>\n\t<li><code>cols == matrix[i].length</code></li>\n\t<li><code>1 &lt;= rows, cols &lt;= 200</code></li>\n\t<li><code>matrix[i][j]</code> is <code>'0'</code> or <code>'1'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/0085-maximal-rectangle/0085-maximal-rectangle.cpp",
+      "source": "/*\n Problem: 85. Maximal Rectangle\n Language: cpp\n Runtime: 3 ms (86.93%)\n Memory: 17.5 MB (74.36%)\n Tags: Array, Dynamic Programming, Stack, Matrix, Monotonic Stack\n*/\nclass Solution {\npublic:\n    int maximalRectangle(vector<vector<char>>& matrix) {\n        if (matrix.empty()) return 0;\n\n        int rows = matrix.size();\n        int cols = matrix[0].size();\n        vector<int> heights(cols, 0);\n        int maxArea = 0;\n\n        for (int i = 0; i < rows; i++) {\n            for (int j = 0; j < cols; j++) {\n                if (matrix[i][j] == '1')\n                    heights[j]++;\n                else\n                    heights[j] = 0;\n            }\n\n            stack<int> st;\n            for (int j = 0; j <= cols; j++) {\n                int currHeight = (j == cols) ? 0 : heights[j];\n\n                while (!st.empty() && currHeight < heights[st.top()]) {\n                    int h = heights[st.top()];\n                    st.pop();\n                    int width = st.empty() ? j : j - st.top() - 1;\n                    maxArea = max(maxArea, h * width);\n                }\n                st.push(j);\n            }\n        }\n\n        return maxArea;\n    }\n};\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0085-maximal-rectangle/0085-maximal-rectangle.cpp"
+    }
+  ]
+}

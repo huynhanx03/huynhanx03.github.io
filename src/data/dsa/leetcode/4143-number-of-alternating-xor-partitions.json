@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:4143",
+  "platform": "leetcode",
+  "id": "4143",
+  "title": "Number of Alternating XOR Partitions",
+  "slug": "number-of-alternating-xor-partitions",
+  "url": "https://leetcode.com/problems/number-of-alternating-xor-partitions",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Bit Manipulation",
+    "Dynamic Programming",
+    "Hash Table"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> and two <strong>distinct</strong> integers <code>target1</code> and <code>target2</code>.</p>\n\n<p>A <strong>partition</strong> of <code>nums</code> splits it into one or more <strong>contiguous, non-empty</strong> blocks that cover the entire array without overlap.</p>\n\n<p>A partition is <strong>valid</strong> if the <strong>bitwise XOR</strong> of elements in its blocks <strong>alternates</strong> between <code>target1</code> and <code>target2</code>, starting with <code>target1</code>.</p>\n\n<p>Formally, for blocks <code>b1</code>, <code>b2</code>, …:</p>\n\n<ul>\n\t<li><code>XOR(b1) = target1</code></li>\n\t<li><code>XOR(b2) = target2</code> (if it exists)</li>\n\t<li><code>XOR(b3) = target1</code>, and so on.</li>\n</ul>\n\n<p>Return the number of valid partitions of <code>nums</code>, modulo <code>10<sup>9</sup> + 7</code>.</p>\n\n<p><strong>Note:</strong> A single block is valid if its <strong>XOR</strong> equals <code>target1</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,3,1,4], target1 = 1, target2 = 5</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong>​​​​​​​</p>\n\n<ul>\n\t<li>The XOR of <code>[2, 3]</code> is 1, which matches <code>target1</code>.</li>\n\t<li>The XOR of the remaining block <code>[1, 4]</code> is 5, which matches <code>target2</code>.</li>\n\t<li>This is the only valid alternating partition, so the answer is 1.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,0,0], target1 = 1, target2 = 0</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li><strong>​​​​​​​</strong>The XOR of <code>[1, 0, 0]</code> is 1, which matches <code>target1</code>.</li>\n\t<li>The XOR of <code>[1]</code> and <code>[0, 0]</code> are 1 and 0, matching <code>target1</code> and <code>target2</code>.</li>\n\t<li>The XOR of <code>[1, 0]</code> and <code>[0]</code> are 1 and 0, matching <code>target1</code> and <code>target2</code>.</li>\n\t<li>Thus, the answer is 3.​​​​​​​</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [7], target1 = 1, target2 = 7</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The XOR of <code>[7]</code> is 7, which does not match <code>target1</code>, so no valid partition exists.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= nums[i], target1, target2 &lt;= 10<sup>5</sup></code></li>\n\t<li><code>target1 != target2</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4143-number-of-alternating-xor-partitions/4143-number-of-alternating-xor-partitions.cpp",
+      "source": "/*\n Problem: 4143. Number of Alternating XOR Partitions\n Language: cpp\n Runtime: 70 ms (55.16%)\n Memory: 139.6 MB (63.28%)\n Tags: Array, Hash Table, Dynamic Programming, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int alternatingXOR(vector<int>& nums, int target1, int target2) {\n         long long MOD = 1e9 + 7;\n\n        unordered_map<int, long long> cnt0;\n        unordered_map<int, long long> cnt1;\n\n        cnt0[0] = 1;\n        int cur_xor = 0;\n        long long t1 = 0, t2 = 0;\n        for (const auto& x : nums) {\n            cur_xor ^= x;\n\n            int n1 = cur_xor ^ target1;\n            if (cnt0.count(n1)) {\n                t1 = cnt0[n1];\n            } else {\n                t1 = 0;\n            }\n\n            int n2 = cur_xor ^ target2;\n            if (cnt1.count(n2)) {\n                t2 = cnt1[n2];\n            } else {\n                t2 = 0;\n            }\n\n            cnt1[cur_xor] = (cnt1[cur_xor] + t1) % MOD;\n            cnt0[cur_xor] = (cnt0[cur_xor] + t2) % MOD;\n        }\n\n        return (t1 + t2) % MOD;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4143-number-of-alternating-xor-partitions/4143-number-of-alternating-xor-partitions.cpp"
+    }
+  ]
+}

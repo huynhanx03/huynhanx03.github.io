@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.6.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26.10.0
+          cache: pnpm
+      - name: Install dependencies
+        run: make install
+      - name: Refresh build-time stats
+        run: make fetch-stats
+        continue-on-error: true
+      - name: Refresh project stars
+        run: make fetch-project-stars
+        continue-on-error: true
+      - name: Refresh note view counts
+        run: make fetch-note-views
+        continue-on-error: true
+        env:
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+          PUBLIC_BASE_PATH: ${{ github.event.repository.name == 'huynhanx03.github.io' && '' || format('/{0}', github.event.repository.name) }}
+      - name: Validate and build
+        run: make check
+        env:
+          PUBLIC_SITE_URL: https://huynhanx03.github.io
+          PUBLIC_BASE_PATH: ${{ github.event.repository.name == 'huynhanx03.github.io' && '' || format('/{0}', github.event.repository.name) }}
+          PUBLIC_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+      - name: Verify generated URLs
+        run: make verify-build
+        env:
+          PUBLIC_SITE_URL: https://huynhanx03.github.io
+          PUBLIC_BASE_PATH: ${{ github.event.repository.name == 'huynhanx03.github.io' && '' || format('/{0}', github.event.repository.name) }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

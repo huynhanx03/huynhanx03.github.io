@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3462",
+  "platform": "leetcode",
+  "id": "3462",
+  "title": "Vowels Game in a String",
+  "slug": "vowels-game-in-a-string",
+  "url": "https://leetcode.com/problems/vowels-game-in-a-string",
+  "difficulty": "Medium",
+  "topics": [
+    "Brainteaser",
+    "Game Theory",
+    "Math",
+    "String"
+  ],
+  "statementHtml": "<p>Alice and Bob are playing a game on a string.</p>\n\n<p>You are given a string <code>s</code>, Alice and Bob will take turns playing the following game where Alice starts <strong>first</strong>:</p>\n\n<ul>\n\t<li>On Alice's turn, she has to remove any <strong>non-empty</strong> <span>substring</span> from <code>s</code> that contains an <strong>odd</strong> number of vowels.</li>\n\t<li>On Bob's turn, he has to remove any <strong>non-empty</strong> <span>substring</span> from <code>s</code> that contains an <strong>even</strong> number of vowels.</li>\n</ul>\n\n<p>The first player who cannot make a move on their turn loses the game. We assume that both Alice and Bob play <strong>optimally</strong>.</p>\n\n<p>Return <code>true</code> if Alice wins the game, and <code>false</code> otherwise.</p>\n\n<p>The English vowels are: <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, and <code>u</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"leetcoder\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong><br>\nAlice can win the game as follows:</p>\n\n<ul>\n\t<li>Alice plays first, she can delete the underlined substring in <code>s = \"<u><strong>leetco</strong></u>der\"</code> which contains 3 vowels. The resulting string is <code>s = \"der\"</code>.</li>\n\t<li>Bob plays second, he can delete the underlined substring in <code>s = \"<u><strong>d</strong></u>er\"</code> which contains 0 vowels. The resulting string is <code>s = \"er\"</code>.</li>\n\t<li>Alice plays third, she can delete the whole string <code>s = \"<strong><u>er</u></strong>\"</code> which contains 1 vowel.</li>\n\t<li>Bob plays fourth, since the string is empty, there is no valid play for Bob. So Alice wins the game.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"bbcd\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong><br>\nThere is no valid play for Alice in her first turn, so Alice loses the game.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists only of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3462-vowels-game-in-a-string/3462-vowels-game-in-a-string.cpp",
+      "source": "/*\n Problem: 3462. Vowels Game in a String\n Language: cpp\n Runtime: 3 ms (81.41%)\n Memory: 19 MB (51.26%)\n Tags: Math, String, Brainteaser, Game Theory\n*/\nclass Solution {\npublic:\n    bool doesAliceWin(string s) {\n        for (const auto& c: s) {\n            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')\n                return true;          \n        }      \n\n        return false;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3462-vowels-game-in-a-string/3462-vowels-game-in-a-string.cpp"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:560",
+  "platform": "leetcode",
+  "id": "560",
+  "title": "Subarray Sum Equals K",
+  "slug": "subarray-sum-equals-k",
+  "url": "https://leetcode.com/problems/subarray-sum-equals-k",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Prefix Sum"
+  ],
+  "statementHtml": "<p>Given an array of integers <code>nums</code> and an integer <code>k</code>, return <em>the total number of subarrays whose sum equals to</em> <code>k</code>.</p>\n\n<p>A subarray is a contiguous <strong>non-empty</strong> sequence of elements within an array.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,1,1], k = 2\n<strong>Output:</strong> 2\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,3], k = 3\n<strong>Output:</strong> 2\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n\t<li><code>-10<sup>7</sup> &lt;= k &lt;= 10<sup>7</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0560-subarray-sum-equals-k/0560-subarray-sum-equals-k.cpp",
+      "source": "/*\n Problem: 560. Subarray Sum Equals K\n Language: cpp\n Runtime: 91 ms (24.50%)\n Memory: 49.1 MB (21.82%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    int subarraySum(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = 0;\n        vector<int> ps(n + 1);\n        ps[0] = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            ps[i + 1] = ps[i] + nums[i];\n        }\n\n        map<int, int> mp;\n\n        for (int i = 1; i <= n; ++i) {\n            if (ps[i] == k)\n                ++ans;\n\n            // ps[i] - x == k\n            // -> x  = ps[i] - k\n            if (mp.find(ps[i] - k) != mp.end()) {\n                ans += mp[ps[i] - k];\n                // ++ans;\n            }\n\n            ++mp[ps[i]];\n        }\n\n        return ans;\n    } \n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0560-subarray-sum-equals-k/0560-subarray-sum-equals-k.cpp"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "key": "leetcode:632",
+  "platform": "leetcode",
+  "id": "632",
+  "title": "Smallest Range Covering Elements from K Lists",
+  "slug": "smallest-range-covering-elements-from-k-lists",
+  "url": "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Hash Table",
+    "Heap (Priority Queue)",
+    "Sliding Window",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You have <code>k</code> lists of sorted integers in <strong>non-decreasing order</strong>. Find the <b>smallest</b> range that includes at least one number from each of the <code>k</code> lists.</p>\n\n<p>We define the range <code>[a, b]</code> is smaller than range <code>[c, d]</code> if <code>b - a &lt; d - c</code> <strong>or</strong> <code>a &lt; c</code> if <code>b - a == d - c</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]\n<strong>Output:</strong> [20,24]\n<strong>Explanation: </strong>\nList 1: [4, 10, 15, 24,26], 24 is in range [20,24].\nList 2: [0, 9, 12, 20], 20 is in range [20,24].\nList 3: [5, 18, 22, 30], 22 is in range [20,24].\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [[1,2,3],[1,2,3],[1,2,3]]\n<strong>Output:</strong> [1,1]\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>nums.length == k</code></li>\n\t<li><code>1 &lt;= k &lt;= 3500</code></li>\n\t<li><code>1 &lt;= nums[i].length &lt;= 50</code></li>\n\t<li><code>-10<sup>5</sup> &lt;= nums[i][j] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>nums[i]</code> is sorted in <strong>non-decreasing</strong> order.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/0632-smallest-range-covering-elements-from-k-lists/0632-smallest-range-covering-elements-from-k-lists.cpp",
+      "source": "/*\n Problem: 632. Smallest Range Covering Elements from K Lists\n Language: cpp\n Runtime: 67 ms (84.42%)\n Memory: 47.9 MB (48.55%)\n Tags: Array, Hash Table, Greedy, Sliding Window, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    vector<int> smallestRange(vector<vector<int>>& nums) {\n        vector<pair<int, int>> ordered; // (number, group)\n        for (size_t k = 0; k < nums.size(); ++k)\n            for (auto n: nums[k]) ordered.push_back({n, k});\n        sort(ordered.begin(), ordered.end());\n\n        int i = 0, k = 0;\n        vector<int> ans;\n        unordered_map<int, int> count;\n        for (size_t j = 0; j < ordered.size(); ++j) {\n            if (!count[ordered[j].second]) ++k;\n            ++count[ordered[j].second];\n            if (k == nums.size()) { \n                while (count[ordered[i].second] > 1) --count[ordered[i++].second];\n                if (ans.empty() || ans[1] - ans[0] > ordered[j].first - ordered[i].first) {\n                    ans = vector<int>{ordered[i].first, ordered[j].first};\n                }\n            }\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0632-smallest-range-covering-elements-from-k-lists/0632-smallest-range-covering-elements-from-k-lists.cpp"
+    }
+  ]
+}

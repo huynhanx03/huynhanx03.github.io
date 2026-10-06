@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:3709",
+  "platform": "leetcode",
+  "id": "3709",
+  "title": "Find Special Substring of Length K",
+  "slug": "find-special-substring-of-length-k",
+  "url": "https://leetcode.com/problems/find-special-substring-of-length-k",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> and an integer <code>k</code>.</p>\n\n<p>Determine if there exists a <span>substring</span> of length <strong>exactly</strong> <code>k</code> in <code>s</code> that satisfies the following conditions:</p>\n\n<ol>\n\t<li>The substring consists of <strong>only one distinct character</strong> (e.g., <code>\"aaa\"</code> or <code>\"bbb\"</code>).</li>\n\t<li>If there is a character <strong>immediately before</strong> the substring, it must be different from the character in the substring.</li>\n\t<li>If there is a character <strong>immediately after</strong> the substring, it must also be different from the character in the substring.</li>\n</ol>\n\n<p>Return <code>true</code> if such a substring exists. Otherwise, return <code>false</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aaabaaa\", k = 3</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The substring <code>s[4..6] == \"aaa\"</code> satisfies the conditions.</p>\n\n<ul>\n\t<li>It has a length of 3.</li>\n\t<li>All characters are the same.</li>\n\t<li>The character before <code>\"aaa\"</code> is <code>'b'</code>, which is different from <code>'a'</code>.</li>\n\t<li>There is no character after <code>\"aaa\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abc\", k = 2</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is no substring of length 2 that consists of one distinct character and satisfies the conditions.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists of lowercase English letters only.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3709-find-special-substring-of-length-k/3709-find-special-substring-of-length-k.cpp",
+      "source": "/*\n Problem: 3709. Find Special Substring of Length K\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.7 MB (34.43%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool hasSpecialSubstring(string s, int k) {\n        s = s + '-';    \n        int n = s.size();\n            int p = 0;\n\n            for (int i = 1; i < n; ++i) {\n                if (s[i] == s[i - 1]) {\n                    continue;\n                }\n\n                if (i - p == k) {\n                    return true;\n                } else {\n                    p = i;\n                }\n            }\n\n            return false;\n        }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3709-find-special-substring-of-length-k/3709-find-special-substring-of-length-k.cpp"
+    }
+  ]
+}

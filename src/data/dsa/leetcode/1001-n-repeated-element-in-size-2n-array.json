@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1001",
+  "platform": "leetcode",
+  "id": "1001",
+  "title": "N-Repeated Element in Size 2N Array",
+  "slug": "n-repeated-element-in-size-2n-array",
+  "url": "https://leetcode.com/problems/n-repeated-element-in-size-2n-array",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> with the following properties:</p>\n\n<ul>\n\t<li><code>nums.length == 2 * n</code>.</li>\n\t<li><code>nums</code> contains <code>n + 1</code> <strong>unique</strong> values, <code>n</code> of which occur <strong>exactly once</strong> in the array.</li>\n\t<li>Exactly one element of <code>nums</code> is repeated <code>n</code> times.</li>\n</ul>\n\n<p>Return <em>the element that is repeated </em><code>n</code><em> times</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,3,3]\n<strong>Output:</strong> 3\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [2,1,2,5,3,2]\n<strong>Output:</strong> 2\n</pre><p><strong>Example 3:</strong></p>\n<pre><strong>Input:</strong> nums = [5,1,5,2,5,3,5,4]\n<strong>Output:</strong> 5\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n &lt;= 5000</code></li>\n\t<li><code>nums.length == 2 * n</code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>nums</code> contains <code>n + 1</code> <strong>unique</strong> elements and one of them is repeated exactly <code>n</code> times.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1001-n-repeated-element-in-size-2n-array/1001-n-repeated-element-in-size-2n-array.cpp",
+      "source": "/*\n Problem: 1001. N-Repeated Element in Size 2N Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 28.3 MB (96.87%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int repeatedNTimes(vector<int>& a) {\n        for (int i = 0; i + 1 < a.size(); ++i)\n            if (a[i] == a[i + 1] || (i + 2 < a.size() && a[i] == a[i + 2]))\n                return a[i];\n        return a[0];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1001-n-repeated-element-in-size-2n-array/1001-n-repeated-element-in-size-2n-array.cpp"
+    }
+  ]
+}

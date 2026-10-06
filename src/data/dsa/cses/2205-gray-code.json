@@ -1,0 +1,18 @@
+{
+  "key": "cses:2205",
+  "platform": "cses",
+  "id": "2205",
+  "slug": "gray-code",
+  "title": "Gray Code",
+  "url": "https://cses.fi/problemset/task/2205/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>A Gray code is a list of all <span>2^n</span> bit strings of length <span>n</span>, where any two successive strings differ in exactly one bit (i.e., their Hamming distance is one).</p>\n<p>Your task is to create a Gray code for a given length <span>n</span>.</p>\n<h2>Input</h2>\n<p>The only input line has an integer <span>n</span>.</p>\n<h2>Output</h2>\n<p>Print <span>2^n</span> lines that describe the Gray code. You can print any valid solution.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n \\le 16</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>2\n</pre>\n<p>Output:</p>\n<pre>00\n01\n11\n10\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Gray_Code.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n       int n;\n        cin >> n;\n\n        int limit = 1 << n;\n        for (int i = 0; i < limit; ++i) {\n            int g = i ^ (i >> 1);\n            for (int j = n - 1; j >= 0; --j) {\n                cout << ((g >> j) & 1);\n            }\n            cout << '\\n';\n        }\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Gray_Code.cpp"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4100",
+  "platform": "leetcode",
+  "id": "4100",
+  "title": "Complete Prime Number",
+  "slug": "complete-prime-number",
+  "url": "https://leetcode.com/problems/complete-prime-number",
+  "difficulty": "Medium",
+  "topics": [
+    "Enumeration",
+    "Math",
+    "Number Theory"
+  ],
+  "statementHtml": "<p>You are given an integer <code>num</code>.</p>\n\n<p>A number <code>num</code> is called a <strong>Complete <span>Prime Number</span></strong> if every <strong>prefix</strong> and every <strong>suffix</strong> of <code>num</code> is <strong>prime</strong>.</p>\n\n<p>Return <code>true</code> if <code>num</code> is a Complete Prime Number, otherwise return <code>false</code>.</p>\n\n<p><strong>Note</strong>:</p>\n\n<ul>\n\t<li>A <strong>prefix</strong> of a number is formed by the <strong>first</strong> <code>k</code> digits of the number.</li>\n\t<li>A <strong>suffix</strong> of a number is formed by the <strong>last</strong> <code>k</code> digits of the number.</li>\n\t<li>Single-digit numbers are considered Complete Prime Numbers only if they are <strong>prime</strong>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>num = 23</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li><strong>​​​​​​​</strong>Prefixes of <code>num = 23</code> are 2 and 23, both are prime.</li>\n\t<li>Suffixes of <code>num = 23</code> are 3 and 23, both are prime.</li>\n\t<li>All prefixes and suffixes are prime, so 23 is a Complete Prime Number and the answer is <code>true</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>num = 39</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Prefixes of <code>num = 39</code> are 3 and 39. 3 is prime, but 39 is not prime.</li>\n\t<li>Suffixes of <code>num = 39</code> are 9 and 39. Both 9 and 39 are not prime.</li>\n\t<li>At least one prefix or suffix is not prime, so 39 is not a Complete Prime Number and the answer is <code>false</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>num = 7</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>7 is prime, so all its prefixes and suffixes are prime and the answer is <code>true</code>.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= num &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4100-complete-prime-number/4100-complete-prime-number.cpp",
+      "source": "/*\n Problem: 4100. Complete Prime Number\n Language: cpp\n Runtime: 4 ms (20.70%)\n Memory: 8.3 MB (62.56%)\n Tags: Math, Enumeration, Number Theory\n*/\nclass Solution {\nprivate:\n    bool isPrime (int x) {\n        if (x < 2) return 0;\n        if (x % 2 == 0) return x == 2;\n        for (long long i = 3; i * i <= x; i += 2)\n            if (x % i == 0) return 0;\n\n        return 1;\n    }\npublic:\n    bool completePrime(int num) {\n        vector <int> digits;\n        while (num > 0) {\n            digits.push_back(num % 10);\n            num /= 10;\n        }\n        reverse(digits.begin(), digits.end());\n        \n        int s = 0;\n        for (int i = 0; i < digits.size(); ++i) {\n            s = s * 10 + digits[i];\n            if (!isPrime(s)) return 0;\n        }\n\n        s = 0;\n        int mul = 1;\n        for (int i = digits.size() - 1; i >= 0 ; --i) {\n            s = digits[i] * mul + s;\n            mul *= 10;\n            if (!isPrime(s)) return 0;\n        }\n\n        return 1;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4100-complete-prime-number/4100-complete-prime-number.cpp"
+    }
+  ]
+}

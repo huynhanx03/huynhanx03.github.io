@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:290",
+  "platform": "leetcode",
+  "id": "290",
+  "title": "Word Pattern",
+  "slug": "word-pattern",
+  "url": "https://leetcode.com/problems/word-pattern",
+  "difficulty": "Easy",
+  "topics": [
+    "Hash Table",
+    "String"
+  ],
+  "statementHtml": "<p>Given a <code>pattern</code> and a string <code>s</code>, find if <code>s</code> follows the same pattern.</p>\n\n<p>Here <b>follow</b> means a full match, such that there is a bijection between a letter in <code>pattern</code> and a <b>non-empty</b> word in <code>s</code>. Specifically:</p>\n\n<ul>\n\t<li>Each letter in <code>pattern</code> maps to <strong>exactly</strong> one unique word in <code>s</code>.</li>\n\t<li>Each unique word in <code>s</code> maps to <strong>exactly</strong> one letter in <code>pattern</code>.</li>\n\t<li>No two letters map to the same word, and no two words map to the same letter.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>pattern = \"abba\", s = \"dog cat cat dog\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The bijection can be established as:</p>\n\n<ul>\n\t<li><code>'a'</code> maps to <code>\"dog\"</code>.</li>\n\t<li><code>'b'</code> maps to <code>\"cat\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>pattern = \"abba\", s = \"dog cat cat fish\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>pattern = \"aaaa\", s = \"dog cat cat dog\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= pattern.length &lt;= 300</code></li>\n\t<li><code>pattern</code> contains only lower-case English letters.</li>\n\t<li><code>1 &lt;= s.length &lt;= 3000</code></li>\n\t<li><code>s</code> contains only lowercase English letters and spaces <code>' '</code>.</li>\n\t<li><code>s</code> <strong>does not contain</strong> any leading or trailing spaces.</li>\n\t<li>All the words in <code>s</code> are separated by a <strong>single space</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Python",
+      "relativePath": "leetcode/Easy/0290-word-pattern/0290-word-pattern.py",
+      "source": "\"\"\"\n Problem: 290. Word Pattern\n Language: python3\n Runtime: 40 ms (0.06%)\n Memory: 16.6 MB (100.00%)\n Tags: Hash Table, String\n\"\"\"\nclass Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        mapping = {}\n        s = s.split()\n        if len(pattern) != len(s):\n            return False\n\n        for char, word in zip(pattern, s):\n            if char in mapping:\n                if mapping[char] != word:\n                    return False\n            else:\n                mapping[char] = word\n\n        return len(set(mapping.keys())) == len(set(mapping.values()))",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0290-word-pattern/0290-word-pattern.py"
+    }
+  ]
+}

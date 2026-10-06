@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3581",
+  "platform": "leetcode",
+  "id": "3581",
+  "title": "The Two Sneaky Numbers of Digitville",
+  "slug": "the-two-sneaky-numbers-of-digitville",
+  "url": "https://leetcode.com/problems/the-two-sneaky-numbers-of-digitville",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Math"
+  ],
+  "statementHtml": "<p>In the town of Digitville, there was a list of numbers called <code>nums</code> containing integers from <code>0</code> to <code>n - 1</code>. Each number was supposed to appear <strong>exactly once</strong> in the list, however, <strong>two</strong> mischievous numbers sneaked in an <em>additional time</em>, making the list longer than usual.</p>\n\n<p>As the town detective, your task is to find these two sneaky numbers. Return an array of size <strong>two</strong> containing the two numbers (in <em>any order</em>), so peace can return to Digitville.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [0,1,1,0]</span></p>\n\n<p><strong>Output:</strong> <span>[0,1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The numbers 0 and 1 each appear twice in the array.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [0,3,2,1,3,2]</span></p>\n\n<p><strong>Output:</strong> <span>[2,3]</span></p>\n\n<p><strong>Explanation: </strong></p>\n\n<p>The numbers 2 and 3 each appear twice in the array.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [7,1,5,4,3,4,6,0,9,5,8,2]</span></p>\n\n<p><strong>Output:</strong> <span>[4,5]</span></p>\n\n<p><strong>Explanation: </strong></p>\n\n<p>The numbers 4 and 5 each appear twice in the array.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n &lt;= 100</code></li>\n\t<li><code>nums.length == n + 2</code></li>\n\t<li><code>0 &lt;= nums[i] &lt; n</code></li>\n\t<li>The input is generated such that <code>nums</code> contains <strong>exactly</strong> two repeated elements.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3581-the-two-sneaky-numbers-of-digitville/3581-the-two-sneaky-numbers-of-digitville.cpp",
+      "source": "/*\n Problem: 3581. The Two Sneaky Numbers of Digitville\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 25.2 MB (91.35%)\n Tags: Array, Hash Table, Math\n*/\nclass Solution {\npublic:\n    vector<int> getSneakyNumbers(vector<int>& nums) {\n        int n = nums.size() - 2, xor_all = 0;\n        for (int x : nums) xor_all ^= x;\n        for (int i = 0; i < n; i++) xor_all ^= i;\n        int diff_bit = xor_all & -xor_all;\n        int a = 0, b = 0;\n        for (int x : nums) (x & diff_bit ? a : b) ^= x;\n        for (int i = 0; i < n; i++) (i & diff_bit ? a : b) ^= i;\n        return {a, b};\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3581-the-two-sneaky-numbers-of-digitville/3581-the-two-sneaky-numbers-of-digitville.cpp"
+    }
+  ]
+}

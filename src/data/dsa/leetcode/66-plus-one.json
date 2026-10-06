@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:66",
+  "platform": "leetcode",
+  "id": "66",
+  "title": "Plus One",
+  "slug": "plus-one",
+  "url": "https://leetcode.com/problems/plus-one",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given a <strong>large integer</strong> represented as an integer array <code>digits</code>, where each <code>digits[i]</code> is the <code>i<sup>th</sup></code> digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading <code>0</code>'s.</p>\n\n<p>Increment the large integer by one and return <em>the resulting array of digits</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> digits = [1,2,3]\n<strong>Output:</strong> [1,2,4]\n<strong>Explanation:</strong> The array represents the integer 123.\nIncrementing by one gives 123 + 1 = 124.\nThus, the result should be [1,2,4].\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> digits = [4,3,2,1]\n<strong>Output:</strong> [4,3,2,2]\n<strong>Explanation:</strong> The array represents the integer 4321.\nIncrementing by one gives 4321 + 1 = 4322.\nThus, the result should be [4,3,2,2].\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> digits = [9]\n<strong>Output:</strong> [1,0]\n<strong>Explanation:</strong> The array represents the integer 9.\nIncrementing by one gives 9 + 1 = 10.\nThus, the result should be [1,0].\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= digits.length &lt;= 100</code></li>\n\t<li><code>0 &lt;= digits[i] &lt;= 9</code></li>\n\t<li><code>digits</code> does not contain any leading <code>0</code>'s.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0066-plus-one/0066-plus-one.cpp",
+      "source": "/*\n Problem: 66. Plus One\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.6 MB (99.95%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    vector<int> plusOne(vector<int>& digits) {\n        int n = digits.size();\n\n        int tmp = 1;\n\n        for (int i = n - 1; i >= 0; --i) {\n            digits[i] += tmp;\n\n            if (digits[i] > 9) {\n                tmp = 1;\n                digits[i] = 0;\n            } else {\n                tmp = 0;\n                break;\n            }\n        }\n\n        if (tmp) {\n            digits[0] = 1;\n            digits.push_back(0);\n        }\n        \n        return digits;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0066-plus-one/0066-plus-one.cpp"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3606",
+  "platform": "leetcode",
+  "id": "3606",
+  "title": "Minimum Element After Replacement With Digit Sum",
+  "slug": "minimum-element-after-replacement-with-digit-sum",
+  "url": "https://leetcode.com/problems/minimum-element-after-replacement-with-digit-sum",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>You replace each element in <code>nums</code> with the <strong>sum</strong> of its digits.</p>\n\n<p>Return the <strong>minimum</strong> element in <code>nums</code> after all replacements.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [10,12,13,14]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>nums</code> becomes <code>[1, 3, 4, 5]</code> after all replacements, with minimum element 1.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,4]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>nums</code> becomes <code>[1, 2, 3, 4]</code> after all replacements, with minimum element 1.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [999,19,199]</span></p>\n\n<p><strong>Output:</strong> <span>10</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>nums</code> becomes <code>[27, 10, 19]</code> after all replacements, with minimum element 10.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3606-minimum-element-after-replacement-with-digit-sum/3606-minimum-element-after-replacement-with-digit-sum.cpp",
+      "source": "/*\n Problem: 3606. Minimum Element After Replacement With Digit Sum\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 27.7 MB (73.81%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    int minElement(vector<int>& nums) {\n        auto get = [&](int x) {\n            int s = 0;\n\n            while (x > 0) {\n                s += x % 10;\n                x /= 10;\n            }\n\n            return s;\n        };\n\n        int ans = 1e9;\n\n        for (const auto& x : nums) ans = min(ans, get(x));\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3606-minimum-element-after-replacement-with-digit-sum/3606-minimum-element-after-replacement-with-digit-sum.cpp"
+    }
+  ]
+}

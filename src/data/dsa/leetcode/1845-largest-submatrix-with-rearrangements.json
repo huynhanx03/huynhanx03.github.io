@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:1845",
+  "platform": "leetcode",
+  "id": "1845",
+  "title": "Largest Submatrix With Rearrangements",
+  "slug": "largest-submatrix-with-rearrangements",
+  "url": "https://leetcode.com/problems/largest-submatrix-with-rearrangements",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Matrix",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a binary matrix <code>matrix</code> of size <code>m x n</code>, and you are allowed to rearrange the <strong>columns</strong> of the <code>matrix</code> in any order.</p>\n\n<p>Return <em>the area of the largest submatrix within </em><code>matrix</code><em> where <strong>every</strong> element of the submatrix is </em><code>1</code><em> after reordering the columns optimally.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[0,0,1],[1,1,1],[1,0,1]]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> You can rearrange the columns as shown above.\nThe largest submatrix of 1s, in bold, has an area of 4.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[1,0,1,0,1]]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> You can rearrange the columns as shown above.\nThe largest submatrix of 1s, in bold, has an area of 3.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> matrix = [[1,1,0],[1,0,1]]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> Notice that you must rearrange entire columns, and there is no way to make a submatrix of 1s larger than an area of 2.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == matrix.length</code></li>\n\t<li><code>n == matrix[i].length</code></li>\n\t<li><code>1 &lt;= m * n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>matrix[i][j]</code> is either <code>0</code> or <code>1</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1845-largest-submatrix-with-rearrangements/1845-largest-submatrix-with-rearrangements.cpp",
+      "source": "/*\n Problem: 1845. Largest Submatrix With Rearrangements\n Language: cpp\n Runtime: 28 ms (75.00%)\n Memory: 90.1 MB (46.28%)\n Tags: Array, Greedy, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    int largestSubmatrix(vector<vector<int>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size();\n        vector<int> h(n, 0);\n        int res = 0;\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++)\n                h[j] = matrix[i][j] ? h[j] + 1 : 0;\n\n            vector<int> row = h;\n            sort(row.begin(), row.end(), greater<int>());\n\n            for (int j = 0; j < n; j++)\n                res = max(res, row[j] * (j + 1));\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1845-largest-submatrix-with-rearrangements/1845-largest-submatrix-with-rearrangements.cpp"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+    "achievements": [
+        {
+            "id": "ucpc-2022",
+            "name": "The Champion Of UIT COLLEGIATE PROGRAMMING CONTEST",
+            "issuer": "The UCPC Algorithm Programming Contest is an academic competition, hosted by the Faculty of Computer Science under the direction of the Student Union and the Student Affairs Department of the University of Information Technology - Vietnam National University, Ho Chi Minh City.",
+            "year": 2022,
+            "type": "award",
+            "credentialUrl": "https://www.facebook.com/uit.ucpc",
+            "image": "/images/achievements/ucpc.png"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:386",
+  "platform": "leetcode",
+  "id": "386",
+  "title": "Lexicographical Numbers",
+  "slug": "lexicographical-numbers",
+  "url": "https://leetcode.com/problems/lexicographical-numbers",
+  "difficulty": "Medium",
+  "topics": [
+    "Depth-First Search",
+    "Trie"
+  ],
+  "statementHtml": "<p>Given an integer <code>n</code>, return all the numbers in the range <code>[1, n]</code> sorted in lexicographical order.</p>\n\n<p>You must write an algorithm that runs in <code>O(n)</code> time and uses <code>O(1)</code> extra space. </p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> n = 13\n<strong>Output:</strong> [1,10,11,12,13,2,3,4,5,6,7,8,9]\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> n = 2\n<strong>Output:</strong> [1,2]\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 5 * 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0386-lexicographical-numbers/0386-lexicographical-numbers.cpp",
+      "source": "/*\n Problem: 386. Lexicographical Numbers\n Language: cpp\n Runtime: 2 ms (48.48%)\n Memory: 13.9 MB (79.46%)\n Tags: Depth-First Search, Trie\n*/\nclass Solution {\npublic:\n    vector<int> lexicalOrder(int n) {\n        vector<int> ans;\n        int cur = 1;\n\n        for (int i = 0; i < n; ++i) {\n            ans.push_back(cur);\n\n            if (cur * 10 <= n) {\n                cur *= 10;\n            } else {\n                while (cur % 10 == 9 || cur + 1 > n) {\n                    cur /= 10;\n                }\n                ++cur;\n            }\n        }\n        \n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0386-lexicographical-numbers/0386-lexicographical-numbers.cpp"
+    }
+  ]
+}

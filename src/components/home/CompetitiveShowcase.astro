@@ -1,0 +1,89 @@
+---
+import { siCodeforces, siLeetcode } from 'simple-icons';
+import type { CompetitiveData, StatsSnapshot } from '../../data/types';
+import type { Messages } from '../../i18n';
+import { sitePath } from '../../lib/paths';
+import { sumPlatformSolves } from '../../lib/competitive-stats';
+import { getPlatformPresentation } from '../../lib/competitive-presentation';
+
+interface Props { competitive: CompetitiveData; stats: StatsSnapshot; copy: Messages }
+const { competitive, stats, copy } = Astro.props;
+const platforms = [
+  { id: 'codeforces', name: 'Codeforces', icon: siCodeforces, stats: stats.codeforces, iconClass: 'codeforces' },
+  { id: 'leetcode', name: 'LeetCode', icon: siLeetcode, stats: stats.leetcode, iconClass: 'leetcode' },
+  { id: 'cses', name: 'CSES', logo: sitePath('/images/platforms/cses.png'), stats: stats.cses, iconClass: 'cses' },
+  { id: 'vnoi', name: 'VNOI', logo: sitePath('/images/platforms/vnoi.svg'), stats: stats.vnoi, iconClass: 'vnoi' },
+  { id: 'lqdoj', name: 'LQDOJ', logo: sitePath('/images/platforms/lqdoj.svg'), stats: stats.lqdoj, iconClass: 'lqdoj' },
+].flatMap((platform) => competitive.platforms[platform.id] ? [{ ...platform, profile: competitive.platforms[platform.id] }] : []);
+const totalSolved = sumPlatformSolves(Object.fromEntries(platforms.map(({ id, stats: platformStats }) => [id, platformStats.solved])));
+---
+
+<section class="competitive-showcase" aria-labelledby="competitive-title">
+  <h2 id="competitive-title" class="sr-only">{copy.home.competitive}</h2>
+  {totalSolved !== null && <p class="competitive-total"><strong>{totalSolved.toLocaleString()}</strong><span>{copy.home.problemsTracked}</span></p>}
+  <ul class="platform-list">
+    {platforms.map(({ id, name, icon, logo, profile, iconClass }) => {
+      const presentation = getPlatformPresentation(id as 'codeforces' | 'leetcode' | 'cses' | 'vnoi' | 'lqdoj', stats);
+      return (
+      <li>
+        <a class="platform-link" href={profile.profileUrl} target="_blank" rel="noopener noreferrer" aria-label={`${name} @${presentation.username}: ${presentation.solved ?? '—'} ${copy.home.solved}${presentation.metric ? `; ${presentation.metric.label} ${presentation.metric.value}${presentation.metric.badge ? `, ${presentation.metric.badge}` : ''}` : ''}; ${copy.home.profile}`}>
+            <span class:list={["platform-mark", iconClass]}>
+              {icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : <img src={logo} alt="" />}
+            </span>
+        </a>
+          <div class="platform-panel" aria-hidden="true">
+            <div class="platform-panel-heading">
+              <span class:list={["panel-mark", iconClass]}>
+                {icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : <img src={logo} alt="" />}
+              </span>
+              <span class="platform-identity"><strong class="platform-name">{name}</strong><span class="platform-username">@{presentation.username}</span></span>
+            </div>
+            <div class="platform-solved"><strong>{presentation.solved?.toLocaleString() ?? '—'}</strong><span>{copy.home.solved}</span></div>
+            {presentation.metric && <div class:list={["platform-metric", presentation.metric.tone]}>
+              <span class="metric-label">{presentation.metric.label}</span>
+              <strong class="metric-value">{presentation.metric.value}</strong>
+              {presentation.metric.badge && <span class="rank-badge">{presentation.metric.badge}</span>}
+            </div>}
+          </div>
+      </li>
+    );})}
+  </ul>
+</section>
+
+<style>
+  .competitive-showcase { position:relative; z-index:6; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.55rem; color:var(--muted); }
+  .competitive-total { display:flex; align-items:baseline; gap:.35rem; margin:0; color:var(--muted); font-size:.77rem; white-space:nowrap; }
+  .competitive-total strong { color:var(--text); font:700 .94rem/1 var(--font-mono); }
+  .platform-list { position:relative; display:flex; align-items:center; justify-content:center; gap:.55rem; margin:0; padding:0; list-style:none; }
+  .platform-link { position:static; display:grid; width:42px; height:42px; place-items:center; border:1px solid color-mix(in srgb,var(--line) 88%,transparent); border-radius:14px; background:color-mix(in srgb,var(--surface-strong) 88%,transparent); text-decoration:none; transition:border-color .2s ease,background .2s ease,transform .2s ease; }
+  .platform-mark { display:grid; width:21px; height:21px; place-items:center; border:0; border-radius:0; background:transparent; color:var(--brand); }
+  .platform-mark svg { width:100%; height:100%; fill:currentColor; }
+  .platform-mark img { display:block; width:100%; height:100%; object-fit:contain; }
+  .platform-mark.cses { width:27px; height:20px; }
+  .platform-mark.vnoi,.platform-mark.lqdoj { width:23px; height:23px; }
+  .platform-mark.codeforces { --brand:#1f8acb; }.platform-mark.leetcode { --brand:#ffa116; }.platform-mark.cses { --brand:#52a8ee; }.platform-mark.vnoi { --brand:#39c9d3; }.platform-mark.lqdoj { --brand:#daa335; }
+  .platform-mark.codeforces,.platform-mark.leetcode { width:27px; height:27px; }
+  .platform-link:hover,.platform-link:focus-visible { border-color:color-mix(in srgb,var(--accent) 60%,var(--line)); background:var(--surface-strong); transform:translateY(-2px); }
+  .platform-panel { position:absolute; z-index:12; right:calc(100% + .8rem); bottom:-.55rem; display:grid; width:250px; max-width:min(250px,calc(100vw - 2rem)); gap:.8rem; padding:.95rem 1rem; border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line)); border-radius:17px; background:color-mix(in srgb,var(--surface-strong) 95%,transparent); box-shadow:0 18px 48px rgb(0 0 0 / .34); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); opacity:0; pointer-events:none; transform:translateX(.35rem) scale(.98); transform-origin:right bottom; transition:opacity .16s ease,transform .16s ease,visibility .16s; visibility:hidden; }
+  .platform-link:hover + .platform-panel,.platform-link:focus-visible + .platform-panel { opacity:1; transform:translateX(0) scale(1); visibility:visible; }
+  .platform-panel-heading { display:flex; align-items:center; gap:.65rem; }
+  .panel-mark { display:grid; width:32px; height:32px; flex:none; place-items:center; color:var(--brand); }
+  .panel-mark svg,.panel-mark img { display:block; width:100%; height:100%; object-fit:contain; fill:currentColor; }
+  .panel-mark.codeforces { --brand:#1f8acb; }.panel-mark.leetcode { --brand:#ffa116; }.panel-mark.cses { width:37px; height:27px; }.panel-mark.vnoi,.panel-mark.lqdoj { width:30px; height:30px; }
+  .platform-identity { display:grid; gap:.08rem; }
+  .platform-name { color:var(--text); font-size:.86rem; font-weight:700; line-height:1.2; }
+  .platform-username { color:var(--muted); font-size:.69rem; line-height:1.2; }
+  .platform-solved { display:flex; align-items:baseline; gap:.42rem; padding:.62rem .7rem; border:1px solid color-mix(in srgb,var(--line) 70%,transparent); border-radius:11px; background:color-mix(in srgb,var(--surface) 76%,transparent); color:var(--muted); font-size:.7rem; }
+  .platform-solved strong { color:var(--text); font:700 1.28rem/1 var(--font-mono); letter-spacing:-.04em; }
+  .platform-metric { display:flex; align-items:center; flex-wrap:wrap; gap:.35rem .45rem; color:var(--muted); font-size:.68rem; }
+  .metric-label { text-transform:uppercase; letter-spacing:.08em; font-size:.58rem; font-weight:700; }
+  .metric-value { color:var(--text); font:700 .9rem/1 var(--font-mono); }
+  .rank-badge { margin-left:auto; padding:.26rem .48rem; border:1px solid color-mix(in srgb,var(--rank-color) 42%,transparent); border-radius:999px; background:color-mix(in srgb,var(--rank-color) 12%,transparent); color:var(--rank-color); font-size:.63rem; font-weight:700; white-space:nowrap; }
+  .platform-metric.codeforces { --rank-color:#b56bff; }
+  .platform-metric.leetcode { --rank-color:#ffa116; }
+  .platform-metric.leetcode .metric-value { color:var(--rank-color); }
+  @media (max-width:1100px) and (min-width:621px) { .platform-panel { width:215px; gap:.65rem; padding:.78rem; }.platform-metric { gap:.28rem .35rem; }.metric-label { font-size:.52rem; }.metric-value { font-size:.82rem; }.rank-badge { padding:.22rem .32rem; font-size:.56rem; } }
+  @media (max-width:860px) { .competitive-showcase { gap:.42rem; }.competitive-total { gap:.25rem; font-size:.7rem; }.platform-list { gap:.28rem; }.platform-link { width:32px; height:32px; border-radius:10px; }.platform-mark { width:18px; height:18px; }.platform-mark.codeforces,.platform-mark.leetcode { width:22px; height:22px; }.platform-mark.cses { width:23px; height:16px; }.platform-mark.vnoi,.platform-mark.lqdoj { width:19px; height:19px; } }
+  @media (max-width:620px) { .competitive-showcase { position:static; }.competitive-total { font-size:.7rem; }.platform-list { gap:.45rem; }.platform-link { width:36px; height:36px; border-radius:12px; }.platform-mark { width:19px; height:19px; }.platform-mark.codeforces,.platform-mark.leetcode { width:24px; height:24px; }.platform-mark.cses { width:25px; height:18px; }.platform-mark.vnoi,.platform-mark.lqdoj { width:21px; height:21px; }.platform-panel { position:fixed; right:auto; bottom:auto; top:50%; left:50%; width:min(260px,calc(100vw - 2rem)); transform:translate(-50%,-45%) scale(.98); transform-origin:center; }.platform-link:hover + .platform-panel,.platform-link:focus-visible + .platform-panel { transform:translate(-50%,-50%) scale(1); } }
+  @media (prefers-reduced-motion:reduce) { .platform-link,.platform-panel { transition:none; } }
+</style>

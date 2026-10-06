@@ -1,0 +1,18 @@
+{
+  "key": "cses:3311",
+  "platform": "cses",
+  "id": "3311",
+  "slug": "grid-coloring-i",
+  "title": "Grid Coloring I",
+  "url": "https://cses.fi/problemset/task/3311/",
+  "topics": [],
+  "statementHtml": "<ul>\n<li><b>Time limit:</b> 1.00 s</li>\n<li><b>Memory limit:</b> 512 MB</li>\n</ul><div><p>You are given an <span>n\\times m</span> grid where each cell contains one character <code>A</code>, <code>B</code>, <code>C</code> or <code>D</code>.</p>\n<p>For each cell, you must change the character to <code>A</code>, <code>B</code>, <code>C</code> or <code>D</code>. The new character must be different from the old one.</p>\n<p>Your task is to change the characters in every cell such that no two adjacent cells have the same character.</p>\n<h2>Input</h2>\n<p>The first line has two integers <span>n</span> and <span>m</span>: the number of rows and columns.</p>\n<p>The next <span>n</span> lines each have <span>m</span> characters: the description of the grid.</p>\n<h2>Output</h2>\n<p>Print <span>n</span> lines each with <span>m</span> characters: the description of the final grid.</p>\n<p>You may print any valid solution.</p>\n<p>If no solution exists, just print <code>IMPOSSIBLE</code>.</p>\n<h2>Constraints</h2>\n<ul>\n<li><span>1 \\le n, m \\le 500</span></li>\n</ul>\n<h2>Example</h2>\n<p>Input:</p>\n<pre>3 4\nAAAA\nBBBB\nCCDD\n</pre>\n<p>Output:</p>\n<pre>CDCD\nDCDC\nABAB\n</pre></div>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "cses/Introductory_Problems/Grid_Coloring_I.cpp",
+      "source": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <map>\n#include <set>\n#include <queue>\n#include <stack>\n#include <string>\n#include <cmath>\n#include <cstdio>\n#include <cstring>\n#include <climits>\n#include <numeric>\n#include <iomanip>\n#include <unordered_map>\n#include <unordered_set>\nusing namespace std;\n\n#define nhan43                        \\\n    ios_base::sync_with_stdio(false); \\\n    cin.tie(NULL);                    \\\n    cout.tie(NULL);\n\nvoid fastIO()\n{\n    nhan43;\n    if (fopen(\"main.inp\", \"r\"))\n    {\n        freopen(\"main.inp\", \"r\", stdin);\n        freopen(\"main.out\", \"w\", stdout);\n    }\n}\n\nclass Solution\n{\npublic:\n    void sol()\n    {\n        int n, m;\n        cin >> n >> m;\n        vector<string> grid(n);\n        for (auto& x : grid) cin >> x;\n    \n        vector<vector<char>> s(n, vector<char>(m));\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < m; ++j) {\n                if ((i + j) & 1) {\n                    s[i][j] = grid[i][j] == 'A' ? 'B' : 'A';\n                } else {\n                    s[i][j] = grid[i][j] == 'C' ? 'D' : 'C';\n                }\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < m; ++j) {\n                cout << s[i][j];\n            }\n            cout << '\\n';\n        }\n    };\n};\n\nint main()\n{\n    fastIO();\n    int tc = 1;\n    // cin >> tc;\n    Solution sol;\n    while (tc--)\n    {\n        sol.sol();\n    }\n    return 0;\n}\n",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/cses/Introductory_Problems/Grid_Coloring_I.cpp"
+    }
+  ]
+}

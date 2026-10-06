@@ -1,0 +1,21 @@
+---
+import type { Achievement } from '../../data/types';
+import { sitePath } from '../../lib/paths';
+import type { Messages } from '../../i18n';
+
+interface Props { achievements: Achievement[]; copy: Messages }
+const { achievements, copy } = Astro.props;
+---
+<div class="achievement-grid">
+  {achievements.map((achievement) => <article class="achievement-card">
+    {achievement.image && <img src={sitePath(achievement.image)} alt={`${achievement.name} ${achievement.type === 'certificate' ? copy.pages.achievements.certificate : copy.pages.achievements.award}`} width="1024" height="1024" loading="lazy" />}
+    <div class="achievement-card-body">
+      <div class="achievement-meta">
+        <span class:list={['achievement-type', achievement.type]}>{achievement.type === 'certificate' ? copy.pages.achievements.certificate : copy.pages.achievements.award}</span>
+        <span class="achievement-year">{achievement.year}</span>
+      </div>
+      <h3>{achievement.name}</h3>
+      <p>{achievement.issuer}</p>
+    </div>
+  </article>)}
+</div>

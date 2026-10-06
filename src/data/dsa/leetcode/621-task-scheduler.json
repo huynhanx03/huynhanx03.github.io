@@ -1,0 +1,26 @@
+{
+  "key": "leetcode:621",
+  "platform": "leetcode",
+  "id": "621",
+  "title": "Task Scheduler",
+  "slug": "task-scheduler",
+  "url": "https://leetcode.com/problems/task-scheduler",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Counting",
+    "Greedy",
+    "Hash Table",
+    "Heap (Priority Queue)",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an array of CPU <code>tasks</code>, each labeled with a letter from A to Z, and a number <code>n</code>. Each CPU interval can be idle or allow the completion of one task. Tasks can be completed in any order, but there's a constraint: there has to be a gap of <strong>at least</strong> <code>n</code> intervals between two tasks with the same label.</p>\n\n<p>Return the <strong>minimum</strong> number of CPU intervals required to complete all tasks.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2</span></p>\n\n<p><strong>Output:</strong> <span>8</span></p>\n\n<p><strong>Explanation:</strong> A possible sequence is: A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</p>\n\n<p>After completing task A, you must wait two intervals before doing A again. The same applies to task B. In the 3<sup>rd</sup> interval, neither A nor B can be done, so you idle. By the 4<sup>th</sup> interval, you can do A again as 2 intervals have passed.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>tasks = [\"A\",\"C\",\"A\",\"B\",\"D\",\"B\"], n = 1</span></p>\n\n<p><strong>Output:</strong> <span>6</span></p>\n\n<p><strong>Explanation:</strong> A possible sequence is: A -&gt; B -&gt; C -&gt; D -&gt; A -&gt; B.</p>\n\n<p>With a cooling interval of 1, you can repeat a task after just one other task.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>tasks = [\"A\",\"A\",\"A\", \"B\",\"B\",\"B\"], n = 3</span></p>\n\n<p><strong>Output:</strong> <span>10</span></p>\n\n<p><strong>Explanation:</strong> A possible sequence is: A -&gt; B -&gt; idle -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; idle -&gt; A -&gt; B.</p>\n\n<p>There are only two types of tasks, A and B, which need to be separated by 3 intervals. This leads to idling twice between repetitions of these tasks.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= tasks.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>tasks[i]</code> is an uppercase English letter.</li>\n\t<li><code>0 &lt;= n &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0621-task-scheduler/0621-task-scheduler.cpp",
+      "source": "/*\n Problem: 621. Task Scheduler\n Language: cpp\n Runtime: 35 ms (38.38%)\n Memory: 47.7 MB (30.87%)\n Tags: Array, Hash Table, Greedy, Sorting, Heap (Priority Queue), Counting\n*/\nclass Solution {\npublic:\n    int leastInterval(vector<char>& tasks, int n) {\n        // Count the frequency of each task\n        unordered_map<char, int> task_count;\n        for (char task : tasks) {\n            task_count[task]++;\n        }\n\n        // Max heap to store task frequencies\n        priority_queue<int> pq;\n        for (auto& [task, count] : task_count) {\n            pq.push(count);\n        }\n\n        int intervals = 0;\n        while (!pq.empty()) {\n            vector<int> temp;\n            int count = 0;\n            \n            // Process the tasks for the current interval\n            for (int i = 0; i <= n; ++i) {\n                if (!pq.empty()) {\n                    temp.push_back(pq.top());\n                    pq.pop();\n                    count++;\n                }\n            }\n\n            for (int freq : temp) {\n                if (--freq > 0) {\n                    pq.push(freq);\n                }\n            }\n\n            intervals += !pq.empty() ? n + 1 : count;\n        }\n\n        return intervals;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0621-task-scheduler/0621-task-scheduler.cpp"
+    }
+  ]
+}

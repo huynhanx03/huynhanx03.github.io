@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2262",
+  "platform": "leetcode",
+  "id": "2262",
+  "title": "Solving Questions With Brainpower",
+  "slug": "solving-questions-with-brainpower",
+  "url": "https://leetcode.com/problems/solving-questions-with-brainpower",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>You are given a <strong>0-indexed</strong> 2D integer array <code>questions</code> where <code>questions[i] = [points<sub>i</sub>, brainpower<sub>i</sub>]</code>.</p>\n\n<p>The array describes the questions of an exam, where you have to process the questions <strong>in order</strong> (i.e., starting from question <code>0</code>) and make a decision whether to <strong>solve</strong> or <strong>skip</strong> each question. Solving question <code>i</code> will <strong>earn</strong> you <code>points<sub>i</sub></code> points but you will be <strong>unable</strong> to solve each of the next <code>brainpower<sub>i</sub></code> questions. If you skip question <code>i</code>, you get to make the decision on the next question.</p>\n\n<ul>\n\t<li>For example, given <code>questions = [[3, 2], [4, 3], [4, 4], [2, 5]]</code>:\n\n\t<ul>\n\t\t<li>If question <code>0</code> is solved, you will earn <code>3</code> points but you will be unable to solve questions <code>1</code> and <code>2</code>.</li>\n\t\t<li>If instead, question <code>0</code> is skipped and question <code>1</code> is solved, you will earn <code>4</code> points but you will be unable to solve questions <code>2</code> and <code>3</code>.</li>\n\t</ul>\n\t</li>\n</ul>\n\n<p>Return <em>the <strong>maximum</strong> points you can earn for the exam</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> questions = [[3,2],[4,3],[4,4],[2,5]]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> The maximum points can be earned by solving questions 0 and 3.\n- Solve question 0: Earn 3 points, will be unable to solve the next 2 questions\n- Unable to solve questions 1 and 2\n- Solve question 3: Earn 2 points\nTotal points earned: 3 + 2 = 5. There is no other way to earn 5 or more points.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> questions = [[1,1],[2,2],[3,3],[4,4],[5,5]]\n<strong>Output:</strong> 7\n<strong>Explanation:</strong> The maximum points can be earned by solving questions 1 and 4.\n- Skip question 0\n- Solve question 1: Earn 2 points, will be unable to solve the next 2 questions\n- Unable to solve questions 2 and 3\n- Solve question 4: Earn 5 points\nTotal points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= questions.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>questions[i].length == 2</code></li>\n\t<li><code>1 &lt;= points<sub>i</sub>, brainpower<sub>i</sub> &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2262-solving-questions-with-brainpower/2262-solving-questions-with-brainpower.cpp",
+      "source": "/*\n Problem: 2262. Solving Questions With Brainpower\n Language: cpp\n Runtime: 4 ms (76.65%)\n Memory: 119.8 MB (78.93%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    long long mostPoints(vector<vector<int>>& questions) {\n        int n = questions.size();\n\n        vector<long long> dp(n, 0);\n        dp[n - 1] = questions[n - 1][0];\n\n        for (int i = n - 2; i >= 0; --i) {\n            int nextIndex = i + questions[i][1] + 1;\n            dp[i] = max(dp[i + 1], questions[i][0] + (nextIndex < n ? dp[nextIndex] : 0));\n        }\n\n        return dp[0];\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2262-solving-questions-with-brainpower/2262-solving-questions-with-brainpower.cpp"
+    }
+  ]
+}

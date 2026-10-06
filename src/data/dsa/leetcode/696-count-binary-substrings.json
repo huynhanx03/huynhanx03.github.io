@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:696",
+  "platform": "leetcode",
+  "id": "696",
+  "title": "Count Binary Substrings",
+  "slug": "count-binary-substrings",
+  "url": "https://leetcode.com/problems/count-binary-substrings",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>Given a binary string <code>s</code>, return the number of non-empty substrings that have the same number of <code>0</code>'s and <code>1</code>'s, and all the <code>0</code>'s and all the <code>1</code>'s in these substrings are grouped consecutively.</p>\n\n<p>Substrings that occur multiple times are counted the number of times they occur.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"00110011\"\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> There are 6 substrings that have equal number of consecutive 1's and 0's: \"0011\", \"01\", \"1100\", \"10\", \"0011\", and \"01\".\nNotice that some of these substrings repeat and are counted the number of times they occur.\nAlso, \"00110011\" is not a valid substring because all the 0's (and 1's) are not grouped together.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"10101\"\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> There are 4 substrings: \"10\", \"01\", \"10\", \"01\" that have equal number of consecutive 1's and 0's.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "Rust",
+      "relativePath": "leetcode/Easy/0696-count-binary-substrings/0696-count-binary-substrings.rs",
+      "source": "/*\n Problem: 696. Count Binary Substrings\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.3 MB (69.23%)\n Tags: Two Pointers, String\n*/\nimpl Solution {\n    pub fn count_binary_substrings(s: String) -> i32 {\n        let b = s.as_bytes();\n        let (mut prev, mut curr, mut res) = (0, 1, 0);\n\n        for i in 1..b.len() {\n            if b[i] == b[i - 1] {\n                curr += 1;\n            } else {\n                res += prev.min(curr);\n                prev = curr;\n                curr = 1;\n            }\n        }\n\n        res + prev.min(curr)\n    }\n}",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0696-count-binary-substrings/0696-count-binary-substrings.rs"
+    }
+  ]
+}

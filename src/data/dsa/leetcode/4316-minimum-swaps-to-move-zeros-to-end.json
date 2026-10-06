@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4316",
+  "platform": "leetcode",
+  "id": "4316",
+  "title": "Minimum Swaps to Move Zeros to End",
+  "slug": "minimum-swaps-to-move-zeros-to-end",
+  "url": "https://leetcode.com/problems/minimum-swaps-to-move-zeros-to-end",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Two Pointers"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>In one operation, you can choose any two <strong>distinct</strong> indices <code>i</code> and <code>j</code> and swap <code>nums[i]</code> and <code>nums[j]</code>.</p>\n\n<p>Return an integer denoting the <strong>minimum</strong> number of operations required to move all 0s to the end of the array.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [0,1,0,3,12]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We perform the following swap operations:</p>\n\n<ul>\n\t<li>Swap <code>nums[0]</code> and <code>nums[3]</code>, giving <code>nums = [3, 1, 0, 0, 12]</code>.</li>\n\t<li>Swap <code>nums[2]</code> and <code>nums[4]</code>, giving <code>nums = [3, 1, 12, 0, 0]</code>.</li>\n</ul>\n\n<p>Thus, the answer is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [0,1,0,2]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We perform the following swap operations:</p>\n\n<ul>\n\t<li>Swap <code>nums[0]</code> and <code>nums[3]</code>, giving <code>nums = [2, 1, 0, 0]</code>.</li>\n</ul>\n\n<p>Thus, the answer is 1.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,0]</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The array already satisfies the condition. Therefore, no swap operations are needed.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4316-minimum-swaps-to-move-zeros-to-end/4316-minimum-swaps-to-move-zeros-to-end.cpp",
+      "source": "/*\n Problem: 4316. Minimum Swaps to Move Zeros to End\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.6 MB (99.47%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    int minimumSwaps(vector<int>& nums) {\n        int n = nums.size(), cnt0 = 0;\n        for (const auto& x : nums) if (x == 0) ++cnt0;\n\n        int ans = 0;\n        for (int i = 0; i < n; ++i) {\n            if (nums[i] == 0 && i < n - cnt0) ++ans;\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4316-minimum-swaps-to-move-zeros-to-end/4316-minimum-swaps-to-move-zeros-to-end.cpp"
+    }
+  ]
+}

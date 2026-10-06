@@ -1,5 +1,0 @@
----
-trigger: always_on
----
-
-Always read the workflow.

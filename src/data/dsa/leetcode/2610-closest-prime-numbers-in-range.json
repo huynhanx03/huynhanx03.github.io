@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2610",
+  "platform": "leetcode",
+  "id": "2610",
+  "title": "Closest Prime Numbers in Range",
+  "slug": "closest-prime-numbers-in-range",
+  "url": "https://leetcode.com/problems/closest-prime-numbers-in-range",
+  "difficulty": "Medium",
+  "topics": [
+    "Math",
+    "Number Theory"
+  ],
+  "statementHtml": "<p>Given two positive integers <code>left</code> and <code>right</code>, find the two integers <code>num1</code> and <code>num2</code> such that:</p>\n\n<ul>\n\t<li><code>left &lt;= num1 &lt; num2 &lt;= right </code>.</li>\n\t<li>Both <code>num1</code> and <code>num2</code> are <span>prime numbers</span>.</li>\n\t<li><code>num2 - num1</code> is the <strong>minimum</strong> amongst all other pairs satisfying the above conditions.</li>\n</ul>\n\n<p>Return the positive integer array <code>ans = [num1, num2]</code>. If there are multiple pairs satisfying these conditions, return the one with the <strong>smallest</strong> <code>num1</code> value. If no such numbers exist, return <code>[-1, -1]</code><em>.</em></p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> left = 10, right = 19\n<strong>Output:</strong> [11,13]\n<strong>Explanation:</strong> The prime numbers between 10 and 19 are 11, 13, 17, and 19.\nThe closest gap between any pair is 2, which can be achieved by [11,13] or [17,19].\nSince 11 is smaller than 17, we return the first pair.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> left = 4, right = 6\n<strong>Output:</strong> [-1,-1]\n<strong>Explanation:</strong> There exists only one prime number in the given range, so the conditions cannot be satisfied.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= left &lt;= right &lt;= 10<sup>6</sup></code></li>\n</ul>\n\n<p> </p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2610-closest-prime-numbers-in-range/2610-closest-prime-numbers-in-range.cpp",
+      "source": "/*\n Problem: 2610. Closest Prime Numbers in Range\n Language: cpp\n Runtime: 1123 ms (5.10%)\n Memory: 17.4 MB (57.39%)\n Tags: Math, Number Theory\n*/\nclass Solution {\npublic:\n    bool isPrime(int n) {\n        if (n < 2)\n            return false;\n        for (int i = 2; i <= sqrt(n); i++) {\n            if (n % i == 0)\n                return false;\n        }\n        return true;\n    }\n\n    vector<int> closestPrimes(int left, int right) {\n        vector<int> primes;\n\n        for (int i = left; i <= right; i++) {\n            if (isPrime(i)) {\n                primes.push_back(i);\n            }\n        }\n\n        if (primes.size() < 2) {\n            return {-1, -1};\n        }\n\n        int minDiff = numeric_limits<int>::max();\n        vector<int> result = {-1, -1};\n        for (size_t i = 0; i < primes.size() - 1; i++) {\n            int diff = primes[i + 1] - primes[i];\n            if (diff < minDiff) {\n                minDiff = diff;\n                result = {primes[i], primes[i + 1]};\n            }\n        }\n\n        return result;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2610-closest-prime-numbers-in-range/2610-closest-prime-numbers-in-range.cpp"
+    }
+  ]
+}

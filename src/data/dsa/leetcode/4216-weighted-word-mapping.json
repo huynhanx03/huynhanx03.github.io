@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4216",
+  "platform": "leetcode",
+  "id": "4216",
+  "title": "Weighted Word Mapping",
+  "slug": "weighted-word-mapping",
+  "url": "https://leetcode.com/problems/weighted-word-mapping",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>You are given an array of strings <code>words</code>, where each string represents a word containing lowercase English letters.</p>\n\n<p>You are also given an integer array <code>weights</code> of length 26, where <code>weights[i]</code> represents the weight of the <code>i<sup>th</sup></code> lowercase English letter.</p>\n\n<p>The <strong>weight</strong> of a word is defined as the <strong>sum</strong> of the weights of its characters.</p>\n\n<p>For each word, take its weight modulo 26 and map the result to a lowercase English letter using reverse alphabetical order (<code>0 -&gt; 'z', 1 -&gt; 'y', ..., 25 -&gt; 'a'</code>).</p>\n\n<p>Return a string formed by concatenating the mapped characters for all words in order.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>words = [\"abcd\",\"def\",\"xyz\"], weights = [5,3,12,14,1,2,3,2,10,6,6,9,7,8,7,10,8,9,6,9,9,8,3,7,7,2]</span></p>\n\n<p><strong>Output:</strong> <span>\"rij\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The weight of <code>\"abcd\"</code> is <code>5 + 3 + 12 + 14 = 34</code>. The result modulo 26 is <code>34 % 26 = 8</code>, which maps to <code>'r'</code>.</li>\n\t<li>The weight of <code>\"def\"</code> is <code>14 + 1 + 2 = 17</code>. The result modulo 26 is <code>17 % 26 = 17</code>, which maps to <code>'i'</code>.</li>\n\t<li>The weight of <code>\"xyz\"</code> is <code>7 + 7 + 2 = 16</code>. The result modulo 26 is <code>16 % 26 = 16</code>, which maps to <code>'j'</code>.</li>\n</ul>\n\n<p>Thus, the string formed by concatenating the mapped characters is <code>\"rij\"</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>words = [\"a\",\"b\",\"c\"], weights = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]</span></p>\n\n<p><strong>Output:</strong> <span>\"yyy\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Each word has weight 1. The result modulo 26 is <code>1 % 26 = 1</code>, which maps to <code>'y'</code>.</p>\n\n<p>Thus, the string formed by concatenating the mapped characters is <code>\"yyy\"</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>words = [\"abcd\"], weights = [7,5,3,4,3,5,4,9,4,2,2,7,10,2,5,10,6,1,2,2,4,1,3,4,4,5]</span></p>\n\n<p><strong>Output:</strong> <span>\"g\"</span></p>\n\n<p><strong>Explanation:​​​​​​​</strong></p>\n\n<p>The weight of <code>\"abcd\"</code> is <code>7 + 5 + 3 + 4 = 19</code>. The result modulo 26 is <code>19 % 26 = 19</code>, which maps to <code>'g'</code>.</p>\n\n<p>Thus, the string formed by concatenating the mapped characters is <code>\"g\"</code>.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= words.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= words[i].length &lt;= 10</code></li>\n\t<li><code>weights.length == 26</code></li>\n\t<li><code>1 &lt;= weights[i] &lt;= 100</code></li>\n\t<li><code>words[i]</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4216-weighted-word-mapping/4216-weighted-word-mapping.cpp",
+      "source": "/*\n Problem: 4216. Weighted Word Mapping\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 43.7 MB (27.94%)\n Tags: Array, String, Simulation\n*/\nclass Solution {\npublic:\n    string mapWordWeights(vector<string>& words, vector<int>& weights) {\n        string answer;\n\n        for (const auto& word : words) {\n            int weight = 0;\n\n            for (const auto ch : word) {\n                weight += weights[ch - 'a'];\n            }\n\n            answer += 'z' - weight % 26;\n        }\n\n        return answer;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4216-weighted-word-mapping/4216-weighted-word-mapping.cpp"
+    }
+  ]
+}

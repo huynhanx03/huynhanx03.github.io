@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4321",
+  "platform": "leetcode",
+  "id": "4321",
+  "title": "Digit Frequency Score",
+  "slug": "digit-frequency-score",
+  "url": "https://leetcode.com/problems/digit-frequency-score",
+  "difficulty": "Easy",
+  "topics": [
+    "Hash Table",
+    "Math"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code>.</p>\n\n<p>The <strong>score</strong> of <code>n</code> is defined as the <strong>sum</strong> of <code>d * freq(d)</code> over all <strong>distinct</strong> digits <code>d</code>, where <code>freq(d)</code> denotes the number of times the digit <code>d</code> appears in <code>n</code>.</p>\n\n<p>Return an integer denoting the score of <code>n</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 122</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The digit 1 appears 1 time, contributing <code>1 * 1 = 1</code>.</li>\n\t<li>The digit 2 appears 2 times, contributing <code>2 * 2 = 4</code>.</li>\n\t<li>Thus, the score of <code>n</code> is <code>1 + 4 = 5</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 101</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The digit 0 appears 1 time, contributing <code>0 * 1 = 0</code>.</li>\n\t<li>The digit 1 appears 2 times, contributing <code>1 * 2 = 2</code>.</li>\n\t<li>Thus, the score of <code>n</code> is 2.</li>\n</ul>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4321-digit-frequency-score/4321-digit-frequency-score.cpp",
+      "source": "/*\n Problem: 4321. Digit Frequency Score\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.6 MB (64.42%)\n Tags: Hash Table, Math\n*/\nclass Solution {\npublic:\n    int digitFrequencyScore(int n) {\n        vector <int> cnt(10, 0);\n\n        while (n > 0) {\n            ++cnt[n % 10];\n            n /= 10;\n        }\n        \n        int s = 0;\n\n        for (int i = 1; i <= 9; ++i) s += cnt[i] * i;\n        \n        return s;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4321-digit-frequency-score/4321-digit-frequency-score.cpp"
+    }
+  ]
+}

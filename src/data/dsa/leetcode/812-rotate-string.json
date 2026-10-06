@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:812",
+  "platform": "leetcode",
+  "id": "812",
+  "title": "Rotate String",
+  "slug": "rotate-string",
+  "url": "https://leetcode.com/problems/rotate-string",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "String Matching"
+  ],
+  "statementHtml": "<p>Given two strings <code>s</code> and <code>goal</code>, return <code>true</code> <em>if and only if</em> <code>s</code> <em>can become</em> <code>goal</code> <em>after some number of <strong>shifts</strong> on</em> <code>s</code>.</p>\n\n<p>A <strong>shift</strong> on <code>s</code> consists of moving the leftmost character of <code>s</code> to the rightmost position.</p>\n\n<ul>\n\t<li>For example, if <code>s = \"abcde\"</code>, then it will be <code>\"bcdea\"</code> after one shift.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> s = \"abcde\", goal = \"cdeab\"\n<strong>Output:</strong> true\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> s = \"abcde\", goal = \"abced\"\n<strong>Output:</strong> false\n</pre>\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length, goal.length &lt;= 100</code></li>\n\t<li><code>s</code> and <code>goal</code> consist of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0812-rotate-string/0812-rotate-string.cpp",
+      "source": "/*\n Problem: 812. Rotate String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (5.60%)\n Tags: String, String Matching\n*/\nclass Solution {\npublic:\n    bool rotateString(string s, string goal) {\n        if (s.size() != goal.size()) return false;\n\n        int n = s.size();\n        string t = s + s;\n\n        using ull = unsigned long long;\n        const ull base = 131;\n\n        auto buildHash = [&](const string& str) {\n            vector<ull> h(str.size() + 1, 0);\n            for (int i = 0; i < (int)str.size(); ++i) {\n                h[i + 1] = h[i] * base + str[i];\n            }\n            return h;\n        };\n\n        vector<ull> pw(2 * n + 1, 1);\n        for (int i = 1; i <= 2 * n; ++i) {\n            pw[i] = pw[i - 1] * base;\n        }\n\n        auto getHash = [&](const vector<ull>& h, int l, int r) {\n            return h[r] - h[l] * pw[r - l];\n        };\n\n        auto ht = buildHash(t);\n        auto hg = buildHash(goal);\n\n        ull goalHash = getHash(hg, 0, n);\n\n        for (int i = 0; i + n <= 2 * n; ++i) {\n            if (getHash(ht, i, i + n) == goalHash) {\n                if (t.substr(i, n) == goal) return true;\n            }\n        }\n\n        return false;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0812-rotate-string/0812-rotate-string.cpp"
+    }
+  ]
+}

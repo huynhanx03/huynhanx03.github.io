@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4152",
+  "platform": "leetcode",
+  "id": "4152",
+  "title": "Minimum Subarray Length With Distinct Sum At Least K",
+  "slug": "minimum-subarray-length-with-distinct-sum-at-least-k",
+  "url": "https://leetcode.com/problems/minimum-subarray-length-with-distinct-sum-at-least-k",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> and an integer <code>k</code>.</p>\n\n<p>Return the <strong>minimum</strong> length of a <strong><span>subarray</span></strong> whose sum of the <strong>distinct</strong> values present in that subarray (each value counted once) is <strong>at least</strong> <code>k</code>. If no such subarray exists, return -1.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,2,3,1], k = 4</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subarray <code>[2, 3]</code> has distinct elements <code>{2, 3}</code> whose sum is <code>2 + 3 = 5</code>, which is ​​​​​​​at least <code>k = 4</code>. Thus, the answer is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,2,3,4], k = 5</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subarray <code>[3, 2]</code> has distinct elements <code>{3, 2}</code> whose sum is <code>3 + 2 = 5</code>, which is ​​​​​​​at least <code>k = 5</code>. Thus, the answer is 2.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [5,5,4], k = 5</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subarray <code>[5]</code> has distinct elements <code>{5}</code> whose sum is <code>5</code>, which is at least <code>k = 5</code>. Thus, the answer is 1.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4152-minimum-subarray-length-with-distinct-sum-at-least-k/4152-minimum-subarray-length-with-distinct-sum-at-least-k.cpp",
+      "source": "/*\n Problem: 4152. Minimum Subarray Length With Distinct Sum At Least K\n Language: cpp\n Runtime: 503 ms (16.09%)\n Memory: 289.1 MB (36.67%)\n Tags: Array, Hash Table, Sliding Window\n*/\nclass Solution {\npublic:\n    int minLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        int l = 0;\n        long long sum = 0;\n        map<int, int> cnt;\n        int ans = n + 1;\n\n        for (int r = 0; r < n; ++r) {\n            if (cnt[nums[r]] == 0) {\n                sum += nums[r];\n            }\n\n            ++cnt[nums[r]];\n\n            while (sum >= k) {\n                ans = min(ans, r - l + 1);\n                --cnt[nums[l]];\n\n                if (cnt[nums[l]] == 0) {\n                    sum -= nums[l];\n                }\n                ++l;\n            }\n        }\n        \n        return (ans == n + 1) ? -1 : ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4152-minimum-subarray-length-with-distinct-sum-at-least-k/4152-minimum-subarray-length-with-distinct-sum-at-least-k.cpp"
+    }
+  ]
+}

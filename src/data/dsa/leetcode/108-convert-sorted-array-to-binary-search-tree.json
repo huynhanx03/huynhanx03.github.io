@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:108",
+  "platform": "leetcode",
+  "id": "108",
+  "title": "Convert Sorted Array to Binary Search Tree",
+  "slug": "convert-sorted-array-to-binary-search-tree",
+  "url": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Binary Search Tree",
+    "Binary Tree",
+    "Divide and Conquer",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code> where the elements are sorted in <strong>ascending order</strong>, convert <em>it to a </em><span><strong><em>height-balanced</em></strong></span> <em>binary search tree</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [-10,-3,0,5,9]\n<strong>Output:</strong> [0,-3,9,-10,null,5]\n<strong>Explanation:</strong> [0,-10,5,null,-3,null,9] is also accepted:\n\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,3]\n<strong>Output:</strong> [3,1]\n<strong>Explanation:</strong> [1,null,3] and [3,1] are both height-balanced BSTs.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>nums</code> is sorted in a <strong>strictly increasing</strong> order.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0108-convert-sorted-array-to-binary-search-tree/0108-convert-sorted-array-to-binary-search-tree.cpp",
+      "source": "/*\n Problem: 108. Convert Sorted Array to Binary Search Tree\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 22.8 MB (81.31%)\n Tags: Array, Divide and Conquer, Tree, Binary Search Tree, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),\n * right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* sortedArrayToBST(vector<int>& nums) {\n        return bst(nums, 0, nums.size() - 1);\n    }\n\n    TreeNode* bst(vector<int>& nums, int left, int right) {\n        if (left > right) return nullptr;\n\n        int mid = left + (right - left) / 2;\n\n        TreeNode* node = new TreeNode(nums[mid]);\n\n        node->left = bst(nums, left, mid - 1);\n        node->right = bst(nums, mid + 1, right);\n\n        return node;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0108-convert-sorted-array-to-binary-search-tree/0108-convert-sorted-array-to-binary-search-tree.cpp"
+    }
+  ]
+}

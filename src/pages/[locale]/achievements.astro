@@ -1,0 +1,22 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import AchievementList from '../../components/portfolio/AchievementList.astro';
+import { getAchievements, getSiteConfig } from '../../data/portfolio';
+import { getMessages, localizedSite, requireLocale } from '../../i18n';
+import { buildLocalizedPageSchemas, getLocalizedPageUrls, localizedStaticPaths } from '../../lib/page-seo';
+
+export function getStaticPaths() { return localizedStaticPaths(); }
+const locale = requireLocale(Astro.props.locale);
+const copy = getMessages(locale);
+const site = localizedSite(getSiteConfig(), locale);
+const page = copy.pages.achievements;
+const achievements = getAchievements();
+const urls = getLocalizedPageUrls(locale, '/achievements', Astro.site ?? Astro.url);
+const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: page.title, description: page.description, homeLabel: copy.nav.home, items: achievements.map((achievement) => ({ name: achievement.name, url: achievement.credentialUrl ?? urls.canonical })) });
+---
+<PortfolioLayout title={`${page.title} | ${site.name}`} description={page.description} locale={locale} canonicalUrl={urls.canonical} alternateUrls={urls.alternateUrls} localeSwitchUrl={urls.localeSwitchUrl} structuredData={schemas}>
+  <section class="content-page container">
+    <header class="content-page-header"><h1>{page.title}</h1><p>{page.description}</p></header>
+    <AchievementList achievements={achievements} copy={copy} />
+  </section>
+</PortfolioLayout>

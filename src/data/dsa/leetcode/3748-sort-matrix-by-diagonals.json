@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3748",
+  "platform": "leetcode",
+  "id": "3748",
+  "title": "Sort Matrix by Diagonals",
+  "slug": "sort-matrix-by-diagonals",
+  "url": "https://leetcode.com/problems/sort-matrix-by-diagonals",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an <code>n x n</code> square matrix of integers <code>grid</code>. Return the matrix such that:</p>\n\n<ul>\n\t<li>The diagonals in the <strong>bottom-left triangle</strong> (including the middle diagonal) are sorted in <strong>non-increasing order</strong>.</li>\n\t<li>The diagonals in the <strong>top-right triangle</strong> are sorted in <strong>non-decreasing order</strong>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[1,7,3],[9,8,2],[4,5,6]]</span></p>\n\n<p><strong>Output:</strong> <span>[[8,2,3],[9,6,7],[4,5,1]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n\n<p>The diagonals with a black arrow (bottom-left triangle) should be sorted in non-increasing order:</p>\n\n<ul>\n\t<li><code>[1, 8, 6]</code> becomes <code>[8, 6, 1]</code>.</li>\n\t<li><code>[9, 5]</code> and <code>[4]</code> remain unchanged.</li>\n</ul>\n\n<p>The diagonals with a blue arrow (top-right triangle) should be sorted in non-decreasing order:</p>\n\n<ul>\n\t<li><code>[7, 2]</code> becomes <code>[2, 7]</code>.</li>\n\t<li><code>[3]</code> remains unchanged.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[0,1],[1,2]]</span></p>\n\n<p><strong>Output:</strong> <span>[[2,1],[1,0]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p></p>\n\n<p>The diagonals with a black arrow must be non-increasing, so <code>[0, 2]</code> is changed to <code>[2, 0]</code>. The other diagonals are already in the correct order.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>grid = [[1]]</span></p>\n\n<p><strong>Output:</strong> <span>[[1]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Diagonals with exactly one element are already in order, so no changes are needed.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>grid.length == grid[i].length == n</code></li>\n\t<li><code>1 &lt;= n &lt;= 10</code></li>\n\t<li><code>-10<sup>5</sup> &lt;= grid[i][j] &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3748-sort-matrix-by-diagonals/3748-sort-matrix-by-diagonals.cpp",
+      "source": "/*\n Problem: 3748. Sort Matrix by Diagonals\n Language: cpp\n Runtime: 21 ms (9.05%)\n Memory: 47.3 MB (5.60%)\n Tags: Array, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    vector<vector<int>> sortMatrix(vector<vector<int>> &grid)\n    {\n        int n = grid.size();\n        int m = grid[0].size();\n        map<int, vector<int>> mp;\n        for (int i = 0; i < n; ++i)\n        {\n            for (int j = 0; j < m; ++j)\n            {\n                mp[i - j].push_back(grid[i][j]);\n            }\n        }\n\n        map<int, int> mpos;\n\n        for (auto &it : mp)\n        {\n            mpos[it.first] = 0;\n            if (it.first < 0)\n            {\n                sort(it.second.begin(), it.second.end());\n            }\n            else\n            {\n                sort(it.second.rbegin(), it.second.rend());\n            }\n        }\n\n        for (int i = 0; i < n; ++i)\n        {\n            for (int j = 0; j < m; ++j)\n            {\n                grid[i][j] = mp[i - j][mpos[i - j]];\n                ++mpos[i - j];\n            }\n        }\n        return grid;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3748-sort-matrix-by-diagonals/3748-sort-matrix-by-diagonals.cpp"
+    }
+  ]
+}

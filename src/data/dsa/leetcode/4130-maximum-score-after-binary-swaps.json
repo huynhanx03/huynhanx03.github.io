@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:4130",
+  "platform": "leetcode",
+  "id": "4130",
+  "title": "Maximum Score After Binary Swaps",
+  "slug": "maximum-score-after-binary-swaps",
+  "url": "https://leetcode.com/problems/maximum-score-after-binary-swaps",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Greedy",
+    "Heap (Priority Queue)",
+    "String"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> of length <code>n</code> and a binary string <code>s</code> of the same length.</p>\n\n<p>Initially, your score is 0. Each index <code>i</code> where <code>s[i] = '1'</code> contributes <code>nums[i]</code> to the score.</p>\n\n<p>You may perform <strong>any</strong> number of operations (including zero). In one operation, you may choose an index <code>i</code> such that <code>0 &lt;= i &lt; n - 1</code>, where <code>s[i] = '0'</code>, and <code>s[i + 1] = '1'</code>, and swap these two characters.</p>\n\n<p>Return an integer denoting the <strong>maximum possible score</strong> you can achieve.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,1,5,2,3], s = \"01010\"</span></p>\n\n<p><strong>Output:</strong> <span>7</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>We can perform the following swaps:</p>\n\n<ul>\n\t<li>Swap at index <code>i = 0</code>: <code>\"01010\"</code> changes to <code>\"10010\"</code></li>\n\t<li>Swap at index <code>i = 2</code>: <code>\"10010\"</code> changes to <code>\"10100\"</code></li>\n</ul>\n\n<p>Positions 0 and 2 contain <code>'1'</code>, contributing <code>nums[0] + nums[2] = 2 + 5 = 7</code>. This is maximum score achievable.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,7,2,9], s = \"0000\"</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There are no <code>'1'</code> characters in <code>s</code>, so no swaps can be performed. The score remains 0.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length == s.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/4130-maximum-score-after-binary-swaps/4130-maximum-score-after-binary-swaps.cpp",
+      "source": "/*\n Problem: 4130. Maximum Score After Binary Swaps\n Language: cpp\n Runtime: 51 ms (60.32%)\n Memory: 127.4 MB (73.81%)\n Tags: Array, String, Greedy, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    long long maximumScore(vector<int>& nums, string s) {\n        long long res = 0;\n\n        priority_queue <int> pq;\n\n        int n = nums.size();\n\n        for (int i = 0; i < n; ++i) {\n            pq.push(nums[i]);\n\n            if (s[i] == '1') {\n                res += pq.top();\n                pq.pop();\n            }\n        }\n        \n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4130-maximum-score-after-binary-swaps/4130-maximum-score-after-binary-swaps.cpp"
+    }
+  ]
+}

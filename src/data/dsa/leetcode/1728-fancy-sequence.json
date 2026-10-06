@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1728",
+  "platform": "leetcode",
+  "id": "1728",
+  "title": "Fancy Sequence",
+  "slug": "fancy-sequence",
+  "url": "https://leetcode.com/problems/fancy-sequence",
+  "difficulty": "Hard",
+  "topics": [
+    "Design",
+    "Math",
+    "Segment Tree"
+  ],
+  "statementHtml": "<p>Write an API that generates fancy sequences using the <code>append</code>, <code>addAll</code>, and <code>multAll</code> operations.</p>\n\n<p>Implement the <code>Fancy</code> class:</p>\n\n<ul>\n\t<li><code>Fancy()</code> Initializes the object with an empty sequence.</li>\n\t<li><code>void append(val)</code> Appends an integer <code>val</code> to the end of the sequence.</li>\n\t<li><code>void addAll(inc)</code> Increments all existing values in the sequence by an integer <code>inc</code>.</li>\n\t<li><code>void multAll(m)</code> Multiplies all existing values in the sequence by an integer <code>m</code>.</li>\n\t<li><code>int getIndex(idx)</code> Gets the current value at index <code>idx</code> (0-indexed) of the sequence <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>. If the index is greater or equal than the length of the sequence, return <code>-1</code>.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input</strong>\n[\"Fancy\", \"append\", \"addAll\", \"append\", \"multAll\", \"getIndex\", \"addAll\", \"append\", \"multAll\", \"getIndex\", \"getIndex\", \"getIndex\"]\n[[], [2], [3], [7], [2], [0], [3], [10], [2], [0], [1], [2]]\n<strong>Output</strong>\n[null, null, null, null, null, 10, null, null, null, 26, 34, 20]\n\n<strong>Explanation</strong>\nFancy fancy = new Fancy();\nfancy.append(2);   // fancy sequence: [2]\nfancy.addAll(3);   // fancy sequence: [2+3] -&gt; [5]\nfancy.append(7);   // fancy sequence: [5, 7]\nfancy.multAll(2);  // fancy sequence: [5*2, 7*2] -&gt; [10, 14]\nfancy.getIndex(0); // return 10\nfancy.addAll(3);   // fancy sequence: [10+3, 14+3] -&gt; [13, 17]\nfancy.append(10);  // fancy sequence: [13, 17, 10]\nfancy.multAll(2);  // fancy sequence: [13*2, 17*2, 10*2] -&gt; [26, 34, 20]\nfancy.getIndex(0); // return 26\nfancy.getIndex(1); // return 34\nfancy.getIndex(2); // return 20\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= val, inc, m &lt;= 100</code></li>\n\t<li><code>0 &lt;= idx &lt;= 10<sup>5</sup></code></li>\n\t<li>At most <code>10<sup>5</sup></code> calls total will be made to <code>append</code>, <code>addAll</code>, <code>multAll</code>, and <code>getIndex</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/1728-fancy-sequence/1728-fancy-sequence.cpp",
+      "source": "/*\n Problem: 1728. Fancy Sequence\n Language: cpp\n Runtime: 50 ms (93.43%)\n Memory: 192.4 MB (85.40%)\n Tags: Math, Design, Segment Tree\n*/\nclass Fancy {\nprivate:\n    const long long MOD = 1e9 + 7;\n    vector<long long> a;\n    long long mul = 1, add = 0;\n\n    long long modPow(long long x, long long n) {\n        long long r = 1;\n        while (n) {\n            if (n & 1) r = r * x % MOD;\n            x = x * x % MOD;\n            n >>= 1;\n        }\n        return r;\n    }\n\n    long long modInv(long long x) {\n        return modPow(x, MOD - 2);\n    }\n\npublic:\n    Fancy() {\n        \n    }\n    \n    void append(int val) {\n        long long x = (val - add) % MOD;\n        if (x < 0) x += MOD;\n        x = x * modInv(mul) % MOD;\n        a.push_back(x);\n    }\n    \n    void addAll(int inc) {\n        add = (add + inc) % MOD;\n    }\n    \n    void multAll(int m) {\n        mul = mul * m % MOD;\n        add = add * m % MOD;\n    }\n    \n    int getIndex(int idx) {\n        if (idx >= a.size()) return -1;\n        return (a[idx] * mul % MOD + add) % MOD;\n    }\n};\n\n/**\n * Your Fancy object will be instantiated and called as such:\n * Fancy* obj = new Fancy();\n * obj->append(val);\n * obj->addAll(inc);\n * obj->multAll(m);\n * int param_4 = obj->getIndex(idx);\n */",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1728-fancy-sequence/1728-fancy-sequence.cpp"
+    }
+  ]
+}

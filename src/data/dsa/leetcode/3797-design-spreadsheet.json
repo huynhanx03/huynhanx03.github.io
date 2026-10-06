@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:3797",
+  "platform": "leetcode",
+  "id": "3797",
+  "title": "Design Spreadsheet",
+  "slug": "design-spreadsheet",
+  "url": "https://leetcode.com/problems/design-spreadsheet",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Design",
+    "Hash Table",
+    "Matrix",
+    "String"
+  ],
+  "statementHtml": "<p>A spreadsheet is a grid with 26 columns (labeled from <code>'A'</code> to <code>'Z'</code>) and a given number of <code>rows</code>. Each cell in the spreadsheet can hold an integer value between 0 and 10<sup>5</sup>.</p>\n\n<p>Implement the <code>Spreadsheet</code> class:</p>\n\n<ul>\n\t<li><code>Spreadsheet(int rows)</code> Initializes a spreadsheet with 26 columns (labeled <code>'A'</code> to <code>'Z'</code>) and the specified number of rows. All cells are initially set to 0.</li>\n\t<li><code>void setCell(String cell, int value)</code> Sets the value of the specified <code>cell</code>. The cell reference is provided in the format <code>\"AX\"</code> (e.g., <code>\"A1\"</code>, <code>\"B10\"</code>), where the letter represents the column (from <code>'A'</code> to <code>'Z'</code>) and the number represents a <strong>1-indexed</strong> row.</li>\n\t<li><code>void resetCell(String cell)</code> Resets the specified cell to 0.</li>\n\t<li><code>int getValue(String formula)</code> Evaluates a formula of the form <code>\"=X+Y\"</code>, where <code>X</code> and <code>Y</code> are <strong>either</strong> cell references or non-negative integers, and returns the computed sum.</li>\n</ul>\n\n<p><strong>Note:</strong> If <code>getValue</code> references a cell that has not been explicitly set using <code>setCell</code>, its value is considered 0.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong><br>\n<span>[\"Spreadsheet\", \"getValue\", \"setCell\", \"getValue\", \"setCell\", \"getValue\", \"resetCell\", \"getValue\"]<br>\n[[3], [\"=5+7\"], [\"A1\", 10], [\"=A1+6\"], [\"B2\", 15], [\"=A1+B2\"], [\"A1\"], [\"=A1+B2\"]]</span></p>\n\n<p><strong>Output:</strong><br>\n<span>[null, 12, null, 16, null, 25, null, 15] </span></p>\n\n<p><strong>Explanation</strong></p>\nSpreadsheet spreadsheet = new Spreadsheet(3); // Initializes a spreadsheet with 3 rows and 26 columns<br>\nspreadsheet.getValue(\"=5+7\"); // returns 12 (5+7)<br>\nspreadsheet.setCell(\"A1\", 10); // sets A1 to 10<br>\nspreadsheet.getValue(\"=A1+6\"); // returns 16 (10+6)<br>\nspreadsheet.setCell(\"B2\", 15); // sets B2 to 15<br>\nspreadsheet.getValue(\"=A1+B2\"); // returns 25 (10+15)<br>\nspreadsheet.resetCell(\"A1\"); // resets A1 to 0<br>\nspreadsheet.getValue(\"=A1+B2\"); // returns 15 (0+15)</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= rows &lt;= 10<sup>3</sup></code></li>\n\t<li><code>0 &lt;= value &lt;= 10<sup>5</sup></code></li>\n\t<li>The formula is always in the format <code>\"=X+Y\"</code>, where <code>X</code> and <code>Y</code> are either valid cell references or <strong>non-negative</strong> integers with values less than or equal to <code>10<sup>5</sup></code>.</li>\n\t<li>Each cell reference consists of a capital letter from <code>'A'</code> to <code>'Z'</code> followed by a row number between <code>1</code> and <code>rows</code>.</li>\n\t<li>At most <code>10<sup>4</sup></code> calls will be made in <strong>total</strong> to <code>setCell</code>, <code>resetCell</code>, and <code>getValue</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3797-design-spreadsheet/3797-design-spreadsheet.cpp",
+      "source": "/*\n Problem: 3797. Design Spreadsheet\n Language: cpp\n Runtime: 55 ms (86.19%)\n Memory: 123.3 MB (89.01%)\n Tags: Array, Hash Table, String, Design, Matrix\n*/\nclass Spreadsheet {\nprivate:\n    unordered_map<string, int> cells;\n    int rows;\n\nint getCellValue(string str) {\n        if (isdigit(str[0])) \n            return stoi(str);\n        if (cells.find(str) != cells.end()) \n            return cells[str];\n        return 0;\n    }\npublic:\n    Spreadsheet(int rows) {\n        this->rows = rows;\n    }\n\n    void setCell(string cell, int value) {\n        cells[cell] = value;\n    }\n\n    void resetCell(string cell) {\n        cells[cell] = 0;\n    }\n\n    int getValue(string formula) {\n        if (formula[0] != '=') \n            return stoi(formula);\n\n        string X, Y;\n        int plusPos = formula.find('+');\n        X = formula.substr(1, plusPos - 1);\n        Y = formula.substr(plusPos + 1);\n\n        return getCellValue(X) + getCellValue(Y);\n    }\n};\n\n\n/**\n * Your Spreadsheet object will be instantiated and called as such:\n * Spreadsheet* obj = new Spreadsheet(rows);\n * obj->setCell(cell,value);\n * obj->resetCell(cell);\n * int param_3 = obj->getValue(formula);\n */",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3797-design-spreadsheet/3797-design-spreadsheet.cpp"
+    }
+  ]
+}

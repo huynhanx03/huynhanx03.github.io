@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:404",
+  "platform": "leetcode",
+  "id": "404",
+  "title": "Sum of Left Leaves",
+  "slug": "sum-of-left-leaves",
+  "url": "https://leetcode.com/problems/sum-of-left-leaves",
+  "difficulty": "Easy",
+  "topics": [
+    "Binary Tree",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Tree"
+  ],
+  "statementHtml": "<p>Given the <code>root</code> of a binary tree, return <em>the sum of all left leaves.</em></p>\n\n<p>A <strong>leaf</strong> is a node with no children. A <strong>left leaf</strong> is a leaf that is the left child of another node.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> root = [3,9,20,null,null,15,7]\n<strong>Output:</strong> 24\n<strong>Explanation:</strong> There are two left leaves in the binary tree, with values 9 and 15 respectively.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> root = [1]\n<strong>Output:</strong> 0\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 1000]</code>.</li>\n\t<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0404-sum-of-left-leaves/0404-sum-of-left-leaves.cpp",
+      "source": "/*\n Problem: 404. Sum of Left Leaves\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 16.1 MB (58.45%)\n Tags: Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int dfs(TreeNode* node, bool isLeft) {\n        if (!node) return 0;\n        if (!node->left && !node->right) return isLeft ? node->val : 0;\n        return dfs(node->left, true) + dfs(node->right, false);\n    }\n    \n    int sumOfLeftLeaves(TreeNode* root) {\n        return dfs(root, false);\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0404-sum-of-left-leaves/0404-sum-of-left-leaves.cpp"
+    }
+  ]
+}

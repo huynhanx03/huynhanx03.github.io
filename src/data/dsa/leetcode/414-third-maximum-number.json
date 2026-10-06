@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:414",
+  "platform": "leetcode",
+  "id": "414",
+  "title": "Third Maximum Number",
+  "slug": "third-maximum-number",
+  "url": "https://leetcode.com/problems/third-maximum-number",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code>, return <em>the <strong>third distinct maximum</strong> number in this array. If the third maximum does not exist, return the <strong>maximum</strong> number</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [3,2,1]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong>\nThe first distinct maximum is 3.\nThe second distinct maximum is 2.\nThe third distinct maximum is 1.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,2]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong>\nThe first distinct maximum is 2.\nThe second distinct maximum is 1.\nThe third distinct maximum does not exist, so the maximum (2) is returned instead.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [2,2,3,1]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong>\nThe first distinct maximum is 3.\nThe second distinct maximum is 2 (both 2's are counted together since they have the same value).\nThe third distinct maximum is 1.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n\n<p> </p>\n<strong>Follow up:</strong> Can you find an <code>O(n)</code> solution?",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0414-third-maximum-number/0414-third-maximum-number.cpp",
+      "source": "/*\n Problem: 414. Third Maximum Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.1 MB (31.53%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int thirdMax(vector<int>& nums) {\n        long first = LONG_MIN, second = LONG_MIN, third = LONG_MIN;\n\n        for (int num : nums) {\n            if (num == first || num == second || num == third) {\n                continue;\n            }\n\n            if (num > first) {\n                third = second;\n                second = first;\n                first = num;\n            } else if (num > second) {\n                third = second;\n                second = num;\n            } else if (num > third) {\n                third = num;\n            }\n        }\n\n        return (third == LONG_MIN) ? first : third;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0414-third-maximum-number/0414-third-maximum-number.cpp"
+    }
+  ]
+}

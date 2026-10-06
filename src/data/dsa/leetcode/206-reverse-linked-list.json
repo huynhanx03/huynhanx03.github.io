@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:206",
+  "platform": "leetcode",
+  "id": "206",
+  "title": "Reverse Linked List",
+  "slug": "reverse-linked-list",
+  "url": "https://leetcode.com/problems/reverse-linked-list",
+  "difficulty": "Easy",
+  "topics": [
+    "Linked List",
+    "Recursion"
+  ],
+  "statementHtml": "<p>Given the <code>head</code> of a singly linked list, reverse the list, and return <em>the reversed list</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,2,3,4,5]\n<strong>Output:</strong> [5,4,3,2,1]\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> head = [1,2]\n<strong>Output:</strong> [2,1]\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> head = []\n<strong>Output:</strong> []\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is the range <code>[0, 5000]</code>.</li>\n\t<li><code>-5000 &lt;= Node.val &lt;= 5000</code></li>\n</ul>\n\n<p> </p>\n<p><strong>Follow up:</strong> A linked list can be reversed either iteratively or recursively. Could you implement both?</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0206-reverse-linked-list/0206-reverse-linked-list.cpp",
+      "source": "/*\n Problem: 206. Reverse Linked List\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.4 MB (72.27%)\n Tags: Linked List, Recursion\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        ListNode* prev = nullptr;\n        ListNode* curr = head;\n        while (curr != nullptr) {\n            ListNode* nextTemp = curr->next;\n            curr->next = prev;\n            prev = curr;\n            curr = nextTemp;\n        }\n        return prev;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0206-reverse-linked-list/0206-reverse-linked-list.cpp"
+    }
+  ]
+}

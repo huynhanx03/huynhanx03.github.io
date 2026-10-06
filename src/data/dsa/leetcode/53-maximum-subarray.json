@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:53",
+  "platform": "leetcode",
+  "id": "53",
+  "title": "Maximum Subarray",
+  "slug": "maximum-subarray",
+  "url": "https://leetcode.com/problems/maximum-subarray",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Divide and Conquer",
+    "Dynamic Programming"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code>, find the <span>subarray</span> with the largest sum, and return <em>its sum</em>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [-2,1,-3,4,-1,2,1,-5,4]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The subarray [4,-1,2,1] has the largest sum 6.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The subarray [1] has the largest sum 1.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [5,4,-1,7,8]\n<strong>Output:</strong> 23\n<strong>Explanation:</strong> The subarray [5,4,-1,7,8] has the largest sum 23.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n\n<p> </p>\n<p><strong>Follow up:</strong> If you have figured out the <code>O(n)</code> solution, try coding another solution using the <strong>divide and conquer</strong> approach, which is more subtle.</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0053-maximum-subarray/0053-maximum-subarray.cpp",
+      "source": "/*\n Problem: 53. Maximum Subarray\n Language: cpp\n Runtime: 75 ms (5.20%)\n Memory: 70.6 MB (99.99%)\n Tags: Array, Divide and Conquer, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        int sum = 0;\n        int ans = -1e9;\n\n        for (auto num : nums) {\n            sum += num;\n\n            ans = max(ans, max(sum, num));\n\n            if (sum < 0)\n                sum = 0;\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0053-maximum-subarray/0053-maximum-subarray.cpp"
+    }
+  ]
+}

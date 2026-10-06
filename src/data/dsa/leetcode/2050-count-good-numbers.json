@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:2050",
+  "platform": "leetcode",
+  "id": "2050",
+  "title": "Count Good Numbers",
+  "slug": "count-good-numbers",
+  "url": "https://leetcode.com/problems/count-good-numbers",
+  "difficulty": "Medium",
+  "topics": [
+    "Math",
+    "Recursion"
+  ],
+  "statementHtml": "<p>A digit string is <strong>good</strong> if the digits <strong>(0-indexed)</strong> at <strong>even</strong> indices are <strong>even</strong> and the digits at <strong>odd</strong> indices are <strong>prime</strong> (<code>2</code>, <code>3</code>, <code>5</code>, or <code>7</code>).</p>\n\n<ul>\n\t<li>For example, <code>\"2582\"</code> is good because the digits (<code>2</code> and <code>8</code>) at even positions are even and the digits (<code>5</code> and <code>2</code>) at odd positions are prime. However, <code>\"3245\"</code> is <strong>not</strong> good because <code>3</code> is at an even index but is not even.</li>\n</ul>\n\n<p>Given an integer <code>n</code>, return <em>the <strong>total</strong> number of good digit strings of length </em><code>n</code>. Since the answer may be large, <strong>return it modulo </strong><code>10<sup>9</sup> + 7</code>.</p>\n\n<p>A <strong>digit string</strong> is a string consisting of digits <code>0</code> through <code>9</code> that may contain leading zeros.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 1\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 4\n<strong>Output:</strong> 400\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> n = 50\n<strong>Output:</strong> 564908303\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>15</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2050-count-good-numbers/2050-count-good-numbers.cpp",
+      "source": "/*\n Problem: 2050. Count Good Numbers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (68.87%)\n Tags: Math, Recursion\n*/\nclass Solution {\nprivate:\n    const long MOD = 1e9 + 7;\n\n    long long powm(long long base, long long expo) {\n        if (expo == 0)\n            return 1;\n\n        long long newexpo = expo / 2;\n        long long v = powm(base, newexpo);\n        long long ans = v * v % MOD;\n        if (expo & 1) ans = (ans * base) % MOD;\n\n        return ans;\n    }\n\npublic:\n    int countGoodNumbers(long long n) {\n        if (n == 1) return 5;\n        long long even = (n + 1) / 2;\n        long long odd = n / 2;\n\n        return powm(5, even) * powm(4, odd) % MOD;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2050-count-good-numbers/2050-count-good-numbers.cpp"
+    }
+  ]
+}

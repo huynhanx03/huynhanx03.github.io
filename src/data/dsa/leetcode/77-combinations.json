@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:77",
+  "platform": "leetcode",
+  "id": "77",
+  "title": "Combinations",
+  "slug": "combinations",
+  "url": "https://leetcode.com/problems/combinations",
+  "difficulty": "Medium",
+  "topics": [
+    "Backtracking"
+  ],
+  "statementHtml": "<p>Given two integers <code>n</code> and <code>k</code>, return <em>all possible combinations of</em> <code>k</code> <em>numbers chosen from the range</em> <code>[1, n]</code>.</p>\n\n<p>You may return the answer in <strong>any order</strong>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> n = 4, k = 2\n<strong>Output:</strong> [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]\n<strong>Explanation:</strong> There are 4 choose 2 = 6 total combinations.\nNote that combinations are unordered, i.e., [1,2] and [2,1] are considered to be the same combination.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 1, k = 1\n<strong>Output:</strong> [[1]]\n<strong>Explanation:</strong> There is 1 choose 1 = 1 total combination.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 20</code></li>\n\t<li><code>1 &lt;= k &lt;= n</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0077-combinations/0077-combinations.cpp",
+      "source": "/*\n Problem: 77. Combinations\n Language: cpp\n Runtime: 327 ms (5.03%)\n Memory: 157.9 MB (6.63%)\n Tags: Backtracking\n*/\nclass Solution {\npublic:\n    vector<vector<int>> ans;\n    vector<bool> check;\n\n    void backtrack(int idx, int&n, int& k, vector<int> takes) {\n        if (idx == k) {\n            ans.push_back(takes);\n            return;\n        }\n\n        int sz = takes.size();\n\n        for (int i = sz > 0 ? takes[sz - 1] + 1 : 1; i <= n; ++i) {\n            if (check[i]) continue;\n            \n            check[i] = 1;\n            takes.push_back(i);\n            \n            backtrack(idx + 1, n, k, takes);\n            \n            check[i] = 0;\n            takes.pop_back();\n        }\n    }\n\n    vector<vector<int>> combine(int n, int k) {\n        check.resize(n + 5, 0);\n        backtrack(0, n, k, vector<int>());\n\n        return ans;      \n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0077-combinations/0077-combinations.cpp"
+    }
+  ]
+}

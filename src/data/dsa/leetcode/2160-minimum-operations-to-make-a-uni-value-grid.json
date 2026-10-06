@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:2160",
+  "platform": "leetcode",
+  "id": "2160",
+  "title": "Minimum Operations to Make a Uni-Value Grid",
+  "slug": "minimum-operations-to-make-a-uni-value-grid",
+  "url": "https://leetcode.com/problems/minimum-operations-to-make-a-uni-value-grid",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Math",
+    "Matrix",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a 2D integer <code>grid</code> of size <code>m x n</code> and an integer <code>x</code>. In one operation, you can <strong>add</strong> <code>x</code> to or <strong>subtract</strong> <code>x</code> from any element in the <code>grid</code>.</p>\n\n<p>A <strong>uni-value grid</strong> is a grid where all the elements of it are equal.</p>\n\n<p>Return <em>the <strong>minimum</strong> number of operations to make the grid <strong>uni-value</strong></em>. If it is not possible, return <code>-1</code>.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[2,4],[6,8]], x = 2\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> We can make every element equal to 4 by doing the following: \n- Add x to 2 once.\n- Subtract x from 6 once.\n- Subtract x from 8 twice.\nA total of 4 operations were used.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[1,5],[2,3]], x = 1\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> We can make every element equal to 3.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> grid = [[1,2],[3,4]], x = 2\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> It is impossible to make every element equal.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= m * n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= x, grid[i][j] &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2160-minimum-operations-to-make-a-uni-value-grid/2160-minimum-operations-to-make-a-uni-value-grid.cpp",
+      "source": "/*\n Problem: 2160. Minimum Operations to Make a Uni-Value Grid\n Language: cpp\n Runtime: 55 ms (15.85%)\n Memory: 90 MB (57.50%)\n Tags: Array, Math, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    int minOperations(vector<vector<int>>& grid, int x) {\n        vector <int> arr;\n\n        for (const auto& v : grid) {\n            for (const auto& x: v) arr.emplace_back(x);\n        }\n\n        sort(arr.begin(), arr.end());\n\n        int n = arr.size();\n        int mid = arr[n / 2];\n        int res = 0;\n\n        for (int i = 0; i < n; ++i) {\n            int diff = abs(arr[i] - mid);\n            if (diff % x != 0) return -1;\n            res += diff / x;\n        }\n\n        return res;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2160-minimum-operations-to-make-a-uni-value-grid/2160-minimum-operations-to-make-a-uni-value-grid.cpp"
+    }
+  ]
+}

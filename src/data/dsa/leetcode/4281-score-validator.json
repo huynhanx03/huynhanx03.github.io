@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4281",
+  "platform": "leetcode",
+  "id": "4281",
+  "title": "Score Validator",
+  "slug": "score-validator",
+  "url": "https://leetcode.com/problems/score-validator",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Simulation",
+    "String"
+  ],
+  "statementHtml": "<p>You are given a string array <code>events</code>.</p>\n\n<p>Initially, <code>score = 0</code> and <code>counter = 0</code>. Each element in <code>events</code> is one of the following:</p>\n\n<ul>\n\t<li><code>\"0\"</code>, <code>\"1\"</code>, <code>\"2\"</code>, <code>\"3\"</code>, <code>\"4\"</code>, <code>\"6\"</code>: Add that value to the total score.</li>\n\t<li><code>\"W\"</code>: Increase the counter by 1. No score is added.</li>\n\t<li><code>\"WD\"</code>: Add 1 to the total score.</li>\n\t<li><code>\"NB\"</code>: Add 1 to the total score.</li>\n</ul>\n\n<p>Process the array from left to right. Stop processing when either:</p>\n\n<ul>\n\t<li>All elements in <code>events</code> have been processed, or</li>\n\t<li>The counter becomes 10.</li>\n</ul>\n\n<p>Return an integer array <code>[score, counter]</code>, where:</p>\n\n<ul>\n\t<li><code>score</code> is the final total score.</li>\n\t<li><code>counter</code> is the final counter value.</li>\n</ul>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>events = [\"1\",\"4\",\"W\",\"6\",\"WD\"]</span></p>\n\n<p><strong>Output:</strong> <span>[12,1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<table>\n\t<tbody>\n\t\t<tr>\n\t\t\t<th>Event</th>\n\t\t\t<th>Score</th>\n\t\t\t<th>Counter</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"1\"</code></td>\n\t\t\t<td>1</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"4\"</code></td>\n\t\t\t<td>5</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"W\"</code></td>\n\t\t\t<td>5</td>\n\t\t\t<td>1</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"6\"</code></td>\n\t\t\t<td>11</td>\n\t\t\t<td>1</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"WD\"</code></td>\n\t\t\t<td>12</td>\n\t\t\t<td>1</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p>Final result: <code>[12, 1]</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>events = [\"WD\",\"NB\",\"0\",\"4\",\"4\"]</span></p>\n\n<p><strong>Output:</strong> <span>[10,0]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<table>\n\t<tbody>\n\t\t<tr>\n\t\t\t<th>Event</th>\n\t\t\t<th>Score</th>\n\t\t\t<th>Counter</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"WD\"</code></td>\n\t\t\t<td>1</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"NB\"</code></td>\n\t\t\t<td>2</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"0\"</code></td>\n\t\t\t<td>2</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"4\"</code></td>\n\t\t\t<td>6</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td><code>\"4\"</code></td>\n\t\t\t<td>10</td>\n\t\t\t<td>0</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p>Final result: <code>[10, 0]</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>events = [\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\"]</span></p>\n\n<p><strong>Output:</strong> <span>[0,10]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>After 10 occurrences of <code>\"W\"</code>, the counter reaches 10, so processing stops. The remaining events are ignored.</p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= events.length &lt;= 1000</code></li>\n\t<li><code>events[i]</code> is one of <code>\"0\"</code>, <code>\"1\"</code>, <code>\"2\"</code>, <code>\"3\"</code>, <code>\"4\"</code>, <code>\"6\"</code>, <code>\"W\"</code>, <code>\"WD\"</code>, or <code>\"NB\"</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4281-score-validator/4281-score-validator.cpp",
+      "source": "/*\n Problem: 4281. Score Validator\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 53.6 MB (95.95%)\n Tags: Array, String, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> scoreValidator(vector<string>& events) {\n        vector<int> ans(2, 0);\n\n        for (const auto& e : events) {\n            if (e == \"W\") {\n                ++ans[1];\n            } else if (e == \"WD\" || e == \"NB\") {\n                ++ans[0];\n            } else {\n                ans[0] += e[0] - '0';\n            }\n\n            if (ans[1] == 10) break;\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4281-score-validator/4281-score-validator.cpp"
+    }
+  ]
+}

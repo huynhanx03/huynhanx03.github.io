@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:200",
+  "platform": "leetcode",
+  "id": "200",
+  "title": "Number of Islands",
+  "slug": "number-of-islands",
+  "url": "https://leetcode.com/problems/number-of-islands",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Breadth-First Search",
+    "Depth-First Search",
+    "Matrix",
+    "Union-Find"
+  ],
+  "statementHtml": "<p>Given an <code>m x n</code> 2D binary grid <code>grid</code> which represents a map of <code>'1'</code>s (land) and <code>'0'</code>s (water), return <em>the number of islands</em>.</p>\n\n<p>An <strong>island</strong> is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> grid = [\n  [\"1\",\"1\",\"1\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"0\",\"0\"]\n]\n<strong>Output:</strong> 1\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> grid = [\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"1\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"1\",\"1\"]\n]\n<strong>Output:</strong> 3\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 300</code></li>\n\t<li><code>grid[i][j]</code> is <code>'0'</code> or <code>'1'</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/0200-number-of-islands/0200-number-of-islands.cpp",
+      "source": "/*\n Problem: 200. Number of Islands\n Language: cpp\n Runtime: 27 ms (56.26%)\n Memory: 16.7 MB (58.33%)\n Tags: Array, Depth-First Search, Breadth-First Search, Union-Find, Matrix\n*/\nclass Solution {\npublic:\n    int numIslands(vector<vector<char>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n\n        vector<vector<bool>> check(n, vector<bool>(m, false));\n        \n        int cnt = 0;\n        \n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if (check[i][j] || grid[i][j] == '0') continue;\n\n                dfs(i, j, n, m, check, grid);\n\n                ++cnt;\n            }\n\n        return cnt;\n    }\n\nprivate:\n    int dd[5] = {0, 1, 0, -1, 0};\n\n    void dfs(int x, int y, const int& n, const int& m, vector<vector<bool>>& check, const vector<vector<char>>& grid) {\n        for (int i = 0; i < 4; ++i) {\n            int nx = x + dd[i];\n            int ny = y + dd[i + 1];\n\n            if (nx < 0 || nx >= n || ny < 0 || ny >= m || check[nx][ny] || grid[nx][ny] == '0') continue;\n\n            check[nx][ny] = true;\n\n            dfs(nx, ny, n, m, check, grid);\n        }\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0200-number-of-islands/0200-number-of-islands.cpp"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:58",
+  "platform": "leetcode",
+  "id": "58",
+  "title": "Length of Last Word",
+  "slug": "length-of-last-word",
+  "url": "https://leetcode.com/problems/length-of-last-word",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "statementHtml": "<p>Given a string <code>s</code> consisting of words and spaces, return <em>the length of the <strong>last</strong> word in the string.</em></p>\n\n<p>A <strong>word</strong> is a maximal <span>substring</span> consisting of non-space characters only.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"Hello World\"\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> The last word is \"World\" with length 5.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"   fly me   to   the moon  \"\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The last word is \"moon\" with length 4.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"luffy is still joyboy\"\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The last word is \"joyboy\" with length 6.\n</pre>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of only English letters and spaces <code>' '</code>.</li>\n\t<li>There will be at least one word in <code>s</code>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/0058-length-of-last-word/0058-length-of-last-word.cpp",
+      "source": "/*\n Problem: 58. Length of Last Word\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.5 MB (100.00%)\n Tags: String\n*/\nclass Solution {\npublic:\n    int lengthOfLastWord(string s) {\n        int len = 0;\n\n        for (int i = s.size() - 1; i >= 0; --i) {\n            if (s[i] == ' ') {\n                if (len > 0)\n                    return len;\n            }\n\n            else\n                ++len;\n        }\n\n        return len;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0058-length-of-last-word/0058-length-of-last-word.cpp"
+    }
+  ]
+}

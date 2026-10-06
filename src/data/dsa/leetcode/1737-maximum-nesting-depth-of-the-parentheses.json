@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1737",
+  "platform": "leetcode",
+  "id": "1737",
+  "title": "Maximum Nesting Depth of the Parentheses",
+  "slug": "maximum-nesting-depth-of-the-parentheses",
+  "url": "https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses",
+  "difficulty": "Easy",
+  "topics": [
+    "Stack",
+    "String"
+  ],
+  "statementHtml": "<p>Given a <strong>valid parentheses string</strong> <code>s</code>, return the <strong>nesting depth</strong> of<em> </em><code>s</code>. The nesting depth is the <strong>maximum</strong> number of nested parentheses.</p>\n\n<p> </p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"(1+(2*3)+((8)/4))+1\"</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Digit 8 is inside of 3 nested parentheses in the string.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"(1)+((2))+(((3)))\"</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Digit 3 is inside of 3 nested parentheses in the string.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"()(())((()()))\"</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n</div>\n\n<p> </p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists of digits <code>0-9</code> and characters <code>'+'</code>, <code>'-'</code>, <code>'*'</code>, <code>'/'</code>, <code>'('</code>, and <code>')'</code>.</li>\n\t<li>It is guaranteed that parentheses expression <code>s</code> is a VPS.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1737-maximum-nesting-depth-of-the-parentheses/1737-maximum-nesting-depth-of-the-parentheses.cpp",
+      "source": "/*\n Problem: 1737. Maximum Nesting Depth of the Parentheses\n Language: cpp\n Runtime: 3 ms (1.45%)\n Memory: 7.4 MB (100.00%)\n Tags: String, Stack\n*/\nclass Solution {\npublic:\n    int maxDepth(string s) {\n        int len = 0;\n        int ans = 0;\n\n        for (int i = 0; i < s.size(); ++i) {\n            if (s[i] == '(') {\n                len++;\n                ans = max(len, ans);\n            }\n            else if (s[i] == ')')\n                --len;\n        }\n\n        return ans;\n    }\n};",
+      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1737-maximum-nesting-depth-of-the-parentheses/1737-maximum-nesting-depth-of-the-parentheses.cpp"
+    }
+  ]
+}
