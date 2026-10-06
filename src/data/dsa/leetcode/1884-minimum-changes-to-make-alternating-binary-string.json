@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1884-minimum-changes-to-make-alternating-binary-string/1884-minimum-changes-to-make-alternating-binary-string.cpp",
-      "source": "/*\n Problem: 1884. Minimum Changes To Make Alternating Binary String\n Language: cpp\n Runtime: 3 ms (17.69%)\n Memory: 9.6 MB (20.96%)\n Tags: String\n*/\nclass Solution {\npublic:\n    int minOperations(string s) {\n        int diff1 = 0, diff2 = 0;\n\n        for (int i = 0; i < s.size(); i++) {\n            char expected1 = (i % 2 == 0) ? '0' : '1';\n            char expected2 = (i % 2 == 0) ? '1' : '0';\n\n            if (s[i] != expected1) diff1++;\n            if (s[i] != expected2) diff2++;\n        }\n\n        return min(diff1, diff2);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1884-minimum-changes-to-make-alternating-binary-string/1884-minimum-changes-to-make-alternating-binary-string.cpp"
+      "source": "/*\n Problem: 1884. Minimum Changes To Make Alternating Binary String\n Language: cpp\n Runtime: 3 ms (17.69%)\n Memory: 9.6 MB (20.96%)\n Tags: String\n*/\nclass Solution {\npublic:\n    int minOperations(string s) {\n        int diff1 = 0, diff2 = 0;\n\n        for (int i = 0; i < s.size(); i++) {\n            char expected1 = (i % 2 == 0) ? '0' : '1';\n            char expected2 = (i % 2 == 0) ? '1' : '0';\n\n            if (s[i] != expected1) diff1++;\n            if (s[i] != expected2) diff2++;\n        }\n\n        return min(diff1, diff2);\n    }\n};"
     }
   ]
 }

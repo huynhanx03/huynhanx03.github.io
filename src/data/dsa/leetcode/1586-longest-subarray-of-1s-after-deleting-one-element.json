@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1586-longest-subarray-of-1s-after-deleting-one-element/1586-longest-subarray-of-1s-after-deleting-one-element.cpp",
-      "source": "/*\n Problem: 1586. Longest Subarray of 1's After Deleting One Element\n Language: cpp\n Runtime: 2 ms (30.34%)\n Memory: 60 MB (78.23%)\n Tags: Array, Dynamic Programming, Sliding Window\n*/\nclass Solution {\npublic:\n    int longestSubarray(vector<int>& nums) {\n        vector <int> cnt(2, 0);\n        int ans = 0;\n        bool isDelete = 1;\n\n        for (const auto& num : nums) {\n            if (num) {\n                ++cnt[1];\n            } else {\n                ans = max(ans, cnt[0] + cnt[1]);\n                cnt[0] = cnt[1];\n                cnt[1] = 0;\n                isDelete = 0;\n            }\n        }\n\n        return max(ans, cnt[0] + cnt[1] - isDelete);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1586-longest-subarray-of-1s-after-deleting-one-element/1586-longest-subarray-of-1s-after-deleting-one-element.cpp"
+      "source": "/*\n Problem: 1586. Longest Subarray of 1's After Deleting One Element\n Language: cpp\n Runtime: 2 ms (30.34%)\n Memory: 60 MB (78.23%)\n Tags: Array, Dynamic Programming, Sliding Window\n*/\nclass Solution {\npublic:\n    int longestSubarray(vector<int>& nums) {\n        vector <int> cnt(2, 0);\n        int ans = 0;\n        bool isDelete = 1;\n\n        for (const auto& num : nums) {\n            if (num) {\n                ++cnt[1];\n            } else {\n                ans = max(ans, cnt[0] + cnt[1]);\n                cnt[0] = cnt[1];\n                cnt[1] = 0;\n                isDelete = 0;\n            }\n        }\n\n        return max(ans, cnt[0] + cnt[1] - isDelete);\n    }\n};"
     }
   ]
 }

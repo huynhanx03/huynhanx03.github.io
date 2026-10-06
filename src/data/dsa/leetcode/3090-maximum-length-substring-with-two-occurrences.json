@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3090",
+  "platform": "leetcode",
+  "id": "3090",
+  "slug": "maximum-length-substring-with-two-occurrences",
+  "title": "Maximum Length Substring With Two Occurrences",
+  "url": "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/",
+  "difficulty": "Easy",
+  "topics": [
+    "Hash Table",
+    "String",
+    "Sliding Window"
+  ],
+  "statementHtml": "Given a string <code>s</code>, return the <strong>maximum</strong> length of a <span>substring</span>&nbsp;such that it contains <em>at most two occurrences</em> of each character.\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"bcbbbcba\"</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\nThe following substring has a length of 4 and contains at most two occurrences of each character: <code>\"bcbb<u>bcba</u>\"</code>.</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aaaa\"</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\nThe following substring has a length of 2 and contains at most two occurrences of each character: <code>\"<u>aa</u>aa\"</code>.</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists only of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3090-maximum-length-substring-with-two-occurrences.cpp",
+      "source": "/*\n Problem: 3090. Maximum Length Substring With Two Occurrences\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.1 MB (66.79%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int maximumLengthSubstring(string s) {\n        int mx = 2;\n        int ans = 0;\n        int l = 0, r = 0;\n        vector cnt(26, 0);\n\n        while (r < s.size()) {\n            ++cnt[s[r] - 'a'];\n\n            while (cnt[s[r] - 'a'] > mx) {\n                --cnt[s[l] - 'a'];\n                ++l;\n            }\n\n            ans = max(ans, r - l + 1);\n            ++r;\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

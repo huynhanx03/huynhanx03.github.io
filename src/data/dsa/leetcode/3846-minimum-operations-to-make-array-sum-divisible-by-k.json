@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3846-minimum-operations-to-make-array-sum-divisible-by-k/3846-minimum-operations-to-make-array-sum-divisible-by-k.cpp",
-      "source": "/*\n Problem: 3846. Minimum Operations to Make Array Sum Divisible by K\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 45.3 MB (34.10%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, int k) {\n        int sum = 0;\n\n        for (const auto& num : nums) {\n            sum += num;\n        }\n\n        return sum % k;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3846-minimum-operations-to-make-array-sum-divisible-by-k/3846-minimum-operations-to-make-array-sum-divisible-by-k.cpp"
+      "source": "/*\n Problem: 3846. Minimum Operations to Make Array Sum Divisible by K\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 45.3 MB (34.10%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, int k) {\n        int sum = 0;\n\n        for (const auto& num : nums) {\n            sum += num;\n        }\n\n        return sum % k;\n    }\n};"
     }
   ]
 }

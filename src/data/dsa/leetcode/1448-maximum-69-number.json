@@ -15,8 +15,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Easy/1448-maximum-69-number/1448-maximum-69-number.py",
-      "source": "\"\"\"\n Problem: 1448. Maximum 69 Number\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 18 MB (88.74%)\n Tags: Math, Greedy\n\"\"\"\nclass Solution:\n    def maximum69Number (self, num: int) -> int:\n        return int(str(num).replace('6', '9', 1))",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1448-maximum-69-number/1448-maximum-69-number.py"
+      "source": "\"\"\"\n Problem: 1448. Maximum 69 Number\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 18 MB (88.74%)\n Tags: Math, Greedy\n\"\"\"\nclass Solution:\n    def maximum69Number (self, num: int) -> int:\n        return int(str(num).replace('6', '9', 1))"
     }
   ]
 }

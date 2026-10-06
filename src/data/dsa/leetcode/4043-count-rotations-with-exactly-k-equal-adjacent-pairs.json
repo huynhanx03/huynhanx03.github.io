@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4043",
+  "platform": "leetcode",
+  "id": "4043",
+  "slug": "count-rotations-with-exactly-k-equal-adjacent-pairs",
+  "title": "Count Rotations With Exactly K Equal Adjacent Pairs",
+  "url": "https://leetcode.com/problems/count-rotations-with-exactly-k-equal-adjacent-pairs/",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Sliding Window",
+    "Enumeration"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> of length <code>n</code> and an integer <code>k</code>.</p>\n\n<p>A <strong>cyclic rotation</strong> of <code>s</code> is obtained by choosing a <span>prefix</span> of <code>s</code> whose length is between 0 and <code>n - 1</code> (inclusive), and moving it to the end of the string while preserving the order of all characters.</p>\n\n<p>For <strong>every</strong> cyclic rotation of <code>s</code>, let its <strong>score</strong> be the number of indices <code>i</code> such that <code>0 &lt;= i &lt; n - 1</code> and the characters at positions <code>i</code> and <code>i + 1</code> are equal.</p>\n\n<p>Return the number of cyclic rotations of <code>s</code> whose score equals <code>k</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aab\", k = 1</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The cyclic rotations of <code>s</code> are:</p>\n\n<ul>\n\t<li><code>\"aab\"</code>: The characters at positions 0 and 1 are equal, so <code>score = 1</code>.</li>\n\t<li><code>\"aba\"</code>: No two adjacent characters are equal, so <code>score = 0</code>.</li>\n\t<li><code>\"baa\"</code>: The characters at positions 1 and 2 are equal, so <code>score = 1</code>.</li>\n</ul>\n\n<p>Since <code>score</code> equals <code>k</code> for 2 cyclic rotations of <code>s</code>, the answer is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abca\", k = 0</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The cyclic rotations of <code>s</code> are:</p>\n\n<ul>\n\t<li><code>\"abca\"</code>: No two adjacent characters are equal, so <code>score = 0</code>.</li>\n\t<li><code>\"bcaa\"</code>: The characters at positions 2 and 3 are equal, so <code>score = 1</code>.</li>\n\t<li><code>\"caab\"</code>: The characters at positions 1 and 2 are equal, so <code>score = 1</code>.</li>\n\t<li><code>\"aabc\"</code>: The characters at positions 0 and 1 are equal, so <code>score = 1</code>.</li>\n</ul>\n\n<p>Since <code>score</code> equals <code>k</code> for only 1 cyclic rotation of <code>s</code>, the answer is 1.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n == s.length &lt;= 100</code></li>\n\t<li><code>s</code> only consists of lowercase English letters.</li>\n\t<li><code>0 &lt;= k &lt;= n - 1</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4043-count-rotations-with-exactly-k-equal-adjacent-pairs.cpp",
+      "source": "/*\n Problem: 4043. Count Rotations With Exactly K Equal Adjacent Pairs\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.5 MB (59.03%)\n Tags: String, Sliding Window, Enumeration\n*/\nclass Solution {\npublic:\n    int countRotations(string s, int k) {\n        int n = s.size(), base = 0;\n\n        for (int i = 0; i + 1 < n; ++i)\n            base += s[i] == s[i + 1];\n\n        int ans = 0, add = s[0] == s[n - 1];\n\n        for (int p = 0; p < n; ++p) {\n            int score = p ? base - (s[p - 1] == s[p]) + add : base;\n            ans += score == k;\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

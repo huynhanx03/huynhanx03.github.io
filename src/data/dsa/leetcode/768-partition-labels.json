@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0768-partition-labels/0768-partition-labels.cpp",
-      "source": "/*\n Problem: 768. Partition Labels\n Language: cpp\n Runtime: 3 ms (26.92%)\n Memory: 9.7 MB (5.10%)\n Tags: Hash Table, Two Pointers, String, Greedy\n*/\nclass Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        vector<int> ans;\n        \n        map<char, int> mp;\n\n        int start = 0;\n        int end = 0;\n        int n = s.size();\n\n        for (int i = 0; i < n; ++i) {\n            mp[s[i]] = i; // last\n        }\n\n        for (int i = 0; i < n; ++i) {\n            end = max(end, mp[s[i]]);\n\n            if (end == i) {\n                ans.push_back(end - start + 1);\n                start = end + 1;\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0768-partition-labels/0768-partition-labels.cpp"
+      "source": "/*\n Problem: 768. Partition Labels\n Language: cpp\n Runtime: 3 ms (26.92%)\n Memory: 9.7 MB (5.10%)\n Tags: Hash Table, Two Pointers, String, Greedy\n*/\nclass Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        vector<int> ans;\n        \n        map<char, int> mp;\n\n        int start = 0;\n        int end = 0;\n        int n = s.size();\n\n        for (int i = 0; i < n; ++i) {\n            mp[s[i]] = i; // last\n        }\n\n        for (int i = 0; i < n; ++i) {\n            end = max(end, mp[s[i]]);\n\n            if (end == i) {\n                ans.push_back(end - start + 1);\n                start = end + 1;\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:3867",
+  "platform": "leetcode",
+  "id": "3867",
+  "slug": "sum-of-gcd-of-formed-pairs",
+  "title": "Sum of GCD of Formed Pairs",
+  "url": "https://leetcode.com/problems/sum-of-gcd-of-formed-pairs/",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Math",
+    "Two Pointers",
+    "Sorting",
+    "Simulation",
+    "Number Theory"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> of length <code>n</code>.</p>\n\n<p>Construct an array <code>prefixGcd</code> where for each index <code>i</code>:</p>\n\n<ul>\n\t<li>Let <code>mx<sub>i</sub> = max(nums[0], nums[1], ..., nums[i])</code>.</li>\n\t<li><code>prefixGcd[i] = gcd(nums[i], mx<sub>i</sub>)</code>.</li>\n</ul>\n\n<p>After constructing <code>prefixGcd</code>:</p>\n\n<ul>\n\t<li>Sort <code>prefixGcd</code> in <strong>non-decreasing</strong> order.</li>\n\t<li>Form pairs by taking the <strong>smallest unpaired</strong> element and the <strong>largest unpaired</strong> element.</li>\n\t<li>Repeat this process until no more pairs can be formed.</li>\n\t<li>For each formed pair, <strong>compute</strong> the <code>gcd</code> of the two elements.</li>\n\t<li>If <code>n</code> is odd, the <strong>middle</strong> element in the <code>prefixGcd</code> array remains <strong>unpaired</strong> and should be ignored.</li>\n</ul>\n\n<p>Return an integer denoting the <strong>sum of the GCD</strong> values of all formed pairs.</p>\nThe term <code>gcd(a, b)</code> denotes the <strong>greatest common divisor</strong> of <code>a</code> and <code>b</code>.\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,6,4]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Construct <code>prefixGcd</code>:</p>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th><code>i</code></th>\n\t\t\t<th><code>nums[i]</code></th>\n\t\t\t<th><code>mx<sub>i</sub></code></th>\n\t\t\t<th><code>prefixGcd[i]</code></th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr>\n\t\t\t<td>0</td>\n\t\t\t<td>2</td>\n\t\t\t<td>2</td>\n\t\t\t<td>2</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>1</td>\n\t\t\t<td>6</td>\n\t\t\t<td>6</td>\n\t\t\t<td>6</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>2</td>\n\t\t\t<td>4</td>\n\t\t\t<td>6</td>\n\t\t\t<td>2</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p><code>prefixGcd = [2, 6, 2]</code>. After sorting, it forms <code>[2, 2, 6]</code>.</p>\n\n<p>Pair the smallest and largest elements: <code>gcd(2, 6) = 2</code>. The remaining middle element 2 is ignored. Thus, the sum is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,6,2,8]</span></p>\n\n<p><strong>Output:</strong> <span>5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Construct <code>prefixGcd</code>:</p>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th><code>i</code></th>\n\t\t\t<th><code>nums[i]</code></th>\n\t\t\t<th><code>mx<sub>i</sub></code></th>\n\t\t\t<th><code>prefixGcd[i]</code></th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr>\n\t\t\t<td>0</td>\n\t\t\t<td>3</td>\n\t\t\t<td>3</td>\n\t\t\t<td>3</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>1</td>\n\t\t\t<td>6</td>\n\t\t\t<td>6</td>\n\t\t\t<td>6</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>2</td>\n\t\t\t<td>2</td>\n\t\t\t<td>6</td>\n\t\t\t<td>2</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>3</td>\n\t\t\t<td>8</td>\n\t\t\t<td>8</td>\n\t\t\t<td>8</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p><code>prefixGcd = [3, 6, 2, 8]</code>. After sorting, it forms <code>[2, 3, 6, 8]</code>.</p>\n\n<p>Form pairs: <code>gcd(2, 8) = 2</code> and <code>gcd(3, 6) = 3</code>. Thus, the sum is <code>2 + 3 = 5</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>​​​​​​​9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3867-sum-of-gcd-of-formed-pairs.cpp",
+      "source": "/*\n Problem: 3867. Sum of GCD of Formed Pairs\n Language: cpp\n Runtime: 75 ms (49.41%)\n Memory: 162.7 MB (38.64%)\n Tags: Array, Math, Two Pointers, Sorting, Simulation, Number Theory\n*/\nclass Solution {\npublic:\n    long long gcdSum(vector<int>& nums) {\n        vector<int> a;\n        int mx = 0;\n\n        for (const auto& x : nums) {\n            mx = max(mx, x);\n            a.push_back(gcd(x, mx));\n        }\n\n        sort(a.begin(), a.end());\n\n        long long ans = 0;\n        int l = 0, r = a.size() - 1;\n        while (l < r) {\n            ans += gcd(a[l], a[r]);\n            ++l;\n            --r;\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

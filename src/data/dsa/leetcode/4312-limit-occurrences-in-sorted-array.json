@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4312-limit-occurrences-in-sorted-array/4312-limit-occurrences-in-sorted-array.cpp",
-      "source": "/*\n Problem: 4312. Limit Occurrences in Sorted Array\n Language: cpp\n Runtime: 3 ms (37.23%)\n Memory: 34.2 MB (5.31%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    vector<int> limitOccurrences(vector<int>& nums, int k) {\n        vector<int>cnt(105, 0);\n        vector<int> ans;\n        \n        for (const auto& x : nums) {\n            ++cnt[x];\n\n            if (cnt[x] <= k) ans.push_back(x);\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4312-limit-occurrences-in-sorted-array/4312-limit-occurrences-in-sorted-array.cpp"
+      "source": "/*\n Problem: 4312. Limit Occurrences in Sorted Array\n Language: cpp\n Runtime: 3 ms (37.23%)\n Memory: 34.2 MB (5.31%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    vector<int> limitOccurrences(vector<int>& nums, int k) {\n        vector<int>cnt(105, 0);\n        vector<int> ans;\n        \n        for (const auto& x : nums) {\n            ++cnt[x];\n\n            if (cnt[x] <= k) ans.push_back(x);\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

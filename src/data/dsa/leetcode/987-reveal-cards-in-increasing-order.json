@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0987-reveal-cards-in-increasing-order/0987-reveal-cards-in-increasing-order.cpp",
-      "source": "/*\n Problem: 987. Reveal Cards In Increasing Order\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13 MB (6.81%)\n Tags: Array, Queue, Sorting, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> deckRevealedIncreasing(vector<int>& deck) {\n        int n = deck.size();\n\n        sort(deck.rbegin(), deck.rend());\n        deque<int> de{deck[0]};\n\n        for (int i = 1; i < n; ++i) {\n            int back = de.back();\n            de.pop_back();\n            de.push_front(back);\n            de.push_front(deck[i]);\n        }\n\n        return vector<int>(de.begin(), de.end());\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0987-reveal-cards-in-increasing-order/0987-reveal-cards-in-increasing-order.cpp"
+      "source": "/*\n Problem: 987. Reveal Cards In Increasing Order\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13 MB (6.81%)\n Tags: Array, Queue, Sorting, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> deckRevealedIncreasing(vector<int>& deck) {\n        int n = deck.size();\n\n        sort(deck.rbegin(), deck.rend());\n        deque<int> de{deck[0]};\n\n        for (int i = 1; i < n; ++i) {\n            int back = de.back();\n            de.pop_back();\n            de.push_front(back);\n            de.push_front(deck[i]);\n        }\n\n        return vector<int>(de.begin(), de.end());\n    }\n};"
     }
   ]
 }

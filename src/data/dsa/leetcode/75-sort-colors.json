@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0075-sort-colors/0075-sort-colors.cpp",
-      "source": "/*\n Problem: 75. Sort Colors\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.7 MB (11.48%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    void sortColors(vector<int>& nums) {\n        int low = 0, mid = 0, high = nums.size() - 1;\n\n        while (mid <= high) {\n            if (nums[mid] == 0) {\n                swap(nums[low], nums[mid]);\n                low++;\n                mid++;\n            } else if (nums[mid] == 1) {\n                mid++;\n            } else { // nums[mid] == 2\n                swap(nums[mid], nums[high]);\n                high--;\n            }\n        }\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0075-sort-colors/0075-sort-colors.cpp"
+      "source": "/*\n Problem: 75. Sort Colors\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.7 MB (11.48%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    void sortColors(vector<int>& nums) {\n        int low = 0, mid = 0, high = nums.size() - 1;\n\n        while (mid <= high) {\n            if (nums[mid] == 0) {\n                swap(nums[low], nums[mid]);\n                low++;\n                mid++;\n            } else if (nums[mid] == 1) {\n                mid++;\n            } else { // nums[mid] == 2\n                swap(nums[mid], nums[high]);\n                high--;\n            }\n        }\n    }\n};"
     }
   ]
 }

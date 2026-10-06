@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0958-sort-array-by-parity-ii/0958-sort-array-by-parity-ii.cpp",
-      "source": "/*\n Problem: 958. Sort Array By Parity II\n Language: cpp\n Runtime: 21 ms (4.00%)\n Memory: 25 MB (99.95%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> sortArrayByParityII(vector<int>& nums) {\n        vector<int> op, ep;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            if ((i + nums[i]) % 2 != 0) {\n                if (i % 2 == 0) \n                    ep.push_back(i);\n                else\n                    op.push_back(i);\n            }\n        }\n        \n        for (int i = 0; i < op.size(); ++i) {\n            // int tmp = nums[ep[i]];\n            // nums[ep[i]] = nums[op[i]];\n            // nums[op[i]] = tmp;\n            swap(nums[ep[i]], nums[op[i]]);\n        }\n        \n        return nums;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0958-sort-array-by-parity-ii/0958-sort-array-by-parity-ii.cpp"
+      "source": "/*\n Problem: 958. Sort Array By Parity II\n Language: cpp\n Runtime: 21 ms (4.00%)\n Memory: 25 MB (99.95%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> sortArrayByParityII(vector<int>& nums) {\n        vector<int> op, ep;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            if ((i + nums[i]) % 2 != 0) {\n                if (i % 2 == 0) \n                    ep.push_back(i);\n                else\n                    op.push_back(i);\n            }\n        }\n        \n        for (int i = 0; i < op.size(); ++i) {\n            // int tmp = nums[ep[i]];\n            // nums[ep[i]] = nums[op[i]];\n            // nums[op[i]] = tmp;\n            swap(nums[ep[i]], nums[op[i]]);\n        }\n        \n        return nums;\n    }\n};"
     }
   ]
 }

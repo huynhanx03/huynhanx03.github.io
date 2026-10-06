@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3430-count-days-without-meetings/3430-count-days-without-meetings.cpp",
-      "source": "/*\n Problem: 3430. Count Days Without Meetings\n Language: cpp\n Runtime: 71 ms (49.28%)\n Memory: 126.5 MB (57.58%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int countDays(int days, vector<vector<int>>& meetings) {\n        sort(meetings.begin(), meetings.end());\n\n        int freeDays = 0;\n        int lastEnd = 0;\n\n        for (const auto& meeting : meetings) {\n            int start = meeting[0], end = meeting[1];\n\n            if (start > lastEnd + 1) {\n                freeDays += (start - lastEnd - 1);\n            }\n\n            lastEnd = max(lastEnd, end);\n        }\n\n        if (lastEnd < days) {\n            freeDays += (days - lastEnd);\n        }\n\n        return freeDays;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3430-count-days-without-meetings/3430-count-days-without-meetings.cpp"
+      "source": "/*\n Problem: 3430. Count Days Without Meetings\n Language: cpp\n Runtime: 71 ms (49.28%)\n Memory: 126.5 MB (57.58%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int countDays(int days, vector<vector<int>>& meetings) {\n        sort(meetings.begin(), meetings.end());\n\n        int freeDays = 0;\n        int lastEnd = 0;\n\n        for (const auto& meeting : meetings) {\n            int start = meeting[0], end = meeting[1];\n\n            if (start > lastEnd + 1) {\n                freeDays += (start - lastEnd - 1);\n            }\n\n            lastEnd = max(lastEnd, end);\n        }\n\n        if (lastEnd < days) {\n            freeDays += (days - lastEnd);\n        }\n\n        return freeDays;\n    }\n};"
     }
   ]
 }

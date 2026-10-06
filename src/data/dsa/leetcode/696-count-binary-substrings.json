@@ -15,8 +15,7 @@
     {
       "language": "Rust",
       "relativePath": "leetcode/Easy/0696-count-binary-substrings/0696-count-binary-substrings.rs",
-      "source": "/*\n Problem: 696. Count Binary Substrings\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.3 MB (69.23%)\n Tags: Two Pointers, String\n*/\nimpl Solution {\n    pub fn count_binary_substrings(s: String) -> i32 {\n        let b = s.as_bytes();\n        let (mut prev, mut curr, mut res) = (0, 1, 0);\n\n        for i in 1..b.len() {\n            if b[i] == b[i - 1] {\n                curr += 1;\n            } else {\n                res += prev.min(curr);\n                prev = curr;\n                curr = 1;\n            }\n        }\n\n        res + prev.min(curr)\n    }\n}",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0696-count-binary-substrings/0696-count-binary-substrings.rs"
+      "source": "/*\n Problem: 696. Count Binary Substrings\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.3 MB (69.23%)\n Tags: Two Pointers, String\n*/\nimpl Solution {\n    pub fn count_binary_substrings(s: String) -> i32 {\n        let b = s.as_bytes();\n        let (mut prev, mut curr, mut res) = (0, 1, 0);\n\n        for i in 1..b.len() {\n            if b[i] == b[i - 1] {\n                curr += 1;\n            } else {\n                res += prev.min(curr);\n                prev = curr;\n                curr = 1;\n            }\n        }\n\n        res + prev.min(curr)\n    }\n}"
     }
   ]
 }

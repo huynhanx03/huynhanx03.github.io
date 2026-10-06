@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2614-maximum-count-of-positive-integer-and-negative-integer/2614-maximum-count-of-positive-integer-and-negative-integer.cpp",
-      "source": "/*\n Problem: 2614. Maximum Count of Positive Integer and Negative Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 21.6 MB (25.43%)\n Tags: Array, Binary Search, Counting\n*/\nclass Solution {\npublic:\n    int maximumCount(vector<int>& nums) {\n        int negCount = lower_bound(nums.begin(), nums.end(), 0) - nums.begin();\n        int posCount = nums.end() - lower_bound(nums.begin(), nums.end(), 1);\n        return max(negCount, posCount);\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2614-maximum-count-of-positive-integer-and-negative-integer/2614-maximum-count-of-positive-integer-and-negative-integer.cpp"
+      "source": "/*\n Problem: 2614. Maximum Count of Positive Integer and Negative Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 21.6 MB (25.43%)\n Tags: Array, Binary Search, Counting\n*/\nclass Solution {\npublic:\n    int maximumCount(vector<int>& nums) {\n        int negCount = lower_bound(nums.begin(), nums.end(), 0) - nums.begin();\n        int posCount = nums.end() - lower_bound(nums.begin(), nums.end(), 1);\n        return max(negCount, posCount);\n    }\n};\n"
     }
   ]
 }

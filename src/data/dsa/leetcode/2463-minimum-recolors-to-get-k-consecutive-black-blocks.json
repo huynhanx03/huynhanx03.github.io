@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2463-minimum-recolors-to-get-k-consecutive-black-blocks/2463-minimum-recolors-to-get-k-consecutive-black-blocks.cpp",
-      "source": "/*\n Problem: 2463. Minimum Recolors to Get K Consecutive Black Blocks\n Language: cpp\n Runtime: 2 ms (7.73%)\n Memory: 8.3 MB (91.28%)\n Tags: String, Sliding Window\n*/\nclass Solution {\npublic:\n    int minimumRecolors(string blocks, int k) {\n        int cnt = 0, ans = INT_MAX;\n        \n        for (int i = 0; i < blocks.size(); ++i) {\n            if (i - k >= 0 && blocks[i - k] == 'B') --cnt;\n            if (blocks[i] == 'B') ++cnt;\n            \n            ans = min(ans, k - cnt);\n        }\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2463-minimum-recolors-to-get-k-consecutive-black-blocks/2463-minimum-recolors-to-get-k-consecutive-black-blocks.cpp"
+      "source": "/*\n Problem: 2463. Minimum Recolors to Get K Consecutive Black Blocks\n Language: cpp\n Runtime: 2 ms (7.73%)\n Memory: 8.3 MB (91.28%)\n Tags: String, Sliding Window\n*/\nclass Solution {\npublic:\n    int minimumRecolors(string blocks, int k) {\n        int cnt = 0, ans = INT_MAX;\n        \n        for (int i = 0; i < blocks.size(); ++i) {\n            if (i - k >= 0 && blocks[i - k] == 'B') --cnt;\n            if (blocks[i] == 'B') ++cnt;\n            \n            ans = min(ans, k - cnt);\n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

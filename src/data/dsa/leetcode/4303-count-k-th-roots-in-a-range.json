@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4303-count-k-th-roots-in-a-range/4303-count-k-th-roots-in-a-range.cpp",
-      "source": "/*\n Problem: 4303. Count K-th Roots in a Range\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (22.56%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int countKthRoots(int l, int r, int k) {\n        auto get = [&](int x) {\n            return pow(x, 1.0 / k);\n        };\n\n        return max(0, (int) (\n            floor(get(r) + 1e-9) - \n            ceil(get(l) - 1e-9) + 1)\n        );\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4303-count-k-th-roots-in-a-range/4303-count-k-th-roots-in-a-range.cpp"
+      "source": "/*\n Problem: 4303. Count K-th Roots in a Range\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (22.56%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int countKthRoots(int l, int r, int k) {\n        auto get = [&](int x) {\n            return pow(x, 1.0 / k);\n        };\n\n        return max(0, (int) (\n            floor(get(r) + 1e-9) - \n            ceil(get(l) - 1e-9) + 1)\n        );\n    }\n};"
     }
   ]
 }

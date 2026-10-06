@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3408-count-the-number-of-special-characters-i/3408-count-the-number-of-special-characters-i.cpp",
-      "source": "/*\n Problem: 3408. Count the Number of Special Characters I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (82.44%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int numberOfSpecialChars(string word) {\n        bitset<27> A[2];\n        for(char c: word){\n            bool isLower=c&32;\n            A[isLower][31&c]=1;\n        }\n        return (A[0]&A[1]).count();\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3408-count-the-number-of-special-characters-i/3408-count-the-number-of-special-characters-i.cpp"
+      "source": "/*\n Problem: 3408. Count the Number of Special Characters I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (82.44%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int numberOfSpecialChars(string word) {\n        bitset<27> A[2];\n        for(char c: word){\n            bool isLower=c&32;\n            A[isLower][31&c]=1;\n        }\n        return (A[0]&A[1]).count();\n    }\n};"
     }
   ]
 }

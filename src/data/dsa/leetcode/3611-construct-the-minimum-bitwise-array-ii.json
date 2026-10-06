@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3611-construct-the-minimum-bitwise-array-ii/3611-construct-the-minimum-bitwise-array-ii.cpp",
-      "source": "/*\n Problem: 3611. Construct the Minimum Bitwise Array II\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 28.1 MB (80.41%)\n Tags: Array, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<int> minBitwiseArray(vector<int>& nums) {\n        vector<int> ans;\n\n        for (const auto& n : nums) {\n            if ((n & 1) == 0) {\n                ans.push_back(-1);\n                continue;\n            }\n            int z = ((n + 1) & ~n) >> 1;\n            ans.push_back(n & ~z);\n        }\n        return ans;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3611-construct-the-minimum-bitwise-array-ii/3611-construct-the-minimum-bitwise-array-ii.cpp"
+      "source": "/*\n Problem: 3611. Construct the Minimum Bitwise Array II\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 28.1 MB (80.41%)\n Tags: Array, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<int> minBitwiseArray(vector<int>& nums) {\n        vector<int> ans;\n\n        for (const auto& n : nums) {\n            if ((n & 1) == 0) {\n                ans.push_back(-1);\n                continue;\n            }\n            int z = ((n + 1) & ~n) >> 1;\n            ans.push_back(n & ~z);\n        }\n        return ans;\n    }\n};\n"
     }
   ]
 }

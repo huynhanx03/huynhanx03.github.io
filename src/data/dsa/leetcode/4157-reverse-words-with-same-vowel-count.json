@@ -16,8 +16,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Medium/4157-reverse-words-with-same-vowel-count/4157-reverse-words-with-same-vowel-count.py",
-      "source": "\"\"\"\n Problem: 4157. Reverse Words With Same Vowel Count\n Language: python3\n Runtime: 207 ms (53.34%)\n Memory: 23.9 MB (28.34%)\n Tags: Two Pointers, String, Simulation\n\"\"\"\nclass Solution:\n    def reverseWords(self, s: str) -> str:\n        vowels = \"aeiou\"\n\n        words = s.split()\n\n        if not words:\n            return \"\"\n\n        f = sum(1 for c in words[0] if c in vowels)\n\n        res = [words[0]]\n        \n        for word in words[1:]:\n            if sum(1 for c in word if c in vowels) == f:\n                res.append(word[::-1])\n            else:\n                res.append(word)\n\n        return \" \".join(res)",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4157-reverse-words-with-same-vowel-count/4157-reverse-words-with-same-vowel-count.py"
+      "source": "\"\"\"\n Problem: 4157. Reverse Words With Same Vowel Count\n Language: python3\n Runtime: 207 ms (53.34%)\n Memory: 23.9 MB (28.34%)\n Tags: Two Pointers, String, Simulation\n\"\"\"\nclass Solution:\n    def reverseWords(self, s: str) -> str:\n        vowels = \"aeiou\"\n\n        words = s.split()\n\n        if not words:\n            return \"\"\n\n        f = sum(1 for c in words[0] if c in vowels)\n\n        res = [words[0]]\n        \n        for word in words[1:]:\n            if sum(1 for c in word if c in vowels) == f:\n                res.append(word[::-1])\n            else:\n                res.append(word)\n\n        return \" \".join(res)"
     }
   ]
 }

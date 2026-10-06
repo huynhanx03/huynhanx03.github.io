@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4147-minimum-cost-to-acquire-required-items/4147-minimum-cost-to-acquire-required-items.cpp",
-      "source": "/*\n Problem: 4147. Minimum Cost to Acquire Required Items\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.3 MB (30.75%)\n Tags: Math, Greedy\n*/\nclass Solution {\npublic:\n    long long minimumCost(int cost1, int cost2, int costBoth, int need1, int need2) {\n        long long c1 = cost1;\n        long long c2 = cost2;\n        long long cb = costBoth;\n        long long n1 = need1;\n        long long n2 = need2;\n\n        long long op1 = n1 * c1 + n2 * c2;\n\n        long long op2 = max(n1, n2) * cb;\n\n        long long op3;\n\n        if (n1 > n2) {\n            op3 = n2 * cb + (n1 - n2) * c1;\n        } else {\n            op3 = n1 * cb + (n2 - n1) * c2;\n        }\n        \n        return max(0ll, min({op1, op2, op3}));\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4147-minimum-cost-to-acquire-required-items/4147-minimum-cost-to-acquire-required-items.cpp"
+      "source": "/*\n Problem: 4147. Minimum Cost to Acquire Required Items\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.3 MB (30.75%)\n Tags: Math, Greedy\n*/\nclass Solution {\npublic:\n    long long minimumCost(int cost1, int cost2, int costBoth, int need1, int need2) {\n        long long c1 = cost1;\n        long long c2 = cost2;\n        long long cb = costBoth;\n        long long n1 = need1;\n        long long n2 = need2;\n\n        long long op1 = n1 * c1 + n2 * c2;\n\n        long long op2 = max(n1, n2) * cb;\n\n        long long op3;\n\n        if (n1 > n2) {\n            op3 = n2 * cb + (n1 - n2) * c1;\n        } else {\n            op3 = n1 * cb + (n2 - n1) * c2;\n        }\n        \n        return max(0ll, min({op1, op2, op3}));\n    }\n};"
     }
   ]
 }

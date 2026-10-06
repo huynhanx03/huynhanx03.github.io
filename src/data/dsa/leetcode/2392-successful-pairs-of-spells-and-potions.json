@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2392-successful-pairs-of-spells-and-potions/2392-successful-pairs-of-spells-and-potions.cpp",
-      "source": "/*\n Problem: 2392. Successful Pairs of Spells and Potions\n Language: cpp\n Runtime: 50 ms (25.73%)\n Memory: 128.3 MB (46.47%)\n Tags: Array, Two Pointers, Binary Search, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {\n        sort(potions.begin(), potions.end());\n        vector<int> res;\n        for (int spell : spells) {\n            long long minPotion = (success + spell - 1) / spell;\n            auto it = lower_bound(potions.begin(), potions.end(), minPotion);\n            res.push_back(potions.end() - it);\n        }\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2392-successful-pairs-of-spells-and-potions/2392-successful-pairs-of-spells-and-potions.cpp"
+      "source": "/*\n Problem: 2392. Successful Pairs of Spells and Potions\n Language: cpp\n Runtime: 50 ms (25.73%)\n Memory: 128.3 MB (46.47%)\n Tags: Array, Two Pointers, Binary Search, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {\n        sort(potions.begin(), potions.end());\n        vector<int> res;\n        for (int spell : spells) {\n            long long minPotion = (success + spell - 1) / spell;\n            auto it = lower_bound(potions.begin(), potions.end(), minPotion);\n            res.push_back(potions.end() - it);\n        }\n        return res;\n    }\n};"
     }
   ]
 }

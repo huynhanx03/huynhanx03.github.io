@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Easy/3705-find-the-largest-almost-missing-integer/3705-find-the-largest-almost-missing-integer.cpp",
-      "source": "/*\n Problem: 3705. Find the Largest Almost Missing Integer\n Language: cpp\n Runtime: 15 ms (11.70%)\n Memory: 32.8 MB (20.57%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int largestInteger(vector<int>& nums, int k) {\n        unordered_map<int, int> count;\n        int n = nums.size();\n        \n        // Count the frequency of each number in every subarray of size k\n        for (int i = 0; i <= n - k; ++i) {\n            unordered_map<int, bool> seen;\n            for (int j = i; j < i + k; ++j) {\n                if (!seen[nums[j]]) {\n                    count[nums[j]]++;\n                    seen[nums[j]] = true;\n                }\n            }\n        }\n        \n        int result = -1;\n        for (auto& [num, freq] : count) {\n            if (freq == 1) {\n                result = max(result, num);\n            }\n        }\n        \n        return result;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3705-find-the-largest-almost-missing-integer/3705-find-the-largest-almost-missing-integer.cpp"
+      "relativePath": "leetcode/Easy/3705-find-the-largest-almost-missing-integer.cpp",
+      "source": "/*\n Problem: 3705. Find the Largest Almost Missing Integer\n Language: cpp\n Runtime: 11 ms (11.90%)\n Memory: 32.7 MB (8.64%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int largestInteger(vector<int>& nums, int k) {\n        unordered_map<int, int> count;\n        int n = nums.size();\n        \n        for (int i = 0; i <= n - k; ++i) {\n            unordered_map<int, bool> seen;\n            for (int j = i; j < i + k; ++j) {\n                if (!seen[nums[j]]) {\n                    count[nums[j]]++;\n                    seen[nums[j]] = true;\n                }\n            }\n        }\n        \n        int result = -1;\n        for (auto& [num, freq] : count) {\n            if (freq == 1) {\n                result = max(result, num);\n            }\n        }\n        \n        return result;\n    }\n};"
     }
   ]
 }

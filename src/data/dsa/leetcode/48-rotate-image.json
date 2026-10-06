@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0048-rotate-image/0048-rotate-image.cpp",
-      "source": "/*\n Problem: 48. Rotate Image\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.3 MB (34.78%)\n Tags: Array, Math, Matrix\n*/\nclass Solution {\npublic:\n    void rotate(vector<vector<int>>& matrix) {\n        int n = matrix.size();\n        for (int i = 0; i < n; ++i) {\n            for (int j = i; j < n; ++j) {\n                swap(matrix[i][j], matrix[j][i]);\n            }\n        }\n        \n        for (int i = 0; i < n; ++i) {\n            reverse(matrix[i].begin(), matrix[i].end());\n        }\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0048-rotate-image/0048-rotate-image.cpp"
+      "source": "/*\n Problem: 48. Rotate Image\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.3 MB (34.78%)\n Tags: Array, Math, Matrix\n*/\nclass Solution {\npublic:\n    void rotate(vector<vector<int>>& matrix) {\n        int n = matrix.size();\n        for (int i = 0; i < n; ++i) {\n            for (int j = i; j < n; ++j) {\n                swap(matrix[i][j], matrix[j][i]);\n            }\n        }\n        \n        for (int i = 0; i < n; ++i) {\n            reverse(matrix[i].begin(), matrix[i].end());\n        }\n    }\n};"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:1288",
+  "platform": "leetcode",
+  "id": "1288",
+  "slug": "remove-covered-intervals",
+  "title": "Remove Covered Intervals",
+  "url": "https://leetcode.com/problems/remove-covered-intervals/",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array <code>intervals</code> where <code>intervals[i] = [l<sub>i</sub>, r<sub>i</sub>]</code> represent the interval <code>[l<sub>i</sub>, r<sub>i</sub>)</code>, remove all intervals that are covered by another interval in the list.</p>\n\n<p>The interval <code>[a, b)</code> is covered by the interval <code>[c, d)</code> if and only if <code>c &lt;= a</code> and <code>b &lt;= d</code>.</p>\n\n<p>Return <em>the number of remaining intervals</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[1,4],[3,6],[2,8]]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> Interval [3,6] is covered by [2,8], therefore it is removed.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> intervals = [[1,4],[2,3]]\n<strong>Output:</strong> 1\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= intervals.length &lt;= 1000</code></li>\n\t<li><code>intervals[i].length == 2</code></li>\n\t<li><code>0 &lt;= l<sub>i</sub> &lt; r<sub>i</sub> &lt;= 10<sup>5</sup></code></li>\n\t<li>All the given intervals are <strong>unique</strong>.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1288-remove-covered-intervals.cpp",
+      "source": "/*\n Problem: 1288. Remove Covered Intervals\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.1 MB (22.83%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    int removeCoveredIntervals(vector<vector<int>>& intervals) {\n        int n = intervals.size();\n        int bache = 0;\n\n        for (int i = 0; i < n; ++i) {\n            bool coveredHai = false;\n            for (int j = 0; j < n; ++j) {\n                if (i == j) continue;\n                if (intervals[j][0] <= intervals[i][0] &&\n                    intervals[i][1] <= intervals[j][1]) {\n                    coveredHai = true;\n                    break;\n                }\n            }\n            if (!coveredHai) ++bache;\n        }\n        return bache;\n    }\n};"
+    }
+  ]
+}

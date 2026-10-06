@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0169-majority-element/0169-majority-element.cpp",
-      "source": "/*\n Problem: 169. Majority Element\n Language: cpp\n Runtime: 10 ms (8.17%)\n Memory: 27.1 MB (99.97%)\n Tags: Array, Hash Table, Divide and Conquer, Sorting, Counting\n*/\nclass Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        map<int, int> mp;\n\n        for (auto& num : nums)\n            ++mp[num];\n\n        int cnt = 0;\n        int ans = -1;\n\n        for (auto& it : mp) {\n            if (it .second > cnt) {\n                cnt = it .second;\n                ans = it .first;\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0169-majority-element/0169-majority-element.cpp"
+      "source": "/*\n Problem: 169. Majority Element\n Language: cpp\n Runtime: 10 ms (8.17%)\n Memory: 27.1 MB (99.97%)\n Tags: Array, Hash Table, Divide and Conquer, Sorting, Counting\n*/\nclass Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        map<int, int> mp;\n\n        for (auto& num : nums)\n            ++mp[num];\n\n        int cnt = 0;\n        int ans = -1;\n\n        for (auto& it : mp) {\n            if (it .second > cnt) {\n                cnt = it .second;\n                ans = it .first;\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0416-partition-equal-subset-sum/0416-partition-equal-subset-sum.cpp",
-      "source": "/*\n Problem: 416. Partition Equal Subset Sum\n Language: cpp\n Runtime: 71 ms (83.82%)\n Memory: 13.3 MB (98.11%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    bool canPartition(vector<int>& nums) {\n        int totalSum = accumulate(nums.begin(), nums.end(), 0);\n\n        if (totalSum % 2 != 0) return false;\n\n        int target = totalSum / 2;\n        int n = nums.size();\n\n        vector<bool> dp(target + 1, false);\n        dp[0] = true;\n\n        for (int num : nums) {\n            for (int i = target; i >= num; --i) {\n                dp[i] = dp[i] || dp[i - num];\n            }\n        }\n\n        return dp[target];\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0416-partition-equal-subset-sum/0416-partition-equal-subset-sum.cpp"
+      "source": "/*\n Problem: 416. Partition Equal Subset Sum\n Language: cpp\n Runtime: 71 ms (83.82%)\n Memory: 13.3 MB (98.11%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    bool canPartition(vector<int>& nums) {\n        int totalSum = accumulate(nums.begin(), nums.end(), 0);\n\n        if (totalSum % 2 != 0) return false;\n\n        int target = totalSum / 2;\n        int n = nums.size();\n\n        vector<bool> dp(target + 1, false);\n        dp[0] = true;\n\n        for (int num : nums) {\n            for (int i = target; i >= num; --i) {\n                dp[i] = dp[i] || dp[i - num];\n            }\n        }\n\n        return dp[target];\n    }\n};"
     }
   ]
 }

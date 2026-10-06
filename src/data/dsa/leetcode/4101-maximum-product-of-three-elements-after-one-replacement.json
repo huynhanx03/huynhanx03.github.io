@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4101-maximum-product-of-three-elements-after-one-replacement/4101-maximum-product-of-three-elements-after-one-replacement.cpp",
-      "source": "/*\n Problem: 4101. Maximum Product of Three Elements After One Replacement\n Language: cpp\n Runtime: 39 ms (59.65%)\n Memory: 124.4 MB (45.98%)\n Tags: Array, Math, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    long long maxProduct(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size();\n        const long long mx = 1e5;\n\n        return max({abs(mx * nums[0] * nums[1]), abs(mx * nums[0] * nums[n - 1]), abs(mx * nums[n - 1] * nums[n - 2])});\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4101-maximum-product-of-three-elements-after-one-replacement/4101-maximum-product-of-three-elements-after-one-replacement.cpp"
+      "source": "/*\n Problem: 4101. Maximum Product of Three Elements After One Replacement\n Language: cpp\n Runtime: 39 ms (59.65%)\n Memory: 124.4 MB (45.98%)\n Tags: Array, Math, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    long long maxProduct(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size();\n        const long long mx = 1e5;\n\n        return max({abs(mx * nums[0] * nums[1]), abs(mx * nums[0] * nums[n - 1]), abs(mx * nums[n - 1] * nums[n - 2])});\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3872-find-most-frequent-vowel-and-consonant/3872-find-most-frequent-vowel-and-consonant.cpp",
-      "source": "/*\n Problem: 3872. Find Most Frequent Vowel and Consonant\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.5 MB (60.14%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int maxFreqSum(string s) {\n        vector<int> cnt(26, 0);\n        int mx1 = 0, mx2 = 0;\n        for (int i = 0; i < s.size(); ++i) {\n            char c = s[i];\n            ++cnt[c - 'a'];\n            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {\n                mx1 = max(mx1, cnt[c - 'a']);\n            } else {\n                mx2 = max(mx2, cnt[c - 'a']);\n            }\n        }\n\n        return mx1 + mx2;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3872-find-most-frequent-vowel-and-consonant/3872-find-most-frequent-vowel-and-consonant.cpp"
+      "source": "/*\n Problem: 3872. Find Most Frequent Vowel and Consonant\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.5 MB (60.14%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int maxFreqSum(string s) {\n        vector<int> cnt(26, 0);\n        int mx1 = 0, mx2 = 0;\n        for (int i = 0; i < s.size(); ++i) {\n            char c = s[i];\n            ++cnt[c - 'a'];\n            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {\n                mx1 = max(mx1, cnt[c - 'a']);\n            } else {\n                mx2 = max(mx2, cnt[c - 'a']);\n            }\n        }\n\n        return mx1 + mx2;\n    }\n};"
     }
   ]
 }

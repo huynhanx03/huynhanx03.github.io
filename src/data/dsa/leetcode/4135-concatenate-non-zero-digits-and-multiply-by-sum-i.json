@@ -13,9 +13,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Easy/4135-concatenate-non-zero-digits-and-multiply-by-sum-i/4135-concatenate-non-zero-digits-and-multiply-by-sum-i.cpp",
-      "source": "/*\n Problem: 4135. Concatenate Non-Zero Digits and Multiply by Sum I\n Language: cpp\n Runtime: 4 ms (3.04%)\n Memory: 9.2 MB (30.38%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    long long sumAndMultiply(int n) {\n        vector <int> digits;\n        while (n > 0) {\n            int tmp = n % 10;\n            if (tmp > 0) {\n                digits.push_back(tmp);\n            }\n            n /= 10;\n        }\n\n        long long ans = 0, sum = 0;\n        \n        for (int i = digits.size() - 1; i >= 0; --i) {\n            sum += digits[i];\n            ans = ans * 10 + digits[i];\n        }\n\n        return ans * sum;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4135-concatenate-non-zero-digits-and-multiply-by-sum-i/4135-concatenate-non-zero-digits-and-multiply-by-sum-i.cpp"
+      "relativePath": "leetcode/Easy/4135-concatenate-non-zero-digits-and-multiply-by-sum-i.cpp",
+      "source": "/*\n Problem: 4135. Concatenate Non-Zero Digits and Multiply by Sum I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (38.59%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    long long sumAndMultiply(int n) {\n        vector <int> digits;\n        while (n > 0) {\n            int tmp = n % 10;\n            if (tmp > 0) {\n                digits.push_back(tmp);\n            }\n            n /= 10;\n        }\n\n        long long ans = 0, sum = 0;\n        \n        for (int i = digits.size() - 1; i >= 0; --i) {\n            sum += digits[i];\n            ans = ans * 10 + digits[i];\n        }\n\n        return ans * sum;\n    }\n};"
     }
   ]
 }

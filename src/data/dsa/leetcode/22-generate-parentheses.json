@@ -15,9 +15,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/0022-generate-parentheses/0022-generate-parentheses.cpp",
-      "source": "/*\n Problem: 22. Generate Parentheses\n Language: cpp\n Runtime: 6 ms (13.90%)\n Memory: 20.6 MB (7.68%)\n Tags: String, Dynamic Programming, Backtracking\n*/\nclass Solution {\npublic:\n    vector<string> ans;\n\n    void generate(string s, int cnt, int& n) {\n        if (s.size() == n * 2) {\n            if (cnt == 0) ans.push_back(s);\n            return;\n        }\n\n        if (cnt > 0)\n            generate(s + ')', cnt - 1, n);\n        \n        generate(s + '(', cnt + 1, n);\n    }\n\n    vector<string> generateParenthesis(int n) {\n        generate(\"(\", 1, n);\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0022-generate-parentheses/0022-generate-parentheses.cpp"
+      "relativePath": "leetcode/Medium/22-generate-parentheses.cpp",
+      "source": "/*\n Problem: 22. Generate Parentheses\n Language: cpp\n Runtime: 1 ms (82.88%)\n Memory: 16 MB (26.45%)\n Tags: Backtracking, Dynamic Programming, String\n*/\nclass Solution {\npublic:\n    vector<string> ans;\n\n    void generate(string s, int open, int close, int n) {\n        if (close == n) {\n            ans.push_back(s);\n            return;\n        }\n\n        if (open < n)\n            generate(s + '(', open + 1, close, n);\n\n        if (close < open)\n            generate(s + ')', open, close + 1, n);\n    }\n\n    vector<string> generateParenthesis(int n) {\n        ans.clear();\n        generate(\"\", 0, 0, n);\n        return ans;\n    }\n};"
     }
   ]
 }

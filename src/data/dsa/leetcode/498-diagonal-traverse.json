@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0498-diagonal-traverse/0498-diagonal-traverse.cpp",
-      "source": "/*\n Problem: 498. Diagonal Traverse\n Language: cpp\n Runtime: 20 ms (28.10%)\n Memory: 25.9 MB (32.35%)\n Tags: Array, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {\n        int n = mat.size(), m = mat[0].size();\n        vector<int> arr;\n\n        for (int d = 0; d < n + m - 1; d++) {\n            vector<int> diagonal;\n            int r = (d < m) ? 0 : d - m + 1;\n            int c = (d < m) ? d : m - 1;\n\n            while (r < n && c >= 0) {\n                diagonal.push_back(mat[r][c]);\n                r++; c--;\n            }\n\n            if (d % 2 == 0) reverse(diagonal.begin(), diagonal.end());\n            arr.insert(arr.end(), diagonal.begin(), diagonal.end());\n        }\n        return arr;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0498-diagonal-traverse/0498-diagonal-traverse.cpp"
+      "source": "/*\n Problem: 498. Diagonal Traverse\n Language: cpp\n Runtime: 20 ms (28.10%)\n Memory: 25.9 MB (32.35%)\n Tags: Array, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {\n        int n = mat.size(), m = mat[0].size();\n        vector<int> arr;\n\n        for (int d = 0; d < n + m - 1; d++) {\n            vector<int> diagonal;\n            int r = (d < m) ? 0 : d - m + 1;\n            int c = (d < m) ? d : m - 1;\n\n            while (r < n && c >= 0) {\n                diagonal.push_back(mat[r][c]);\n                r++; c--;\n            }\n\n            if (d % 2 == 0) reverse(diagonal.begin(), diagonal.end());\n            arr.insert(arr.end(), diagonal.begin(), diagonal.end());\n        }\n        return arr;\n    }\n};\n"
     }
   ]
 }

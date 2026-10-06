@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1642-water-bottles/1642-water-bottles.cpp",
-      "source": "/*\n Problem: 1642. Water Bottles\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (78.78%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    int numWaterBottles(int numBottles, int numExchange) {\n        int totalDrunk = numBottles;\n        int empty = numBottles;\n\n        while (empty >= numExchange) {\n            int newFull = empty / numExchange;\n            totalDrunk += newFull;\n            empty = empty % numExchange + newFull;\n        }\n\n        return totalDrunk;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1642-water-bottles/1642-water-bottles.cpp"
+      "source": "/*\n Problem: 1642. Water Bottles\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (78.78%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    int numWaterBottles(int numBottles, int numExchange) {\n        int totalDrunk = numBottles;\n        int empty = numBottles;\n\n        while (empty >= numExchange) {\n            int newFull = empty / numExchange;\n            totalDrunk += newFull;\n            empty = empty % numExchange + newFull;\n        }\n\n        return totalDrunk;\n    }\n};\n"
     }
   ]
 }

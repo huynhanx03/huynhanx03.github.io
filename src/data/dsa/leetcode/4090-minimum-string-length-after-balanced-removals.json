@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4090-minimum-string-length-after-balanced-removals/4090-minimum-string-length-after-balanced-removals.cpp",
-      "source": "/*\n Problem: 4090. Minimum String Length After Balanced Removals\n Language: cpp\n Runtime: 1 ms (74.56%)\n Memory: 15.1 MB (33.77%)\n Tags: String, Stack, Counting\n*/\nclass Solution {\npublic:\n    int minLengthAfterRemovals(string s) {\n        vector<int>cnt(2, 0);\n        int n = s.size();\n        int ans = n;\n        for (int i = 0; i < n; ++i) {\n            ++cnt[s[i] - 'a'];\n\n            if (cnt[0] != 0 && cnt[1] != 0) {\n                int diff = min(cnt[0], cnt[1]);\n                ans -= diff * 2;\n                cnt[0] -= diff;\n                cnt[1] -= diff;\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4090-minimum-string-length-after-balanced-removals/4090-minimum-string-length-after-balanced-removals.cpp"
+      "source": "/*\n Problem: 4090. Minimum String Length After Balanced Removals\n Language: cpp\n Runtime: 1 ms (74.56%)\n Memory: 15.1 MB (33.77%)\n Tags: String, Stack, Counting\n*/\nclass Solution {\npublic:\n    int minLengthAfterRemovals(string s) {\n        vector<int>cnt(2, 0);\n        int n = s.size();\n        int ans = n;\n        for (int i = 0; i < n; ++i) {\n            ++cnt[s[i] - 'a'];\n\n            if (cnt[0] != 0 && cnt[1] != 0) {\n                int diff = min(cnt[0], cnt[1]);\n                ans -= diff * 2;\n                cnt[0] -= diff;\n                cnt[1] -= diff;\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

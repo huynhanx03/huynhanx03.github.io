@@ -15,8 +15,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Easy/1264-maximum-number-of-words-you-can-type/1264-maximum-number-of-words-you-can-type.py",
-      "source": "\"\"\"\n Problem: 1264. Maximum Number of Words You Can Type\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 18.1 MB (91.01%)\n Tags: Hash Table, String\n\"\"\"\nclass Solution:\n    def canBeTypedWords(self, text: str, brokenLetters: str) -> int:\n        words = text.split(\" \")\n        res = len(words)\n        arr = [False] * 26\n\n        for c in brokenLetters:\n            arr[ord(c) - ord('a')] = True\n\n        for word in words:\n            for c in word:\n                if arr[ord(c) - ord('a')]:\n                    res -= 1\n                    break\n        \n        return res\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1264-maximum-number-of-words-you-can-type/1264-maximum-number-of-words-you-can-type.py"
+      "source": "\"\"\"\n Problem: 1264. Maximum Number of Words You Can Type\n Language: python3\n Runtime: 0 ms (100.00%)\n Memory: 18.1 MB (91.01%)\n Tags: Hash Table, String\n\"\"\"\nclass Solution:\n    def canBeTypedWords(self, text: str, brokenLetters: str) -> int:\n        words = text.split(\" \")\n        res = len(words)\n        arr = [False] * 26\n\n        for c in brokenLetters:\n            arr[ord(c) - ord('a')] = True\n\n        for word in words:\n            for c in word:\n                if arr[ord(c) - ord('a')]:\n                    res -= 1\n                    break\n        \n        return res\n"
     }
   ]
 }

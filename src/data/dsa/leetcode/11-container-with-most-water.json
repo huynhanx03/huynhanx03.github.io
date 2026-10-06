@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0011-container-with-most-water/0011-container-with-most-water.cpp",
-      "source": "/*\n Problem: 11. Container With Most Water\n Language: cpp\n Runtime: 50 ms (7.37%)\n Memory: 61.7 MB (99.94%)\n Tags: Array, Two Pointers, Greedy\n*/\nclass Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        int l = 0, r = height.size() - 1;\n        int ans = 0;\n\n        while (l <= r) {\n            int area = min(height[l], height[r]) * (r - l);\n\n            ans = max(ans, area);\n\n            if (height[l] >= height[r])\n                --r;\n            else\n                ++l;\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0011-container-with-most-water/0011-container-with-most-water.cpp"
+      "source": "/*\n Problem: 11. Container With Most Water\n Language: cpp\n Runtime: 50 ms (7.37%)\n Memory: 61.7 MB (99.94%)\n Tags: Array, Two Pointers, Greedy\n*/\nclass Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        int l = 0, r = height.size() - 1;\n        int ans = 0;\n\n        while (l <= r) {\n            int area = min(height[l], height[r]) * (r - l);\n\n            ans = max(ans, area);\n\n            if (height[l] >= height[r])\n                --r;\n            else\n                ++l;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -19,8 +19,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0268-missing-number/0268-missing-number.cpp",
-      "source": "/*\n Problem: 268. Missing Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 21.8 MB (69.50%)\n Tags: Array, Hash Table, Math, Binary Search, Bit Manipulation, Sorting\n*/\nclass Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        int n = nums.size();\n        int sum = n * (n + 1) / 2;\n\n        for (const auto& num : nums) {\n            sum -= num;\n        }\n\n        return sum;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0268-missing-number/0268-missing-number.cpp"
+      "source": "/*\n Problem: 268. Missing Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 21.8 MB (69.50%)\n Tags: Array, Hash Table, Math, Binary Search, Bit Manipulation, Sorting\n*/\nclass Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        int n = nums.size();\n        int sum = n * (n + 1) / 2;\n\n        for (const auto& num : nums) {\n            sum -= num;\n        }\n\n        return sum;\n    }\n};"
     }
   ]
 }

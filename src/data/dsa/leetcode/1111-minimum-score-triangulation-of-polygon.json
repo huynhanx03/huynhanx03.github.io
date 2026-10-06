@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/1111-minimum-score-triangulation-of-polygon/1111-minimum-score-triangulation-of-polygon.cpp",
-      "source": "/*\n Problem: 1111. Minimum Score Triangulation of Polygon\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.3 MB (14.72%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int minScoreTriangulation(vector<int>& values) {\n        int n = values.size();\n        vector<vector<int>> dp(n, vector<int>(n, 0));\n\n        for (int len = 3; len <= n; ++len) {\n            for (int i = 0; i + len - 1 < n; ++i) {\n                int j = i + len - 1;\n                dp[i][j] = INT_MAX;\n                for (int k = i + 1; k < j; ++k) {\n                    dp[i][j] = min(dp[i][j],\n                                   dp[i][k] + dp[k][j] + values[i] * values[j] * values[k]);\n                }\n            }\n        }\n\n        return dp[0][n - 1];\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1111-minimum-score-triangulation-of-polygon/1111-minimum-score-triangulation-of-polygon.cpp"
+      "relativePath": "leetcode/Medium/1111-maximum-nesting-depth-of-two-valid-parentheses-strings.cpp",
+      "source": "/*\n Problem: 1111. Maximum Nesting Depth of Two Valid Parentheses Strings\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.6 MB (19.54%)\n Tags: String, Stack, Bracket Sequences\n*/\nclass Solution {\npublic:\n    vector<int> maxDepthAfterSplit(string seq) {\n        vector<int> answer;\n        answer.reserve(seq.size());\n\n        int depth = 0;\n\n        for (char c : seq) {\n            if (c == '(') {\n                ++depth;\n                answer.push_back(depth % 2);\n            } else {\n                answer.push_back(depth % 2);\n                --depth;\n            }\n        }\n\n        return answer;\n    }\n};"
     }
   ]
 }

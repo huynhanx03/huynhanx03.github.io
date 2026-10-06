@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1889-check-if-number-is-a-sum-of-powers-of-three/1889-check-if-number-is-a-sum-of-powers-of-three.cpp",
-      "source": "/*\n Problem: 1889. Check if Number is a Sum of Powers of Three\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (62.06%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool checkPowersOfThree(int n) {\n        while (n > 0) {\n            if (n % 3 == 2)\n                return false;\n\n            n /= 3;\n        }\n    \n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1889-check-if-number-is-a-sum-of-powers-of-three/1889-check-if-number-is-a-sum-of-powers-of-three.cpp"
+      "source": "/*\n Problem: 1889. Check if Number is a Sum of Powers of Three\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (62.06%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool checkPowersOfThree(int n) {\n        while (n > 0) {\n            if (n % 3 == 2)\n                return false;\n\n            n /= 3;\n        }\n    \n        return true;\n    }\n};"
     }
   ]
 }

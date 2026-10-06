@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:4000",
+  "platform": "leetcode",
+  "id": "4000",
+  "slug": "largest-integer-with-given-digit-sum",
+  "title": "Largest Integer With Given Digit Sum",
+  "url": "https://leetcode.com/problems/largest-integer-with-given-digit-sum/",
+  "difficulty": "Easy",
+  "topics": [
+    "Math",
+    "Greedy"
+  ],
+  "statementHtml": "<p>You are given two non-negative integers <code>n</code> and <code>s</code>.</p>\n\n<p>Return the <strong>largest</strong> integer that has <strong>at most</strong> <code>n</code> digits and whose sum of digits is <code>s</code>. If no such integer exists, return -1.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 2, s = 9</span></p>\n\n<p><strong>Output:</strong> <span>90</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The largest integer with at most 2 digits that has a sum of digits of 9 is 90.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 2, s = 19</span></p>\n\n<p><strong>Output:</strong> <span>-1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is no integer with at most 2 digits that has a sum of digits of 19, so the answer is -1.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 5, s = 0</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The only non-negative integer whose digits sum to 0 is 0.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 5</code></li>\n\t<li><code>0 &lt;= s &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4000-largest-integer-with-given-digit-sum.cpp",
+      "source": "/*\n Problem: 4000. Largest Integer With Given Digit Sum\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (51.83%)\n Tags: Math, Greedy\n*/\nclass Solution {\npublic:\n    int largestInteger(int n, int s) {\n        if (n * 9 < s) return -1;\n\n        int ans = 0;\n\n        while (n--) {\n            int v = min(9, s);\n            ans = ans * 10 + min(9, s);\n            s -= v;\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

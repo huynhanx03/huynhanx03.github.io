@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0141-linked-list-cycle/0141-linked-list-cycle.cpp",
-      "source": "/*\n Problem: 141. Linked List Cycle\n Language: cpp\n Runtime: 14 ms (10.26%)\n Memory: 15 MB (5.78%)\n Tags: Hash Table, Linked List, Two Pointers\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    bool hasCycle(ListNode* head) {\n        set<ListNode*> st;\n        while (head != nullptr) {\n            if (st.find(head) != st.end())\n                return true;\n            \n            st.insert(head);\n            head = head->next;\n        }\n        return false;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0141-linked-list-cycle/0141-linked-list-cycle.cpp"
+      "source": "/*\n Problem: 141. Linked List Cycle\n Language: cpp\n Runtime: 14 ms (10.26%)\n Memory: 15 MB (5.78%)\n Tags: Hash Table, Linked List, Two Pointers\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    bool hasCycle(ListNode* head) {\n        set<ListNode*> st;\n        while (head != nullptr) {\n            if (st.find(head) != st.end())\n                return true;\n            \n            st.insert(head);\n            head = head->next;\n        }\n        return false;\n    }\n};"
     }
   ]
 }

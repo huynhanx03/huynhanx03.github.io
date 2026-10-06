@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/1807-partitioning-into-minimum-number-of-deci-binary-numbers/1807-partitioning-into-minimum-number-of-deci-binary-numbers.cpp",
-      "source": "/*\n Problem: 1807. Partitioning Into Minimum Number Of Deci-Binary Numbers\n Language: cpp\n Runtime: 4 ms (26.33%)\n Memory: 16.6 MB (56.70%)\n Tags: String, Greedy\n*/\nclass Solution {\npublic:\n    int minPartitions(string n) {\n        int ans = -1;\n        for (const auto& c : n) ans = max(ans, c - '0');\n        return ans;   \n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1807-partitioning-into-minimum-number-of-deci-binary-numbers/1807-partitioning-into-minimum-number-of-deci-binary-numbers.cpp"
+      "relativePath": "leetcode/Medium/1807-evaluate-the-bracket-pairs-of-a-string.cpp",
+      "source": "/*\n Problem: 1807. Evaluate the Bracket Pairs of a String\n Language: cpp\n Runtime: 77 ms (63.02%)\n Memory: 122.7 MB (83.44%)\n Tags: Array, Hash Table, String\n*/\nclass Solution {\npublic:\n    string evaluate(string s, vector<vector<string>>& knowledge) {\n        unordered_map<string, string> mp;\n\n        for (const auto& x : knowledge)\n            mp[x[0]] = x[1];\n\n        string ans;\n\n        for (int i = 0; i < s.size(); ++i) {\n            if (s[i] != '(') {\n                ans += s[i];\n                continue;\n            }\n\n            int j = i + 1;\n\n            while (s[j] != ')')\n                ++j;\n\n            const auto key = s.substr(i + 1, j - i - 1);\n            const auto it = mp.find(key);\n\n            if (it == mp.end())\n                ans += '?';\n            else\n                ans += it->second;\n\n            i = j;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

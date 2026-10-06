@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2274-keep-multiplying-found-values-by-two/2274-keep-multiplying-found-values-by-two.cpp",
-      "source": "/*\n Problem: 2274. Keep Multiplying Found Values by Two\n Language: cpp\n Runtime: 5 ms (22.59%)\n Memory: 13.9 MB (89.95%)\n Tags: Array, Hash Table, Sorting, Simulation\n*/\nclass Solution {\npublic:\n    int findFinalValue(vector<int>& nums, int original) {\n        sort(nums.begin(), nums.end());\n        for (const auto& num : nums) {\n            original = original * (num == original ? 2 : 1);\n        }\n\n        return original;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2274-keep-multiplying-found-values-by-two/2274-keep-multiplying-found-values-by-two.cpp"
+      "source": "/*\n Problem: 2274. Keep Multiplying Found Values by Two\n Language: cpp\n Runtime: 5 ms (22.59%)\n Memory: 13.9 MB (89.95%)\n Tags: Array, Hash Table, Sorting, Simulation\n*/\nclass Solution {\npublic:\n    int findFinalValue(vector<int>& nums, int original) {\n        sort(nums.begin(), nums.end());\n        for (const auto& num : nums) {\n            original = original * (num == original ? 2 : 1);\n        }\n\n        return original;\n    }\n};"
     }
   ]
 }

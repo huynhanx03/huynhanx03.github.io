@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0338-counting-bits/0338-counting-bits.cpp",
-      "source": "/*\n Problem: 338. Counting Bits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.6 MB (80.40%)\n Tags: Dynamic Programming, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<int> countBits(int n) {\n        vector<int> dp(n + 1, 0);\n        \n        for (int i = 1; i <= n; ++i)\n            dp[i] = dp[i >> 1] + (i & 1);\n        \n        return dp;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0338-counting-bits/0338-counting-bits.cpp"
+      "source": "/*\n Problem: 338. Counting Bits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.6 MB (80.40%)\n Tags: Dynamic Programming, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<int> countBits(int n) {\n        vector<int> dp(n + 1, 0);\n        \n        for (int i = 1; i <= n; ++i)\n            dp[i] = dp[i >> 1] + (i & 1);\n        \n        return dp;\n    }\n};\n"
     }
   ]
 }

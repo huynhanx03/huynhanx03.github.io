@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4087-maximum-substrings-with-distinct-start/4087-maximum-substrings-with-distinct-start.cpp",
-      "source": "/*\n Problem: 4087. Maximum Substrings With Distinct Start\n Language: cpp\n Runtime: 31 ms (47.52%)\n Memory: 25.4 MB (8.45%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int maxDistinct(string s) {\n        set<char> st;\n        for (const auto& c : s) {\n            st.insert(c);\n        }\n\n        return st.size();\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4087-maximum-substrings-with-distinct-start/4087-maximum-substrings-with-distinct-start.cpp"
+      "source": "/*\n Problem: 4087. Maximum Substrings With Distinct Start\n Language: cpp\n Runtime: 31 ms (47.52%)\n Memory: 25.4 MB (8.45%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int maxDistinct(string s) {\n        set<char> st;\n        for (const auto& c : s) {\n            st.insert(c);\n        }\n\n        return st.size();\n    }\n};"
     }
   ]
 }

@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4116-minimum-moves-to-equal-array-elements-iii/4116-minimum-moves-to-equal-array-elements-iii.cpp",
-      "source": "/*\n Problem: 4116. Minimum Moves to Equal Array Elements III\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.5 MB (81.77%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    int minMoves(vector<int>& nums) {\n        int mx = 0;\n        for (const auto& x : nums) {\n            mx = max(mx, x);\n        }\n\n        int ans = 0;\n\n        for (const auto& x : nums) {\n           ans += mx - x;\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4116-minimum-moves-to-equal-array-elements-iii/4116-minimum-moves-to-equal-array-elements-iii.cpp"
+      "source": "/*\n Problem: 4116. Minimum Moves to Equal Array Elements III\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.5 MB (81.77%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    int minMoves(vector<int>& nums) {\n        int mx = 0;\n        for (const auto& x : nums) {\n            mx = max(mx, x);\n        }\n\n        int ans = 0;\n\n        for (const auto& x : nums) {\n           ans += mx - x;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

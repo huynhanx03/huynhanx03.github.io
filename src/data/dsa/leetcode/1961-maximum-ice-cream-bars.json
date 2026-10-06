@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1961-maximum-ice-cream-bars/1961-maximum-ice-cream-bars.cpp",
-      "source": "/*\n Problem: 1961. Maximum Ice Cream Bars\n Language: cpp\n Runtime: 37 ms (31.87%)\n Memory: 80.1 MB (99.83%)\n Tags: Array, Greedy, Sorting, Counting Sort\n*/\nclass Solution {\npublic:\n    int maxIceCream(vector<int>& costs, int coins) {\n        sort(costs.begin(), costs.end());\n\n        int ans = 0;\n        for (int x : costs) {\n            if (coins < x) break;\n            coins -= x;\n            ++ans;\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1961-maximum-ice-cream-bars/1961-maximum-ice-cream-bars.cpp"
+      "source": "/*\n Problem: 1961. Maximum Ice Cream Bars\n Language: cpp\n Runtime: 37 ms (31.87%)\n Memory: 80.1 MB (99.83%)\n Tags: Array, Greedy, Sorting, Counting Sort\n*/\nclass Solution {\npublic:\n    int maxIceCream(vector<int>& costs, int coins) {\n        sort(costs.begin(), costs.end());\n\n        int ans = 0;\n        for (int x : costs) {\n            if (coins < x) break;\n            coins -= x;\n            ++ans;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

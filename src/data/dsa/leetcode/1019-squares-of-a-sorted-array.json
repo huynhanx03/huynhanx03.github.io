@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1019-squares-of-a-sorted-array/1019-squares-of-a-sorted-array.cpp",
-      "source": "/*\n Problem: 1019. Squares of a Sorted Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.3 MB (37.08%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> sortedSquares(vector<int>& nums) {\n        int n = nums.size();\n        int p1 = 0, p2 = n - 1;\n        vector<int> ans(n);\n\n        for (int i = n - 1; i >= 0; --i) {\n            if (abs(nums[p1]) > abs(nums[p2])) {\n                ans[i] = nums[p1] * nums[p1];\n                ++p1;\n            } else {\n                ans[i] = nums[p2] * nums[p2];\n                --p2;\n            }\n        }\n\n        return ans;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1019-squares-of-a-sorted-array/1019-squares-of-a-sorted-array.cpp"
+      "source": "/*\n Problem: 1019. Squares of a Sorted Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.3 MB (37.08%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> sortedSquares(vector<int>& nums) {\n        int n = nums.size();\n        int p1 = 0, p2 = n - 1;\n        vector<int> ans(n);\n\n        for (int i = n - 1; i >= 0; --i) {\n            if (abs(nums[p1]) > abs(nums[p2])) {\n                ans[i] = nums[p1] * nums[p1];\n                ++p1;\n            } else {\n                ans[i] = nums[p2] * nums[p2];\n                --p2;\n            }\n        }\n\n        return ans;\n    }\n};\n"
     }
   ]
 }

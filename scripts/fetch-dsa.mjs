@@ -16,6 +16,7 @@ export function readHiddenInput(label, input = process.stdin, output = process.s
     const cleanup = () => {
       input.off('data', onData);
       input.setRawMode(wasRaw);
+      input.pause();
       output.write('\n');
     };
     const onData = (chunk) => {
@@ -58,6 +59,7 @@ async function writeArtifactSummary(summary, artifactRoot) {
   const safeSummary = {
     addedSolutions: summary.addedSolutions,
     syncedSolutions: summary.syncedSolutions,
+    skippedSolutions: summary.skippedSolutions,
     totalProblems: summary.totalProblems,
     byPlatform: summary.byPlatform,
     languages: summary.languages,
@@ -69,10 +71,15 @@ async function writeArtifactSummary(summary, artifactRoot) {
 export async function main(env = process.env) {
   const credentials = await collectCredentials(env);
   const outputRoot = path.join(projectRoot, 'src', 'data');
-  const summary = await runDsaSync({ outputRoot, env: { ...env, ...credentials } });
+  const summary = await runDsaSync({
+    outputRoot,
+    env: { ...env, ...credentials },
+    onProgress: (message) => console.log(`[fetch-dsa] ${message}`),
+  });
   await writeArtifactSummary(summary, env.DSA_SYNC_ARTIFACT_DIR);
   console.log(`DSA snapshot updated in Portfolio: ${summary.addedSolutions} new language solutions; ${summary.totalProblems} problems (${summary.byPlatform.leetcode} LeetCode, ${summary.byPlatform.cses} CSES).`);
   console.log(`Accepted submissions synced: ${summary.syncedSolutions}`);
+  if (summary.skippedSolutions) console.log(`Accepted submissions skipped for missing details: ${summary.skippedSolutions} (kept pending for the next sync).`);
   console.log(`Languages: ${summary.languages.join(', ') || 'none'} · cursor ${summary.cursor}`);
   return summary;
 }

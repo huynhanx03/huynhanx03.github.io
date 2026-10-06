@@ -5,6 +5,7 @@ import { sanitizeStatementHtml } from './dsa-data.mjs';
 const LEETCODE_GRAPHQL = 'https://leetcode.com/graphql/';
 const DEFAULT_CURSOR = '2026-07-02T00:00:00+07:00';
 const PAGE_SIZE = 20;
+const DEFAULT_REQUEST_INTERVAL_MS = 2100;
 const submissionListQuery = `query submissionList($offset: Int!, $limit: Int!, $slug: String) {
   submissionList(offset: $offset, limit: $limit, questionSlug: $slug) {
     hasNext
@@ -88,18 +89,35 @@ async function requestGraphql(fetchImpl, credentials, operationName, query, vari
   return payload.data;
 }
 
+function createRateLimitedFetch(fetchImpl, intervalMs, onProgress) {
+  let nextRequestAt = 0;
+  return async (...args) => {
+    const waitMs = Math.max(0, nextRequestAt - Date.now());
+    if (waitMs > 0) {
+      onProgress(`Rate limit: waiting ${(waitMs / 1000).toFixed(1)}s before the next LeetCode request (max 30 requests/minute).`);
+      await new Promise((resolve) => setTimeout(resolve, waitMs));
+    }
+    nextRequestAt = Date.now() + intervalMs;
+    return fetchImpl(...args);
+  };
+}
+
 /** List accepted user submissions after the last successful cursor, keeping the latest per problem/language. */
-async function listNewAcceptedSubmissions({ credentials, cursor, fetchImpl }) {
+async function listNewAcceptedSubmissions({ credentials, cursor, fetchImpl, onProgress }) {
   const since = Date.parse(cursor);
   if (!Number.isFinite(since)) throw new Error(`Invalid LeetCode sync cursor: ${cursor}`);
   const selected = new Map();
   let offset = 0;
   let keepPaging = true;
+  let pages = 0;
+  let scanned = 0;
 
   while (keepPaging) {
     const data = await requestGraphql(fetchImpl, credentials, 'submissionList', submissionListQuery, { offset, limit: PAGE_SIZE, slug: null });
     const page = data.submissionList;
     if (!page || !Array.isArray(page.submissions)) throw new Error('LeetCode submissionList returned an invalid page');
+    pages += 1;
+    scanned += page.submissions.length;
     let oldestTimestamp = Infinity;
     for (const submission of page.submissions) {
       const submittedAt = timestampMilliseconds(submission.timestamp);
@@ -112,6 +130,7 @@ async function listNewAcceptedSubmissions({ credentials, cursor, fetchImpl }) {
     }
     if (!page.hasNext || page.submissions.length === 0 || oldestTimestamp <= since) keepPaging = false;
     else offset += page.submissions.length;
+    if (pages % 10 === 0 || !keepPaging) onProgress(`Scanned ${scanned} submissions across ${pages} page(s); found ${selected.size} accepted problem/language pair(s) since ${cursor}.`);
   }
   return [...selected.values()];
 }
@@ -119,7 +138,11 @@ async function listNewAcceptedSubmissions({ credentials, cursor, fetchImpl }) {
 async function getProblemDetails({ submission, credentials, fetchImpl, existingProblem, questionCache }) {
   const data = await requestGraphql(fetchImpl, credentials, 'submissionDetails', submissionDetailsQuery, { id: Number(submission.id) });
   const detail = data.submissionDetails;
-  if (!detail?.code || detail.statusCode !== 10) throw new Error(`Accepted submission ${submission.id} did not include accepted source code`);
+  if (!detail) return null;
+  if (Number(detail.statusCode) !== 10) throw new Error(`LeetCode submission ${submission.id} is listed as Accepted but its detail status is ${detail.statusCode ?? 'missing'}`);
+  if (typeof detail.code !== 'string' || !detail.code.trim()) {
+    throw new Error(`LeetCode omitted source code for accepted submission ${submission.id} (detail fields: ${Object.keys(detail).sort().join(', ')})`);
+  }
   let question = existingProblem ? {
     questionFrontendId: existingProblem.id,
     title: existingProblem.title,
@@ -270,7 +293,7 @@ export async function publishDsaSnapshot({ outputRoot, problems, metadata }) {
 }
 
 /** Sync accepted LeetCode submissions directly into the Portfolio data snapshot. */
-export async function runDsaSync({ outputRoot, env = process.env, fetchImpl = fetch, now = new Date() }) {
+export async function runDsaSync({ outputRoot, env = process.env, fetchImpl = fetch, now = new Date(), onProgress = (_message) => {}, requestIntervalMs = DEFAULT_REQUEST_INTERVAL_MS }) {
   if (!env.LEETCODE_SESSION || !env.LEETCODE_CSRF) throw new Error('LeetCode sync requires both LEETCODE_SESSION and LEETCODE_CSRF.');
   const outputIndexPath = path.join(outputRoot, 'dsa-index.json');
   const currentIndex = await readFile(outputIndexPath, 'utf8').then(JSON.parse).catch((error) => {
@@ -284,11 +307,24 @@ export async function runDsaSync({ outputRoot, env = process.env, fetchImpl = fe
   const questionCache = new Map();
   const startedAt = now.toISOString();
   const credentials = { LEETCODE_SESSION: env.LEETCODE_SESSION, LEETCODE_CSRF: env.LEETCODE_CSRF };
-  const submissions = await listNewAcceptedSubmissions({ credentials, cursor, fetchImpl });
+  const rateLimitedFetch = createRateLimitedFetch(fetchImpl, requestIntervalMs, onProgress);
+  onProgress(`Fetching accepted submissions since ${cursor}.`);
+  const submissions = await listNewAcceptedSubmissions({ credentials, cursor, fetchImpl: rateLimitedFetch, onProgress });
+  onProgress(submissions.length
+    ? `Found ${submissions.length} accepted problem/language pair(s); fetching code and problem details.`
+    : 'No new accepted submissions found; refreshing the Portfolio snapshot.');
   let addedSolutions = 0;
+  let syncedSolutions = 0;
+  const skippedSubmissions = [];
 
-  for (const submission of submissions) {
-    const details = await getProblemDetails({ submission, credentials, fetchImpl, existingProblem: bySlug.get(submission.titleSlug), questionCache });
+  for (const [index, submission] of submissions.entries()) {
+    onProgress(`Fetching solution ${index + 1}/${submissions.length}: ${submission.title} (${submission.language.display}).`);
+    const details = await getProblemDetails({ submission, credentials, fetchImpl: rateLimitedFetch, existingProblem: bySlug.get(submission.titleSlug), questionCache });
+    if (!details) {
+      skippedSubmissions.push(submission);
+      onProgress(`Skipping submission ${submission.id} (${submission.title}, ${submission.language.display}): LeetCode returned no detail record; it will be retried next sync.`);
+      continue;
+    }
     const problem = byKey.get(details.problem.key) ?? { ...details.problem, solutions: [] };
     const solutionIndex = problem.solutions.findIndex((solution) => solution.language === details.solution.language);
     if (solutionIndex === -1) {
@@ -297,6 +333,7 @@ export async function runDsaSync({ outputRoot, env = process.env, fetchImpl = fe
     } else {
       problem.solutions[solutionIndex] = details.solution;
     }
+    syncedSolutions += 1;
     if (!byKey.has(problem.key)) {
       byKey.set(problem.key, problem);
       bySlug.set(problem.slug, problem);
@@ -304,16 +341,25 @@ export async function runDsaSync({ outputRoot, env = process.env, fetchImpl = fe
     }
   }
 
+  onProgress('Writing the updated DSA JSON snapshot to src/data/dsa/.');
+  const earliestSkipped = skippedSubmissions.reduce((earliest, submission) => (
+    Number.isFinite(submission.submittedAt) ? Math.min(earliest, submission.submittedAt) : earliest
+  ), Infinity);
+  if (skippedSubmissions.length) onProgress(`Skipped ${skippedSubmissions.length} submission(s) without detail records; cursor will remain before the earliest one so a future sync can retry them.`);
+  const nextCursor = Number.isFinite(earliestSkipped)
+    ? new Date(Math.min(Date.parse(startedAt), earliestSkipped - 1)).toISOString()
+    : startedAt;
   const index = await publishDsaSnapshot({
     outputRoot,
     problems,
-    metadata: { generatedAt: startedAt, leetcodeCursor: startedAt },
+    metadata: { generatedAt: startedAt, leetcodeCursor: nextCursor },
   });
   const byPlatform = { leetcode: 0, cses: 0 };
   for (const problem of problems) byPlatform[problem.platform] += 1;
   return {
     addedSolutions,
-    syncedSolutions: submissions.length,
+    syncedSolutions,
+    skippedSolutions: skippedSubmissions.length,
     totalProblems: problems.length,
     byPlatform,
     languages: index.filters.languages,

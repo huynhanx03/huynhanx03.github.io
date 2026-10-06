@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0069-sqrtx/0069-sqrtx.cpp",
-      "source": "/*\n Problem: 69. Sqrt(x)\n Language: cpp\n Runtime: 2 ms (20.62%)\n Memory: 8.3 MB (99.32%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int mySqrt(int x) {\n        return sqrt(x);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0069-sqrtx/0069-sqrtx.cpp"
+      "source": "/*\n Problem: 69. Sqrt(x)\n Language: cpp\n Runtime: 2 ms (20.62%)\n Memory: 8.3 MB (99.32%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int mySqrt(int x) {\n        return sqrt(x);\n    }\n};"
     }
   ]
 }

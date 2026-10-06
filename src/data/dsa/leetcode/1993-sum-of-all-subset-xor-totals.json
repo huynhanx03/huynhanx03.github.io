@@ -19,8 +19,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1993-sum-of-all-subset-xor-totals/1993-sum-of-all-subset-xor-totals.cpp",
-      "source": "/*\n Problem: 1993. Sum of All Subset XOR Totals\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.1 MB (66.33%)\n Tags: Array, Math, Backtracking, Bit Manipulation, Combinatorics, Enumeration\n*/\nclass Solution {\npublic:\n    int subsetXORSum(vector<int>& nums) {\n        int n = nums.size();\n        int res = 0;\n\n        for (int i = 0; i < n; ++i)\n            res |= nums[i];\n        for (int i = 0; i < n - 1; ++i)\n            res *= 2;\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1993-sum-of-all-subset-xor-totals/1993-sum-of-all-subset-xor-totals.cpp"
+      "source": "/*\n Problem: 1993. Sum of All Subset XOR Totals\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.1 MB (66.33%)\n Tags: Array, Math, Backtracking, Bit Manipulation, Combinatorics, Enumeration\n*/\nclass Solution {\npublic:\n    int subsetXORSum(vector<int>& nums) {\n        int n = nums.size();\n        int res = 0;\n\n        for (int i = 0; i < n; ++i)\n            res |= nums[i];\n        for (int i = 0; i < n - 1; ++i)\n            res *= 2;\n\n        return res;\n    }\n};"
     }
   ]
 }

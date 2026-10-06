@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/1784-minimum-initial-energy-to-finish-tasks/1784-minimum-initial-energy-to-finish-tasks.cpp",
-      "source": "/*\n Problem: 1784. Minimum Initial Energy to Finish Tasks\n Language: cpp\n Runtime: 31 ms (80.22%)\n Memory: 97.4 MB (70.30%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minimumEffort(vector<vector<int>>& tasks) {\n        sort(tasks.begin(), tasks.end(), [](auto& a, auto& b) {\n            return (a[1] - a[0]) > (b[1] - b[0]);\n        });\n\n        int ans = 0;\n        int energy = 0;\n\n        for (auto& task : tasks) {\n            int actual = task[0];\n            int minimum = task[1];\n\n            if (energy < minimum) {\n                ans += minimum - energy;\n                energy = minimum;\n            }\n\n            energy -= actual;\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1784-minimum-initial-energy-to-finish-tasks/1784-minimum-initial-energy-to-finish-tasks.cpp"
+      "source": "/*\n Problem: 1784. Minimum Initial Energy to Finish Tasks\n Language: cpp\n Runtime: 31 ms (80.22%)\n Memory: 97.4 MB (70.30%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minimumEffort(vector<vector<int>>& tasks) {\n        sort(tasks.begin(), tasks.end(), [](auto& a, auto& b) {\n            return (a[1] - a[0]) > (b[1] - b[0]);\n        });\n\n        int ans = 0;\n        int energy = 0;\n\n        for (auto& task : tasks) {\n            int actual = task[0];\n            int minimum = task[1];\n\n            if (energy < minimum) {\n                ans += minimum - energy;\n                energy = minimum;\n            }\n\n            energy -= actual;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

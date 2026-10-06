@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0205-isomorphic-strings/0205-isomorphic-strings.cpp",
-      "source": "/*\n Problem: 205. Isomorphic Strings\n Language: cpp\n Runtime: 12 ms (6.72%)\n Memory: 9.5 MB (27.66%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    bool isIsomorphic(string s, string t) {\n        int nS = s.size();\n        int nT = s.size();\n\n        if (nS != nT)\n            return false;\n\n        map<char, int> pS;\n        map<char, int> pT;\n\n        for (int i = 0; i < nS; ++i) {\n            if (pS[s[i]] != pT[t[i]])\n                return false;\n\n            pS[s[i]] = i + 1;\n            pT[t[i]] = i + 1;\n        }\n\n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0205-isomorphic-strings/0205-isomorphic-strings.cpp"
+      "source": "/*\n Problem: 205. Isomorphic Strings\n Language: cpp\n Runtime: 12 ms (6.72%)\n Memory: 9.5 MB (27.66%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    bool isIsomorphic(string s, string t) {\n        int nS = s.size();\n        int nT = s.size();\n\n        if (nS != nT)\n            return false;\n\n        map<char, int> pS;\n        map<char, int> pT;\n\n        for (int i = 0; i < nS; ++i) {\n            if (pS[s[i]] != pT[t[i]])\n                return false;\n\n            pS[s[i]] = i + 1;\n            pT[t[i]] = i + 1;\n        }\n\n        return true;\n    }\n};"
     }
   ]
 }

@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0400-nth-digit/0400-nth-digit.cpp",
-      "source": "/*\n Problem: 400. Nth Digit\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (43.88%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int findNthDigit(int n) {\n        long long len = 1, cnt = 9, start = 1;\n\n        while (n > len * cnt) {\n            n -= len * cnt;\n            ++len;\n            cnt *= 10;\n            start *= 10;\n        }\n\n        long long num = start + (n - 1) / len;\n        int idx = (n - 1) % len;\n\n        string s = to_string(num);\n        return s[idx] - '0';\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0400-nth-digit/0400-nth-digit.cpp"
+      "source": "/*\n Problem: 400. Nth Digit\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (43.88%)\n Tags: Math, Binary Search\n*/\nclass Solution {\npublic:\n    int findNthDigit(int n) {\n        long long len = 1, cnt = 9, start = 1;\n\n        while (n > len * cnt) {\n            n -= len * cnt;\n            ++len;\n            cnt *= 10;\n            start *= 10;\n        }\n\n        long long num = start + (n - 1) / len;\n        int idx = (n - 1) % len;\n\n        string s = to_string(num);\n        return s[idx] - '0';\n    }\n};"
     }
   ]
 }

@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0001-two-sum/0001-two-sum.cpp",
-      "source": "/*\n Problem: 1. Two Sum\n Language: cpp\n Runtime: 7 ms (40.75%)\n Memory: 16.4 MB (5.20%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        vector <int> ans;\n\n        map<int, int> pos;\n        \n        for (int i = 0; i < nums.size(); ++i)\n            pos[nums[i]] = i;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            int cur = target - nums[i];\n            if (pos.count(cur)) {\n                if (i == pos[cur]) continue;\n                ans.push_back(i);\n                ans.push_back(pos[cur]);\n                break;\n            }\n        }\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0001-two-sum/0001-two-sum.cpp"
+      "source": "/*\n Problem: 1. Two Sum\n Language: cpp\n Runtime: 7 ms (40.75%)\n Memory: 16.4 MB (5.20%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        vector <int> ans;\n\n        map<int, int> pos;\n        \n        for (int i = 0; i < nums.size(); ++i)\n            pos[nums[i]] = i;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            int cur = target - nums[i];\n            if (pos.count(cur)) {\n                if (i == pos[cur]) continue;\n                ans.push_back(i);\n                ans.push_back(pos[cur]);\n                break;\n            }\n        }\n        return ans;\n    }\n};"
     }
   ]
 }

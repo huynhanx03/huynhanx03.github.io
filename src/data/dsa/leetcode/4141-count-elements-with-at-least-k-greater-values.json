@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4141-count-elements-with-at-least-k-greater-values/4141-count-elements-with-at-least-k-greater-values.cpp",
-      "source": "/*\n Problem: 4141. Count Elements With at Least K Greater Values\n Language: cpp\n Runtime: 71 ms (50.90%)\n Memory: 173.9 MB (76.90%)\n Tags: Array, Binary Search, Divide and Conquer, Sorting, Quickselect\n*/\nclass Solution {\npublic:\n    int countElements(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (k == 0) return n;\n\n        sort(nums.begin(), nums.end());\n        int tmp = nums[n - k];\n        int cnt = 0;\n\n        for (const auto&x : nums) {\n            if (x < tmp) ++cnt;\n        }\n\n        return cnt;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4141-count-elements-with-at-least-k-greater-values/4141-count-elements-with-at-least-k-greater-values.cpp"
+      "source": "/*\n Problem: 4141. Count Elements With at Least K Greater Values\n Language: cpp\n Runtime: 71 ms (50.90%)\n Memory: 173.9 MB (76.90%)\n Tags: Array, Binary Search, Divide and Conquer, Sorting, Quickselect\n*/\nclass Solution {\npublic:\n    int countElements(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (k == 0) return n;\n\n        sort(nums.begin(), nums.end());\n        int tmp = nums[n - k];\n        int cnt = 0;\n\n        for (const auto&x : nums) {\n            if (x < tmp) ++cnt;\n        }\n\n        return cnt;\n    }\n};"
     }
   ]
 }

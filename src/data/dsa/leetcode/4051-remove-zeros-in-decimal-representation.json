@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4051-remove-zeros-in-decimal-representation/4051-remove-zeros-in-decimal-representation.cpp",
-      "source": "/*\n Problem: 4051. Remove Zeros in Decimal Representation\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (43.45%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    long long removeZeros(long long n) {\n        vector<int> v;\n        \n        while (n > 0) {\n            int rem = n % 10;\n            if (rem > 0) v.push_back(rem);\n            n /= 10;\n        }\n\n        long long ans = 0;\n\n        for (int i = v.size() - 1; i >= 0; --i) {\n            ans = ans * 10 + v[i];\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4051-remove-zeros-in-decimal-representation/4051-remove-zeros-in-decimal-representation.cpp"
+      "source": "/*\n Problem: 4051. Remove Zeros in Decimal Representation\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (43.45%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    long long removeZeros(long long n) {\n        vector<int> v;\n        \n        while (n > 0) {\n            int rem = n % 10;\n            if (rem > 0) v.push_back(rem);\n            n /= 10;\n        }\n\n        long long ans = 0;\n\n        for (int i = v.size() - 1; i >= 0; --i) {\n            ans = ans * 10 + v[i];\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

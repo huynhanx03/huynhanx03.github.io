@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3279-alice-and-bob-playing-flower-game/3279-alice-and-bob-playing-flower-game.cpp",
-      "source": "/*\n Problem: 3279. Alice and Bob Playing Flower Game\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.6 MB (11.83%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    long long flowerGame(int n, int m) {\n        long oddN = (n + 1) / 2, evenN = n / 2;\n        long oddM = (m + 1) / 2, evenM = m / 2;\n        return oddN * evenM + evenN * oddM;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3279-alice-and-bob-playing-flower-game/3279-alice-and-bob-playing-flower-game.cpp"
+      "source": "/*\n Problem: 3279. Alice and Bob Playing Flower Game\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.6 MB (11.83%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    long long flowerGame(int n, int m) {\n        long oddN = (n + 1) / 2, evenN = n / 2;\n        long oddM = (m + 1) / 2, evenM = m / 2;\n        return oddN * evenM + evenN * oddM;\n    }\n};"
     }
   ]
 }

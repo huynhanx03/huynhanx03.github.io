@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4183-count-caesar-cipher-pairs/4183-count-caesar-cipher-pairs.cpp",
-      "source": "/*\n Problem: 4183. Count Caesar Cipher Pairs\n Language: cpp\n Runtime: 28 ms (79.70%)\n Memory: 110.3 MB (79.84%)\n Tags: Array, Hash Table, Math, String, Counting\n*/\nclass Solution {\npublic:\n    long long countPairs(vector<string>& words) {\n        long long cnt = 0;\n        map <string, int> freq;\n        for (const auto& w : words) {\n            int v = w[0] - 'a';\n            string tmp = w;\n            for (int i = 0; i < tmp.size(); ++i) {\n                int nv = tmp[i] - 'a';\n                int next = (nv - v + 26) % 26;\n                tmp[i] = next + 'a';\n            }\n            cnt += freq[tmp];\n            ++freq[tmp];\n        }\n\n        return cnt;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4183-count-caesar-cipher-pairs/4183-count-caesar-cipher-pairs.cpp"
+      "source": "/*\n Problem: 4183. Count Caesar Cipher Pairs\n Language: cpp\n Runtime: 28 ms (79.70%)\n Memory: 110.3 MB (79.84%)\n Tags: Array, Hash Table, Math, String, Counting\n*/\nclass Solution {\npublic:\n    long long countPairs(vector<string>& words) {\n        long long cnt = 0;\n        map <string, int> freq;\n        for (const auto& w : words) {\n            int v = w[0] - 'a';\n            string tmp = w;\n            for (int i = 0; i < tmp.size(); ++i) {\n                int nv = tmp[i] - 'a';\n                int next = (nv - v + 26) % 26;\n                tmp[i] = next + 'a';\n            }\n            cnt += freq[tmp];\n            ++freq[tmp];\n        }\n\n        return cnt;\n    }\n};"
     }
   ]
 }

@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/1527-number-of-ways-to-paint-n-3-grid/1527-number-of-ways-to-paint-n-3-grid.cpp",
-      "source": "/*\n Problem: 1527. Number of Ways to Paint N × 3 Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (60.79%)\n Tags: Dynamic Programming\n*/\nclass Solution {\npublic:\n    int numOfWays(int n) {\n        const int MOD = 1e9 + 7;\n\n        long long A = 6; // ABC\n        long long B = 6; // ABA\n\n        for (int i = 2; i <= n; i++) {\n            long long newA = (2 * A % MOD + 2 * B % MOD) % MOD;\n            long long newB = (2 * A % MOD + 3 * B % MOD) % MOD;\n            A = newA;\n            B = newB;\n        }\n\n        return (A + B) % MOD;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1527-number-of-ways-to-paint-n-3-grid/1527-number-of-ways-to-paint-n-3-grid.cpp"
+      "source": "/*\n Problem: 1527. Number of Ways to Paint N × 3 Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (60.79%)\n Tags: Dynamic Programming\n*/\nclass Solution {\npublic:\n    int numOfWays(int n) {\n        const int MOD = 1e9 + 7;\n\n        long long A = 6; // ABC\n        long long B = 6; // ABA\n\n        for (int i = 2; i <= n; i++) {\n            long long newA = (2 * A % MOD + 2 * B % MOD) % MOD;\n            long long newB = (2 * A % MOD + 3 * B % MOD) % MOD;\n            A = newA;\n            B = newB;\n        }\n\n        return (A + B) % MOD;\n    }\n};\n"
     }
   ]
 }

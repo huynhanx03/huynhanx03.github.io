@@ -15,8 +15,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Easy/1666-make-the-string-great/1666-make-the-string-great.py",
-      "source": "\"\"\"\n Problem: 1666. Make The String Great\n Language: python3\n Runtime: 33 ms (6.45%)\n Memory: 16.5 MB (100.00%)\n Tags: String, Stack\n\"\"\"\nclass Solution:\n    def makeGood(self, s: str) -> str:\n        stack = []  \n        for char in s:\n            if stack and abs(ord(char) - ord(stack[-1])) == 32:\n                stack.pop()\n            else:\n                stack.append(char)\n\n        return ''.join(stack)",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1666-make-the-string-great/1666-make-the-string-great.py"
+      "source": "\"\"\"\n Problem: 1666. Make The String Great\n Language: python3\n Runtime: 33 ms (6.45%)\n Memory: 16.5 MB (100.00%)\n Tags: String, Stack\n\"\"\"\nclass Solution:\n    def makeGood(self, s: str) -> str:\n        stack = []  \n        for char in s:\n            if stack and abs(ord(char) - ord(stack[-1])) == 32:\n                stack.pop()\n            else:\n                stack.append(char)\n\n        return ''.join(stack)"
     }
   ]
 }

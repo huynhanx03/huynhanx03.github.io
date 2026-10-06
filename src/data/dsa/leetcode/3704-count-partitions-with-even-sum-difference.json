@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3704-count-partitions-with-even-sum-difference/3704-count-partitions-with-even-sum-difference.cpp",
-      "source": "/*\n Problem: 3704. Count Partitions with Even Sum Difference\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 22.5 MB (22.86%)\n Tags: Array, Math, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countPartitions(vector<int>& nums) {\n        int sum = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            sum += nums[i];\n        }\n\n        return sum % 2 != 0 ? 0 : nums.size() - 1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3704-count-partitions-with-even-sum-difference/3704-count-partitions-with-even-sum-difference.cpp"
+      "source": "/*\n Problem: 3704. Count Partitions with Even Sum Difference\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 22.5 MB (22.86%)\n Tags: Array, Math, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countPartitions(vector<int>& nums) {\n        int sum = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            sum += nums[i];\n        }\n\n        return sum % 2 != 0 ? 0 : nums.size() - 1;\n    }\n};"
     }
   ]
 }

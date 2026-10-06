@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0070-climbing-stairs/0070-climbing-stairs.cpp",
-      "source": "/*\n Problem: 70. Climbing Stairs\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (86.20%)\n Tags: Math, Dynamic Programming, Memoization\n*/\nclass Solution {\npublic:\n    int climbStairs(int n) {\n        vector<int> dp(n + 5);\n        \n        dp[0] = 1;\n        dp[1] = 2;\n        for (int i = 2; i < n; ++i) {\n            dp[i] = dp[i - 1] + dp[i - 2];\n        }\n\n        return dp[n - 1];\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0070-climbing-stairs/0070-climbing-stairs.cpp"
+      "source": "/*\n Problem: 70. Climbing Stairs\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (86.20%)\n Tags: Math, Dynamic Programming, Memoization\n*/\nclass Solution {\npublic:\n    int climbStairs(int n) {\n        vector<int> dp(n + 5);\n        \n        dp[0] = 1;\n        dp[1] = 2;\n        for (int i = 2; i < n; ++i) {\n            dp[i] = dp[i - 1] + dp[i - 2];\n        }\n\n        return dp[n - 1];\n    }\n};"
     }
   ]
 }

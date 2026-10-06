@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:3720",
+  "platform": "leetcode",
+  "id": "3720",
+  "slug": "lexicographically-smallest-permutation-greater-than-target",
+  "title": "Lexicographically Smallest Permutation Greater Than Target",
+  "url": "https://leetcode.com/problems/lexicographically-smallest-permutation-greater-than-target/",
+  "difficulty": "Medium",
+  "topics": [
+    "Hash Table",
+    "String",
+    "Greedy",
+    "Counting",
+    "Enumeration"
+  ],
+  "statementHtml": "<p>You are given two strings <code>s</code> and <code>target</code>, both having length <code>n</code>, consisting of lowercase English letters.</p>\n\n<p>Return the <strong>lexicographically smallest <span>permutation</span></strong> of <code>s</code> that is <strong>strictly</strong> greater than <code>target</code>. If no permutation of <code>s</code> is lexicographically strictly greater than <code>target</code>, return an empty string.</p>\n\n<p>A string <code>a</code> is <strong>lexicographically strictly greater </strong>than a string <code>b</code> (of the same length) if in the first position where <code>a</code> and <code>b</code> differ, string <code>a</code> has a letter that appears later in the alphabet than the corresponding letter in <code>b</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"abc\", target = \"bba\"</span></p>\n\n<p><strong>Output:</strong> <span>\"bca\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The permutations of <code>s</code> (in lexicographical order) are <code>\"abc\"</code>, <code>\"acb\"</code>, <code>\"bac\"</code>, <code>\"bca\"</code>, <code>\"cab\"</code>, and <code>\"cba\"</code>.</li>\n\t<li>The lexicographically smallest permutation that is strictly greater than <code>target</code> is <code>\"bca\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"leet\", target = \"code\"</span></p>\n\n<p><strong>Output:</strong> <span>\"eelt\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The permutations of <code>s</code> (in lexicographical order) are <code>\"eelt\"</code>, <code>\"eetl\"</code>, <code>\"elet\"</code>, <code>\"elte\"</code>, <code>\"etel\"</code>, <code>\"etle\"</code>, <code>\"leet\"</code>, <code>\"lete\"</code>, <code>\"ltee\"</code>, <code>\"teel\"</code>, <code>\"tele\"</code>, and <code>\"tlee\"</code>.</li>\n\t<li>The lexicographically smallest permutation that is strictly greater than <code>target</code> is <code>\"eelt\"</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"baba\", target = \"bbaa\"</span></p>\n\n<p><strong>Output:</strong> <span>\"\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The permutations of <code>s</code> (in lexicographical order) are <code>\"aabb\"</code>, <code>\"abab\"</code>, <code>\"abba\"</code>, <code>\"baab\"</code>, <code>\"baba\"</code>, and <code>\"bbaa\"</code>.</li>\n\t<li>None of them is lexicographically strictly greater than <code>target</code>. Therefore, the answer is <code>\"\"</code>.</li>\n</ul>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length == target.length &lt;= 300</code></li>\n\t<li><code>s</code> and <code>target</code> consist of only lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3720-lexicographically-smallest-permutation-greater-than-target.cpp",
+      "source": "/*\n Problem: 3720. Lexicographically Smallest Permutation Greater Than Target\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.3 MB (33.68%)\n Tags: Hash Table, String, Greedy, Counting, Enumeration\n*/\nclass Solution {\npublic:\n    string lexGreaterPermutation(string s, string target) {\n        vector<int> cnt(26);\n        for (char c : s) cnt[c - 'a']++;\n\n        int pos = -1;\n        char pick;\n\n        for (int i = 0; i < s.size(); i++) {\n            for (char c = target[i] + 1; c <= 'z'; c++) {\n                if (cnt[c - 'a']) {\n                    pos = i;\n                    pick = c;\n                    break;\n                }\n            }\n\n            if (!cnt[target[i] - 'a'])\n                break;\n\n            cnt[target[i] - 'a']--;\n        }\n\n        if (pos == -1)\n            return \"\";\n\n        cnt.assign(26, 0);\n        for (char c : s) cnt[c - 'a']++;\n\n        string ans = target.substr(0, pos) + pick;\n\n        for (int i = 0; i < pos; i++)\n            cnt[target[i] - 'a']--;\n\n        cnt[pick - 'a']--;\n\n        for (int i = 0; i < 26; i++)\n            ans += string(cnt[i], 'a' + i);\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

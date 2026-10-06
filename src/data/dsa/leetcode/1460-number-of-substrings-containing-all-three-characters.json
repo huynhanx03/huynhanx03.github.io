@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1460-number-of-substrings-containing-all-three-characters/1460-number-of-substrings-containing-all-three-characters.cpp",
-      "source": "/*\n Problem: 1460. Number of Substrings Containing All Three Characters\n Language: cpp\n Runtime: 4 ms (79.23%)\n Memory: 11.1 MB (52.90%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> cnt(3, 0);\n        int left = 0, n = s.size(), res = 0;\n\n        for (int right = 0; right < n; ++right) {\n            ++cnt[s[right] - 'a'];\n\n            while (cnt[0] && cnt[1] && cnt[2]) {\n                res += n - right;\n                --cnt[s[left++] - 'a'];\n            }\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1460-number-of-substrings-containing-all-three-characters/1460-number-of-substrings-containing-all-three-characters.cpp"
+      "source": "/*\n Problem: 1460. Number of Substrings Containing All Three Characters\n Language: cpp\n Runtime: 4 ms (79.23%)\n Memory: 11.1 MB (52.90%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> cnt(3, 0);\n        int left = 0, n = s.size(), res = 0;\n\n        for (int right = 0; right < n; ++right) {\n            ++cnt[s[right] - 'a'];\n\n            while (cnt[0] && cnt[1] && cnt[2]) {\n                res += n - right;\n                --cnt[s[left++] - 'a'];\n            }\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

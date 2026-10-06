@@ -2,6 +2,15 @@ name: Sync DSA solutions
 
 on:
   workflow_dispatch:
+    inputs:
+      leetcode_session:
+        description: LeetCode LEETCODE_SESSION cookie
+        required: true
+        type: string
+      leetcode_csrf:
+        description: LeetCode csrftoken cookie
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -12,6 +21,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: Mask LeetCode cookies
+        env:
+          LEETCODE_SESSION: ${{ inputs.leetcode_session }}
+          LEETCODE_CSRF: ${{ inputs.leetcode_csrf }}
+        run: |
+          echo "::add-mask::$LEETCODE_SESSION"
+          echo "::add-mask::$LEETCODE_CSRF"
       - uses: pnpm/action-setup@v4
         with:
           version: 12.6.0
@@ -24,8 +40,8 @@ jobs:
       - name: Fetch and validate DSA data
         run: make fetch-dsa
         env:
-          LEETCODE_SESSION: ${{ secrets.LEETCODE_SESSION }}
-          LEETCODE_CSRF: ${{ secrets.LEETCODE_CSRF }}
+          LEETCODE_SESSION: ${{ inputs.leetcode_session }}
+          LEETCODE_CSRF: ${{ inputs.leetcode_csrf }}
           DSA_SYNC_ARTIFACT_DIR: ${{ runner.temp }}/dsa-fetch-output
       - name: Add sync summary
         run: cat "${RUNNER_TEMP}/dsa-fetch-output/sync-summary.json" >> "$GITHUB_STEP_SUMMARY"

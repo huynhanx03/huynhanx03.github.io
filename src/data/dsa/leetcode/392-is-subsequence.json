@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0392-is-subsequence/0392-is-subsequence.cpp",
-      "source": "/*\n Problem: 392. Is Subsequence\n Language: cpp\n Runtime: 3 ms (5.42%)\n Memory: 7.8 MB (100.00%)\n Tags: Two Pointers, String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    bool isSubsequence(string s, string t) {\n        int ps = 0, sz = s.size();\n\n        for (auto& c : t) {\n            if (ps < sz && c == s[ps])\n                ++ps;\n        }\n\n        return ps == sz;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0392-is-subsequence/0392-is-subsequence.cpp"
+      "source": "/*\n Problem: 392. Is Subsequence\n Language: cpp\n Runtime: 3 ms (5.42%)\n Memory: 7.8 MB (100.00%)\n Tags: Two Pointers, String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    bool isSubsequence(string s, string t) {\n        int ps = 0, sz = s.size();\n\n        for (auto& c : t) {\n            if (ps < sz && c == s[ps])\n                ++ps;\n        }\n\n        return ps == sz;\n    }\n};"
     }
   ]
 }

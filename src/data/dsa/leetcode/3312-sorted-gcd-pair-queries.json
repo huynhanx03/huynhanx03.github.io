@@ -1,0 +1,29 @@
+{
+  "key": "leetcode:3312",
+  "platform": "leetcode",
+  "id": "3312",
+  "slug": "sorted-gcd-pair-queries",
+  "title": "Sorted GCD Pair Queries",
+  "url": "https://leetcode.com/problems/sorted-gcd-pair-queries/",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Math",
+    "Binary Search",
+    "Combinatorics",
+    "Counting",
+    "Number Theory",
+    "Prefix Sum",
+    "Euclidean Algorithm",
+    "Greatest Common Divisor"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code> of length <code>n</code> and an integer array <code>queries</code>.</p>\n\n<p>Let <code>gcdPairs</code> denote an array obtained by calculating the <span>GCD</span> of all possible pairs <code>(nums[i], nums[j])</code>, where <code>0 &lt;= i &lt; j &lt; n</code>, and then sorting these values in <strong>ascending</strong> order.</p>\n\n<p>For each query <code>queries[i]</code>, you need to find the element at index <code>queries[i]</code> in <code>gcdPairs</code>.</p>\n\n<p>Return an integer array <code>answer</code>, where <code>answer[i]</code> is the value at <code>gcdPairs[queries[i]]</code> for each query.</p>\n\n<p>The term <code>gcd(a, b)</code> denotes the <strong>greatest common divisor</strong> of <code>a</code> and <code>b</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,3,4], queries = [0,2,2]</span></p>\n\n<p><strong>Output:</strong> <span>[1,2,2]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>gcdPairs = [gcd(nums[0], nums[1]), gcd(nums[0], nums[2]), gcd(nums[1], nums[2])] = [1, 2, 1]</code>.</p>\n\n<p>After sorting in ascending order, <code>gcdPairs = [1, 1, 2]</code>.</p>\n\n<p>So, the answer is <code>[gcdPairs[queries[0]], gcdPairs[queries[1]], gcdPairs[queries[2]]] = [1, 2, 2]</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,4,2,1], queries = [5,3,1,0]</span></p>\n\n<p><strong>Output:</strong> <span>[4,2,1,1]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>gcdPairs</code> sorted in ascending order is <code>[1, 1, 1, 2, 2, 4]</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,2], queries = [0,0]</span></p>\n\n<p><strong>Output:</strong> <span>[2,2]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><code>gcdPairs = [2]</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n == nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= queries.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= queries[i] &lt; n * (n - 1) / 2</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/3312-sorted-gcd-pair-queries.cpp",
+      "source": "/*\n Problem: 3312. Sorted GCD Pair Queries\n Language: cpp\n Runtime: 51 ms (33.25%)\n Memory: 131.7 MB (41.37%)\n Tags: Array, Hash Table, Math, Binary Search, Combinatorics, Counting, Number Theory, Prefix Sum, Euclidean Algorithm, Greatest Common Divisor\n*/\nclass Solution {\npublic:\n    vector<int> gcdValues(vector<int>& nums, vector<long long>& queries) {\n        int maxValue = *max_element(nums.begin(), nums.end());\n\n        vector<int> freq(maxValue + 1);\n        for (int x : nums) {\n            freq[x]++;\n        }\n\n        vector<long long> divisible(maxValue + 1);\n        for (int d = 1; d <= maxValue; d++) {\n            for (int multiple = d; multiple <= maxValue; multiple += d) {\n                divisible[d] += freq[multiple];\n            }\n        }\n\n        vector<long long> gcdCount(maxValue + 1);\n        for (int d = maxValue; d >= 1; d--) {\n            long long cnt = divisible[d];\n            gcdCount[d] = cnt * (cnt - 1) / 2;\n\n            for (int multiple = d * 2; multiple <= maxValue; multiple += d) {\n                gcdCount[d] -= gcdCount[multiple];\n            }\n        }\n\n        vector<long long> prefix(maxValue + 1);\n        for (int d = 1; d <= maxValue; d++) {\n            prefix[d] = prefix[d - 1] + gcdCount[d];\n        }\n\n        vector<int> answer;\n        answer.reserve(queries.size());\n\n        for (long long query : queries) {\n            answer.push_back(\n                lower_bound(prefix.begin() + 1, prefix.end(), query + 1) - prefix.begin()\n            );\n        }\n\n        return answer;\n    }\n};"
+    }
+  ]
+}

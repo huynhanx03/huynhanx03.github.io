@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0062-unique-paths/0062-unique-paths.cpp",
-      "source": "/*\n Problem: 62. Unique Paths\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.3 MB (51.76%)\n Tags: Math, Dynamic Programming, Combinatorics\n*/\nclass Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        vector <vector<long long>> dp(n, vector<long long>(m, 0));\n\n        dp[0][0] = 1;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if (i > 0)\n                    dp[i][j] += dp[i - 1][j];\n                \n                if (j > 0)\n                    dp[i][j] += dp[i][j - 1];\n            }\n\n        return dp[n - 1][m - 1];\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0062-unique-paths/0062-unique-paths.cpp"
+      "source": "/*\n Problem: 62. Unique Paths\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.3 MB (51.76%)\n Tags: Math, Dynamic Programming, Combinatorics\n*/\nclass Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        vector <vector<long long>> dp(n, vector<long long>(m, 0));\n\n        dp[0][0] = 1;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if (i > 0)\n                    dp[i][j] += dp[i - 1][j];\n                \n                if (j > 0)\n                    dp[i][j] += dp[i][j - 1];\n            }\n\n        return dp[n - 1][m - 1];\n    }\n};"
     }
   ]
 }

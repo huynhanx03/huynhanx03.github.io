@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4138-minimum-deletion-cost-to-make-all-characters-equal/4138-minimum-deletion-cost-to-make-all-characters-equal.cpp",
-      "source": "/*\n Problem: 4138. Minimum Deletion Cost to Make All Characters Equal\n Language: cpp\n Runtime: 23 ms (17.70%)\n Memory: 115.4 MB (7.48%)\n Tags: Array, Hash Table, String, Enumeration\n*/\nclass Solution {\npublic:\n    long long minCost(string s, vector<int>& cost) {\n        int n = s.size();\n\n        long long ans = 0;\n\n        vector <long long> cnt(26, 0);\n        set<int> st;\n\n        for (int i = 0; i < n; ++i) {\n            cnt[s[i] - 'a'] += 1ll * cost[i];\n            st.insert(s[i] - 'a');\n        }\n\n        sort(cnt.begin(), cnt.end(), greater<long long>());\n\n        for (int i = 1; i < st.size(); ++i) {\n            ans += cnt[i];    \n        }\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4138-minimum-deletion-cost-to-make-all-characters-equal/4138-minimum-deletion-cost-to-make-all-characters-equal.cpp"
+      "source": "/*\n Problem: 4138. Minimum Deletion Cost to Make All Characters Equal\n Language: cpp\n Runtime: 23 ms (17.70%)\n Memory: 115.4 MB (7.48%)\n Tags: Array, Hash Table, String, Enumeration\n*/\nclass Solution {\npublic:\n    long long minCost(string s, vector<int>& cost) {\n        int n = s.size();\n\n        long long ans = 0;\n\n        vector <long long> cnt(26, 0);\n        set<int> st;\n\n        for (int i = 0; i < n; ++i) {\n            cnt[s[i] - 'a'] += 1ll * cost[i];\n            st.insert(s[i] - 'a');\n        }\n\n        sort(cnt.begin(), cnt.end(), greater<long long>());\n\n        for (int i = 1; i < st.size(); ++i) {\n            ans += cnt[i];    \n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

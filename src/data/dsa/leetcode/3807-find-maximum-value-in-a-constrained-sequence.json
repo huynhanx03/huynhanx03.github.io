@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3807-find-maximum-value-in-a-constrained-sequence/3807-find-maximum-value-in-a-constrained-sequence.cpp",
-      "source": "/*\n Problem: 3807. Find Maximum Value in a Constrained Sequence\n Language: cpp\n Runtime: 8 ms (90.29%)\n Memory: 283.2 MB (93.91%)\n Tags: Array, Greedy\n*/\nclass Solution {\n\npublic:\n    int findMaxVal(int n, vector<vector<int>>& restrictions, vector<int>& diff) {\n        vector<int> h(n, 2e9);\n\n        h[0] = 0;\n\n        for (const auto& x : restrictions) h[x[0]] = x[1];\n        for (int i = 1; i < n; ++i) {\n            h[i] = min(h[i], h[i - 1] + diff[i - 1]);\n        }\n\n        int ans = h[n - 1];\n        for (int i = n - 2; i >= 0; --i) {\n            h[i] = min(h[i], h[i + 1] + diff[i]);\n            ans = max(ans, h[i]);\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3807-find-maximum-value-in-a-constrained-sequence/3807-find-maximum-value-in-a-constrained-sequence.cpp"
+      "source": "/*\n Problem: 3807. Find Maximum Value in a Constrained Sequence\n Language: cpp\n Runtime: 8 ms (90.29%)\n Memory: 283.2 MB (93.91%)\n Tags: Array, Greedy\n*/\nclass Solution {\n\npublic:\n    int findMaxVal(int n, vector<vector<int>>& restrictions, vector<int>& diff) {\n        vector<int> h(n, 2e9);\n\n        h[0] = 0;\n\n        for (const auto& x : restrictions) h[x[0]] = x[1];\n        for (int i = 1; i < n; ++i) {\n            h[i] = min(h[i], h[i - 1] + diff[i - 1]);\n        }\n\n        int ans = h[n - 1];\n        for (int i = n - 2; i >= 0; --i) {\n            h[i] = min(h[i], h[i + 1] + diff[i]);\n            ans = max(ans, h[i]);\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

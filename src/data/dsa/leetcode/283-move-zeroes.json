@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0283-move-zeroes/0283-move-zeroes.cpp",
-      "source": "/*\n Problem: 283. Move Zeroes\n Language: cpp\n Runtime: 14 ms (7.80%)\n Memory: 23.1 MB (99.99%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    void moveZeroes(vector<int>& nums) {\n        int cnt = 0;\n        vector<int> ans;\n\n        for (auto& num : nums) {\n            if (num == 0)\n                ++cnt;\n            else\n                ans.push_back(num);\n        }\n\n        while(cnt--)\n            ans.push_back(0);\n\n        nums = ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0283-move-zeroes/0283-move-zeroes.cpp"
+      "source": "/*\n Problem: 283. Move Zeroes\n Language: cpp\n Runtime: 14 ms (7.80%)\n Memory: 23.1 MB (99.99%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    void moveZeroes(vector<int>& nums) {\n        int cnt = 0;\n        vector<int> ans;\n\n        for (auto& num : nums) {\n            if (num == 0)\n                ++cnt;\n            else\n                ans.push_back(num);\n        }\n\n        while(cnt--)\n            ans.push_back(0);\n\n        nums = ans;\n    }\n};"
     }
   ]
 }

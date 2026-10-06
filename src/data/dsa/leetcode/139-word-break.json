@@ -19,8 +19,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0139-word-break/0139-word-break.cpp",
-      "source": "/*\n Problem: 139. Word Break\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.2 MB (97.88%)\n Tags: Array, Hash Table, String, Dynamic Programming, Trie, Memoization\n*/\nclass Solution {\npublic:\n    bool wordBreak(string& s, vector<string>& wordDict) {\n        int n = s.size();\n        vector<int> dp(n);\n\n        for (int i = 0; i < n; i++) {\n            for (auto& str : wordDict) {\n                if (i < str.length() - 1)\n                    continue;\n                if (i == str.length() - 1 || dp[i - str.length()])\n                    if (str == s.substr(i - str.length() + 1, str.length())) {\n                        dp[i] = 1;\n                        break;\n                    }\n            }\n        }\n        return dp[n - 1];\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0139-word-break/0139-word-break.cpp"
+      "source": "/*\n Problem: 139. Word Break\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.2 MB (97.88%)\n Tags: Array, Hash Table, String, Dynamic Programming, Trie, Memoization\n*/\nclass Solution {\npublic:\n    bool wordBreak(string& s, vector<string>& wordDict) {\n        int n = s.size();\n        vector<int> dp(n);\n\n        for (int i = 0; i < n; i++) {\n            for (auto& str : wordDict) {\n                if (i < str.length() - 1)\n                    continue;\n                if (i == str.length() - 1 || dp[i - str.length()])\n                    if (str == s.substr(i - str.length() + 1, str.length())) {\n                        dp[i] = 1;\n                        break;\n                    }\n            }\n        }\n        return dp[n - 1];\n    }\n};"
     }
   ]
 }

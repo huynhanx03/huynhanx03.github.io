@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1802-number-of-students-unable-to-eat-lunch/1802-number-of-students-unable-to-eat-lunch.cpp",
-      "source": "/*\n Problem: 1802. Number of Students Unable to Eat Lunch\n Language: cpp\n Runtime: 5 ms (1.72%)\n Memory: 10.7 MB (100.00%)\n Tags: Array, Stack, Queue, Simulation\n*/\nclass Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int d[2] = {0, 0};\n\n        for (auto& student: students)\n            ++d[student];\n\n        int n = sandwiches.size();\n\n        for (int i = 0; i < n; ++i)\n            if (d[sandwiches[i]] > 0) --d[sandwiches[i]];\n            else \n                return n - i;\n\n        return 0;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1802-number-of-students-unable-to-eat-lunch/1802-number-of-students-unable-to-eat-lunch.cpp"
+      "source": "/*\n Problem: 1802. Number of Students Unable to Eat Lunch\n Language: cpp\n Runtime: 5 ms (1.72%)\n Memory: 10.7 MB (100.00%)\n Tags: Array, Stack, Queue, Simulation\n*/\nclass Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int d[2] = {0, 0};\n\n        for (auto& student: students)\n            ++d[student];\n\n        int n = sandwiches.size();\n\n        for (int i = 0; i < n; ++i)\n            if (d[sandwiches[i]] > 0) --d[sandwiches[i]];\n            else \n                return n - i;\n\n        return 0;\n    }\n};"
     }
   ]
 }

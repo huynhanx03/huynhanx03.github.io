@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1988-minimize-maximum-pair-sum-in-array/1988-minimize-maximum-pair-sum-in-array.cpp",
-      "source": "/*\n Problem: 1988. Minimize Maximum Pair Sum in Array\n Language: cpp\n Runtime: 170 ms (59.42%)\n Memory: 100 MB (66.06%)\n Tags: Array, Two Pointers, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minPairSum(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int l = 0, r = nums.size() - 1;\n\n        int ans = 0;\n        while (l <= r) {\n            ans = max(ans, nums[l] + nums[r]);\n            \n            ++l;\n            --r;\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1988-minimize-maximum-pair-sum-in-array/1988-minimize-maximum-pair-sum-in-array.cpp"
+      "source": "/*\n Problem: 1988. Minimize Maximum Pair Sum in Array\n Language: cpp\n Runtime: 170 ms (59.42%)\n Memory: 100 MB (66.06%)\n Tags: Array, Two Pointers, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minPairSum(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int l = 0, r = nums.size() - 1;\n\n        int ans = 0;\n        while (l <= r) {\n            ans = max(ans, nums[l] + nums[r]);\n            \n            ++l;\n            --r;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

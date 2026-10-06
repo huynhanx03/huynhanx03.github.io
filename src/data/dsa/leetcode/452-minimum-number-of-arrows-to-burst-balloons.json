@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0452-minimum-number-of-arrows-to-burst-balloons/0452-minimum-number-of-arrows-to-burst-balloons.cpp",
-      "source": "/*\n Problem: 452. Minimum Number of Arrows to Burst Balloons\n Language: cpp\n Runtime: 109 ms (9.45%)\n Memory: 106.5 MB (11.31%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int findMinArrowShots(vector<vector<int>>& p) {\n        sort(p.begin(), p.end());\n        int lastpoint = p[0][1];\n        int ans = 1;\n        for(auto point : p) {\n            if(point[0] > lastpoint) {\n                ans++;\n                lastpoint = point[1];\n            }\n            lastpoint = min(point[1],lastpoint);\n        }\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0452-minimum-number-of-arrows-to-burst-balloons/0452-minimum-number-of-arrows-to-burst-balloons.cpp"
+      "source": "/*\n Problem: 452. Minimum Number of Arrows to Burst Balloons\n Language: cpp\n Runtime: 109 ms (9.45%)\n Memory: 106.5 MB (11.31%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int findMinArrowShots(vector<vector<int>>& p) {\n        sort(p.begin(), p.end());\n        int lastpoint = p[0][1];\n        int ans = 1;\n        for(auto point : p) {\n            if(point[0] > lastpoint) {\n                ans++;\n                lastpoint = point[1];\n            }\n            lastpoint = min(point[1],lastpoint);\n        }\n        return ans;\n    }\n};"
     }
   ]
 }

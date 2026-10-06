@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0874-backspace-string-compare/0874-backspace-string-compare.cpp",
-      "source": "/*\n Problem: 874. Backspace String Compare\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (96.01%)\n Tags: Two Pointers, String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    bool backspaceCompare(string s, string t) {\n        return build(s) == build(t);\n    }\n    \nprivate:\n    string build(const string& str) {\n        string result;\n        for (char ch : str) {\n            if (ch != '#') {\n                result.push_back(ch);\n            } else if (!result.empty()) {\n                result.pop_back();\n            }\n        }\n        return result;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0874-backspace-string-compare/0874-backspace-string-compare.cpp"
+      "source": "/*\n Problem: 874. Backspace String Compare\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (96.01%)\n Tags: Two Pointers, String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    bool backspaceCompare(string s, string t) {\n        return build(s) == build(t);\n    }\n    \nprivate:\n    string build(const string& str) {\n        string result;\n        for (char ch : str) {\n            if (ch != '#') {\n                result.push_back(ch);\n            } else if (!result.empty()) {\n                result.pop_back();\n            }\n        }\n        return result;\n    }\n};\n"
     }
   ]
 }

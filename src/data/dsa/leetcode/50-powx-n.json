@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0050-powx-n/0050-powx-n.cpp",
-      "source": "/*\n Problem: 50. Pow(x, n)\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (99.72%)\n Tags: Math, Recursion\n*/\nclass Solution {\npublic:\n    double myPow(double x, int n) {\n        long num = labs(n);\n\n        if (n < 0)\n            x = 1 / x;\n\n        double pow = 1;\n\n        while (num) {      // equivalent to while(num != 0)\n            if (num & 1) // equivalent to if((num & 1) != 0)\n                pow *= x;\n\n            x *= x;\n            num >>= 1;\n        }\n\n        return pow;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0050-powx-n/0050-powx-n.cpp"
+      "source": "/*\n Problem: 50. Pow(x, n)\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (99.72%)\n Tags: Math, Recursion\n*/\nclass Solution {\npublic:\n    double myPow(double x, int n) {\n        long num = labs(n);\n\n        if (n < 0)\n            x = 1 / x;\n\n        double pow = 1;\n\n        while (num) {      // equivalent to while(num != 0)\n            if (num & 1) // equivalent to if((num & 1) != 0)\n                pow *= x;\n\n            x *= x;\n            num >>= 1;\n        }\n\n        return pow;\n    }\n};"
     }
   ]
 }

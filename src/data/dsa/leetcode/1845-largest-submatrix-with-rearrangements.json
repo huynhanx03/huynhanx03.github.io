@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1845-largest-submatrix-with-rearrangements/1845-largest-submatrix-with-rearrangements.cpp",
-      "source": "/*\n Problem: 1845. Largest Submatrix With Rearrangements\n Language: cpp\n Runtime: 28 ms (75.00%)\n Memory: 90.1 MB (46.28%)\n Tags: Array, Greedy, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    int largestSubmatrix(vector<vector<int>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size();\n        vector<int> h(n, 0);\n        int res = 0;\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++)\n                h[j] = matrix[i][j] ? h[j] + 1 : 0;\n\n            vector<int> row = h;\n            sort(row.begin(), row.end(), greater<int>());\n\n            for (int j = 0; j < n; j++)\n                res = max(res, row[j] * (j + 1));\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1845-largest-submatrix-with-rearrangements/1845-largest-submatrix-with-rearrangements.cpp"
+      "source": "/*\n Problem: 1845. Largest Submatrix With Rearrangements\n Language: cpp\n Runtime: 28 ms (75.00%)\n Memory: 90.1 MB (46.28%)\n Tags: Array, Greedy, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    int largestSubmatrix(vector<vector<int>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size();\n        vector<int> h(n, 0);\n        int res = 0;\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++)\n                h[j] = matrix[i][j] ? h[j] + 1 : 0;\n\n            vector<int> row = h;\n            sort(row.begin(), row.end(), greater<int>());\n\n            for (int j = 0; j < n; j++)\n                res = max(res, row[j] * (j + 1));\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3830-find-closest-person/3830-find-closest-person.cpp",
-      "source": "/*\n Problem: 3830. Find Closest Person\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.5 MB (52.70%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int findClosest(int x, int y, int z) {\n        int cx = abs(z - x);\n        int cy = abs(z - y);\n\n        return cx == cy ? 0 : cx > cy ? 2 : 1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3830-find-closest-person/3830-find-closest-person.cpp"
+      "source": "/*\n Problem: 3830. Find Closest Person\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.5 MB (52.70%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int findClosest(int x, int y, int z) {\n        int cx = abs(z - x);\n        int cy = abs(z - y);\n\n        return cx == cy ? 0 : cx > cy ? 2 : 1;\n    }\n};"
     }
   ]
 }

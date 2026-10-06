@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1054-complement-of-base-10-integer/1054-complement-of-base-10-integer.cpp",
-      "source": "/*\n Problem: 1054. Complement of Base 10 Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (59.24%)\n Tags: Bit Manipulation\n*/\nclass Solution {\npublic:\n    int bitwiseComplement(int n) {\n        int mask = 1;\n        \n        while (mask < n) {\n            mask = (mask << 1) | 1;\n        }\n        \n        return n ^ mask;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1054-complement-of-base-10-integer/1054-complement-of-base-10-integer.cpp"
+      "source": "/*\n Problem: 1054. Complement of Base 10 Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (59.24%)\n Tags: Bit Manipulation\n*/\nclass Solution {\npublic:\n    int bitwiseComplement(int n) {\n        int mask = 1;\n        \n        while (mask < n) {\n            mask = (mask << 1) | 1;\n        }\n        \n        return n ^ mask;\n    }\n};"
     }
   ]
 }

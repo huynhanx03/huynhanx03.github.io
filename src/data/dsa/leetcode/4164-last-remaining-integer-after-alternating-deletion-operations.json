@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/4164-last-remaining-integer-after-alternating-deletion-operations/4164-last-remaining-integer-after-alternating-deletion-operations.cpp",
-      "source": "/*\n Problem: 4164. Last Remaining Integer After Alternating Deletion Operations\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (8.32%)\n Tags: Math, Recursion\n*/\nclass Solution {\npublic:\n    long long lastInteger(long long n) {\n        long long head = 1;\n        long long step = 1;\n        long long remaining = n;\n        bool left = true;\n\n        while (remaining > 1) {\n            if (!left) {\n                if (remaining % 2 == 0) head += step;\n            }\n\n            remaining = remaining - remaining / 2;\n            step *= 2;\n            left = !left;\n        }\n\n        return head;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/4164-last-remaining-integer-after-alternating-deletion-operations/4164-last-remaining-integer-after-alternating-deletion-operations.cpp"
+      "source": "/*\n Problem: 4164. Last Remaining Integer After Alternating Deletion Operations\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.2 MB (8.32%)\n Tags: Math, Recursion\n*/\nclass Solution {\npublic:\n    long long lastInteger(long long n) {\n        long long head = 1;\n        long long step = 1;\n        long long remaining = n;\n        bool left = true;\n\n        while (remaining > 1) {\n            if (!left) {\n                if (remaining % 2 == 0) head += step;\n            }\n\n            remaining = remaining - remaining / 2;\n            step *= 2;\n            left = !left;\n        }\n\n        return head;\n    }\n};"
     }
   ]
 }

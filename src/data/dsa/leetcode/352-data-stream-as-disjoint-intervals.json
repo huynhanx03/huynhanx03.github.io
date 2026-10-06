@@ -1,0 +1,25 @@
+{
+  "key": "leetcode:352",
+  "platform": "leetcode",
+  "id": "352",
+  "slug": "data-stream-as-disjoint-intervals",
+  "title": "Data Stream as Disjoint Intervals",
+  "url": "https://leetcode.com/problems/data-stream-as-disjoint-intervals/",
+  "difficulty": "Hard",
+  "topics": [
+    "Hash Table",
+    "Binary Search",
+    "Union-Find",
+    "Design",
+    "Data Stream",
+    "Ordered Set"
+  ],
+  "statementHtml": "<p>Given a data stream input of non-negative integers <code>a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub></code>, summarize the numbers seen so far as a list of disjoint intervals.</p>\n\n<p>Implement the <code>SummaryRanges</code> class:</p>\n\n<ul>\n\t<li><code>SummaryRanges()</code> Initializes the object with an empty stream.</li>\n\t<li><code>void addNum(int value)</code> Adds the integer <code>value</code> to the stream.</li>\n\t<li><code>int[][] getIntervals()</code> Returns a summary of the integers in the stream currently as a list of disjoint intervals <code>[start<sub>i</sub>, end<sub>i</sub>]</code>. The answer should be sorted by <code>start<sub>i</sub></code>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input</strong>\n[\"SummaryRanges\", \"addNum\", \"getIntervals\", \"addNum\", \"getIntervals\", \"addNum\", \"getIntervals\", \"addNum\", \"getIntervals\", \"addNum\", \"getIntervals\"]\n[[], [1], [], [3], [], [7], [], [2], [], [6], []]\n<strong>Output</strong>\n[null, null, [[1, 1]], null, [[1, 1], [3, 3]], null, [[1, 1], [3, 3], [7, 7]], null, [[1, 3], [7, 7]], null, [[1, 3], [6, 7]]]\n\n<strong>Explanation</strong>\nSummaryRanges summaryRanges = new SummaryRanges();\nsummaryRanges.addNum(1);      // arr = [1]\nsummaryRanges.getIntervals(); // return [[1, 1]]\nsummaryRanges.addNum(3);      // arr = [1, 3]\nsummaryRanges.getIntervals(); // return [[1, 1], [3, 3]]\nsummaryRanges.addNum(7);      // arr = [1, 3, 7]\nsummaryRanges.getIntervals(); // return [[1, 1], [3, 3], [7, 7]]\nsummaryRanges.addNum(2);      // arr = [1, 2, 3, 7]\nsummaryRanges.getIntervals(); // return [[1, 3], [7, 7]]\nsummaryRanges.addNum(6);      // arr = [1, 2, 3, 6, 7]\nsummaryRanges.getIntervals(); // return [[1, 3], [6, 7]]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= value &lt;= 10<sup>4</sup></code></li>\n\t<li>At most <code>3 * 10<sup>4</sup></code> calls will be made to <code>addNum</code> and <code>getIntervals</code>.</li>\n\t<li>At most <code>10<sup>2</sup></code>&nbsp;calls will be made to&nbsp;<code>getIntervals</code>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow up:</strong> What if there are lots of merges and the number of disjoint intervals is small compared to the size of the data stream?</p>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/352-data-stream-as-disjoint-intervals.cpp",
+      "source": "/*\n Problem: 352. Data Stream as Disjoint Intervals\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.9 MB (63.25%)\n Tags: Hash Table, Binary Search, Union-Find, Design, Data Stream, Ordered Set\n*/\nclass SummaryRanges {\n    map<int, int> mp;\n\npublic:\n    SummaryRanges() {}\n\n    void addNum(int value) {\n        auto it = mp.upper_bound(value);\n\n        if (it != mp.begin() && prev(it)->second >= value)\n            return;\n\n        int l = value, r = value;\n\n        if (it != mp.begin() && prev(it)->second + 1 == value) {\n            l = prev(it)->first;\n            mp.erase(prev(it));\n        }\n\n        if (it != mp.end() && it->first == value + 1) {\n            r = it->second;\n            mp.erase(it);\n        }\n\n        mp[l] = r;\n    }\n\n    vector<vector<int>> getIntervals() {\n        vector<vector<int>> res;\n        for (auto [l, r] : mp)\n            res.push_back({l, r});\n        return res;\n    }\n};\n\n/**\n * Your SummaryRanges object will be instantiated and called as such:\n * SummaryRanges* obj = new SummaryRanges();\n * obj->addNum(value);\n * vector<vector<int>> param_2 = obj->getIntervals();\n */"
+    }
+  ]
+}

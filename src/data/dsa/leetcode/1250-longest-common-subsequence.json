@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1250-longest-common-subsequence/1250-longest-common-subsequence.cpp",
-      "source": "/*\n Problem: 1250. Longest Common Subsequence\n Language: cpp\n Runtime: 27 ms (58.62%)\n Memory: 27.5 MB (53.27%)\n Tags: String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int longestCommonSubsequence(string text1, string text2) {\n        int n = text1.size(), m = text2.size();\n\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j <= m; j++) {\n                if (text1[i - 1] == text2[j - 1])\n                    dp[i][j] = dp[i - 1][j - 1] + 1;\n                else\n                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);\n            }\n        }\n\n        return dp[n][m];\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1250-longest-common-subsequence/1250-longest-common-subsequence.cpp"
+      "source": "/*\n Problem: 1250. Longest Common Subsequence\n Language: cpp\n Runtime: 27 ms (58.62%)\n Memory: 27.5 MB (53.27%)\n Tags: String, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int longestCommonSubsequence(string text1, string text2) {\n        int n = text1.size(), m = text2.size();\n\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j <= m; j++) {\n                if (text1[i - 1] == text2[j - 1])\n                    dp[i][j] = dp[i - 1][j - 1] + 1;\n                else\n                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);\n            }\n        }\n\n        return dp[n][m];\n    }\n};"
     }
   ]
 }

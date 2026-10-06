@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0231-power-of-two/0231-power-of-two.cpp",
-      "source": "/*\n Problem: 231. Power of Two\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (81.19%)\n Tags: Math, Bit Manipulation, Recursion\n*/\nclass Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        return n > 0 && (n & (n - 1)) == 0;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0231-power-of-two/0231-power-of-two.cpp"
+      "source": "/*\n Problem: 231. Power of Two\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (81.19%)\n Tags: Math, Bit Manipulation, Recursion\n*/\nclass Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        return n > 0 && (n & (n - 1)) == 0;\n    }\n};"
     }
   ]
 }

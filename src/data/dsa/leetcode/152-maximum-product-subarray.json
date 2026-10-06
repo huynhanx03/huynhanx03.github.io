@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0152-maximum-product-subarray/0152-maximum-product-subarray.cpp",
-      "source": "/*\n Problem: 152. Maximum Product Subarray\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.7 MB (59.05%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxProduct(vector<int>& A) {\n        int n = A.size();\n        int r = A[0];\n        for (int i = 1, imax = r, imin = r; i < n; i++) {\n            if (A[i] < 0)\n                swap(imax, imin);\n\n            imax = max(A[i], imax * A[i]);\n            imin = min(A[i], imin * A[i]);\n\n            r = max(r, imax);\n        }\n        return r;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0152-maximum-product-subarray/0152-maximum-product-subarray.cpp"
+      "source": "/*\n Problem: 152. Maximum Product Subarray\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.7 MB (59.05%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxProduct(vector<int>& A) {\n        int n = A.size();\n        int r = A[0];\n        for (int i = 1, imax = r, imin = r; i < n; i++) {\n            if (A[i] < 0)\n                swap(imax, imin);\n\n            imax = max(A[i], imax * A[i]);\n            imin = min(A[i], imin * A[i]);\n\n            r = max(r, imax);\n        }\n        return r;\n    }\n};"
     }
   ]
 }

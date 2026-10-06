@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1306-minimum-absolute-difference/1306-minimum-absolute-difference.cpp",
-      "source": "/*\n Problem: 1306. Minimum Absolute Difference\n Language: cpp\n Runtime: 15 ms (72.35%)\n Memory: 36.6 MB (66.36%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        sort(arr.begin(), arr.end());\n        int diff = arr[1] - arr[0];\n        vector<vector<int>> ans;\n        for (int i = 1; i < arr.size(); ++i) {\n            diff = min(diff, arr[i] - arr[i - 1]);\n        }\n        for (int i = 1; i < arr.size(); ++i) {\n            if (arr[i] - arr[i - 1] == diff) ans.push_back({arr[i - 1], arr[i]});\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1306-minimum-absolute-difference/1306-minimum-absolute-difference.cpp"
+      "source": "/*\n Problem: 1306. Minimum Absolute Difference\n Language: cpp\n Runtime: 15 ms (72.35%)\n Memory: 36.6 MB (66.36%)\n Tags: Array, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        sort(arr.begin(), arr.end());\n        int diff = arr[1] - arr[0];\n        vector<vector<int>> ans;\n        for (int i = 1; i < arr.size(); ++i) {\n            diff = min(diff, arr[i] - arr[i - 1]);\n        }\n        for (int i = 1; i < arr.size(); ++i) {\n            if (arr[i] - arr[i - 1] == diff) ans.push_back({arr[i - 1], arr[i]});\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

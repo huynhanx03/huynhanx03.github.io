@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1817-calculate-money-in-leetcode-bank/1817-calculate-money-in-leetcode-bank.cpp",
-      "source": "/*\n Problem: 1817. Calculate Money in Leetcode Bank\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (49.59%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int totalMoney(int n) {\n         int w = n / 7, d = n % 7;\n        return 7 * w * (w - 1) / 2 + 28 * w + w * d + d * (d + 1) / 2;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1817-calculate-money-in-leetcode-bank/1817-calculate-money-in-leetcode-bank.cpp"
+      "source": "/*\n Problem: 1817. Calculate Money in Leetcode Bank\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (49.59%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int totalMoney(int n) {\n         int w = n / 7, d = n % 7;\n        return 7 * w * (w - 1) / 2 + 28 * w + w * d + d * (d + 1) / 2;\n    }\n};"
     }
   ]
 }

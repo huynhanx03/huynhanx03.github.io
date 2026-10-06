@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/1732-minimum-one-bit-operations-to-make-integers-zero/1732-minimum-one-bit-operations-to-make-integers-zero.cpp",
-      "source": "/*\n Problem: 1732. Minimum One Bit Operations to Make Integers Zero\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (21.38%)\n Tags: Math, Dynamic Programming, Bit Manipulation, Recursion, Memoization\n*/\nclass Solution {\npublic:\n    int minimumOneBitOperations(int n) {\n        int ans = 0;\n        while (n) {\n            ans ^= n;\n            n >>= 1;\n        }\n        return ans;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/1732-minimum-one-bit-operations-to-make-integers-zero/1732-minimum-one-bit-operations-to-make-integers-zero.cpp"
+      "source": "/*\n Problem: 1732. Minimum One Bit Operations to Make Integers Zero\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (21.38%)\n Tags: Math, Dynamic Programming, Bit Manipulation, Recursion, Memoization\n*/\nclass Solution {\npublic:\n    int minimumOneBitOperations(int n) {\n        int ans = 0;\n        while (n) {\n            ans ^= n;\n            n >>= 1;\n        }\n        return ans;\n    }\n};\n"
     }
   ]
 }

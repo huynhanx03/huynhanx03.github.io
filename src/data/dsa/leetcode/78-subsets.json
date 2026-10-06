@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0078-subsets/0078-subsets.cpp",
-      "source": "/*\n Problem: 78. Subsets\n Language: cpp\n Runtime: 3 ms (30.32%)\n Memory: 14.4 MB (19.89%)\n Tags: Array, Backtracking, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<vector<int>> ans;\n\n    void backtrack(vector<int>& nums, vector<int> res, int idx, int& n) {\n        if (idx == n) {\n            ans.push_back(res);\n            return;\n        }\n\n        backtrack(nums, res, idx + 1, n);\n\n        res.push_back(nums[idx]);\n\n        backtrack(nums, res, idx + 1, n);\n    }\n\n    vector<vector<int>> subsets(vector<int>& nums) {\n        int n = nums.size();\n\n        backtrack(nums, vector<int>(), 0, n);\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0078-subsets/0078-subsets.cpp"
+      "source": "/*\n Problem: 78. Subsets\n Language: cpp\n Runtime: 3 ms (30.32%)\n Memory: 14.4 MB (19.89%)\n Tags: Array, Backtracking, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<vector<int>> ans;\n\n    void backtrack(vector<int>& nums, vector<int> res, int idx, int& n) {\n        if (idx == n) {\n            ans.push_back(res);\n            return;\n        }\n\n        backtrack(nums, res, idx + 1, n);\n\n        res.push_back(nums[idx]);\n\n        backtrack(nums, res, idx + 1, n);\n    }\n\n    vector<vector<int>> subsets(vector<int>& nums) {\n        int n = nums.size();\n\n        backtrack(nums, vector<int>(), 0, n);\n\n        return ans;\n    }\n};"
     }
   ]
 }

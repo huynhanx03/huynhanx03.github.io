@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4190-minimum-operations-to-reach-target-array/4190-minimum-operations-to-reach-target-array.cpp",
-      "source": "/*\n Problem: 4190. Minimum Operations to Reach Target Array\n Language: cpp\n Runtime: 108 ms (45.27%)\n Memory: 257.5 MB (43.43%)\n Tags: Array, Hash Table, Greedy\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, vector<int>& target) {\n        unordered_set<int> st;\n        int n = nums.size();\n\n        for (int i = 0; i < n; ++i) {\n            if (nums[i] != target[i]) {\n                st.insert(nums[i]);\n            }\n        }\n\n        return st.size();\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4190-minimum-operations-to-reach-target-array/4190-minimum-operations-to-reach-target-array.cpp"
+      "source": "/*\n Problem: 4190. Minimum Operations to Reach Target Array\n Language: cpp\n Runtime: 108 ms (45.27%)\n Memory: 257.5 MB (43.43%)\n Tags: Array, Hash Table, Greedy\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, vector<int>& target) {\n        unordered_set<int> st;\n        int n = nums.size();\n\n        for (int i = 0; i < n; ++i) {\n            if (nums[i] != target[i]) {\n                st.insert(nums[i]);\n            }\n        }\n\n        return st.size();\n    }\n};"
     }
   ]
 }

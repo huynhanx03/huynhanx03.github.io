@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:4010",
+  "platform": "leetcode",
+  "id": "4010",
+  "slug": "maximize-pair-strength-using-gcd",
+  "title": "Maximize Pair Strength Using GCD",
+  "url": "https://leetcode.com/problems/maximize-pair-strength-using-gcd/",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Math",
+    "Enumeration",
+    "Number Theory"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>Choose exactly one pair of distinct indices <code>i</code> and <code>j</code>. The strength of the pair is defined as <code>(nums[i] * nums[j]) / <span>gcd(nums[i], nums[j])</span><sup>2</sup></code>.</p>\n\n<p>Return the maximum strength over all possible pairs.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [2,3,5]</span></p>\n\n<p><strong>Output:</strong> <span>15</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Choosing <code>i = 1</code> and <code>j = 2</code> gives strength <code>(3 * 5) / gcd(3, 5)<sup>2</sup> = 15 / 1 = 15</code>, which is the maximum over all pairs.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [4,6,8]</span></p>\n\n<p><strong>Output:</strong> <span>12</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Choosing <code>i = 1</code> and <code>j = 2</code> gives strength <code>(6 * 8) / gcd(6, 8)<sup>2</sup> = 48 / 4 = 12</code>, which is the maximum over all pairs.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [3,3]</span></p>\n\n<p><strong>Output:</strong> <span>1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Choosing <code>i = 0</code> and <code>j = 1</code> gives strength <code>(3 * 3) / gcd(3, 3)<sup>2</sup> = 9 / 9 = 1</code>, the maximum over all pairs.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 2000</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4010-maximize-pair-strength-using-gcd.cpp",
+      "source": "/*\n Problem: 4010. Maximize Pair Strength Using GCD\n Language: cpp\n Runtime: 932 ms (27.18%)\n Memory: 37.3 MB (72.63%)\n Tags: Array, Math, Enumeration, Number Theory\n*/\nclass Solution {\npublic:\n    long long maxPairStrength(vector<int>& nums) {\n        long long ans = 0;\n        int n = nums.size();\n        \n        for (int i = 0; i < n; ++i) {\n            for (int j = i + 1; j < n; ++j) {\n                long long g = __gcd(nums[i], nums[j]);\n                g *= g;\n                ans = max(ans,\n                    1LL * nums[i] * nums[j] / g\n                );\n            }\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

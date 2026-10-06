@@ -15,8 +15,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Easy/0290-word-pattern/0290-word-pattern.py",
-      "source": "\"\"\"\n Problem: 290. Word Pattern\n Language: python3\n Runtime: 40 ms (0.06%)\n Memory: 16.6 MB (100.00%)\n Tags: Hash Table, String\n\"\"\"\nclass Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        mapping = {}\n        s = s.split()\n        if len(pattern) != len(s):\n            return False\n\n        for char, word in zip(pattern, s):\n            if char in mapping:\n                if mapping[char] != word:\n                    return False\n            else:\n                mapping[char] = word\n\n        return len(set(mapping.keys())) == len(set(mapping.values()))",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0290-word-pattern/0290-word-pattern.py"
+      "source": "\"\"\"\n Problem: 290. Word Pattern\n Language: python3\n Runtime: 40 ms (0.06%)\n Memory: 16.6 MB (100.00%)\n Tags: Hash Table, String\n\"\"\"\nclass Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        mapping = {}\n        s = s.split()\n        if len(pattern) != len(s):\n            return False\n\n        for char, word in zip(pattern, s):\n            if char in mapping:\n                if mapping[char] != word:\n                    return False\n            else:\n                mapping[char] = word\n\n        return len(set(mapping.keys())) == len(set(mapping.values()))"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1800-concatenation-of-consecutive-binary-numbers/1800-concatenation-of-consecutive-binary-numbers.cpp",
-      "source": "/*\n Problem: 1800. Concatenation of Consecutive Binary Numbers\n Language: cpp\n Runtime: 28 ms (65.46%)\n Memory: 8.2 MB (36.12%)\n Tags: Math, Bit Manipulation, Simulation\n*/\nclass Solution {\npublic:\n    int concatenatedBinary(int n) {\n        const long long MOD = 1e9 + 7;\n        long long ans = 0;\n        long long bits = 0;\n\n        for (long long i = 1; i <= n; ++i) {\n            if ((i & (i - 1)) == 0) ++bits;\n\n            ans = ((ans << bits) + i) % MOD;\n        }\n\n        return (int) ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1800-concatenation-of-consecutive-binary-numbers/1800-concatenation-of-consecutive-binary-numbers.cpp"
+      "source": "/*\n Problem: 1800. Concatenation of Consecutive Binary Numbers\n Language: cpp\n Runtime: 28 ms (65.46%)\n Memory: 8.2 MB (36.12%)\n Tags: Math, Bit Manipulation, Simulation\n*/\nclass Solution {\npublic:\n    int concatenatedBinary(int n) {\n        const long long MOD = 1e9 + 7;\n        long long ans = 0;\n        long long bits = 0;\n\n        for (long long i = 1; i <= n; ++i) {\n            if ((i & (i - 1)) == 0) ++bits;\n\n            ans = ((ans << bits) + i) % MOD;\n        }\n\n        return (int) ans;\n    }\n};"
     }
   ]
 }

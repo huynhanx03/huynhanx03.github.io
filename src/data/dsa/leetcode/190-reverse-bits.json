@@ -15,14 +15,12 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0190-reverse-bits/0190-reverse-bits.cpp",
-      "source": "/*\n Problem: 190. Reverse Bits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.6 MB (100.00%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nclass Solution {\npublic:\n    uint32_t reverseBits(uint32_t n) {\n        uint32_t result = 0;\n        for (int i = 0; i < 32; ++i) {\n            result <<= 1;          // Shift the result to the left by 1 bit\n            result |= (n & 1);     // Add the least significant bit of n to the result\n            n >>= 1;               // Shift n to the right by 1 bit\n        }\n        return result;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0190-reverse-bits/0190-reverse-bits.cpp"
+      "source": "/*\n Problem: 190. Reverse Bits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.6 MB (100.00%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nclass Solution {\npublic:\n    uint32_t reverseBits(uint32_t n) {\n        uint32_t result = 0;\n        for (int i = 0; i < 32; ++i) {\n            result <<= 1;          // Shift the result to the left by 1 bit\n            result |= (n & 1);     // Add the least significant bit of n to the result\n            n >>= 1;               // Shift n to the right by 1 bit\n        }\n        return result;\n    }\n};\n"
     },
     {
       "language": "Rust",
       "relativePath": "leetcode/Easy/0190-reverse-bits/0190-reverse-bits.rs",
-      "source": "/*\n Problem: 190. Reverse Bits\n Language: rust\n Runtime: 2 ms (52.47%)\n Memory: 2.1 MB (92.52%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nimpl Solution {\n    pub fn reverse_bits(n: i32) -> i32 {\n        let mut v: i32 = 0;\n        let mut x = n;\n\n        for _ in 0..32 {\n            v = (v << 1) | (x & 1);\n            x >>= 1;\n        }\n\n        v   \n    }\n}",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0190-reverse-bits/0190-reverse-bits.rs"
+      "source": "/*\n Problem: 190. Reverse Bits\n Language: rust\n Runtime: 2 ms (52.47%)\n Memory: 2.1 MB (92.52%)\n Tags: Divide and Conquer, Bit Manipulation\n*/\nimpl Solution {\n    pub fn reverse_bits(n: i32) -> i32 {\n        let mut v: i32 = 0;\n        let mut x = n;\n\n        for _ in 0..32 {\n            v = (v << 1) | (x & 1);\n            x >>= 1;\n        }\n\n        v   \n    }\n}"
     }
   ]
 }

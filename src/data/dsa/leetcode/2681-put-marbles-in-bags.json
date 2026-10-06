@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/2681-put-marbles-in-bags/2681-put-marbles-in-bags.cpp",
-      "source": "/*\n Problem: 2681. Put Marbles in Bags\n Language: cpp\n Runtime: 31 ms (81.40%)\n Memory: 67.4 MB (46.95%)\n Tags: Array, Greedy, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    long long putMarbles(vector<int>& weights, int k) {\n        if (k == 1) {\n            return 0;\n        }\n\n        vector<int> pair_sums;\n        for (size_t i = 0; i < weights.size() - 1; ++i) {\n            pair_sums.push_back(weights[i] + weights[i + 1]);\n        }\n\n        sort(pair_sums.begin(), pair_sums.end());\n\n        long long min_score = accumulate(pair_sums.begin(), pair_sums.begin() + (k - 1), 0LL);\n        long long max_score = accumulate(pair_sums.end() - (k - 1), pair_sums.end(), 0LL);\n\n        return max_score - min_score;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/2681-put-marbles-in-bags/2681-put-marbles-in-bags.cpp"
+      "source": "/*\n Problem: 2681. Put Marbles in Bags\n Language: cpp\n Runtime: 31 ms (81.40%)\n Memory: 67.4 MB (46.95%)\n Tags: Array, Greedy, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    long long putMarbles(vector<int>& weights, int k) {\n        if (k == 1) {\n            return 0;\n        }\n\n        vector<int> pair_sums;\n        for (size_t i = 0; i < weights.size() - 1; ++i) {\n            pair_sums.push_back(weights[i] + weights[i + 1]);\n        }\n\n        sort(pair_sums.begin(), pair_sums.end());\n\n        long long min_score = accumulate(pair_sums.begin(), pair_sums.begin() + (k - 1), 0LL);\n        long long max_score = accumulate(pair_sums.end() - (k - 1), pair_sums.end(), 0LL);\n\n        return max_score - min_score;\n    }\n};"
     }
   ]
 }

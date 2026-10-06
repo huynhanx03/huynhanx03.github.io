@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2245-destroying-asteroids/2245-destroying-asteroids.cpp",
-      "source": "/*\n Problem: 2245. Destroying Asteroids\n Language: cpp\n Runtime: 23 ms (86.89%)\n Memory: 106.6 MB (83.03%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {\n        sort(asteroids.begin(), asteroids.end());\n\n        long long s = mass;\n\n        for (const auto& x : asteroids) {\n            if (s >= x) {\n                s += x;\n            } else return false;\n        }\n\n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2245-destroying-asteroids/2245-destroying-asteroids.cpp"
+      "source": "/*\n Problem: 2245. Destroying Asteroids\n Language: cpp\n Runtime: 23 ms (86.89%)\n Memory: 106.6 MB (83.03%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {\n        sort(asteroids.begin(), asteroids.end());\n\n        long long s = mass;\n\n        for (const auto& x : asteroids) {\n            if (s >= x) {\n                s += x;\n            } else return false;\n        }\n\n        return true;\n    }\n};"
     }
   ]
 }

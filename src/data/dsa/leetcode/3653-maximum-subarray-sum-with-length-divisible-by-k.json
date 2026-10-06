@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3653-maximum-subarray-sum-with-length-divisible-by-k/3653-maximum-subarray-sum-with-length-divisible-by-k.cpp",
-      "source": "/*\n Problem: 3653. Maximum Subarray Sum With Length Divisible by K\n Language: cpp\n Runtime: 4 ms (84.96%)\n Memory: 162.2 MB (54.75%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    long long maxSubarraySum(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<long long> minPref(k, LLONG_MAX);\n        long long pref = 0, res = LLONG_MIN;\n        \n        minPref[0] = 0;\n        for (int i = 0; i < n; i++) {\n            pref += nums[i];\n            int m = (i + 1) % k;\n            if (minPref[m] != LLONG_MAX)\n                res = max(res, pref - minPref[m]);\n            minPref[m] = min(minPref[m], pref);\n        }\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3653-maximum-subarray-sum-with-length-divisible-by-k/3653-maximum-subarray-sum-with-length-divisible-by-k.cpp"
+      "source": "/*\n Problem: 3653. Maximum Subarray Sum With Length Divisible by K\n Language: cpp\n Runtime: 4 ms (84.96%)\n Memory: 162.2 MB (54.75%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    long long maxSubarraySum(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<long long> minPref(k, LLONG_MAX);\n        long long pref = 0, res = LLONG_MIN;\n        \n        minPref[0] = 0;\n        for (int i = 0; i < n; i++) {\n            pref += nums[i];\n            int m = (i + 1) % k;\n            if (minPref[m] != LLONG_MAX)\n                res = max(res, pref - minPref[m]);\n            minPref[m] = min(minPref[m], pref);\n        }\n        return res;\n    }\n};"
     }
   ]
 }

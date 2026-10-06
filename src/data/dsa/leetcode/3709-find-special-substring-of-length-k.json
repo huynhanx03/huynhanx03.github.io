@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3709-find-special-substring-of-length-k/3709-find-special-substring-of-length-k.cpp",
-      "source": "/*\n Problem: 3709. Find Special Substring of Length K\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.7 MB (34.43%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool hasSpecialSubstring(string s, int k) {\n        s = s + '-';    \n        int n = s.size();\n            int p = 0;\n\n            for (int i = 1; i < n; ++i) {\n                if (s[i] == s[i - 1]) {\n                    continue;\n                }\n\n                if (i - p == k) {\n                    return true;\n                } else {\n                    p = i;\n                }\n            }\n\n            return false;\n        }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3709-find-special-substring-of-length-k/3709-find-special-substring-of-length-k.cpp"
+      "source": "/*\n Problem: 3709. Find Special Substring of Length K\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.7 MB (34.43%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool hasSpecialSubstring(string s, int k) {\n        s = s + '-';    \n        int n = s.size();\n            int p = 0;\n\n            for (int i = 1; i < n; ++i) {\n                if (s[i] == s[i - 1]) {\n                    continue;\n                }\n\n                if (i - p == k) {\n                    return true;\n                } else {\n                    p = i;\n                }\n            }\n\n            return false;\n        }\n};"
     }
   ]
 }

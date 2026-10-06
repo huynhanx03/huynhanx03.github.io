@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0717-1-bit-and-2-bit-characters/0717-1-bit-and-2-bit-characters.cpp",
-      "source": "/*\n Problem: 717. 1-bit and 2-bit Characters\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.1 MB (80.08%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int n = bits.size();\n        int i = 0;\n\n        while (i < n - 1) {\n            if (bits[i]) ++i;\n            ++i;\n        }\n\n        return i == n - 1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0717-1-bit-and-2-bit-characters/0717-1-bit-and-2-bit-characters.cpp"
+      "source": "/*\n Problem: 717. 1-bit and 2-bit Characters\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.1 MB (80.08%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int n = bits.size();\n        int i = 0;\n\n        while (i < n - 1) {\n            if (bits[i]) ++i;\n            ++i;\n        }\n\n        return i == n - 1;\n    }\n};"
     }
   ]
 }

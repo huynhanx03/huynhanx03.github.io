@@ -15,9 +15,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/1658-minimum-swaps-to-arrange-a-binary-grid/1658-minimum-swaps-to-arrange-a-binary-grid.cpp",
-      "source": "/*\n Problem: 1658. Minimum Swaps to Arrange a Binary Grid\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30 MB (66.25%)\n Tags: Array, Greedy, Matrix\n*/\nclass Solution {\npublic:\n    int minSwaps(vector<vector<int>>& grid) {\n        int n = grid.size();\n        vector<int> zeros(n);\n\n        for (int i = 0; i < n; i++) {\n            int cnt = 0;\n            for (int j = n - 1; j >= 0 && grid[i][j] == 0; j--) {\n                cnt++;\n            }\n            zeros[i] = cnt;\n        }\n\n        int swaps = 0;\n\n        for (int i = 0; i < n; i++) {\n            int need = n - i - 1;\n            int j = i;\n\n            while (j < n && zeros[j] < need) j++;\n            if (j == n) return -1;\n\n            while (j > i) {\n                swap(zeros[j], zeros[j - 1]);\n                swaps++;\n                j--;\n            }\n        }\n\n        return swaps;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1658-minimum-swaps-to-arrange-a-binary-grid/1658-minimum-swaps-to-arrange-a-binary-grid.cpp"
+      "relativePath": "leetcode/Medium/1658-minimum-operations-to-reduce-x-to-zero.cpp",
+      "source": "/*\n Problem: 1658. Minimum Operations to Reduce X to Zero\n Language: cpp\n Runtime: 3 ms (66.94%)\n Memory: 102.4 MB (64.07%)\n Tags: Array, Hash Table, Binary Search, Sliding Window, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, int x) {\n        int n = nums.size();\n        int target = accumulate(nums.begin(), nums.end(), 0) - x;\n\n        if (target < 0) return -1;\n        if (target == 0) return n;\n\n        int l = 0, sum = 0, len = -1;\n\n        for (int r = 0; r < n; ++r) {\n            sum += nums[r];\n\n            while (sum > target) {\n                sum -= nums[l++];\n            }\n\n            if (sum == target) {\n                len = max(len, r - l + 1);\n            }\n        }\n\n        return len == -1 ? -1 : n - len;\n    }\n};"
     }
   ]
 }

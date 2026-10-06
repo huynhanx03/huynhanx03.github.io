@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0387-first-unique-character-in-a-string/0387-first-unique-character-in-a-string.cpp",
-      "source": "/*\n Problem: 387. First Unique Character in a String\n Language: cpp\n Runtime: 8 ms (57.59%)\n Memory: 14.7 MB (72.52%)\n Tags: Hash Table, String, Queue, Counting\n*/\nclass Solution {\npublic:\n    int firstUniqChar(string s) {\n        vector <int> cnt(26, 0);\n        for (const auto& c : s) ++cnt[c - 'a'];\n        for (int i = 0; i < s.size(); ++i) if (cnt[s[i] - 'a'] == 1) return i;\n        return -1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0387-first-unique-character-in-a-string/0387-first-unique-character-in-a-string.cpp"
+      "source": "/*\n Problem: 387. First Unique Character in a String\n Language: cpp\n Runtime: 8 ms (57.59%)\n Memory: 14.7 MB (72.52%)\n Tags: Hash Table, String, Queue, Counting\n*/\nclass Solution {\npublic:\n    int firstUniqChar(string s) {\n        vector <int> cnt(26, 0);\n        for (const auto& c : s) ++cnt[c - 'a'];\n        for (int i = 0; i < s.size(); ++i) if (cnt[s[i] - 'a'] == 1) return i;\n        return -1;\n    }\n};"
     }
   ]
 }

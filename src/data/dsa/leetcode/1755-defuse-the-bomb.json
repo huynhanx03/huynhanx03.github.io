@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1755-defuse-the-bomb/1755-defuse-the-bomb.cpp",
-      "source": "/*\n Problem: 1755. Defuse the Bomb\n Language: cpp\n Runtime: 2 ms (13.25%)\n Memory: 11.8 MB (3.76%)\n Tags: Array, Sliding Window\n*/\nclass Solution {\npublic:\n    vector<int> decrypt(vector<int>& code, int k) {\n        int n = code.size();\n        vector<int> result(n, 0);\n        if (k == 0)\n            return result;\n\n        vector<int> prefixSum(2 * n + 1, 0);\n        for (int i = 0; i < 2 * n; i++)\n            prefixSum[i + 1] = prefixSum[i] + code[i % n];\n\n        for (int i = 0; i < n; i++) {\n            result[i] = (k > 0) ? prefixSum[i + k + 1] - prefixSum[i + 1]\n                                : prefixSum[i + n] - prefixSum[i + n + k];\n        }\n        return result;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1755-defuse-the-bomb/1755-defuse-the-bomb.cpp"
+      "source": "/*\n Problem: 1755. Defuse the Bomb\n Language: cpp\n Runtime: 2 ms (13.25%)\n Memory: 11.8 MB (3.76%)\n Tags: Array, Sliding Window\n*/\nclass Solution {\npublic:\n    vector<int> decrypt(vector<int>& code, int k) {\n        int n = code.size();\n        vector<int> result(n, 0);\n        if (k == 0)\n            return result;\n\n        vector<int> prefixSum(2 * n + 1, 0);\n        for (int i = 0; i < 2 * n; i++)\n            prefixSum[i + 1] = prefixSum[i] + code[i % n];\n\n        for (int i = 0; i < n; i++) {\n            result[i] = (k > 0) ? prefixSum[i + k + 1] - prefixSum[i + 1]\n                                : prefixSum[i + n] - prefixSum[i + n + k];\n        }\n        return result;\n    }\n};"
     }
   ]
 }

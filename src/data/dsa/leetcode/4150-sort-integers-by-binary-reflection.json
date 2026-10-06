@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4150-sort-integers-by-binary-reflection/4150-sort-integers-by-binary-reflection.cpp",
-      "source": "/*\n Problem: 4150. Sort Integers by Binary Reflection\n Language: cpp\n Runtime: 3 ms (82.81%)\n Memory: 32.3 MB (99.64%)\n Tags: Array, Sorting\n*/\nclass Solution {\nprivate:\n    int ref(int x) {\n        int res = 0;\n        while (x > 0) {\n            res = (res << 1) | (x & 1);\n            x /= 2;\n        }\n        return res;\n    }\npublic:\n    vector<int> sortByReflection(vector<int>& nums) {\n        sort(nums.begin(), nums.end(), [&](int a, int b) {\n            int bA = ref(a);\n            int bB = ref(b);\n\n            if (bA != bB) {\n                return bA < bB;\n            }\n\n            return a < b;\n        });\n\n        return nums;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4150-sort-integers-by-binary-reflection/4150-sort-integers-by-binary-reflection.cpp"
+      "source": "/*\n Problem: 4150. Sort Integers by Binary Reflection\n Language: cpp\n Runtime: 3 ms (82.81%)\n Memory: 32.3 MB (99.64%)\n Tags: Array, Sorting\n*/\nclass Solution {\nprivate:\n    int ref(int x) {\n        int res = 0;\n        while (x > 0) {\n            res = (res << 1) | (x & 1);\n            x /= 2;\n        }\n        return res;\n    }\npublic:\n    vector<int> sortByReflection(vector<int>& nums) {\n        sort(nums.begin(), nums.end(), [&](int a, int b) {\n            int bA = ref(a);\n            int bB = ref(b);\n\n            if (bA != bB) {\n                return bA < bB;\n            }\n\n            return a < b;\n        });\n\n        return nums;\n    }\n};"
     }
   ]
 }

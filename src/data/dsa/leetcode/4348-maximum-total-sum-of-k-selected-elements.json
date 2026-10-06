@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4348-maximum-total-sum-of-k-selected-elements/4348-maximum-total-sum-of-k-selected-elements.cpp",
-      "source": "/*\n Problem: 4348. Maximum Total Sum of K Selected Elements\n Language: cpp\n Runtime: 72 ms (43.25%)\n Memory: 186.3 MB (43.67%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    long long maxSum(vector<int>& nums, int k, int mul) {\n        long long ans = 0;\n\n        sort(nums.begin(), nums.end(), greater<>());\n\n        for (int i = 0; i < k; ++i) ans += 1ll * nums[i] * (mul > 0 ? mul-- : 1);\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4348-maximum-total-sum-of-k-selected-elements/4348-maximum-total-sum-of-k-selected-elements.cpp"
+      "source": "/*\n Problem: 4348. Maximum Total Sum of K Selected Elements\n Language: cpp\n Runtime: 72 ms (43.25%)\n Memory: 186.3 MB (43.67%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    long long maxSum(vector<int>& nums, int k, int mul) {\n        long long ans = 0;\n\n        sort(nums.begin(), nums.end(), greater<>());\n\n        for (int i = 0; i < k; ++i) ans += 1ll * nums[i] * (mul > 0 ? mul-- : 1);\n        \n        return ans;\n    }\n};"
     }
   ]
 }

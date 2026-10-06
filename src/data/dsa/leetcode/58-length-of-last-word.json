@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0058-length-of-last-word/0058-length-of-last-word.cpp",
-      "source": "/*\n Problem: 58. Length of Last Word\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.5 MB (100.00%)\n Tags: String\n*/\nclass Solution {\npublic:\n    int lengthOfLastWord(string s) {\n        int len = 0;\n\n        for (int i = s.size() - 1; i >= 0; --i) {\n            if (s[i] == ' ') {\n                if (len > 0)\n                    return len;\n            }\n\n            else\n                ++len;\n        }\n\n        return len;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0058-length-of-last-word/0058-length-of-last-word.cpp"
+      "source": "/*\n Problem: 58. Length of Last Word\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.5 MB (100.00%)\n Tags: String\n*/\nclass Solution {\npublic:\n    int lengthOfLastWord(string s) {\n        int len = 0;\n\n        for (int i = s.size() - 1; i >= 0; --i) {\n            if (s[i] == ' ') {\n                if (len > 0)\n                    return len;\n            }\n\n            else\n                ++len;\n        }\n\n        return len;\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3778-transform-array-by-parity/3778-transform-array-by-parity.cpp",
-      "source": "/*\n Problem: 3778. Transform Array by Parity\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 28.1 MB (86.47%)\n Tags: Array, Sorting, Counting\n*/\nclass Solution {\npublic:\n    vector<int> transformArray(vector<int>& nums)\n        {\n        for (int& num : nums) {\n            if (num % 2 == 0) {\n                num = 0; \n            } else {\n                num = 1;  \n            }\n        }\n        sort(nums.begin(), nums.end()); \n        return nums;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3778-transform-array-by-parity/3778-transform-array-by-parity.cpp"
+      "source": "/*\n Problem: 3778. Transform Array by Parity\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 28.1 MB (86.47%)\n Tags: Array, Sorting, Counting\n*/\nclass Solution {\npublic:\n    vector<int> transformArray(vector<int>& nums)\n        {\n        for (int& num : nums) {\n            if (num % 2 == 0) {\n                num = 0; \n            } else {\n                num = 1;  \n            }\n        }\n        sort(nums.begin(), nums.end()); \n        return nums;\n    }\n};"
     }
   ]
 }

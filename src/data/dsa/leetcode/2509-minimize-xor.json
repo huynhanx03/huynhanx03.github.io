@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2509-minimize-xor/2509-minimize-xor.cpp",
-      "source": "/*\n Problem: 2509. Minimize XOR\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8 MB (75.07%)\n Tags: Greedy, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int minimizeXor(int num1, int num2) {\n        int cnt = bitset<32>(num2).count();\n        \n        int r = 0;\n\n        for (int i = 31; i >= 0 && cnt > 0; --i) {\n            if (num1 & (1 << i)) {\n                r |= (1 << i);\n                --cnt;\n            }\n        }\n\n        for (int i = 0; i <= 31 && cnt > 0; ++i) {\n            if (!(r & (1 << i))) {\n                r |= (1 << i);\n                --cnt;\n            }\n        }\n\n        return r;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2509-minimize-xor/2509-minimize-xor.cpp"
+      "source": "/*\n Problem: 2509. Minimize XOR\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8 MB (75.07%)\n Tags: Greedy, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int minimizeXor(int num1, int num2) {\n        int cnt = bitset<32>(num2).count();\n        \n        int r = 0;\n\n        for (int i = 31; i >= 0 && cnt > 0; --i) {\n            if (num1 & (1 << i)) {\n                r |= (1 << i);\n                --cnt;\n            }\n        }\n\n        for (int i = 0; i <= 31 && cnt > 0; ++i) {\n            if (!(r & (1 << i))) {\n                r |= (1 << i);\n                --cnt;\n            }\n        }\n\n        return r;\n    }\n};"
     }
   ]
 }

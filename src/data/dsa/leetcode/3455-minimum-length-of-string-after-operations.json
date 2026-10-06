@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3455-minimum-length-of-string-after-operations/3455-minimum-length-of-string-after-operations.cpp",
-      "source": "/*\n Problem: 3455. Minimum Length of String After Operations\n Language: cpp\n Runtime: 22 ms (63.48%)\n Memory: 31.9 MB (89.17%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int minimumLength(string s) {\n        vector<int> cnt(26, 0);\n\n        int ans = 0;\n\n        for (const auto& c: s) {\n            int v = c - 'a';\n            \n            ++ans;\n            \n            if (++cnt[v] >= 3) {\n                cnt[v] -= 2;\n                ans -= 2;\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3455-minimum-length-of-string-after-operations/3455-minimum-length-of-string-after-operations.cpp"
+      "source": "/*\n Problem: 3455. Minimum Length of String After Operations\n Language: cpp\n Runtime: 22 ms (63.48%)\n Memory: 31.9 MB (89.17%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int minimumLength(string s) {\n        vector<int> cnt(26, 0);\n\n        int ans = 0;\n\n        for (const auto& c: s) {\n            int v = c - 'a';\n            \n            ++ans;\n            \n            if (++cnt[v] >= 3) {\n                cnt[v] -= 2;\n                ans -= 2;\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

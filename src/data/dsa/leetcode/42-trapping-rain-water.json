@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/0042-trapping-rain-water/0042-trapping-rain-water.cpp",
-      "source": "/*\n Problem: 42. Trapping Rain Water\n Language: cpp\n Runtime: 7 ms (5.54%)\n Memory: 23.3 MB (100.00%)\n Tags: Array, Two Pointers, Dynamic Programming, Stack, Monotonic Stack\n*/\nclass Solution {\npublic:\n    int trap(vector<int>& height) {\n        int n = height.size();\n\n        vector<int> maxLeft(n + 2, 0);\n        vector<int> maxRight(n + 2, 0);\n\n        for (int i = 0; i < n; ++i) {\n            maxLeft[i + 1] = max(maxLeft[i], height[i]);\n        }\n\n        \n        for (int i = n - 1; i >= 0; --i) {\n            maxRight[i + 1] = max(maxRight[i + 2], height[i]);\n        }\n\n        int result = 0;\n\n        for (int i = 1; i <= n; ++i) {\n            result += min(maxRight[i], maxLeft[i]) - height[i - 1];\n        }\n\n        return result;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0042-trapping-rain-water/0042-trapping-rain-water.cpp"
+      "source": "/*\n Problem: 42. Trapping Rain Water\n Language: cpp\n Runtime: 7 ms (5.54%)\n Memory: 23.3 MB (100.00%)\n Tags: Array, Two Pointers, Dynamic Programming, Stack, Monotonic Stack\n*/\nclass Solution {\npublic:\n    int trap(vector<int>& height) {\n        int n = height.size();\n\n        vector<int> maxLeft(n + 2, 0);\n        vector<int> maxRight(n + 2, 0);\n\n        for (int i = 0; i < n; ++i) {\n            maxLeft[i + 1] = max(maxLeft[i], height[i]);\n        }\n\n        \n        for (int i = n - 1; i >= 0; --i) {\n            maxRight[i + 1] = max(maxRight[i + 2], height[i]);\n        }\n\n        int result = 0;\n\n        for (int i = 1; i <= n; ++i) {\n            result += min(maxRight[i], maxLeft[i]) - height[i - 1];\n        }\n\n        return result;\n    }\n};"
     }
   ]
 }

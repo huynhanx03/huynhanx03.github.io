@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2533-bitwise-xor-of-all-pairings/2533-bitwise-xor-of-all-pairings.cpp",
-      "source": "/*\n Problem: 2533. Bitwise XOR of All Pairings\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 64.4 MB (14.93%)\n Tags: Array, Bit Manipulation, Brainteaser\n*/\nclass Solution {\npublic:\n    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {\n        // a1 xor b1..bn\n        // a2 xor b1..bn\n        // b1..bn  xor a1 xor\n\n        int n1 = nums1.size(), n2 = nums2.size();\n\n        int ans = 0;\n\n        if (n2 % 2 == 1)\n            for (int i = 0; i < n1; ++i)\n                ans ^= nums1[i];\n\n        if (n1 % 2 == 1)\n            for (int i = 0; i < n2; ++i)\n                ans ^= nums2[i];\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2533-bitwise-xor-of-all-pairings/2533-bitwise-xor-of-all-pairings.cpp"
+      "source": "/*\n Problem: 2533. Bitwise XOR of All Pairings\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 64.4 MB (14.93%)\n Tags: Array, Bit Manipulation, Brainteaser\n*/\nclass Solution {\npublic:\n    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {\n        // a1 xor b1..bn\n        // a2 xor b1..bn\n        // b1..bn  xor a1 xor\n\n        int n1 = nums1.size(), n2 = nums2.size();\n\n        int ans = 0;\n\n        if (n2 % 2 == 1)\n            for (int i = 0; i < n1; ++i)\n                ans ^= nums1[i];\n\n        if (n1 % 2 == 1)\n            for (int i = 0; i < n2; ++i)\n                ans ^= nums2[i];\n\n        return ans;\n    }\n};"
     }
   ]
 }

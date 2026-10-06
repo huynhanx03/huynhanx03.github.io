@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Easy/0020-valid-parentheses/0020-valid-parentheses.cpp",
-      "source": "/*\n Problem: 20. Valid Parentheses\n Language: cpp\n Runtime: 8 ms (1.39%)\n Memory: 6.4 MB (100.00%)\n Tags: String, Stack\n*/\nclass Solution {\npublic:\n    bool isValid(string s) {\n        map <char, char> mp {{')', '('}, {']', '['}, {'}', '{'}};\n\n        stack <int> st;\n        \n        for (auto c : s) {\n            if (st.empty()) st.push(c);\n            else {\n                if (c == ')' || c == ']' || c == '}') {\n                    if (st.top() == mp[c]) st.pop();\n                    else return 0;\n                } else st.push(c);\n            }\n        }\n        \n        return st.empty();\n            \n        \n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0020-valid-parentheses/0020-valid-parentheses.cpp"
+      "relativePath": "leetcode/Easy/20-valid-parentheses.cpp",
+      "source": "/*\n Problem: 20. Valid Parentheses\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.2 MB (6.09%)\n Tags: Stack, String\n*/\nclass Solution {\npublic:\n    bool isValid(string s) {\n        map <char, char> mp {{')', '('}, {']', '['}, {'}', '{'}};\n\n        stack <int> st;\n        \n        for (const auto& c : s) {\n            if (st.empty()) st.push(c);\n            else {\n                if (c == ')' || c == ']' || c == '}') {\n                    if (st.top() == mp[c]) st.pop();\n                    else return 0;\n                } else st.push(c);\n            }\n        }\n        \n        return st.empty();\n            \n        \n    }\n};"
     }
   ]
 }

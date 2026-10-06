@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1071-binary-prefix-divisible-by-5/1071-binary-prefix-divisible-by-5.cpp",
-      "source": "/*\n Problem: 1071. Binary Prefix Divisible By 5\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 18.3 MB (95.86%)\n Tags: Array, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<bool> prefixesDivBy5(vector<int>& nums) {\n        vector<bool> ans;\n        long long sum = 0;\n\n        for (const auto& num : nums) {\n            sum = (sum * 2 + num) % 5;\n            ans.push_back(sum == 0);\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1071-binary-prefix-divisible-by-5/1071-binary-prefix-divisible-by-5.cpp"
+      "source": "/*\n Problem: 1071. Binary Prefix Divisible By 5\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 18.3 MB (95.86%)\n Tags: Array, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<bool> prefixesDivBy5(vector<int>& nums) {\n        vector<bool> ans;\n        long long sum = 0;\n\n        for (const auto& num : nums) {\n            sum = (sum * 2 + num) % 5;\n            ans.push_back(sum == 0);\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2892-check-if-array-is-good/2892-check-if-array-is-good.cpp",
-      "source": "/*\n Problem: 2892. Check if Array is Good\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 26.4 MB (68.16%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    bool isGood(vector<int>& nums) {\n        int n = nums.size();\n        sort(nums.begin(), nums.end());\n        if (nums[n - 1] != n - 1) return false;\n\n        for (int i = 0; i < n - 1; ++i) {\n            if (nums[i] != i + 1) return false;\n        }\n\n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2892-check-if-array-is-good/2892-check-if-array-is-good.cpp"
+      "source": "/*\n Problem: 2892. Check if Array is Good\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 26.4 MB (68.16%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    bool isGood(vector<int>& nums) {\n        int n = nums.size();\n        sort(nums.begin(), nums.end());\n        if (nums[n - 1] != n - 1) return false;\n\n        for (int i = 0; i < n - 1; ++i) {\n            if (nums[i] != i + 1) return false;\n        }\n\n        return true;\n    }\n};"
     }
   ]
 }

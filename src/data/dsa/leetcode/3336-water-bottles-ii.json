@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/3336-water-bottles-ii/3336-water-bottles-ii.cpp",
-      "source": "/*\n Problem: 3336. Water Bottles II\n Language: cpp\n Runtime: 5 ms (20.02%)\n Memory: 8.6 MB (14.99%)\n Tags: Math, Simulation\n*/\nclass Solution {\npublic:\n    int maxBottlesDrunk(int numBottles, int numExchange) {\n        int totalDrunk = numBottles;\n        int empty = numBottles;\n\n        while (empty >= numExchange) {\n            ++totalDrunk;\n            empty = empty - numExchange + 1;\n            ++numExchange;\n        }\n\n        return totalDrunk;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3336-water-bottles-ii/3336-water-bottles-ii.cpp"
+      "relativePath": "leetcode/Hard/3336-find-the-number-of-subsequences-with-equal-gcd.cpp",
+      "source": "/*\n Problem: 3336. Find the Number of Subsequences With Equal GCD\n Language: cpp\n Runtime: 379 ms (92.67%)\n Memory: 290.1 MB (55.11%)\n Tags: Array, Math, Dynamic Programming, Number Theory, Euclidean Algorithm, Greatest Common Divisor\n*/\nclass Solution {\npublic:\n    int subsequencePairCount(vector<int>& nums) {\n        int mx = *max_element(nums.begin(), nums.end());\n        int MOD = 1e9 + 7;\n        vector<vector<int>> dp(mx + 1, vector<int>(mx + 1));\n        dp[0][0] = 1;\n\n        for (const auto& x : nums) {\n            auto ndp = dp;\n\n            for (int g1 = 0; g1 <= mx; ++g1) {\n                for (int g2 = 0; g2 <= mx; ++g2) {\n                    if (!dp[g1][g2]) continue;\n\n                    int ng1 = g1 == 0 ? x : std::gcd(g1, x);\n                    int ng2 = g2 == 0 ? x : std::gcd(g2, x);\n\n                    ndp[ng1][g2] += dp[g1][g2];\n                    if (ndp[ng1][g2] >= MOD) ndp[ng1][g2] -= MOD;\n\n                    ndp[g1][ng2] += dp[g1][g2];\n                    if (ndp[g1][ng2] >= MOD) ndp[g1][ng2] -= MOD;\n                }\n            }\n\n            dp.swap(ndp);\n        }\n\n        long long ans = 0;\n\n        for (int g = 1; g <= mx; ++g) {\n            ans += dp[g][g];\n            ans %= MOD;\n        }\n\n        return (int)ans;\n    }\n};"
     }
   ]
 }

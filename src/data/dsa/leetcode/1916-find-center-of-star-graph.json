@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1916-find-center-of-star-graph/1916-find-center-of-star-graph.cpp",
-      "source": "/*\n Problem: 1916. Find Center of Star Graph\n Language: cpp\n Runtime: 123 ms (6.17%)\n Memory: 124.7 MB (10.98%)\n Tags: Graph Theory\n*/\nclass Solution {\npublic:\n    int findCenter(vector<vector<int>>& edges) {\n        set<int> st;\n        vector<int> cnt(edges.size() + 5);\n\n        for (const auto& edge: edges) {\n            int u = edge[0];\n            int v = edge[1];\n\n            st.insert(u);\n            st.insert(v);\n\n            ++cnt[u];\n            ++cnt[v];\n        }\n\n        int n = st.size();\n\n        for (const auto& x : st) {\n            if (cnt[x] == n - 1) return x;\n        }\n\n        return -1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1916-find-center-of-star-graph/1916-find-center-of-star-graph.cpp"
+      "source": "/*\n Problem: 1916. Find Center of Star Graph\n Language: cpp\n Runtime: 123 ms (6.17%)\n Memory: 124.7 MB (10.98%)\n Tags: Graph Theory\n*/\nclass Solution {\npublic:\n    int findCenter(vector<vector<int>>& edges) {\n        set<int> st;\n        vector<int> cnt(edges.size() + 5);\n\n        for (const auto& edge: edges) {\n            int u = edge[0];\n            int v = edge[1];\n\n            st.insert(u);\n            st.insert(v);\n\n            ++cnt[u];\n            ++cnt[v];\n        }\n\n        int n = st.size();\n\n        for (const auto& x : st) {\n            if (cnt[x] == n - 1) return x;\n        }\n\n        return -1;\n    }\n};"
     }
   ]
 }

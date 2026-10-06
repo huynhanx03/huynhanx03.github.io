@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1301",
+  "platform": "leetcode",
+  "id": "1301",
+  "slug": "number-of-paths-with-max-score",
+  "title": "Number of Paths with Max Score",
+  "url": "https://leetcode.com/problems/number-of-paths-with-max-score/",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix"
+  ],
+  "statementHtml": "<p>You are given a square <code>board</code>&nbsp;of characters. You can move on the board starting at the bottom right square marked with the character&nbsp;<code>'S'</code>.</p>\n\n<p>You need&nbsp;to reach the top left square marked with the character <code>'E'</code>. The rest of the squares are labeled either with a numeric character&nbsp;<code>1, 2, ..., 9</code> or with an obstacle <code>'X'</code>. In one move you can go up, left or up-left (diagonally) only if there is no obstacle there.</p>\n\n<p>Return a list of two integers: the first integer is the maximum sum of numeric characters you can collect, and the second is the number of such paths that you can take to get that maximum sum, <strong>taken modulo <code>10^9 + 7</code></strong>.</p>\n\n<p>In case there is no path, return&nbsp;<code>[0, 0]</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> board = [\"E23\",\"2X2\",\"12S\"]\n<strong>Output:</strong> [7,1]\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> board = [\"E12\",\"1X1\",\"21S\"]\n<strong>Output:</strong> [4,2]\n</pre><p><strong>Example 3:</strong></p>\n<pre><strong>Input:</strong> board = [\"E11\",\"XXX\",\"11S\"]\n<strong>Output:</strong> [0,0]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= board.length == board[i].length &lt;= 100</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Hard/1301-number-of-paths-with-max-score.cpp",
+      "source": "/*\n Problem: 1301. Number of Paths with Max Score\n Language: cpp\n Runtime: 7 ms (79.59%)\n Memory: 11.6 MB (91.68%)\n Tags: Array, Dynamic Programming, Matrix\n*/\nclass Solution {\npublic:\n    vector<int> pathsWithMaxScore(vector<string>& board) {\n        static constexpr int MOD = 1e9 + 7;\n        static constexpr array<pair<int, int>, 3> DIR{{\n            {-1, 0},\n            {0, -1},\n            {-1, -1}\n        }};\n\n        const int n = board.size();\n\n        vector<vector<int>> dp(n, vector<int>(n, -1));\n        vector<vector<int>> cnt(n, vector<int>(n));\n\n        dp[0][0] = 0;\n        cnt[0][0] = 1;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (!i && !j || board[i][j] == 'X') {\n                    continue;\n                }\n\n                int best = -1;\n                int ways = 0;\n\n                for (const auto& [dx, dy] : DIR) {\n                    const int x = i + dx;\n                    const int y = j + dy;\n\n                    if (x < 0 || y < 0 || dp[x][y] == -1) {\n                        continue;\n                    }\n\n                    if (dp[x][y] > best) {\n                        best = dp[x][y];\n                        ways = cnt[x][y];\n                    } else if (dp[x][y] == best) {\n                        ways = (ways + cnt[x][y]) % MOD;\n                    }\n                }\n\n                if (best == -1) {\n                    continue;\n                }\n\n                dp[i][j] = best;\n                cnt[i][j] = ways;\n\n                if (isdigit(board[i][j])) {\n                    dp[i][j] += board[i][j] - '0';\n                }\n            }\n        }\n\n        if (dp[n - 1][n - 1] == -1) {\n            return {0, 0};\n        }\n\n        return {dp[n - 1][n - 1], cnt[n - 1][n - 1]};\n    }\n};"
+    }
+  ]
+}

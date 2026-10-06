@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0611-valid-triangle-number/0611-valid-triangle-number.cpp",
-      "source": "/*\n Problem: 611. Valid Triangle Number\n Language: cpp\n Runtime: 31 ms (69.12%)\n Memory: 16.8 MB (12.03%)\n Tags: Array, Two Pointers, Binary Search, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int triangleNumber(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 3) return 0;\n\n        sort(nums.begin(), nums.end());\n        int count = 0;\n\n        for (int k = n - 1; k >= 2; k--) {\n            int i = 0, j = k - 1;\n            while (i < j) {\n                if (nums[i] + nums[j] > nums[k]) {\n                    count += (j - i);\n                    j--;\n                } else {\n                    i++;\n                }\n            }\n        }\n        return count;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0611-valid-triangle-number/0611-valid-triangle-number.cpp"
+      "source": "/*\n Problem: 611. Valid Triangle Number\n Language: cpp\n Runtime: 31 ms (69.12%)\n Memory: 16.8 MB (12.03%)\n Tags: Array, Two Pointers, Binary Search, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int triangleNumber(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 3) return 0;\n\n        sort(nums.begin(), nums.end());\n        int count = 0;\n\n        for (int k = n - 1; k >= 2; k--) {\n            int i = 0, j = k - 1;\n            while (i < j) {\n                if (nums[i] + nums[j] > nums[k]) {\n                    count += (j - i);\n                    j--;\n                } else {\n                    i++;\n                }\n            }\n        }\n        return count;\n    }\n};\n"
     }
   ]
 }

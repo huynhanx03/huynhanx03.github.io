@@ -17,8 +17,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Hard/2307-replace-non-coprime-numbers-in-array/2307-replace-non-coprime-numbers-in-array.py",
-      "source": "\"\"\"\n Problem: 2307. Replace Non-Coprime Numbers in Array\n Language: python3\n Runtime: 123 ms (57.72%)\n Memory: 31.5 MB (96.75%)\n Tags: Array, Math, Stack, Number Theory\n\"\"\"\nclass Solution:\n    def replaceNonCoprimes(self, nums: List[int]) -> List[int]:\n        stack = []\n        for num in nums:\n            while stack and gcd(stack[-1], num) > 1:\n                num = lcm(stack.pop(), num)\n            stack.append(num)\n\n        return stack\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/2307-replace-non-coprime-numbers-in-array/2307-replace-non-coprime-numbers-in-array.py"
+      "source": "\"\"\"\n Problem: 2307. Replace Non-Coprime Numbers in Array\n Language: python3\n Runtime: 123 ms (57.72%)\n Memory: 31.5 MB (96.75%)\n Tags: Array, Math, Stack, Number Theory\n\"\"\"\nclass Solution:\n    def replaceNonCoprimes(self, nums: List[int]) -> List[int]:\n        stack = []\n        for num in nums:\n            while stack and gcd(stack[-1], num) > 1:\n                num = lcm(stack.pop(), num)\n            stack.append(num)\n\n        return stack\n"
     }
   ]
 }

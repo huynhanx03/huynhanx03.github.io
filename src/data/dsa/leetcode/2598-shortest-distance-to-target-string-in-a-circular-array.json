@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2598-shortest-distance-to-target-string-in-a-circular-array/2598-shortest-distance-to-target-string-in-a-circular-array.cpp",
-      "source": "/*\n Problem: 2598. Shortest Distance to Target String in a Circular Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 18.4 MB (37.22%)\n Tags: Array, String\n*/\nclass Solution {\npublic:\n    int closestTarget(vector<string>& words, string target, int startIndex) {\n        int n = words.size();\n        int res = n + 1;\n\n        for (int i = 0; i < n; ++i) {\n            if (words[i] == target) {\n                int diff = abs(i - startIndex);\n                int dist = min(diff, n - diff);\n                res = min(res, dist);\n            }\n        }\n\n        return res == n + 1 ? -1 : res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2598-shortest-distance-to-target-string-in-a-circular-array/2598-shortest-distance-to-target-string-in-a-circular-array.cpp"
+      "source": "/*\n Problem: 2598. Shortest Distance to Target String in a Circular Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 18.4 MB (37.22%)\n Tags: Array, String\n*/\nclass Solution {\npublic:\n    int closestTarget(vector<string>& words, string target, int startIndex) {\n        int n = words.size();\n        int res = n + 1;\n\n        for (int i = 0; i < n; ++i) {\n            if (words[i] == target) {\n                int diff = abs(i - startIndex);\n                int dist = min(diff, n - diff);\n                res = min(res, dist);\n            }\n        }\n\n        return res == n + 1 ? -1 : res;\n    }\n};"
     }
   ]
 }

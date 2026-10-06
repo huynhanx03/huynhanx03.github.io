@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2887-sort-vowels-in-a-string/2887-sort-vowels-in-a-string.cpp",
-      "source": "/*\n Problem: 2887. Sort Vowels in a String\n Language: cpp\n Runtime: 21 ms (29.13%)\n Memory: 16 MB (60.98%)\n Tags: String, Sorting\n*/\nclass Solution {\npublic:\n    string sortVowels(string s) {\n        string vowels_set = \"aeiouAEIOU\";\n\n        auto isVowel = [&](char c) {\n            return vowels_set.find(c) != string::npos;\n        };\n\n        vector<char> vowels;\n        for (const char& c : s) {\n            if (isVowel(c)) vowels.push_back(c);\n        }\n        sort(vowels.begin(), vowels.end());\n\n        int n = s.size();\n        int idx = 0;\n        \n        for (int i = 0; i < n; i++) {\n            if (isVowel(s[i])) {\n                s[i] = vowels[idx++];\n            }\n        }\n\n        return s;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2887-sort-vowels-in-a-string/2887-sort-vowels-in-a-string.cpp"
+      "source": "/*\n Problem: 2887. Sort Vowels in a String\n Language: cpp\n Runtime: 21 ms (29.13%)\n Memory: 16 MB (60.98%)\n Tags: String, Sorting\n*/\nclass Solution {\npublic:\n    string sortVowels(string s) {\n        string vowels_set = \"aeiouAEIOU\";\n\n        auto isVowel = [&](char c) {\n            return vowels_set.find(c) != string::npos;\n        };\n\n        vector<char> vowels;\n        for (const char& c : s) {\n            if (isVowel(c)) vowels.push_back(c);\n        }\n        sort(vowels.begin(), vowels.end());\n\n        int n = s.size();\n        int idx = 0;\n        \n        for (int i = 0; i < n; i++) {\n            if (isVowel(s[i])) {\n                s[i] = vowels[idx++];\n            }\n        }\n\n        return s;\n    }\n};"
     }
   ]
 }

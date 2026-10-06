@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:3514",
+  "platform": "leetcode",
+  "id": "3514",
+  "slug": "number-of-unique-xor-triplets-ii",
+  "title": "Number of Unique XOR Triplets II",
+  "url": "https://leetcode.com/problems/number-of-unique-xor-triplets-ii/",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Math",
+    "Bit Manipulation",
+    "Enumeration"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>A <strong>XOR triplet</strong> is defined as the XOR of three elements <code>nums[i] XOR nums[j] XOR nums[k]</code> where <code>i &lt;= j &lt;= k</code>.</p>\n\n<p>Return the number of <strong>unique</strong> XOR triplet values from all possible triplets <code>(i, j, k)</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,3]</span></p>\n\n<p><strong>Output:</strong> <span>2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The possible XOR triplet values are:</p>\n\n<ul>\n\t<li><code>(0, 0, 0) → 1 XOR 1 XOR 1 = 1</code></li>\n\t<li><code>(0, 0, 1) → 1 XOR 1 XOR 3 = 3</code></li>\n\t<li><code>(0, 1, 1) → 1 XOR 3 XOR 3 = 1</code></li>\n\t<li><code>(1, 1, 1) → 3 XOR 3 XOR 3 = 3</code></li>\n</ul>\n\n<p>The unique XOR values are <code>{1, 3}</code>. Thus, the output is 2.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [6,7,8,9]</span></p>\n\n<p><strong>Output:</strong> <span>4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The possible XOR triplet values are <code>{6, 7, 8, 9}</code>. Thus, the output is 4.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 1500</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 1500</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3514-number-of-unique-xor-triplets-ii.cpp",
+      "source": "/*\n Problem: 3514. Number of Unique XOR Triplets II\n Language: cpp\n Runtime: 2102 ms (22.09%)\n Memory: 98.2 MB (34.76%)\n Tags: Array, Math, Bit Manipulation, Enumeration\n*/\nclass Solution {\npublic:\n    int uniqueXorTriplets(vector<int>& nums) {\n        int n = nums.size();\n\n        unordered_set<int> pairs;\n        unordered_set<int> ans;\n\n        for (const auto& x : nums)\n            ans.insert(x);\n\n        for (int i = 0; i < n; ++i)\n            for (int j = i + 1; j < n; ++j)\n                pairs.insert(nums[i] ^ nums[j]);\n\n        for (const auto& p : pairs)\n            for (const auto& x : nums)\n                ans.insert(p ^ x);\n\n        return ans.size();\n    }\n};"
+    }
+  ]
+}

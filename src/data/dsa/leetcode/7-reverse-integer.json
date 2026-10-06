@@ -14,8 +14,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Medium/0007-reverse-integer/0007-reverse-integer.py",
-      "source": "\"\"\"\n Problem: 7. Reverse Integer\n Language: python3\n Runtime: 30 ms (98.87%)\n Memory: 18 MB (92.75%)\n Tags: Math\n\"\"\"\nclass Solution:\n    def reverse(self, x: int) -> int:\n        INT_MIN, INT_MAX = -2**31, 2**31 - 1\n        sign = -1 if x < 0 else 1\n        rev = int(str(abs(x))[::-1]) * sign\n        return rev if INT_MIN <= rev <= INT_MAX else 0\n        ",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0007-reverse-integer/0007-reverse-integer.py"
+      "source": "\"\"\"\n Problem: 7. Reverse Integer\n Language: python3\n Runtime: 30 ms (98.87%)\n Memory: 18 MB (92.75%)\n Tags: Math\n\"\"\"\nclass Solution:\n    def reverse(self, x: int) -> int:\n        INT_MIN, INT_MAX = -2**31, 2**31 - 1\n        sign = -1 if x < 0 else 1\n        rev = int(str(abs(x))[::-1]) * sign\n        return rev if INT_MIN <= rev <= INT_MAX else 0\n        "
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:856",
+  "platform": "leetcode",
+  "id": "856",
+  "slug": "score-of-parentheses",
+  "title": "Score of Parentheses",
+  "url": "https://leetcode.com/problems/score-of-parentheses/",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Stack",
+    "Bracket Sequences"
+  ],
+  "statementHtml": "<p>Given a balanced parentheses string <code>s</code>, return <em>the <strong>score</strong> of the string</em>.</p>\n\n<p>The <strong>score</strong> of a balanced parentheses string is based on the following rule:</p>\n\n<ul>\n\t<li><code>\"()\"</code> has score <code>1</code>.</li>\n\t<li><code>AB</code> has score <code>A + B</code>, where <code>A</code> and <code>B</code> are balanced parentheses strings.</li>\n\t<li><code>(A)</code> has score <code>2 * A</code>, where <code>A</code> is a balanced parentheses string.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"()\"\n<strong>Output:</strong> 1\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"(())\"\n<strong>Output:</strong> 2\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"()()\"\n<strong>Output:</strong> 2\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= s.length &lt;= 50</code></li>\n\t<li><code>s</code> consists of only <code>'('</code> and <code>')'</code>.</li>\n\t<li><code>s</code> is a balanced parentheses string.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/856-score-of-parentheses.cpp",
+      "source": "/*\n Problem: 856. Score of Parentheses\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8 MB (85.68%)\n Tags: String, Stack, Bracket Sequences\n*/\nclass Solution {\npublic:\n    int scoreOfParentheses(string s) {\n        return F(s, 0, s.length());\n    }\n\nprivate:\n    int F(const string& s, int i, int j) {\n        int ans = 0, bal = 0;\n        for (int k = i; k < j; ++k) {\n            bal += (s[k] == '(' ? 1 : -1);\n            if (bal == 0) {\n                if (k - i == 1) {\n                    ans++;\n                } else {\n                    ans += 2 * F(s, i + 1, k);\n                }\n                i = k + 1;\n            }\n        }\n        return ans;\n    }\n};"
+    }
+  ]
+}

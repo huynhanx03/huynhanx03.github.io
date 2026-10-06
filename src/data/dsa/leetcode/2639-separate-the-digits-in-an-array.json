@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2639-separate-the-digits-in-an-array/2639-separate-the-digits-in-an-array.cpp",
-      "source": "/*\n Problem: 2639. Separate the Digits in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.3 MB (58.98%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> separateDigits(vector<int>& nums) {\n        vector<int> ans;\n\n        for (const auto& x : nums) {\n            string s = to_string(x);\n\n            for (const auto& c : s) {\n                ans.push_back(c - '0');\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2639-separate-the-digits-in-an-array/2639-separate-the-digits-in-an-array.cpp"
+      "source": "/*\n Problem: 2639. Separate the Digits in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.3 MB (58.98%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> separateDigits(vector<int>& nums) {\n        vector<int> ans;\n\n        for (const auto& x : nums) {\n            string s = to_string(x);\n\n            for (const auto& c : s) {\n                ans.push_back(c - '0');\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

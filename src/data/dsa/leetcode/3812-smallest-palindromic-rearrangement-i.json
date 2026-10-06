@@ -15,9 +15,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/3812-smallest-palindromic-rearrangement-i/3812-smallest-palindromic-rearrangement-i.cpp",
-      "source": "/*\n Problem: 3812. Smallest Palindromic Rearrangement I\n Language: cpp\n Runtime: 51 ms (55.56%)\n Memory: 75.2 MB (38.38%)\n Tags: String, Sorting, Counting Sort\n*/\nclass Solution {\npublic:\n    string smallestPalindrome(string str) {\n        vector<int> cnt(26, 0);\n\n        for (const auto& c : str) ++cnt[c - 'a'];\n\n        string s = \"\";\n        char mid = '.';\n\n        for (int i = 0; i < 26; ++i) {\n            int count = cnt[i] / 2;\n            char c = i + 'a';\n            if (cnt[i] % 2) mid = c;\n\n            for (int j = 1; j <= count; ++j) s += c;\n        }\n\n        return mid == '.' ? s + string(s.rbegin(), s.rend()) : s + mid + string(s.rbegin(), s.rend());\n\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3812-smallest-palindromic-rearrangement-i/3812-smallest-palindromic-rearrangement-i.cpp"
+      "relativePath": "leetcode/Medium/3812-smallest-palindromic-rearrangement-i.cpp",
+      "source": "/*\n Problem: 3812. Smallest Palindromic Rearrangement I\n Language: cpp\n Runtime: 15 ms (93.28%)\n Memory: 75.2 MB (31.25%)\n Tags: Counting Sort, Sorting, String\n*/\nclass Solution {\npublic:\n    string smallestPalindrome(string str) {\n        vector<int> cnt(26, 0);\n\n        for (const auto& c : str) ++cnt[c - 'a'];\n\n        string s = \"\";\n        char mid = '.';\n\n        for (int i = 0; i < 26; ++i) {\n            int count = cnt[i] / 2;\n            char c = i + 'a';\n            if (cnt[i] % 2) mid = c;\n\n            for (int j = 1; j <= count; ++j) s += c;\n        }\n\n        return mid == '.' ? s + string(s.rbegin(), s.rend()) : s + mid + string(s.rbegin(), s.rend());\n\n    }\n};"
     }
   ]
 }

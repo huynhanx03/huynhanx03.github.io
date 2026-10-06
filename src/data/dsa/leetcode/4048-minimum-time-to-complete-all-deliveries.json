@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/4048-minimum-time-to-complete-all-deliveries/4048-minimum-time-to-complete-all-deliveries.cpp",
-      "source": "/*\n Problem: 4048. Minimum Time to Complete All Deliveries\n Language: cpp\n Runtime: 15 ms (5.04%)\n Memory: 54.8 MB (7.96%)\n Tags: Math, Binary Search\n*/\ntypedef long long ll;\n\nclass Solution {\nprivate:\n    ll lcmll(ll a, ll b) {\n        return a / gcd(a, b) * b;\n    }\n    \n    bool canFinish(ll t, vector<int>& d, vector<int>& r) {\n        int n = 2;\n        vector<ll> w(n);\n        ll bc = t / lcmll(r[0], r[1]);\n        ll qw = 0, qd = 0; \n        ll av = t - bc;\n        for (int i = 0; i < n; ++i) {\n            w[i] = t - t / r[i];\n            w[i] = min(w[i], 1LL * d[i]);\n            qw += w[i];\n            qd += d[i];\n        }\n        \n        return (w[0] >= d[0] && w[1] >= d[1] && min(av, qw) >= d[0] + d[1]);\n    }\n    \npublic:\n    long long minimumTime(vector<int>& d, vector<int>& r) {\n        ll l = 0, h = 1e18;\n        ll ans = h;\n\n        while (l <= h) {\n            ll mid = l + (h - l) / 2;\n\n            if (canFinish(mid, d, r)) {\n                ans = mid;\n                h = mid - 1;\n            } else {\n                l = mid + 1;\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4048-minimum-time-to-complete-all-deliveries/4048-minimum-time-to-complete-all-deliveries.cpp"
+      "relativePath": "leetcode/Easy/4048-count-values-with-equally-spaced-occurrences-i.cpp",
+      "source": "/*\n Problem: 4048. Count Values With Equally Spaced Occurrences I\n Language: cpp\n Runtime: 12 ms (55.35%)\n Memory: 32.2 MB (58.36%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int countSpecialIntegers(vector<int>& nums) {\n        map<int, vector<int>> mp;\n        int ans = 0;\n\n        for (int i = 0; i < nums.size(); ++i) mp[nums[i]].push_back(i);\n\n        for (const auto& [v, p] : mp) {\n            if (p.size() != 3) continue;\n\n            if (p[1] - p[0] == p[2] - p[1]) ++ans;\n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

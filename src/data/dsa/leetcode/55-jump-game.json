@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0055-jump-game/0055-jump-game.cpp",
-      "source": "/*\n Problem: 55. Jump Game\n Language: cpp\n Runtime: 43 ms (17.38%)\n Memory: 51.1 MB (99.93%)\n Tags: Array, Dynamic Programming, Greedy\n*/\nclass Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        int step = 0;\n\n        for (auto num : nums) {\n            if (step < 0)\n                return 0;\n            \n            if (num > step)\n                step = num;\n\n            --step;\n        }\n\n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0055-jump-game/0055-jump-game.cpp"
+      "source": "/*\n Problem: 55. Jump Game\n Language: cpp\n Runtime: 43 ms (17.38%)\n Memory: 51.1 MB (99.93%)\n Tags: Array, Dynamic Programming, Greedy\n*/\nclass Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        int step = 0;\n\n        for (auto num : nums) {\n            if (step < 0)\n                return 0;\n            \n            if (num > step)\n                step = num;\n\n            --step;\n        }\n\n        return true;\n    }\n};"
     }
   ]
 }

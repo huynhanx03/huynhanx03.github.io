@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0279-perfect-squares/0279-perfect-squares.cpp",
-      "source": "/*\n Problem: 279. Perfect Squares\n Language: cpp\n Runtime: 44 ms (62.46%)\n Memory: 13 MB (82.43%)\n Tags: Math, Dynamic Programming, Breadth-First Search\n*/\nclass Solution {\npublic:\n    int numSquares(int n) {\n        vector<int> dp(n + 1, INT_MAX);\n\n        dp[0] = 0;\n\n        for (int i = 1; i <= n; ++i) {\n            for (int j = 1; j * j <= i; ++j) {\n                dp[i] = min(dp[i], dp[i - j * j] + 1);\n            }\n        }\n        return dp[n];\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0279-perfect-squares/0279-perfect-squares.cpp"
+      "source": "/*\n Problem: 279. Perfect Squares\n Language: cpp\n Runtime: 44 ms (62.46%)\n Memory: 13 MB (82.43%)\n Tags: Math, Dynamic Programming, Breadth-First Search\n*/\nclass Solution {\npublic:\n    int numSquares(int n) {\n        vector<int> dp(n + 1, INT_MAX);\n\n        dp[0] = 0;\n\n        for (int i = 1; i <= n; ++i) {\n            for (int j = 1; j * j <= i; ++j) {\n                dp[i] = min(dp[i], dp[i - j * j] + 1);\n            }\n        }\n        return dp[n];\n    }\n};"
     }
   ]
 }

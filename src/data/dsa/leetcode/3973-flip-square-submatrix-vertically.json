@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3973-flip-square-submatrix-vertically/3973-flip-square-submatrix-vertically.cpp",
-      "source": "/*\n Problem: 3973. Flip Square Submatrix Vertically\n Language: cpp\n Runtime: 4 ms (17.77%)\n Memory: 33.8 MB (60.84%)\n Tags: Array, Two Pointers, Matrix\n*/\nclass Solution {\npublic:\n    vector<vector<int>> reverseSubmatrix(vector<vector<int>>& grid, int x, int y, int k) {\n        for (int i = 0; i < k / 2; ++i) {\n            for (int j = 0; j < k; ++j) {\n                swap(grid[x + i][y + j], grid[x + k - 1 - i][y + j]);\n            }\n        }\n        return grid;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3973-flip-square-submatrix-vertically/3973-flip-square-submatrix-vertically.cpp"
+      "source": "/*\n Problem: 3973. Flip Square Submatrix Vertically\n Language: cpp\n Runtime: 4 ms (17.77%)\n Memory: 33.8 MB (60.84%)\n Tags: Array, Two Pointers, Matrix\n*/\nclass Solution {\npublic:\n    vector<vector<int>> reverseSubmatrix(vector<vector<int>>& grid, int x, int y, int k) {\n        for (int i = 0; i < k / 2; ++i) {\n            for (int j = 0; j < k; ++j) {\n                swap(grid[x + i][y + j], grid[x + k - 1 - i][y + j]);\n            }\n        }\n        return grid;\n    }\n};"
     }
   ]
 }

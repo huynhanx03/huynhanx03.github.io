@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3619-adjacent-increasing-subarrays-detection-ii/3619-adjacent-increasing-subarrays-detection-ii.cpp",
-      "source": "/*\n Problem: 3619. Adjacent Increasing Subarrays Detection II\n Language: cpp\n Runtime: 222 ms (69.52%)\n Memory: 189.5 MB (12.75%)\n Tags: Array, Binary Search\n*/\nclass Solution {\npublic:\n    int maxIncreasingSubarrays(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 2)\n            return 0;\n        vector<int> left(n, 1), right(n, 1);\n        for (int i = 1; i < n; ++i)\n            if (nums[i] > nums[i - 1])\n                left[i] = left[i - 1] + 1;\n        for (int i = n - 2; i >= 0; --i)\n            if (nums[i] < nums[i + 1])\n                right[i] = right[i + 1] + 1;\n        int ans = 0;\n        for (int i = 1; i < n; ++i)\n            ans = max(ans, min(left[i - 1], right[i]));\n        return ans;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3619-adjacent-increasing-subarrays-detection-ii/3619-adjacent-increasing-subarrays-detection-ii.cpp"
+      "source": "/*\n Problem: 3619. Adjacent Increasing Subarrays Detection II\n Language: cpp\n Runtime: 222 ms (69.52%)\n Memory: 189.5 MB (12.75%)\n Tags: Array, Binary Search\n*/\nclass Solution {\npublic:\n    int maxIncreasingSubarrays(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 2)\n            return 0;\n        vector<int> left(n, 1), right(n, 1);\n        for (int i = 1; i < n; ++i)\n            if (nums[i] > nums[i - 1])\n                left[i] = left[i - 1] + 1;\n        for (int i = n - 2; i >= 0; --i)\n            if (nums[i] < nums[i + 1])\n                right[i] = right[i + 1] + 1;\n        int ans = 0;\n        for (int i = 1; i < n; ++i)\n            ans = max(ans, min(left[i - 1], right[i]));\n        return ans;\n    }\n};\n"
     }
   ]
 }

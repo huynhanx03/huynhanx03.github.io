@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3338-count-submatrices-with-top-left-element-and-sum-less-than-k/3338-count-submatrices-with-top-left-element-and-sum-less-than-k.cpp",
-      "source": "/*\n Problem: 3338. Count Submatrices with Top-Left Element and Sum Less Than k\n Language: cpp\n Runtime: 20 ms (33.15%)\n Memory: 110.3 MB (8.99%)\n Tags: Array, Matrix, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countSubmatrices(vector<vector<int>>& grid, int k) {\n        int m = grid.size(), n = grid[0].size();\n        int res = 0;\n        vector<vector<long long>> pre(m + 1, vector<long long>(n + 1, 0));\n        \n        for (int i = 1; i <= m; ++i) {\n            for (int j = 1; j <= n; ++j) {\n                pre[i][j] = grid[i-1][j-1] + pre[i-1][j] + pre[i][j-1] - pre[i-1][j-1];\n                if (pre[i][j] <= k) ++res;\n                else break;\n            }\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3338-count-submatrices-with-top-left-element-and-sum-less-than-k/3338-count-submatrices-with-top-left-element-and-sum-less-than-k.cpp"
+      "source": "/*\n Problem: 3338. Count Submatrices with Top-Left Element and Sum Less Than k\n Language: cpp\n Runtime: 20 ms (33.15%)\n Memory: 110.3 MB (8.99%)\n Tags: Array, Matrix, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countSubmatrices(vector<vector<int>>& grid, int k) {\n        int m = grid.size(), n = grid[0].size();\n        int res = 0;\n        vector<vector<long long>> pre(m + 1, vector<long long>(n + 1, 0));\n        \n        for (int i = 1; i <= m; ++i) {\n            for (int j = 1; j <= n; ++j) {\n                pre[i][j] = grid[i-1][j-1] + pre[i-1][j] + pre[i][j-1] - pre[i-1][j-1];\n                if (pre[i][j] <= k) ++res;\n                else break;\n            }\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2465-shifting-letters-ii/2465-shifting-letters-ii.cpp",
-      "source": "/*\n Problem: 2465. Shifting Letters II\n Language: cpp\n Runtime: 4 ms (72.72%)\n Memory: 97.8 MB (73.80%)\n Tags: Array, String, Prefix Sum\n*/\nclass Solution {\npublic:\n    string shiftingLetters(string s, vector<vector<int>>& shifts) {\n        int n = s.size(), cnt = 0;\n\n        vector<int> v(n + 5, 0);\n\n        for (const auto& shift : shifts) {\n            int start = shift[0];\n            int end = shift[1];\n            int direction = shift[2];\n\n            v[start] += direction == 1 ? 1 : -1;\n            v[end + 1] += direction == 1 ? -1 : 1;\n        }\n\n        for (int i = 0; i < n; ++i) {\n            cnt += v[i];\n\n            char c = (char) ((((s[i] - 'a' + cnt) % 26) + 26) % 26 + 'a');\n\n            s[i] = c;\n        }\n\n        return s;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2465-shifting-letters-ii/2465-shifting-letters-ii.cpp"
+      "source": "/*\n Problem: 2465. Shifting Letters II\n Language: cpp\n Runtime: 4 ms (72.72%)\n Memory: 97.8 MB (73.80%)\n Tags: Array, String, Prefix Sum\n*/\nclass Solution {\npublic:\n    string shiftingLetters(string s, vector<vector<int>>& shifts) {\n        int n = s.size(), cnt = 0;\n\n        vector<int> v(n + 5, 0);\n\n        for (const auto& shift : shifts) {\n            int start = shift[0];\n            int end = shift[1];\n            int direction = shift[2];\n\n            v[start] += direction == 1 ? 1 : -1;\n            v[end + 1] += direction == 1 ? -1 : 1;\n        }\n\n        for (int i = 0; i < n; ++i) {\n            cnt += v[i];\n\n            char c = (char) ((((s[i] - 'a' + cnt) % 26) + 26) % 26 + 'a');\n\n            s[i] = c;\n        }\n\n        return s;\n    }\n};"
     }
   ]
 }

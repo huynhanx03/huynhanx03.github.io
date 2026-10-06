@@ -1,0 +1,20 @@
+{
+  "key": "leetcode:1291",
+  "platform": "leetcode",
+  "id": "1291",
+  "slug": "sequential-digits",
+  "title": "Sequential Digits",
+  "url": "https://leetcode.com/problems/sequential-digits/",
+  "difficulty": "Medium",
+  "topics": [
+    "Enumeration"
+  ],
+  "statementHtml": "<p>An&nbsp;integer has <em>sequential digits</em> if and only if each digit in the number is one more than the previous digit.</p>\n\n<p>Return a <strong>sorted</strong> list of all the integers&nbsp;in the range <code>[low, high]</code>&nbsp;inclusive that have sequential digits.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n<pre><strong>Input:</strong> low = 100, high = 300\n<strong>Output:</strong> [123,234]\n</pre><p><strong>Example 2:</strong></p>\n<pre><strong>Input:</strong> low = 1000, high = 13000\n<strong>Output:</strong> [1234,2345,3456,4567,5678,6789,12345]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>10 &lt;= low &lt;= high &lt;= 10^9</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1291-sequential-digits.cpp",
+      "source": "/*\n Problem: 1291. Sequential Digits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (71.77%)\n Tags: Enumeration\n*/\nclass Solution {\npublic:\n    vector<int> sequentialDigits(int low, int high) {\n        vector<int> ans;\n        string s = \"123456789\";\n\n        int l = to_string(low).size();\n        int r = to_string(high).size();\n\n        for (int len = l; len <= r; ++len) {\n            for (int i = 0; i + len <= 9; ++i) {\n                int x = stoi(s.substr(i, len));\n                if (x >= low && x <= high) ans.push_back(x);\n            }\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

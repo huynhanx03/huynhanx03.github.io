@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4009-bitwise-or-of-even-numbers-in-an-array/4009-bitwise-or-of-even-numbers-in-an-array.cpp",
-      "source": "/*\n Problem: 4009. Bitwise OR of Even Numbers in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 24.6 MB (37.87%)\n Tags: Array, Bit Manipulation, Simulation\n*/\nclass Solution {\npublic:\n    int evenNumberBitwiseORs(vector<int>& nums) {\n        int res = 0;\n        for (int x : nums) {\n            if (x % 2 == 0) res |= x;\n        }\n        return res;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4009-bitwise-or-of-even-numbers-in-an-array/4009-bitwise-or-of-even-numbers-in-an-array.cpp"
+      "source": "/*\n Problem: 4009. Bitwise OR of Even Numbers in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 24.6 MB (37.87%)\n Tags: Array, Bit Manipulation, Simulation\n*/\nclass Solution {\npublic:\n    int evenNumberBitwiseORs(vector<int>& nums) {\n        int res = 0;\n        for (int x : nums) {\n            if (x % 2 == 0) res |= x;\n        }\n        return res;\n    }\n};\n"
     }
   ]
 }

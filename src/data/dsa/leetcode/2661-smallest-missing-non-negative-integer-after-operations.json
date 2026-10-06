@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2661-smallest-missing-non-negative-integer-after-operations/2661-smallest-missing-non-negative-integer-after-operations.cpp",
-      "source": "/*\n Problem: 2661. Smallest Missing Non-negative Integer After Operations\n Language: cpp\n Runtime: 179 ms (12.68%)\n Memory: 137.3 MB (39.71%)\n Tags: Array, Hash Table, Math, Greedy\n*/\nclass Solution {\npublic:\n    int findSmallestInteger(vector<int>& nums, int value) {\n        map <int, int> cnt;\n\n        for (const auto& x: nums) {\n            ++cnt[((x % value) + value) % value];\n        }\n\n        for (int i = 0; i <= 1e5 + 5; ++i) {\n            int x = i % value;\n            if (cnt[x] == 0)\n                return i;\n\n            --cnt[x];\n        }\n\n        return -1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2661-smallest-missing-non-negative-integer-after-operations/2661-smallest-missing-non-negative-integer-after-operations.cpp"
+      "source": "/*\n Problem: 2661. Smallest Missing Non-negative Integer After Operations\n Language: cpp\n Runtime: 179 ms (12.68%)\n Memory: 137.3 MB (39.71%)\n Tags: Array, Hash Table, Math, Greedy\n*/\nclass Solution {\npublic:\n    int findSmallestInteger(vector<int>& nums, int value) {\n        map <int, int> cnt;\n\n        for (const auto& x: nums) {\n            ++cnt[((x % value) + value) % value];\n        }\n\n        for (int i = 0; i <= 1e5 + 5; ++i) {\n            int x = i % value;\n            if (cnt[x] == 0)\n                return i;\n\n            --cnt[x];\n        }\n\n        return -1;\n    }\n};"
     }
   ]
 }

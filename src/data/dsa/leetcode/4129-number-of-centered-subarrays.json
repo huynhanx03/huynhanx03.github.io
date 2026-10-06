@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4129-number-of-centered-subarrays/4129-number-of-centered-subarrays.cpp",
-      "source": "/*\n Problem: 4129. Number of Centered Subarrays\n Language: cpp\n Runtime: 195 ms (84.35%)\n Memory: 88 MB (24.22%)\n Tags: Array, Hash Table, Enumeration\n*/\nclass Solution {\npublic:\n    int centeredSubarrays(vector<int>& nums) {\n        int ans = 0;\n\n        for (int i = 0; i < nums.size(); ++i) {\n            set<long long> st;\n            long long sum = 0;\n\n            for (int j = i; j < nums.size(); ++j) {\n                sum += 1ll * nums[j];\n                st.insert(nums[j]);\n                if (st.count(sum)) ++ans;\n            }\n        }\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4129-number-of-centered-subarrays/4129-number-of-centered-subarrays.cpp"
+      "source": "/*\n Problem: 4129. Number of Centered Subarrays\n Language: cpp\n Runtime: 195 ms (84.35%)\n Memory: 88 MB (24.22%)\n Tags: Array, Hash Table, Enumeration\n*/\nclass Solution {\npublic:\n    int centeredSubarrays(vector<int>& nums) {\n        int ans = 0;\n\n        for (int i = 0; i < nums.size(); ++i) {\n            set<long long> st;\n            long long sum = 0;\n\n            for (int j = i; j < nums.size(); ++j) {\n                sum += 1ll * nums[j];\n                st.insert(nums[j]);\n                if (st.count(sum)) ++ans;\n            }\n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

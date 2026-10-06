@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:628",
+  "platform": "leetcode",
+  "id": "628",
+  "slug": "maximum-product-of-three-numbers",
+  "title": "Maximum Product of Three Numbers",
+  "url": "https://leetcode.com/problems/maximum-product-of-three-numbers/",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Math",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>Find three numbers whose product is <strong>maximum</strong> and return the <strong>maximum</strong> product.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3]</span></p>\n\n<p><strong>Output:</strong> <span>6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The only three numbers are 1, 2, and 3, so the maximum product is <code>1 * 2 * 3 = 6</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [1,2,3,4]</span></p>\n\n<p><strong>Output:</strong> <span>24</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The largest product comes from the three greatest numbers: <code>2 * 3 * 4 = 24</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>nums = [-1,-2,-3]</span></p>\n\n<p><strong>Output:</strong> <span>-6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The only three numbers are -1, -2, and -3, so the maximum product is <code>(-1) * (-2) * (-3) = -6</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= nums.length &lt;=&nbsp;10<sup>4</sup></code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/628-maximum-product-of-three-numbers.cpp",
+      "source": "/*\n Problem: 628. Maximum Product of Three Numbers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.6 MB (63.81%)\n Tags: Array, Math, Sorting\n*/\nclass Solution {\npublic:\n    int maximumProduct(vector<int>& nums) {\n        int max1 = INT_MIN, max2 = INT_MIN, max3 = INT_MIN;\n        int min1 = INT_MAX, min2 = INT_MAX;\n\n        for (const auto& x : nums) {\n            if (x >= max1) {\n                max3 = max2;\n                max2 = max1;\n                max1 = x;\n            } else if (x >= max2) {\n                max3 = max2;\n                max2 = x;\n            } else if (x >= max3) {\n                max3 = x;\n            }\n\n            if (x <= min1) {\n                min2 = min1;\n                min1 = x;\n            } else if (x <= min2) {\n                min2 = x;\n            }\n        }\n\n        return max(max1 * max2 * max3, min1 * min2 * max1);\n    }\n};"
+    }
+  ]
+}

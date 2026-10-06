@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2308-divide-array-into-equal-pairs/2308-divide-array-into-equal-pairs.cpp",
-      "source": "/*\n Problem: 2308. Divide Array Into Equal Pairs\n Language: cpp\n Runtime: 9 ms (12.75%)\n Memory: 18.3 MB (26.75%)\n Tags: Array, Hash Table, Bit Manipulation, Counting\n*/\nclass Solution {\npublic:\n    bool divideArray(vector<int>& nums) {\n        map<int, int> mp;\n        \n        for (const auto& x : nums)\n            ++mp[x];\n\n        for (auto& p : mp)\n            if (p.second & 1) return false;\n\n        return true;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2308-divide-array-into-equal-pairs/2308-divide-array-into-equal-pairs.cpp"
+      "source": "/*\n Problem: 2308. Divide Array Into Equal Pairs\n Language: cpp\n Runtime: 9 ms (12.75%)\n Memory: 18.3 MB (26.75%)\n Tags: Array, Hash Table, Bit Manipulation, Counting\n*/\nclass Solution {\npublic:\n    bool divideArray(vector<int>& nums) {\n        map<int, int> mp;\n        \n        for (const auto& x : nums)\n            ++mp[x];\n\n        for (auto& p : mp)\n            if (p.second & 1) return false;\n\n        return true;\n    }\n};\n"
     }
   ]
 }

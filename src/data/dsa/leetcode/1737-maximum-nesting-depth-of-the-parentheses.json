@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Easy/1737-maximum-nesting-depth-of-the-parentheses/1737-maximum-nesting-depth-of-the-parentheses.cpp",
-      "source": "/*\n Problem: 1737. Maximum Nesting Depth of the Parentheses\n Language: cpp\n Runtime: 3 ms (1.45%)\n Memory: 7.4 MB (100.00%)\n Tags: String, Stack\n*/\nclass Solution {\npublic:\n    int maxDepth(string s) {\n        int len = 0;\n        int ans = 0;\n\n        for (int i = 0; i < s.size(); ++i) {\n            if (s[i] == '(') {\n                len++;\n                ans = max(len, ans);\n            }\n            else if (s[i] == ')')\n                --len;\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1737-maximum-nesting-depth-of-the-parentheses/1737-maximum-nesting-depth-of-the-parentheses.cpp"
+      "relativePath": "leetcode/Easy/1737-maximum-nesting-depth-of-the-parentheses.cpp",
+      "source": "/*\n Problem: 1737. Maximum Nesting Depth of the Parentheses\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (25.88%)\n Tags: Stack, String\n*/\nclass Solution {\npublic:\n    int maxDepth(string s) {\n        int len = 0;\n        int ans = 0;\n\n        for (int i = 0; i < s.size(); ++i) {\n            if (s[i] == '(') {\n                len++;\n                ans = max(len, ans);\n            }\n            else if (s[i] == ')')\n                --len;\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3447-clear-digits/3447-clear-digits.cpp",
-      "source": "/*\n Problem: 3447. Clear Digits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (71.79%)\n Tags: String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    string clearDigits(string s) {\n        while (true) {\n            bool found_digit = false;\n            for (int i = 0; i < s.size(); ++i) {\n                if (isdigit(s[i])) {\n                    found_digit = true;\n                    for (int j = i - 1; j >= 0; --j) {\n                        if (!isdigit(s[j])) {\n                            s.erase(j, 1);\n                            break;\n                        }\n                    }\n                    s.erase(i - 1, 1);\n                    break;\n                }\n            }\n            if (!found_digit)\n                break;\n        }\n        return s;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3447-clear-digits/3447-clear-digits.cpp"
+      "source": "/*\n Problem: 3447. Clear Digits\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (71.79%)\n Tags: String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    string clearDigits(string s) {\n        while (true) {\n            bool found_digit = false;\n            for (int i = 0; i < s.size(); ++i) {\n                if (isdigit(s[i])) {\n                    found_digit = true;\n                    for (int j = i - 1; j >= 0; --j) {\n                        if (!isdigit(s[j])) {\n                            s.erase(j, 1);\n                            break;\n                        }\n                    }\n                    s.erase(i - 1, 1);\n                    break;\n                }\n            }\n            if (!found_digit)\n                break;\n        }\n        return s;\n    }\n};"
     }
   ]
 }

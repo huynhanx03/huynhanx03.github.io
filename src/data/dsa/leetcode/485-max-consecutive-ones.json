@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0485-max-consecutive-ones/0485-max-consecutive-ones.cpp",
-      "source": "/*\n Problem: 485. Max Consecutive Ones\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 50.2 MB (67.30%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    int findMaxConsecutiveOnes(vector<int>& nums) {\n        int ans = 0;\n\n        int cnt = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            if (nums[i] == 1) ++cnt;\n            else {\n                ans = max(ans, cnt);\n                cnt = 0;\n            }\n        }\n\n        return max(cnt, ans);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0485-max-consecutive-ones/0485-max-consecutive-ones.cpp"
+      "source": "/*\n Problem: 485. Max Consecutive Ones\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 50.2 MB (67.30%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    int findMaxConsecutiveOnes(vector<int>& nums) {\n        int ans = 0;\n\n        int cnt = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            if (nums[i] == 1) ++cnt;\n            else {\n                ans = max(ans, cnt);\n                cnt = 0;\n            }\n        }\n\n        return max(cnt, ans);\n    }\n};"
     }
   ]
 }

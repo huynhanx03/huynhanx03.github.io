@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4216-weighted-word-mapping/4216-weighted-word-mapping.cpp",
-      "source": "/*\n Problem: 4216. Weighted Word Mapping\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 43.7 MB (27.94%)\n Tags: Array, String, Simulation\n*/\nclass Solution {\npublic:\n    string mapWordWeights(vector<string>& words, vector<int>& weights) {\n        string answer;\n\n        for (const auto& word : words) {\n            int weight = 0;\n\n            for (const auto ch : word) {\n                weight += weights[ch - 'a'];\n            }\n\n            answer += 'z' - weight % 26;\n        }\n\n        return answer;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4216-weighted-word-mapping/4216-weighted-word-mapping.cpp"
+      "source": "/*\n Problem: 4216. Weighted Word Mapping\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 43.7 MB (27.94%)\n Tags: Array, String, Simulation\n*/\nclass Solution {\npublic:\n    string mapWordWeights(vector<string>& words, vector<int>& weights) {\n        string answer;\n\n        for (const auto& word : words) {\n            int weight = 0;\n\n            for (const auto ch : word) {\n                weight += weights[ch - 'a'];\n            }\n\n            answer += 'z' - weight % 26;\n        }\n\n        return answer;\n    }\n};"
     }
   ]
 }

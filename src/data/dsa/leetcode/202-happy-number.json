@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0202-happy-number/0202-happy-number.cpp",
-      "source": "/*\n Problem: 202. Happy Number\n Language: cpp\n Runtime: 4 ms (4.84%)\n Memory: 7.9 MB (54.57%)\n Tags: Hash Table, Math, Two Pointers\n*/\nclass Solution {\npublic:\n    bool isHappy(int n) {\n        set<int> s;\n\n        while (1) {\n            int sum = 0;\n\n            while (n > 0) {\n                int x = n % 10;\n\n                sum += x * x;\n\n                n /= 10;\n            }\n\n            if (sum == 1)\n                return 1;\n\n            if (s.find(sum) != s.end())\n                return 0;\n            \n            s.insert(sum);\n\n            n = sum;\n        }\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0202-happy-number/0202-happy-number.cpp"
+      "source": "/*\n Problem: 202. Happy Number\n Language: cpp\n Runtime: 4 ms (4.84%)\n Memory: 7.9 MB (54.57%)\n Tags: Hash Table, Math, Two Pointers\n*/\nclass Solution {\npublic:\n    bool isHappy(int n) {\n        set<int> s;\n\n        while (1) {\n            int sum = 0;\n\n            while (n > 0) {\n                int x = n % 10;\n\n                sum += x * x;\n\n                n /= 10;\n            }\n\n            if (sum == 1)\n                return 1;\n\n            if (s.find(sum) != s.end())\n                return 0;\n            \n            s.insert(sum);\n\n            n = sum;\n        }\n    }\n};"
     }
   ]
 }

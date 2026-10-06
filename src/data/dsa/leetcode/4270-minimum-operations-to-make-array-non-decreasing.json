@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4270-minimum-operations-to-make-array-non-decreasing/4270-minimum-operations-to-make-array-non-decreasing.cpp",
-      "source": "/*\n Problem: 4270. Minimum Operations to Make Array Non Decreasing\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 136.8 MB (88.97%)\n Tags: None\n*/\nclass Solution {\npublic:\n    long long minOperations(vector<int>& nums) {\n        long long ans = 0;\n\n        for (int i = 1; i < nums.size(); ++i) {\n            if (nums[i] < nums[i - 1]) {\n                ans += nums[i - 1] - nums[i];\n                // ans = max(ans, (long long) nums[i - 1] - nums[i]);\n                // nums[i] = nums[i - 1];\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4270-minimum-operations-to-make-array-non-decreasing/4270-minimum-operations-to-make-array-non-decreasing.cpp"
+      "source": "/*\n Problem: 4270. Minimum Operations to Make Array Non Decreasing\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 136.8 MB (88.97%)\n Tags: None\n*/\nclass Solution {\npublic:\n    long long minOperations(vector<int>& nums) {\n        long long ans = 0;\n\n        for (int i = 1; i < nums.size(); ++i) {\n            if (nums[i] < nums[i - 1]) {\n                ans += nums[i - 1] - nums[i];\n                // ans = max(ans, (long long) nums[i - 1] - nums[i]);\n                // nums[i] = nums[i - 1];\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

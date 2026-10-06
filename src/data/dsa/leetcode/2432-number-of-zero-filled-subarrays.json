@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2432-number-of-zero-filled-subarrays/2432-number-of-zero-filled-subarrays.cpp",
-      "source": "/*\n Problem: 2432. Number of Zero-Filled Subarrays\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 111.4 MB (42.39%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    long long zeroFilledSubarray(vector<int>& nums) {\n        long long ans = 0, cnt = 0;\n\n        for (auto const& num: nums) {\n            cnt = num == 0 ? cnt + 1 : 0;\n            ans += cnt;\n        }    \n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2432-number-of-zero-filled-subarrays/2432-number-of-zero-filled-subarrays.cpp"
+      "source": "/*\n Problem: 2432. Number of Zero-Filled Subarrays\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 111.4 MB (42.39%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    long long zeroFilledSubarray(vector<int>& nums) {\n        long long ans = 0, cnt = 0;\n\n        for (auto const& num: nums) {\n            cnt = num == 0 ? cnt + 1 : 0;\n            ans += cnt;\n        }    \n\n        return ans;\n    }\n};"
     }
   ]
 }

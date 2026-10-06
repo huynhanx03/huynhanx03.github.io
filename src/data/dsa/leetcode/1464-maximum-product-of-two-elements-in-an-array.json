@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1464",
+  "platform": "leetcode",
+  "id": "1464",
+  "slug": "maximum-product-of-two-elements-in-an-array",
+  "title": "Maximum Product of Two Elements in an Array",
+  "url": "https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Sorting",
+    "Heap (Priority Queue)"
+  ],
+  "statementHtml": "<p>You are given an array of integers <code>nums</code>.</p>\n\n<p>Choose two <strong>different</strong> indices <code>i</code> and <code>j</code> of that array.</p>\n\n<p>Return the <strong>maximum</strong> value of <code>(nums[i] - 1) * (nums[j] - 1)</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [3,4,5,2]\n<strong>Output:</strong> 12 \n<strong>Explanation:</strong> If you choose the indices i=1 and j=2 (indexed from 0), you will get the maximum value, that is, (nums[1]-1)*(nums[2]-1) = (4-1)*(5-1) = 3*4 = 12. \n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [1,5,4,5]\n<strong>Output:</strong> 16\n<strong>Explanation:</strong> Choosing the indices i=1 and j=3 (indexed from 0), you will get the maximum value of (5-1)*(5-1) = 16.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [3,7]\n<strong>Output:</strong> 12\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 500</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10^3</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1464-maximum-product-of-two-elements-in-an-array.cpp",
+      "source": "/*\n Problem: 1464. Maximum Product of Two Elements in an Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 13.5 MB (35.08%)\n Tags: Array, Sorting, Heap (Priority Queue)\n*/\nclass Solution {\npublic:\n    int maxProduct(vector<int>& nums) {\n        int max1 = 0, max2 = 0;\n\n        for (const auto& d : nums) {\n            if (d >= max1) {\n                max2 = max1;\n                max1 = d;\n            } else if (d > max2) {\n                max2 = d;\n            }\n        }\n\n        return (max1 - 1) * (max2 - 1);\n    }\n};"
+    }
+  ]
+}

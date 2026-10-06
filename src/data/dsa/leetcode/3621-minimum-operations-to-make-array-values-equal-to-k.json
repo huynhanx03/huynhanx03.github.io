@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3621-minimum-operations-to-make-array-values-equal-to-k/3621-minimum-operations-to-make-array-values-equal-to-k.cpp",
-      "source": "/*\n Problem: 3621. Minimum Operations to Make Array Values Equal to K\n Language: cpp\n Runtime: 12 ms (57.56%)\n Memory: 32.4 MB (57.14%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, int k) {\n        map<int, int> mp;\n\n        for (const auto& num : nums) {\n            if (num < k) return -1;\n            if (num != k) mp[num] = -1;\n        }\n\n        return mp.size();\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3621-minimum-operations-to-make-array-values-equal-to-k/3621-minimum-operations-to-make-array-values-equal-to-k.cpp"
+      "source": "/*\n Problem: 3621. Minimum Operations to Make Array Values Equal to K\n Language: cpp\n Runtime: 12 ms (57.56%)\n Memory: 32.4 MB (57.14%)\n Tags: Array, Hash Table\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums, int k) {\n        map<int, int> mp;\n\n        for (const auto& num : nums) {\n            if (num < k) return -1;\n            if (num != k) mp[num] = -1;\n        }\n\n        return mp.size();\n    }\n};"
     }
   ]
 }

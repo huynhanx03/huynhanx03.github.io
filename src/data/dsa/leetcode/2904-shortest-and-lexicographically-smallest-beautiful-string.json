@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:2904",
+  "platform": "leetcode",
+  "id": "2904",
+  "slug": "shortest-and-lexicographically-smallest-beautiful-string",
+  "title": "Shortest and Lexicographically Smallest Beautiful String",
+  "url": "https://leetcode.com/problems/shortest-and-lexicographically-smallest-beautiful-string/",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>You are given a binary string <code>s</code> and a positive integer <code>k</code>.</p>\n\n<p>A substring of <code>s</code> is <strong>beautiful</strong> if the number of <code>1</code>'s in it is exactly <code>k</code>.</p>\n\n<p>Let <code>len</code> be the length of the <strong>shortest</strong> beautiful substring.</p>\n\n<p>Return <em>the lexicographically <strong>smallest</strong> beautiful substring of string </em><code>s</code><em> with length equal to </em><code>len</code>. If <code>s</code> doesn't contain a beautiful substring, return <em>an <strong>empty</strong> string</em>.</p>\n\n<p>A string <code>a</code> is lexicographically <strong>larger</strong> than a string <code>b</code> (of the same length) if in the first position where <code>a</code> and <code>b</code> differ, <code>a</code> has a character strictly larger than the corresponding character in <code>b</code>.</p>\n\n<ul>\n\t<li>For example, <code>\"abcd\"</code> is lexicographically larger than <code>\"abcc\"</code> because the first position they differ is at the fourth character, and <code>d</code> is greater than <code>c</code>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> s = \"100011001\", k = 3\n<strong>Output:</strong> \"11001\"\n<strong>Explanation:</strong> There are 7 beautiful substrings in this example:\n1. The substring \"<u>100011</u>001\".\n2. The substring \"<u>1000110</u>01\".\n3. The substring \"<u>10001100</u>1\".\n4. The substring \"1<u>00011001</u>\".\n5. The substring \"10<u>0011001</u>\".\n6. The substring \"100<u>011001</u>\".\n7. The substring \"1000<u>11001</u>\".\nThe length of the shortest beautiful substring is 5.\nThe lexicographically smallest beautiful substring with length 5 is the substring \"11001\".\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> s = \"1011\", k = 2\n<strong>Output:</strong> \"11\"\n<strong>Explanation:</strong> There are 3 beautiful substrings in this example:\n1. The substring \"<u>101</u>1\".\n2. The substring \"1<u>011</u>\".\n3. The substring \"10<u>11</u>\".\nThe length of the shortest beautiful substring is 2.\nThe lexicographically smallest beautiful substring with length 2 is the substring \"11\".\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> s = \"000\", k = 1\n<strong>Output:</strong> \"\"\n<strong>Explanation:</strong> There are no beautiful substrings in this example.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= k &lt;= s.length</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/2904-shortest-and-lexicographically-smallest-beautiful-string.cpp",
+      "source": "/*\n Problem: 2904. Shortest and Lexicographically Smallest Beautiful String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (48.03%)\n Tags: String, Sliding Window\n*/\nclass Solution {\npublic:\n    string shortestBeautifulSubstring(string s, int k) {\n        int l = 0, cnt = 0;\n        string ans;\n\n        for (int r = 0; r < s.size(); r++) {\n            cnt += s[r] == '1';\n\n            while (cnt > k)\n                cnt -= s[l++] == '1';\n\n            if (cnt == k) {\n                while (s[l] == '0') l++;\n                string t = s.substr(l, r - l + 1);\n\n                if (ans.empty() || t.size() < ans.size() ||\n                    t.size() == ans.size() && t < ans)\n                    ans = t;\n            }\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

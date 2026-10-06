@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2634-minimum-common-value/2634-minimum-common-value.cpp",
-      "source": "/*\n Problem: 2634. Minimum Common Value\n Language: cpp\n Runtime: 1 ms (34.18%)\n Memory: 54.6 MB (56.00%)\n Tags: Array, Hash Table, Two Pointers, Binary Search\n*/\nclass Solution {\npublic:\n    int getCommon(vector<int>& nums1, vector<int>& nums2) {\n        int p1 = 0, p2 = 0;\n        while (p1 < nums1.size() && p2 < nums2.size()) {\n            if (nums1[p1] == nums2[p2]) return nums1[p1];\n\n            if (nums1[p1] < nums2[p2]) ++p1;\n            else ++p2;\n        }\n\n        return -1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2634-minimum-common-value/2634-minimum-common-value.cpp"
+      "source": "/*\n Problem: 2634. Minimum Common Value\n Language: cpp\n Runtime: 1 ms (34.18%)\n Memory: 54.6 MB (56.00%)\n Tags: Array, Hash Table, Two Pointers, Binary Search\n*/\nclass Solution {\npublic:\n    int getCommon(vector<int>& nums1, vector<int>& nums2) {\n        int p1 = 0, p2 = 0;\n        while (p1 < nums1.size() && p2 < nums2.size()) {\n            if (nums1[p1] == nums2[p2]) return nums1[p1];\n\n            if (nums1[p1] < nums2[p2]) ++p1;\n            else ++p2;\n        }\n\n        return -1;\n    }\n};"
     }
   ]
 }

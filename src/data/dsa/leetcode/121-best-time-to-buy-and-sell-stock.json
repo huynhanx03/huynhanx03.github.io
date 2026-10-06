@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0121-best-time-to-buy-and-sell-stock/0121-best-time-to-buy-and-sell-stock.cpp",
-      "source": "/*\n Problem: 121. Best Time to Buy and Sell Stock\n Language: cpp\n Runtime: 259 ms (6.17%)\n Memory: 93.3 MB (99.99%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        int ans = 0;\n        \n        int p = prices[0];\n        \n        for (auto x : prices) {\n            if (p < x)\n                ans = max(ans, x - p);\n            else p = x;\n        }\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0121-best-time-to-buy-and-sell-stock/0121-best-time-to-buy-and-sell-stock.cpp"
+      "source": "/*\n Problem: 121. Best Time to Buy and Sell Stock\n Language: cpp\n Runtime: 259 ms (6.17%)\n Memory: 93.3 MB (99.99%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        int ans = 0;\n        \n        int p = prices[0];\n        \n        for (auto x : prices) {\n            if (p < x)\n                ans = max(ans, x - p);\n            else p = x;\n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

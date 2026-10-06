@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4168-mirror-distance-of-an-integer/4168-mirror-distance-of-an-integer.cpp",
-      "source": "/*\n Problem: 4168. Mirror Distance of an Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (86.21%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int mirrorDistance(int n) {\n        int x = n;\n        int rev = 0;\n\n        while (x > 0) {\n            rev = rev * 10 + x % 10;\n            x /= 10;\n        }\n\n        return abs(rev - n);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4168-mirror-distance-of-an-integer/4168-mirror-distance-of-an-integer.cpp"
+      "source": "/*\n Problem: 4168. Mirror Distance of an Integer\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.4 MB (86.21%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int mirrorDistance(int n) {\n        int x = n;\n        int rev = 0;\n\n        while (x > 0) {\n            rev = rev * 10 + x % 10;\n            x /= 10;\n        }\n\n        return abs(rev - n);\n    }\n};"
     }
   ]
 }

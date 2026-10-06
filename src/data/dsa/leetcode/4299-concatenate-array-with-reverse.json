@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4299-concatenate-array-with-reverse/4299-concatenate-array-with-reverse.cpp",
-      "source": "/*\n Problem: 4299. Concatenate Array With Reverse\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.3 MB (64.83%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> concatWithReverse(vector<int>& nums) {\n        vector<int> ans = nums;;\n\n        for (int i = nums.size() - 1; i >= 0; --i) ans.push_back(nums[i]);\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4299-concatenate-array-with-reverse/4299-concatenate-array-with-reverse.cpp"
+      "source": "/*\n Problem: 4299. Concatenate Array With Reverse\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.3 MB (64.83%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> concatWithReverse(vector<int>& nums) {\n        vector<int> ans = nums;;\n\n        for (int i = nums.size() - 1; i >= 0; --i) ans.push_back(nums[i]);\n\n        return ans;\n    }\n};"
     }
   ]
 }

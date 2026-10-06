@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1910-check-if-binary-string-has-at-most-one-segment-of-ones/1910-check-if-binary-string-has-at-most-one-segment-of-ones.cpp",
-      "source": "/*\n Problem: 1910. Check if Binary String Has at Most One Segment of Ones\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (77.26%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool checkOnesSegment(string s) {\n        bool has = false;\n\n        for (const auto& c : s) {\n            if (c == '0') {\n                has = true;\n            } \n            else if (has) {\n                return false;\n            }\n        }\n\n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1910-check-if-binary-string-has-at-most-one-segment-of-ones/1910-check-if-binary-string-has-at-most-one-segment-of-ones.cpp"
+      "source": "/*\n Problem: 1910. Check if Binary String Has at Most One Segment of Ones\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (77.26%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool checkOnesSegment(string s) {\n        bool has = false;\n\n        for (const auto& c : s) {\n            if (c == '0') {\n                has = true;\n            } \n            else if (has) {\n                return false;\n            }\n        }\n\n        return true;\n    }\n};"
     }
   ]
 }

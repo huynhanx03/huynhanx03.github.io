@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2978-check-if-strings-can-be-made-equal-with-operations-ii/2978-check-if-strings-can-be-made-equal-with-operations-ii.cpp",
-      "source": "/*\n Problem: 2978. Check if Strings Can be Made Equal With Operations II\n Language: cpp\n Runtime: 8 ms (55.17%)\n Memory: 19.9 MB (62.64%)\n Tags: Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    bool checkStrings(string s1, string s2) {\n        vector<vector<int>> cnt(2, vector<int>(26, 0));\n\n        for (int i = 0; i < s1.size(); ++i) {\n            int p = i % 2;\n            cnt[p][s1[i] - 'a']++;\n            cnt[p][s2[i] - 'a']--;\n        }\n\n        return cnt[0] == cnt[1] && \n               all_of(cnt[0].begin(), cnt[0].end(), [](int x){ return x == 0; });\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2978-check-if-strings-can-be-made-equal-with-operations-ii/2978-check-if-strings-can-be-made-equal-with-operations-ii.cpp"
+      "source": "/*\n Problem: 2978. Check if Strings Can be Made Equal With Operations II\n Language: cpp\n Runtime: 8 ms (55.17%)\n Memory: 19.9 MB (62.64%)\n Tags: Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    bool checkStrings(string s1, string s2) {\n        vector<vector<int>> cnt(2, vector<int>(26, 0));\n\n        for (int i = 0; i < s1.size(); ++i) {\n            int p = i % 2;\n            cnt[p][s1[i] - 'a']++;\n            cnt[p][s2[i] - 'a']--;\n        }\n\n        return cnt[0] == cnt[1] && \n               all_of(cnt[0].begin(), cnt[0].end(), [](int x){ return x == 0; });\n    }\n};"
     }
   ]
 }

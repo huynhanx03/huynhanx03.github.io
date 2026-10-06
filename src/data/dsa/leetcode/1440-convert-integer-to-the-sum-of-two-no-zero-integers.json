@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1440-convert-integer-to-the-sum-of-two-no-zero-integers/1440-convert-integer-to-the-sum-of-two-no-zero-integers.cpp",
-      "source": "/*\n Problem: 1440. Convert Integer to the Sum of Two No-Zero Integers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (59.82%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool isNoZero(int x) {\n        while (x > 0) {\n            if (x % 10 == 0)\n                return false;\n            x /= 10;\n        }\n        return true;\n    }\n\n    vector<int> getNoZeroIntegers(int n) {\n        for (int a = 1; a < n; a++) {\n            int b = n - a;\n            if (isNoZero(a) && isNoZero(b)) {\n                return {a, b};\n            }\n        }\n        return {};\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1440-convert-integer-to-the-sum-of-two-no-zero-integers/1440-convert-integer-to-the-sum-of-two-no-zero-integers.cpp"
+      "source": "/*\n Problem: 1440. Convert Integer to the Sum of Two No-Zero Integers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.2 MB (59.82%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool isNoZero(int x) {\n        while (x > 0) {\n            if (x % 10 == 0)\n                return false;\n            x /= 10;\n        }\n        return true;\n    }\n\n    vector<int> getNoZeroIntegers(int n) {\n        for (int a = 1; a < n; a++) {\n            int b = n - a;\n            if (isNoZero(a) && isNoZero(b)) {\n                return {a, b};\n            }\n        }\n        return {};\n    }\n};"
     }
   ]
 }

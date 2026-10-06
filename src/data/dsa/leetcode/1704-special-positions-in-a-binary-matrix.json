@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1704-special-positions-in-a-binary-matrix/1704-special-positions-in-a-binary-matrix.cpp",
-      "source": "/*\n Problem: 1704. Special Positions in a Binary Matrix\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.1 MB (20.57%)\n Tags: Array, Matrix\n*/\nclass Solution {\npublic:\n    int numSpecial(vector<vector<int>>& mat) {\n        int m = mat.size(), n = mat[0].size();\n        vector<int> row(m, 0), col(n, 0);\n        \n        for (int i = 0; i < m; ++i)\n            for (int j = 0; j < n; ++j) {\n                row[i] += mat[i][j];\n                col[j] += mat[i][j];\n            }\n\n        int ans = 0;\n        for (int i = 0; i < m; ++i)\n            for (int j = 0; j < n; ++j)\n                if (mat[i][j] && row[i] == 1 && col[j] == 1)\n                    ++ans;\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1704-special-positions-in-a-binary-matrix/1704-special-positions-in-a-binary-matrix.cpp"
+      "source": "/*\n Problem: 1704. Special Positions in a Binary Matrix\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 17.1 MB (20.57%)\n Tags: Array, Matrix\n*/\nclass Solution {\npublic:\n    int numSpecial(vector<vector<int>>& mat) {\n        int m = mat.size(), n = mat[0].size();\n        vector<int> row(m, 0), col(n, 0);\n        \n        for (int i = 0; i < m; ++i)\n            for (int j = 0; j < n; ++j) {\n                row[i] += mat[i][j];\n                col[j] += mat[i][j];\n            }\n\n        int ans = 0;\n        for (int i = 0; i < m; ++i)\n            for (int j = 0; j < n; ++j)\n                if (mat[i][j] && row[i] == 1 && col[j] == 1)\n                    ++ans;\n\n        return ans;\n    }\n};"
     }
   ]
 }

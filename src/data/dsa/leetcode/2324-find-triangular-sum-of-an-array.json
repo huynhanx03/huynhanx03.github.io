@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2324-find-triangular-sum-of-an-array/2324-find-triangular-sum-of-an-array.cpp",
-      "source": "/*\n Problem: 2324. Find Triangular Sum of an Array\n Language: cpp\n Runtime: 36 ms (96.48%)\n Memory: 23.7 MB (44.71%)\n Tags: Array, Math, Simulation, Combinatorics, Number Theory\n*/\nclass Solution {\npublic:\n    int triangularSum(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> C(n,0);\n        C[0]=1;\n        for(int k=1;k<=n-1;k++){\n            for(int j=k;j>=1;j--){\n                C[j]=(C[j]+C[j-1])%10;\n            }\n        }\n        int res=0;\n        for(int i=0;i<n;i++){\n            res=(res+C[i]*nums[i])%10;\n        }\n        return res;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2324-find-triangular-sum-of-an-array/2324-find-triangular-sum-of-an-array.cpp"
+      "source": "/*\n Problem: 2324. Find Triangular Sum of an Array\n Language: cpp\n Runtime: 36 ms (96.48%)\n Memory: 23.7 MB (44.71%)\n Tags: Array, Math, Simulation, Combinatorics, Number Theory\n*/\nclass Solution {\npublic:\n    int triangularSum(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> C(n,0);\n        C[0]=1;\n        for(int k=1;k<=n-1;k++){\n            for(int j=k;j>=1;j--){\n                C[j]=(C[j]+C[j-1])%10;\n            }\n        }\n        int res=0;\n        for(int i=0;i<n;i++){\n            res=(res+C[i]*nums[i])%10;\n        }\n        return res;\n    }\n};\n"
     }
   ]
 }

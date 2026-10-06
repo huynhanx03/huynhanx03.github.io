@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2999-check-if-strings-can-be-made-equal-with-operations-i/2999-check-if-strings-can-be-made-equal-with-operations-i.cpp",
-      "source": "/*\n Problem: 2999. Check if Strings Can be Made Equal With Operations I\n Language: cpp\n Runtime: 3 ms (14.84%)\n Memory: 8.6 MB (32.90%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool canBeEqual(string s1, string s2) {\n        vector<int> even(26, 0), odd(26, 0);\n\n        for (int i = 0; i < s1.size(); ++i) {\n            if (i % 2 == 0) {\n                ++even[s1[i] - 'a'];\n                --even[s2[i] - 'a'];\n            } else {\n                ++odd[s1[i] - 'a'];\n                --odd[s2[i] - 'a'];\n            }\n        }\n        \n        for (int i = 0; i < 26; ++i) {\n            if (even[i] != 0 || odd[i] != 0)\n                return false;\n        }\n        \n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2999-check-if-strings-can-be-made-equal-with-operations-i/2999-check-if-strings-can-be-made-equal-with-operations-i.cpp"
+      "source": "/*\n Problem: 2999. Check if Strings Can be Made Equal With Operations I\n Language: cpp\n Runtime: 3 ms (14.84%)\n Memory: 8.6 MB (32.90%)\n Tags: String\n*/\nclass Solution {\npublic:\n    bool canBeEqual(string s1, string s2) {\n        vector<int> even(26, 0), odd(26, 0);\n\n        for (int i = 0; i < s1.size(); ++i) {\n            if (i % 2 == 0) {\n                ++even[s1[i] - 'a'];\n                --even[s2[i] - 'a'];\n            } else {\n                ++odd[s1[i] - 'a'];\n                --odd[s2[i] - 'a'];\n            }\n        }\n        \n        for (int i = 0; i < 26; ++i) {\n            if (even[i] != 0 || odd[i] != 0)\n                return false;\n        }\n        \n        return true;\n    }\n};"
     }
   ]
 }

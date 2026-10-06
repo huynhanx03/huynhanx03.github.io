@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0031-next-permutation/0031-next-permutation.cpp",
-      "source": "/*\n Problem: 31. Next Permutation\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.8 MB (33.05%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    void nextPermutation(vector<int>& nums) {\n        int n = nums.size();\n        int i = n - 2;\n        \n        while (i >= 0 && nums[i] >= nums[i + 1]) {\n            i--;\n        }\n\n        if (i >= 0) {\n            int j = n - 1;\n            \n            while (j >= 0 && nums[j] <= nums[i]) {\n                j--;\n            }\n            \n            swap(nums[i], nums[j]);\n        }\n\n        reverse(nums.begin() + i + 1, nums.end());\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0031-next-permutation/0031-next-permutation.cpp"
+      "source": "/*\n Problem: 31. Next Permutation\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.8 MB (33.05%)\n Tags: Array, Two Pointers\n*/\nclass Solution {\npublic:\n    void nextPermutation(vector<int>& nums) {\n        int n = nums.size();\n        int i = n - 2;\n        \n        while (i >= 0 && nums[i] >= nums[i + 1]) {\n            i--;\n        }\n\n        if (i >= 0) {\n            int j = n - 1;\n            \n            while (j >= 0 && nums[j] <= nums[i]) {\n                j--;\n            }\n            \n            swap(nums[i], nums[j]);\n        }\n\n        reverse(nums.begin() + i + 1, nums.end());\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0088-merge-sorted-array/0088-merge-sorted-array.cpp",
-      "source": "/*\n Problem: 88. Merge Sorted Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.4 MB (99.96%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        vector <int> ans;\n\n        int l1 = 0, l2 = 0;\n\n        while (l1 < m && l2 < n) {\n            if (nums1[l1] < nums2[l2]) {\n                ans.push_back(nums1[l1]);\n                ++l1;\n            } else {\n                ans.push_back(nums2[l2]);\n                ++l2;\n            }\n        }\n\n        if (l1 < m)\n            for (int i = l1; i < m; ++i)\n                ans.push_back(nums1[i]);\n        else\n            for (int i = l2; i < n; ++i)\n                ans.push_back(nums2[i]);\n\n        nums1 = ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0088-merge-sorted-array/0088-merge-sorted-array.cpp"
+      "source": "/*\n Problem: 88. Merge Sorted Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.4 MB (99.96%)\n Tags: Array, Two Pointers, Sorting\n*/\nclass Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        vector <int> ans;\n\n        int l1 = 0, l2 = 0;\n\n        while (l1 < m && l2 < n) {\n            if (nums1[l1] < nums2[l2]) {\n                ans.push_back(nums1[l1]);\n                ++l1;\n            } else {\n                ans.push_back(nums2[l2]);\n                ++l2;\n            }\n        }\n\n        if (l1 < m)\n            for (int i = l1; i < m; ++i)\n                ans.push_back(nums1[i]);\n        else\n            for (int i = l2; i < n; ++i)\n                ans.push_back(nums2[i]);\n\n        nums1 = ans;\n    }\n};"
     }
   ]
 }

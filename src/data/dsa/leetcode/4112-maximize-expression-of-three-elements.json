@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4112-maximize-expression-of-three-elements/4112-maximize-expression-of-three-elements.cpp",
-      "source": "/*\n Problem: 4112. Maximize Expression of Three Elements\n Language: cpp\n Runtime: 79 ms (5.36%)\n Memory: 31 MB (56.01%)\n Tags: Array, Greedy, Sorting, Enumeration\n*/\nclass Solution {\npublic:\n    int maximizeExpressionOfThree(vector<int>& nums) {\n        int n = nums.size(), ans = -1e9;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                for (int k = 0; k < n; ++k) {\n                    if (i != j && i != k && j != k)\n                        ans = max(nums[i] + nums[j] -nums[k], ans);\n                }\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4112-maximize-expression-of-three-elements/4112-maximize-expression-of-three-elements.cpp"
+      "source": "/*\n Problem: 4112. Maximize Expression of Three Elements\n Language: cpp\n Runtime: 79 ms (5.36%)\n Memory: 31 MB (56.01%)\n Tags: Array, Greedy, Sorting, Enumeration\n*/\nclass Solution {\npublic:\n    int maximizeExpressionOfThree(vector<int>& nums) {\n        int n = nums.size(), ans = -1e9;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                for (int k = 0; k < n; ++k) {\n                    if (i != j && i != k && j != k)\n                        ans = max(nums[i] + nums[j] -nums[k], ans);\n                }\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

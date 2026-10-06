@@ -77,15 +77,60 @@ describe('LeetCode solution metadata', () => {
 });
 
 describe('Portfolio-only LeetCode sync', () => {
+  it('skips accepted submissions with no detail record and leaves the cursor before them for retry', async () => {
+    const root = await temporaryDirectory();
+    const outputRoot = path.join(root, 'src', 'data');
+    await createExistingSnapshot(outputRoot);
+    const progress: string[] = [];
+    const fetchImpl = vi.fn(async (_url: URL | RequestInfo, init?: RequestInit) => {
+      const request = JSON.parse(String(init?.body)) as { operationName: string; variables: Record<string, number> };
+      if (request.operationName === 'submissionList') {
+        return Response.json({ data: { submissionList: { hasNext: false, submissions: [
+          { id: '110', title: 'Unavailable', titleSlug: 'unavailable', statusDisplay: 'Accepted', lang: 'cpp', langName: 'C++', timestamp: '1791244802' },
+          { id: '111', title: 'Available', titleSlug: 'available', statusDisplay: 'Accepted', lang: 'rust', langName: 'Rust', timestamp: '1791244801' },
+        ] } } });
+      }
+      if (request.operationName === 'submissionDetails' && request.variables.id === 110) {
+        return Response.json({ data: { submissionDetails: null } });
+      }
+      if (request.operationName === 'submissionDetails') {
+        return Response.json({ data: { submissionDetails: {
+          code: 'fn main() {}', statusCode: 10, runtimeDisplay: '1 ms', memoryDisplay: '1 MB',
+          lang: { name: 'rust', verboseName: 'Rust' },
+        } } });
+      }
+      return Response.json({ data: { question: {
+        questionFrontendId: '5001', title: 'Available', titleSlug: 'available', content: '<p>Statement</p>',
+        difficulty: 'Easy', topicTags: [],
+      } } });
+    });
+
+    const summary = await runDsaSync({
+      outputRoot, env: { LEETCODE_SESSION: 's', LEETCODE_CSRF: 'c' }, fetchImpl,
+      now: new Date('2026-10-06T00:00:00.000Z'),
+      requestIntervalMs: 0,
+      onProgress: (message: string) => { progress.push(message); },
+    });
+
+    expect(summary.syncedSolutions).toBe(1);
+    expect(summary.skippedSolutions).toBe(1);
+    expect(Date.parse(summary.cursor)).toBeLessThan(Date.parse('2026-10-06T00:00:02.000Z'));
+    expect(progress.some((message) => message.includes('Skipping submission 110'))).toBe(true);
+    expect(await readFile(path.join(outputRoot, 'dsa', 'leetcode', '5001-available.json'), 'utf8')).toContain('fn main() {}');
+  });
+
   it('adds only accepted submissions after the cursor and preserves the existing snapshot in Portfolio data', async () => {
     const root = await temporaryDirectory();
     const outputRoot = path.join(root, 'src', 'data');
     await createExistingSnapshot(outputRoot);
     const fetchImpl = leetCodeFetch();
+    const progress: string[] = [];
 
     const summary = await runDsaSync({
       outputRoot, env: { LEETCODE_SESSION: 'session-cookie', LEETCODE_CSRF: 'csrf-cookie' }, fetchImpl,
       now: new Date('2026-10-06T00:00:00.000Z'),
+      requestIntervalMs: 0,
+      onProgress: (message: string) => { progress.push(message); },
     });
 
     const index = JSON.parse(await readFile(path.join(outputRoot, 'dsa-index.json'), 'utf8'));
@@ -104,6 +149,8 @@ describe('Portfolio-only LeetCode sync', () => {
     expect(csesProblem.statementHtml).toBe('<p>CSES statement</p>');
     expect(index.counts).toEqual({ all: 3, leetcode: 2, cses: 1 });
     expect(index.leetcodeCursor).toBe('2026-10-06T00:00:00.000Z');
+    expect(progress.some((message) => message.includes('Fetching solution 1/2'))).toBe(true);
+    expect(progress.at(-1)).toContain('Writing the updated DSA JSON snapshot');
     expect(fetchImpl).toHaveBeenCalledTimes(4);
     const requestHeaders = new Headers(fetchImpl.mock.calls[0][1]?.headers);
     expect(requestHeaders.get('cookie')).toContain('LEETCODE_SESSION=session-cookie');
@@ -117,7 +164,25 @@ describe('Portfolio-only LeetCode sync', () => {
     const beforeIndex = await readFile(path.join(outputRoot, 'dsa-index.json'), 'utf8');
     const fetchImpl = vi.fn(async () => Response.json({ errors: [{ message: 'unauthorized' }] }));
 
-    await expect(runDsaSync({ outputRoot, env: { LEETCODE_SESSION: 's', LEETCODE_CSRF: 'c' }, fetchImpl })).rejects.toThrow(/unauthorized/i);
+    await expect(runDsaSync({ outputRoot, env: { LEETCODE_SESSION: 's', LEETCODE_CSRF: 'c' }, fetchImpl, requestIntervalMs: 0 })).rejects.toThrow(/unauthorized/i);
     expect(await readFile(path.join(outputRoot, 'dsa-index.json'), 'utf8')).toBe(beforeIndex);
+  });
+
+  it('distinguishes a missing submission source from an unexpected status code', async () => {
+    const root = await temporaryDirectory();
+    const outputRoot = path.join(root, 'src', 'data');
+    await createExistingSnapshot(outputRoot);
+    const fetchImpl = vi.fn(async (_url: URL | RequestInfo, init?: RequestInit) => {
+      const request = JSON.parse(String(init?.body)) as { operationName: string };
+      if (request.operationName === 'submissionList') {
+        return Response.json({ data: { submissionList: { hasNext: false, submissions: [
+          { id: '102', title: 'No Code', titleSlug: 'no-code', statusDisplay: 'Accepted', lang: 'cpp', langName: 'C++', timestamp: '1791244801' },
+        ] } } });
+      }
+      return Response.json({ data: { submissionDetails: { code: null, statusCode: 10, runtimeDisplay: '0 ms' } } });
+    });
+
+    await expect(runDsaSync({ outputRoot, env: { LEETCODE_SESSION: 's', LEETCODE_CSRF: 'c' }, fetchImpl, requestIntervalMs: 0 }))
+      .rejects.toThrow(/omitted source code.*statusCode/iu);
   });
 });

@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Hard/0403-frog-jump/0403-frog-jump.cpp",
-      "source": "/*\n Problem: 403. Frog Jump\n Language: cpp\n Runtime: 103 ms (47.21%)\n Memory: 47.1 MB (43.81%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    bool canCross(vector<int>& stones) {\n        unordered_set<int> st(stones.begin(), stones.end());\n        unordered_map<int, unordered_set<int>> dp;\n\n        dp[0].insert(0);\n\n        for (const auto& pos : stones) {\n            for (const auto& k : dp[pos]) {\n                for (int step = k - 1; step <= k + 1; ++step) {\n                    if (step <= 0) continue;\n                    int nxt = pos + step;\n                    if (st.count(nxt)) {\n                        dp[nxt].insert(step);\n                    }\n                }\n            }\n        }\n\n        return !dp[stones.back()].empty();\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Hard/0403-frog-jump/0403-frog-jump.cpp"
+      "source": "/*\n Problem: 403. Frog Jump\n Language: cpp\n Runtime: 103 ms (47.21%)\n Memory: 47.1 MB (43.81%)\n Tags: Array, Dynamic Programming\n*/\nclass Solution {\npublic:\n    bool canCross(vector<int>& stones) {\n        unordered_set<int> st(stones.begin(), stones.end());\n        unordered_map<int, unordered_set<int>> dp;\n\n        dp[0].insert(0);\n\n        for (const auto& pos : stones) {\n            for (const auto& k : dp[pos]) {\n                for (int step = k - 1; step <= k + 1; ++step) {\n                    if (step <= 0) continue;\n                    int nxt = pos + step;\n                    if (st.count(nxt)) {\n                        dp[nxt].insert(step);\n                    }\n                }\n            }\n        }\n\n        return !dp[stones.back()].empty();\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0012-integer-to-roman/0012-integer-to-roman.cpp",
-      "source": "/*\n Problem: 12. Integer to Roman\n Language: cpp\n Runtime: 6 ms (33.20%)\n Memory: 10.1 MB (68.56%)\n Tags: Hash Table, Math, String\n*/\nclass Solution {\npublic:\n    string intToRoman(int num) {\n        int value[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};\n        string s[] = {\"M\", \"CM\", \"D\", \"CD\", \"C\", \"XC\", \"L\", \"XL\", \"X\", \"IX\", \"V\", \"IV\", \"I\"};\n        int idx =0;\n        \n        string str = \"\"; \n        \n        while (num>0){\n            if (num >= value[idx]){\n                str = str + s[idx];\n                num -= value[idx];\n            } else {\n                ++idx;\n            }\n        }\n        \n        return str;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0012-integer-to-roman/0012-integer-to-roman.cpp"
+      "source": "/*\n Problem: 12. Integer to Roman\n Language: cpp\n Runtime: 6 ms (33.20%)\n Memory: 10.1 MB (68.56%)\n Tags: Hash Table, Math, String\n*/\nclass Solution {\npublic:\n    string intToRoman(int num) {\n        int value[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};\n        string s[] = {\"M\", \"CM\", \"D\", \"CD\", \"C\", \"XC\", \"L\", \"XL\", \"X\", \"IX\", \"V\", \"IV\", \"I\"};\n        int idx =0;\n        \n        string str = \"\"; \n        \n        while (num>0){\n            if (num >= value[idx]){\n                str = str + s[idx];\n                num -= value[idx];\n            } else {\n                ++idx;\n            }\n        }\n        \n        return str;\n    }\n};"
     }
   ]
 }

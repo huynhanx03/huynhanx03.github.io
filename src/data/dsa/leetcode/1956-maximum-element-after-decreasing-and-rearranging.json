@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1956-maximum-element-after-decreasing-and-rearranging/1956-maximum-element-after-decreasing-and-rearranging.cpp",
-      "source": "/*\n Problem: 1956. Maximum Element After Decreasing and Rearranging\n Language: cpp\n Runtime: 7 ms (64.12%)\n Memory: 55.2 MB (75.67%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int maximumElementAfterDecrementingAndRearranging(vector<int>& arr) {\n        sort(arr.begin(), arr.end());\n\n        arr[0] = 1;\n\n        for (int i = 1; i < arr.size(); ++i) {\n            if (arr[i] > arr[i - 1] + 1) {\n                arr[i] = arr[i - 1] + 1;\n            }\n        }\n\n        return arr.back();\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1956-maximum-element-after-decreasing-and-rearranging/1956-maximum-element-after-decreasing-and-rearranging.cpp"
+      "source": "/*\n Problem: 1956. Maximum Element After Decreasing and Rearranging\n Language: cpp\n Runtime: 7 ms (64.12%)\n Memory: 55.2 MB (75.67%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int maximumElementAfterDecrementingAndRearranging(vector<int>& arr) {\n        sort(arr.begin(), arr.end());\n\n        arr[0] = 1;\n\n        for (int i = 1; i < arr.size(); ++i) {\n            if (arr[i] > arr[i - 1] + 1) {\n                arr[i] = arr[i - 1] + 1;\n            }\n        }\n\n        return arr.back();\n    }\n};"
     }
   ]
 }

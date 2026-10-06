@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3952-trionic-array-i/3952-trionic-array-i.cpp",
-      "source": "/*\n Problem: 3952. Trionic Array I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 27.7 MB (72.74%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool isTrionic(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 4) return false;\n\n        int i = 1;\n\n        while (i < n && nums[i] > nums[i - 1]) ++i;\n        if (i == 1 || i == n) return false;\n\n        while (i < n && nums[i] < nums[i - 1]) ++i;\n        if (i == n) return false;\n\n        while (i < n && nums[i] > nums[i - 1]) ++i;\n\n        return i == n;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3952-trionic-array-i/3952-trionic-array-i.cpp"
+      "source": "/*\n Problem: 3952. Trionic Array I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 27.7 MB (72.74%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool isTrionic(vector<int>& nums) {\n        int n = nums.size();\n        if (n < 4) return false;\n\n        int i = 1;\n\n        while (i < n && nums[i] > nums[i - 1]) ++i;\n        if (i == 1 || i == n) return false;\n\n        while (i < n && nums[i] < nums[i - 1]) ++i;\n        if (i == n) return false;\n\n        while (i < n && nums[i] > nums[i - 1]) ++i;\n\n        return i == n;\n    }\n};\n"
     }
   ]
 }

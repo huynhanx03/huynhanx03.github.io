@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2174-next-greater-numerically-balanced-number/2174-next-greater-numerically-balanced-number.cpp",
-      "source": "/*\n Problem: 2174. Next Greater Numerically Balanced Number\n Language: cpp\n Runtime: 881 ms (10.87%)\n Memory: 257.2 MB (8.64%)\n Tags: Hash Table, Math, Backtracking, Counting, Enumeration\n*/\nclass Solution {\npublic:\n    bool isBalanced(int x) {\n        string s = to_string(x);\n        vector<int> count(10, 0);\n\n        for (char c : s) {\n            count[c - '0']++;\n        }\n\n        for (char c : s) {\n            int digit = c - '0';\n            if (count[digit] != digit) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    int nextBeautifulNumber(int n) {\n        n++;\n        while (true) {\n            if (isBalanced(n)) return n;\n            n++;\n        }\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2174-next-greater-numerically-balanced-number/2174-next-greater-numerically-balanced-number.cpp"
+      "source": "/*\n Problem: 2174. Next Greater Numerically Balanced Number\n Language: cpp\n Runtime: 881 ms (10.87%)\n Memory: 257.2 MB (8.64%)\n Tags: Hash Table, Math, Backtracking, Counting, Enumeration\n*/\nclass Solution {\npublic:\n    bool isBalanced(int x) {\n        string s = to_string(x);\n        vector<int> count(10, 0);\n\n        for (char c : s) {\n            count[c - '0']++;\n        }\n\n        for (char c : s) {\n            int digit = c - '0';\n            if (count[digit] != digit) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    int nextBeautifulNumber(int n) {\n        n++;\n        while (true) {\n            if (isBalanced(n)) return n;\n            n++;\n        }\n    }\n};"
     }
   ]
 }

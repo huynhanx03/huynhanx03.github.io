@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0242-valid-anagram/0242-valid-anagram.cpp",
-      "source": "/*\n Problem: 242. Valid Anagram\n Language: cpp\n Runtime: 12 ms (7.39%)\n Memory: 7.3 MB (100.00%)\n Tags: Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        vector <int> d(26, 0);\n        \n        for (auto c : s) ++d[c-'a'];\n        for (auto c : t) --d[c - 'a'];\n        \n        for (int i = 0; i < 26; ++i) if (d[i] != 0) return 0;\n        \n        return 1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0242-valid-anagram/0242-valid-anagram.cpp"
+      "source": "/*\n Problem: 242. Valid Anagram\n Language: cpp\n Runtime: 12 ms (7.39%)\n Memory: 7.3 MB (100.00%)\n Tags: Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        vector <int> d(26, 0);\n        \n        for (auto c : s) ++d[c-'a'];\n        for (auto c : t) --d[c - 'a'];\n        \n        for (int i = 0; i < 26; ++i) if (d[i] != 0) return 0;\n        \n        return 1;\n    }\n};"
     }
   ]
 }

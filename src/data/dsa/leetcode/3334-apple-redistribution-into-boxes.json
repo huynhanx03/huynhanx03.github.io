@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3334-apple-redistribution-into-boxes/3334-apple-redistribution-into-boxes.cpp",
-      "source": "/*\n Problem: 3334. Apple Redistribution into Boxes\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 33.1 MB (75.19%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minimumBoxes(vector<int>& apple, vector<int>& capacity) {\n        long long totalApples = 0;\n        for (const auto& a : apple) totalApples += a;\n\n        sort(capacity.begin(), capacity.end(), greater<int>());\n\n        long long cur = 0;\n        int cnt = 0;\n\n        for (const auto& c : capacity) {\n            cur += c;\n            ++cnt;\n            if (cur >= totalApples) return cnt;\n        }\n\n        return cnt;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3334-apple-redistribution-into-boxes/3334-apple-redistribution-into-boxes.cpp"
+      "source": "/*\n Problem: 3334. Apple Redistribution into Boxes\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 33.1 MB (75.19%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minimumBoxes(vector<int>& apple, vector<int>& capacity) {\n        long long totalApples = 0;\n        for (const auto& a : apple) totalApples += a;\n\n        sort(capacity.begin(), capacity.end(), greater<int>());\n\n        long long cur = 0;\n        int cnt = 0;\n\n        for (const auto& c : capacity) {\n            cur += c;\n            ++cnt;\n            if (cur >= totalApples) return cnt;\n        }\n\n        return cnt;\n    }\n};\n"
     }
   ]
 }

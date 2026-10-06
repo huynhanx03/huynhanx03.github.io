@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/4126-minimum-number-of-flips-to-reverse-binary-string/4126-minimum-number-of-flips-to-reverse-binary-string.cpp",
-      "source": "/*\n Problem: 4126. Minimum Number of Flips to Reverse Binary String\n Language: cpp\n Runtime: 3 ms (23.38%)\n Memory: 9 MB (65.38%)\n Tags: Math, Two Pointers, String, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int minimumFlips(int n) {\n        int cnt = 0;\n        vector<bool> bits;\n        while (n > 0) {\n            bits.push_back(n % 2);\n            n >>= 1;\n        }\n    \n        for (int i = 0; i < bits.size() / 2; ++i) {\n            cnt += (bits[i] != bits[bits.size() - i - 1]) * 2;    \n        }   \n        \n        return cnt;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4126-minimum-number-of-flips-to-reverse-binary-string/4126-minimum-number-of-flips-to-reverse-binary-string.cpp"
+      "source": "/*\n Problem: 4126. Minimum Number of Flips to Reverse Binary String\n Language: cpp\n Runtime: 3 ms (23.38%)\n Memory: 9 MB (65.38%)\n Tags: Math, Two Pointers, String, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int minimumFlips(int n) {\n        int cnt = 0;\n        vector<bool> bits;\n        while (n > 0) {\n            bits.push_back(n % 2);\n            n >>= 1;\n        }\n    \n        for (int i = 0; i < bits.size() / 2; ++i) {\n            cnt += (bits[i] != bits[bits.size() - i - 1]) * 2;    \n        }   \n        \n        return cnt;\n    }\n};"
     }
   ]
 }

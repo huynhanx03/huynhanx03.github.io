@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2248-minimum-cost-of-buying-candies-with-discount/2248-minimum-cost-of-buying-candies-with-discount.cpp",
-      "source": "/*\n Problem: 2248. Minimum Cost of Buying Candies With Discount\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 14.2 MB (52.75%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minimumCost(vector<int>& cost) {\n        sort(cost.begin(), cost.end(), greater<int>());\n\n        int ans = 0;\n\n        for (int i = 0; i < cost.size(); i++) {\n            if (i % 3 != 2) {\n                ans += cost[i];\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2248-minimum-cost-of-buying-candies-with-discount/2248-minimum-cost-of-buying-candies-with-discount.cpp"
+      "source": "/*\n Problem: 2248. Minimum Cost of Buying Candies With Discount\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 14.2 MB (52.75%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    int minimumCost(vector<int>& cost) {\n        sort(cost.begin(), cost.end(), greater<int>());\n\n        int ans = 0;\n\n        for (int i = 0; i < cost.size(); i++) {\n            if (i % 3 != 2) {\n                ans += cost[i];\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

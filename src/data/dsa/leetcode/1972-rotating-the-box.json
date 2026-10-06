@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1972-rotating-the-box/1972-rotating-the-box.cpp",
-      "source": "/*\n Problem: 1972. Rotating the Box\n Language: cpp\n Runtime: 11 ms (63.34%)\n Memory: 56.9 MB (11.42%)\n Tags: Array, Two Pointers, Matrix\n*/\nclass Solution {\npublic:\n    vector<vector<char>> rotateTheBox(vector<vector<char>>& boxGrid) {\n        int m = boxGrid.size(), n = boxGrid[0].size();\n        vector<vector<char>> ans(n, vector<char>(m, '.'));\n\n        for (int i = 0; i < m; ++i) {\n            int pos = n - 1;\n            for (int j = n - 1; j >= 0; --j) {\n                if (boxGrid[i][j] == '*') {\n                    ans[j][m - 1 - i] = '*';\n                    pos = j - 1;\n                } else if (boxGrid[i][j] == '#') {\n                    ans[pos][m - 1 - i] = '#';\n                    --pos;\n                }\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1972-rotating-the-box/1972-rotating-the-box.cpp"
+      "source": "/*\n Problem: 1972. Rotating the Box\n Language: cpp\n Runtime: 11 ms (63.34%)\n Memory: 56.9 MB (11.42%)\n Tags: Array, Two Pointers, Matrix\n*/\nclass Solution {\npublic:\n    vector<vector<char>> rotateTheBox(vector<vector<char>>& boxGrid) {\n        int m = boxGrid.size(), n = boxGrid[0].size();\n        vector<vector<char>> ans(n, vector<char>(m, '.'));\n\n        for (int i = 0; i < m; ++i) {\n            int pos = n - 1;\n            for (int j = n - 1; j >= 0; --j) {\n                if (boxGrid[i][j] == '*') {\n                    ans[j][m - 1 - i] = '*';\n                    pos = j - 1;\n                } else if (boxGrid[i][j] == '#') {\n                    ans[pos][m - 1 - i] = '#';\n                    --pos;\n                }\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -17,9 +17,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/3622-maximum-frequency-of-an-element-after-performing-operations-i/3622-maximum-frequency-of-an-element-after-performing-operations-i.cpp",
-      "source": "/*\n Problem: 3622. Maximum Frequency of an Element After Performing Operations I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 96.4 MB (100.00%)\n Tags: Array, Binary Search, Sliding Window, Sorting, Prefix Sum\n*/\nclass Solution {\npublic:\n    int maxFrequency(vector<int>& nums, int k, int numOperations) {\n        int maxVal = *max_element(nums.begin(), nums.end()) + k + 2;\n        vector<int> prefix(maxVal, 0);\n        for (int x : nums)\n            prefix[x]++;\n        for (int i = 1; i < maxVal; i++)\n            prefix[i] += prefix[i - 1];\n\n        int ans = 0;\n        for (int i = 0; i < maxVal; i++) {\n            int cur = prefix[i] - (i > 0 ? prefix[i - 1] : 0);\n            int left = max(0, i - k);\n            int right = min(maxVal - 1, i + k);\n            int allVal =\n                prefix[right] - (left > 0 ? prefix[left - 1] : 0) - cur;\n            ans = max(ans, min(allVal, numOperations) + cur);\n        }\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3622-maximum-frequency-of-an-element-after-performing-operations-i/3622-maximum-frequency-of-an-element-after-performing-operations-i.cpp"
+      "relativePath": "leetcode/Easy/3622-check-divisibility-by-digit-sum-and-product.cpp",
+      "source": "/*\n Problem: 3622. Check Divisibility by Digit Sum and Product\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.7 MB (94.62%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool checkDivisibility(int n) {\n        int original = n;\n        int sum = 0, product = 1;\n\n        while (n > 0) {\n            int digit = n % 10;\n\n            sum += digit;\n            product *= digit;\n\n            n /= 10;\n        }\n\n        return original % (sum + product) == 0;\n    }\n};"
     }
   ]
 }

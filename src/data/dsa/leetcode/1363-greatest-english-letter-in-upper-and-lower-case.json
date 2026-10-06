@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1363-greatest-english-letter-in-upper-and-lower-case/1363-greatest-english-letter-in-upper-and-lower-case.cpp",
-      "source": "/*\n Problem: 1363. Greatest English Letter in Upper and Lower Case\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (75.02%)\n Tags: Hash Table, String, Enumeration\n*/\nclass Solution {\npublic:\n    string greatestLetter(string s) {\n        int l = 0, u = 0;\n\n        for (const auto& c : s) {\n            if (islower(c)) {\n                l |= 1 << (c - 'a');\n            } else {\n                u |= 1 << (c - 'A');\n            }\n        }\n\n        int mask = l & u;\n\n        for (int i = 25; i >= 0; --i) {\n            if (mask & (1 << i)) {\n                return string(1, 'A' + i);\n            }\n        }\n\n        return \"\";\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1363-greatest-english-letter-in-upper-and-lower-case/1363-greatest-english-letter-in-upper-and-lower-case.cpp"
+      "source": "/*\n Problem: 1363. Greatest English Letter in Upper and Lower Case\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.9 MB (75.02%)\n Tags: Hash Table, String, Enumeration\n*/\nclass Solution {\npublic:\n    string greatestLetter(string s) {\n        int l = 0, u = 0;\n\n        for (const auto& c : s) {\n            if (islower(c)) {\n                l |= 1 << (c - 'a');\n            } else {\n                u |= 1 << (c - 'A');\n            }\n        }\n\n        int mask = l & u;\n\n        for (int i = 25; i >= 0; --i) {\n            if (mask & (1 << i)) {\n                return string(1, 'A' + i);\n            }\n        }\n\n        return \"\";\n    }\n};"
     }
   ]
 }

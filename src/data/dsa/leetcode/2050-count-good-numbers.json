@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2050-count-good-numbers/2050-count-good-numbers.cpp",
-      "source": "/*\n Problem: 2050. Count Good Numbers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (68.87%)\n Tags: Math, Recursion\n*/\nclass Solution {\nprivate:\n    const long MOD = 1e9 + 7;\n\n    long long powm(long long base, long long expo) {\n        if (expo == 0)\n            return 1;\n\n        long long newexpo = expo / 2;\n        long long v = powm(base, newexpo);\n        long long ans = v * v % MOD;\n        if (expo & 1) ans = (ans * base) % MOD;\n\n        return ans;\n    }\n\npublic:\n    int countGoodNumbers(long long n) {\n        if (n == 1) return 5;\n        long long even = (n + 1) / 2;\n        long long odd = n / 2;\n\n        return powm(5, even) * powm(4, odd) % MOD;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2050-count-good-numbers/2050-count-good-numbers.cpp"
+      "source": "/*\n Problem: 2050. Count Good Numbers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (68.87%)\n Tags: Math, Recursion\n*/\nclass Solution {\nprivate:\n    const long MOD = 1e9 + 7;\n\n    long long powm(long long base, long long expo) {\n        if (expo == 0)\n            return 1;\n\n        long long newexpo = expo / 2;\n        long long v = powm(base, newexpo);\n        long long ans = v * v % MOD;\n        if (expo & 1) ans = (ans * base) % MOD;\n\n        return ans;\n    }\n\npublic:\n    int countGoodNumbers(long long n) {\n        if (n == 1) return 5;\n        long long even = (n + 1) / 2;\n        long long odd = n / 2;\n\n        return powm(5, even) * powm(4, odd) % MOD;\n    }\n};"
     }
   ]
 }

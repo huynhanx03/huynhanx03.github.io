@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0274-h-index/0274-h-index.cpp",
-      "source": "/*\n Problem: 274. H-Index\n Language: cpp\n Runtime: 5 ms (7.63%)\n Memory: 10.9 MB (100.00%)\n Tags: Array, Sorting, Counting Sort\n*/\nclass Solution {\npublic:\n    int hIndex(vector<int>& citations) {\n        sort(citations.begin(), citations.end());\n\n        int n = citations.size();\n\n        int ans = 0;\n\n        for (int i = n - 1; i >=0; --i) {\n            if (citations[i] >= ans + 1)\n                ++ans;\n        }\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0274-h-index/0274-h-index.cpp"
+      "source": "/*\n Problem: 274. H-Index\n Language: cpp\n Runtime: 5 ms (7.63%)\n Memory: 10.9 MB (100.00%)\n Tags: Array, Sorting, Counting Sort\n*/\nclass Solution {\npublic:\n    int hIndex(vector<int>& citations) {\n        sort(citations.begin(), citations.end());\n\n        int n = citations.size();\n\n        int ans = 0;\n\n        for (int i = n - 1; i >=0; --i) {\n            if (citations[i] >= ans + 1)\n                ++ans;\n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

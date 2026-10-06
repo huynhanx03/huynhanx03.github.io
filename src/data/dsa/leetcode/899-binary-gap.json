@@ -14,8 +14,7 @@
     {
       "language": "Rust",
       "relativePath": "leetcode/Easy/0899-binary-gap/0899-binary-gap.rs",
-      "source": "/*\n Problem: 899. Binary Gap\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.1 MB (46.76%)\n Tags: Bit Manipulation\n*/\nimpl Solution {\n    pub fn binary_gap(n: i32) -> i32 {\n        let mut n = n;\n        let mut pos = 0;\n        let mut last = -1;\n        let mut ans = 0;\n\n        while n > 0 {\n            if (n & 1) == 1 {\n                if last != -1 {\n                    ans = ans.max(pos - last);\n                }\n                last = pos;\n            }\n            pos += 1;\n            n >>= 1;\n        }\n\n        ans\n    }\n}\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0899-binary-gap/0899-binary-gap.rs"
+      "source": "/*\n Problem: 899. Binary Gap\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.1 MB (46.76%)\n Tags: Bit Manipulation\n*/\nimpl Solution {\n    pub fn binary_gap(n: i32) -> i32 {\n        let mut n = n;\n        let mut pos = 0;\n        let mut last = -1;\n        let mut ans = 0;\n\n        while n > 0 {\n            if (n & 1) == 1 {\n                if last != -1 {\n                    ans = ans.max(pos - last);\n                }\n                last = pos;\n            }\n            pos += 1;\n            n >>= 1;\n        }\n\n        ans\n    }\n}\n"
     }
   ]
 }

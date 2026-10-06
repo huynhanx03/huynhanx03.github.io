@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0045-jump-game-ii/0045-jump-game-ii.cpp",
-      "source": "/*\n Problem: 45. Jump Game II\n Language: cpp\n Runtime: 7 ms (26.74%)\n Memory: 19.3 MB (100.00%)\n Tags: Array, Dynamic Programming, Greedy\n*/\nclass Solution {\npublic:\n    int jump(vector<int>& nums) {\n        int near = 0, far = 0, jumps = 0;\n\n        while (far < nums.size() - 1) {\n            int farthest = 0;\n            for (int i = near; i <= far; i++) {\n                farthest = max(farthest, i + nums[i]);\n            }\n            near = far + 1;\n            far = farthest;\n            jumps++;\n        }\n\n        return jumps;        \n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0045-jump-game-ii/0045-jump-game-ii.cpp"
+      "source": "/*\n Problem: 45. Jump Game II\n Language: cpp\n Runtime: 7 ms (26.74%)\n Memory: 19.3 MB (100.00%)\n Tags: Array, Dynamic Programming, Greedy\n*/\nclass Solution {\npublic:\n    int jump(vector<int>& nums) {\n        int near = 0, far = 0, jumps = 0;\n\n        while (far < nums.size() - 1) {\n            int farthest = 0;\n            for (int i = near; i <= far; i++) {\n                farthest = max(farthest, i + nums[i]);\n            }\n            near = far + 1;\n            far = farthest;\n            jumps++;\n        }\n\n        return jumps;        \n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1476-count-negative-numbers-in-a-sorted-matrix/1476-count-negative-numbers-in-a-sorted-matrix.cpp",
-      "source": "/*\n Problem: 1476. Count Negative Numbers in a Sorted Matrix\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 14 MB (91.43%)\n Tags: Array, Binary Search, Matrix\n*/\nclass Solution {\npublic:\n    int countNegatives(vector<vector<int>>& grid) {\n        int cnt = 0;\n        for (const auto& g: grid) {\n            for (const auto& v: g) {\n                cnt += v < 0;\n            }\n        }\n\n        return cnt;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1476-count-negative-numbers-in-a-sorted-matrix/1476-count-negative-numbers-in-a-sorted-matrix.cpp"
+      "source": "/*\n Problem: 1476. Count Negative Numbers in a Sorted Matrix\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 14 MB (91.43%)\n Tags: Array, Binary Search, Matrix\n*/\nclass Solution {\npublic:\n    int countNegatives(vector<vector<int>>& grid) {\n        int cnt = 0;\n        for (const auto& g: grid) {\n            for (const auto& v: g) {\n                cnt += v < 0;\n            }\n        }\n\n        return cnt;\n    }\n};"
     }
   ]
 }

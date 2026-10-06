@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:1331",
+  "platform": "leetcode",
+  "id": "1331",
+  "slug": "rank-transform-of-an-array",
+  "title": "Rank Transform of an Array",
+  "url": "https://leetcode.com/problems/rank-transform-of-an-array/",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sorting"
+  ],
+  "statementHtml": "<p>Given an array of integers&nbsp;<code>arr</code>, replace each element with its rank.</p>\n\n<p>The rank represents how large the element is. The rank has the following rules:</p>\n\n<ul>\n\t<li>Rank is an integer starting from 1.</li>\n\t<li>The larger the element, the larger the rank. If two elements are equal, their rank must be the same.</li>\n\t<li>Rank should be as small as possible.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> arr = [40,10,20,30]\n<strong>Output:</strong> [4,1,2,3]\n<strong>Explanation</strong>: 40 is the largest element. 10 is the smallest. 20 is the second smallest. 30 is the third smallest.</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> arr = [100,100,100]\n<strong>Output:</strong> [1,1,1]\n<strong>Explanation</strong>: Same elements share the same rank.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> arr = [37,12,28,9,100,56,80,5,12]\n<strong>Output:</strong> [5,3,4,2,8,6,7,1,3]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= arr.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup>&nbsp;&lt;= arr[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1331-rank-transform-of-an-array.cpp",
+      "source": "/*\n Problem: 1331. Rank Transform of an Array\n Language: cpp\n Runtime: 35 ms (80.33%)\n Memory: 43.8 MB (60.52%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> arrayRankTransform(vector<int>& arr) {\n        vector<int> b = arr;\n        sort(b.begin(), b.end());\n\n        unordered_map<int, int> mp;\n        int rank = 1;\n\n        for (const auto& x : b) {\n            if (!mp.count(x)) {\n                mp[x] = rank;\n                ++rank;\n            }\n        }\n\n        for (auto &x : arr) x = mp[x];\n        return arr;\n    }\n};"
+    }
+  ]
+}

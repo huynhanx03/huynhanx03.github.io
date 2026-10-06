@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1700-minimum-time-to-make-rope-colorful/1700-minimum-time-to-make-rope-colorful.cpp",
-      "source": "/*\n Problem: 1700. Minimum Time to Make Rope Colorful\n Language: cpp\n Runtime: 3 ms (69.16%)\n Memory: 99.9 MB (34.83%)\n Tags: Array, String, Dynamic Programming, Greedy\n*/\nclass Solution {\npublic:\n    int minCost(string colors, vector<int>& neededTime) {\n        int cost = neededTime[0];\n        int ans = 0;\n        int n = colors.size();\n        for (int i = 1; i < n; ++i) {\n            if (colors[i] == colors[i - 1]) {\n                ans += min(cost, neededTime[i]);\n\n                if (neededTime[i] > cost) {\n                    cost = neededTime[i];\n                }\n            } else {\n                cost = neededTime[i];\n            }\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1700-minimum-time-to-make-rope-colorful/1700-minimum-time-to-make-rope-colorful.cpp"
+      "source": "/*\n Problem: 1700. Minimum Time to Make Rope Colorful\n Language: cpp\n Runtime: 3 ms (69.16%)\n Memory: 99.9 MB (34.83%)\n Tags: Array, String, Dynamic Programming, Greedy\n*/\nclass Solution {\npublic:\n    int minCost(string colors, vector<int>& neededTime) {\n        int cost = neededTime[0];\n        int ans = 0;\n        int n = colors.size();\n        for (int i = 1; i < n; ++i) {\n            if (colors[i] == colors[i - 1]) {\n                ans += min(cost, neededTime[i]);\n\n                if (neededTime[i] > cost) {\n                    cost = neededTime[i];\n                }\n            } else {\n                cost = neededTime[i];\n            }\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

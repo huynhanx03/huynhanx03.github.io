@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0908-middle-of-the-linked-list/0908-middle-of-the-linked-list.cpp",
-      "source": "/*\n Problem: 908. Middle of the Linked List\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.1 MB (25.99%)\n Tags: Linked List, Two Pointers\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* middleNode(ListNode* head) {\n        ListNode* slow = head;\n        ListNode* fast = head;\n\n        while (fast != nullptr && fast->next != nullptr) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n\n        return slow;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0908-middle-of-the-linked-list/0908-middle-of-the-linked-list.cpp"
+      "source": "/*\n Problem: 908. Middle of the Linked List\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.1 MB (25.99%)\n Tags: Linked List, Two Pointers\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* middleNode(ListNode* head) {\n        ListNode* slow = head;\n        ListNode* fast = head;\n\n        while (fast != nullptr && fast->next != nullptr) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n\n        return slow;\n    }\n};"
     }
   ]
 }

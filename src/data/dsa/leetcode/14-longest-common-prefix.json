@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0014-longest-common-prefix/0014-longest-common-prefix.cpp",
-      "source": "/*\n Problem: 14. Longest Common Prefix\n Language: cpp\n Runtime: 2 ms (11.80%)\n Memory: 11.5 MB (99.59%)\n Tags: Array, String, Trie\n*/\nclass Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        sort(strs.begin(), strs.end());\n\n        string ans = \"\";\n\n        string b = strs[0];\n        string e = strs[strs.size() - 1];\n\n        for (int i = 0; i < min (b.size(), e.size()); ++i) {\n            if (b[i] != e[i])\n                return ans;\n            \n            ans += b[i];\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0014-longest-common-prefix/0014-longest-common-prefix.cpp"
+      "source": "/*\n Problem: 14. Longest Common Prefix\n Language: cpp\n Runtime: 2 ms (11.80%)\n Memory: 11.5 MB (99.59%)\n Tags: Array, String, Trie\n*/\nclass Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        sort(strs.begin(), strs.end());\n\n        string ans = \"\";\n\n        string b = strs[0];\n        string e = strs[strs.size() - 1];\n\n        for (int i = 0; i < min (b.size(), e.size()); ++i) {\n            if (b[i] != e[i])\n                return ans;\n            \n            ans += b[i];\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

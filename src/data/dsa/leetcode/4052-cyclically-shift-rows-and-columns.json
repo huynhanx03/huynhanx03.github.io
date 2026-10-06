@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4052",
+  "platform": "leetcode",
+  "id": "4052",
+  "slug": "cyclically-shift-rows-and-columns",
+  "title": "Cyclically Shift Rows and Columns",
+  "url": "https://leetcode.com/problems/cyclically-shift-rows-and-columns/",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Matrix",
+    "Simulation"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code>, a 2D integer array <code>grid</code> of size <code>n x n</code>, and two integer arrays <code>rowShift</code> and <code>colShift</code>, each of length <code>n</code>, where:</p>\n\n<ul>\n\t<li><code>rowShift[i]</code> represents the number of positions to <strong>cyclically shift</strong> the <code>i<sup>th</sup></code> row of <code>grid</code> to the <strong>left</strong>.</li>\n\t<li><code>colShift[j]</code> represents the number of positions to <strong>cyclically shift</strong> the <code>j<sup>th</sup></code> column of <code>grid</code> <strong>upward</strong>.</li>\n</ul>\n\n<p>First, cyclically shift each row according to <code>rowShift</code>, then cyclically shift each column of the resulting grid according to <code>colShift</code>.</p>\n\n<p>Return the resulting grid after performing all the shifts.</p>\n\n<p>A <strong>cyclic left shift</strong> of a row by <code>k</code> positions moves the element at column <code>j</code> to column <code>(j - k + n) % n</code>. All other rows remain unchanged.</p>\n\n<p>A <strong>cyclic upward shift</strong> of a column by <code>k</code> positions moves the element at row <code>i</code> to row <code>(i - k + n) % n</code>. All other columns remain unchanged.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 2, <code>grid</code> = [[1,2],[3,4]], rowShift = [1,0], colShift = [0,1]</span></p>\n\n<p><strong>Output:</strong> <span>[[2,4],[3,1]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The <code>grid</code> changes as follows:</p>\n\n<p></p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 3, <code>grid</code> = [[1,2,3],[4,5,6],[7,8,9]], rowShift = [1,2,0], colShift = [2,2,1]</span></p>\n\n<p><strong>Output:</strong> <span>[[7,8,5],[2,3,9],[6,4,1]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The <code>grid</code> changes as follows:</p>\n\n<p></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == grid.length == grid[i].length &lt;= 10</code></li>\n\t<li><code>1 &lt;= grid[i][j] &lt;= 100</code></li>\n\t<li><code>rowShift.length == colShift.length == n</code></li>\n\t<li><code>0 &lt;= rowShift[i], colShift[i] &lt; n</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4052-cyclically-shift-rows-and-columns.cpp",
+      "source": "/*\n Problem: 4052. Cyclically Shift Rows and Columns\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 73.7 MB (18.47%)\n Tags: Array, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    vector<vector<int>> cyclicShift(int n, vector<vector<int>>& grid, vector<int>& rowShift, vector<int>& colShift) {\n        vector<vector<int>> res(n, vector<int>(n));\n\n        for (int i = 0; i < n; ++i) {\n            int k = rowShift[i] % n;\n            for (int j = 0; j < n; ++j) {\n                int nj = (j - k + n) % n;\n                res[i][nj] = grid[i][j];\n            }\n        }\n\n        vector<vector<int>> ans(n, vector<int>(n));\n\n        for (int j = 0; j < n; ++j) {\n            int k = colShift[j] % n;\n            for (int i = 0; i < n; ++i) {\n                int ni = (i - k + n) % n;\n                ans[ni][j] = res[i][j];\n            }\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

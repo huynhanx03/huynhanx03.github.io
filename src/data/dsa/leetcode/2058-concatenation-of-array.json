@@ -14,9 +14,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Easy/2058-concatenation-of-array/2058-concatenation-of-array.cpp",
-      "source": "/*\n Problem: 2058. Concatenation of Array\n Language: cpp\n Runtime: 3 ms (10.36%)\n Memory: 16.7 MB (94.77%)\n Tags: Array, Simulation\n*/\nclass Solution {\npublic:\n    vector<int> getConcatenation(vector<int>& nums) {\n        int n = nums.size();\n        vector <int> ans(n * 2);\n\n        for (int i = 0; i < n; ++i) {\n            ans[i] = nums[i];\n            ans[i + n] = ans[i];\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2058-concatenation-of-array/2058-concatenation-of-array.cpp"
+      "relativePath": "leetcode/Medium/2058-find-the-minimum-and-maximum-number-of-nodes-between-critical-points.cpp",
+      "source": "/*\n Problem: 2058. Find the Minimum and Maximum Number of Nodes Between Critical Points\n Language: cpp\n Runtime: 4 ms (55.94%)\n Memory: 124.6 MB (55.87%)\n Tags: Linked List\n*/\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    vector<int> nodesBetweenCriticalPoints(ListNode* head) {\n        int pos = 1, first = -1, prev = -1;\n        int mn = INT_MAX;\n\n        ListNode *a = head, *b = head->next;\n\n        while (b && b->next) {\n            if ((b->val > a->val && b->val > b->next->val) ||\n                (b->val < a->val && b->val < b->next->val)) {\n                \n                if (first == -1) {\n                    first = pos;\n                } else {\n                    mn = min(mn, pos - prev);\n                }\n\n                prev = pos;\n            }\n\n            a = b;\n            b = b->next;\n            pos++;\n        }\n\n        if (first == prev) return {-1, -1};\n\n        return {mn, prev - first};\n    }\n};"
     }
   ]
 }

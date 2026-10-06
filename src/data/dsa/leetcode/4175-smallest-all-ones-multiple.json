@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4175-smallest-all-ones-multiple/4175-smallest-all-ones-multiple.cpp",
-      "source": "/*\n Problem: 4175. Smallest All-Ones Multiple\n Language: cpp\n Runtime: 7 ms (85.67%)\n Memory: 8.5 MB (87.09%)\n Tags: Hash Table, Math\n*/\nclass Solution {\npublic:\n    int minAllOneMultiple(int k) {\n        if (k % 2 == 0 || k % 5 == 0) {\n            return -1;\n        }\n\n        int rem = 0;\n        for (int l = 1; l <= k; ++l) {\n            rem = (rem * 10 + 1) % k;\n\n            if (rem == 0) return l;\n        }\n\n        return -1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4175-smallest-all-ones-multiple/4175-smallest-all-ones-multiple.cpp"
+      "source": "/*\n Problem: 4175. Smallest All-Ones Multiple\n Language: cpp\n Runtime: 7 ms (85.67%)\n Memory: 8.5 MB (87.09%)\n Tags: Hash Table, Math\n*/\nclass Solution {\npublic:\n    int minAllOneMultiple(int k) {\n        if (k % 2 == 0 || k % 5 == 0) {\n            return -1;\n        }\n\n        int rem = 0;\n        for (int l = 1; l <= k; ++l) {\n            rem = (rem * 10 + 1) % k;\n\n            if (rem == 0) return l;\n        }\n\n        return -1;\n    }\n};"
     }
   ]
 }

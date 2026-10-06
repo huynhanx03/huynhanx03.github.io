@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3405-count-the-number-of-special-characters-ii/3405-count-the-number-of-special-characters-ii.cpp",
-      "source": "/*\n Problem: 3405. Count the Number of Special Characters II\n Language: cpp\n Runtime: 84 ms (24.83%)\n Memory: 24.2 MB (86.21%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int numberOfSpecialChars(string word) {\n        int ans = 0;\n        vector<bool> lower(26, false), upper(26, false);\n\n        for (const auto& c : word) {\n            if (islower(c)) {\n                lower[c - 'a'] = !upper[c - 'a'];\n            } else {\n                upper[c - 'A'] = true;\n            }\n        }\n\n        for (int i = 0; i < 26; ++i)\n            ans += lower[i] && upper[i];\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3405-count-the-number-of-special-characters-ii/3405-count-the-number-of-special-characters-ii.cpp"
+      "source": "/*\n Problem: 3405. Count the Number of Special Characters II\n Language: cpp\n Runtime: 84 ms (24.83%)\n Memory: 24.2 MB (86.21%)\n Tags: Hash Table, String\n*/\nclass Solution {\npublic:\n    int numberOfSpecialChars(string word) {\n        int ans = 0;\n        vector<bool> lower(26, false), upper(26, false);\n\n        for (const auto& c : word) {\n            if (islower(c)) {\n                lower[c - 'a'] = !upper[c - 'a'];\n            } else {\n                upper[c - 'A'] = true;\n            }\n        }\n\n        for (int i = 0; i < 26; ++i)\n            ans += lower[i] && upper[i];\n\n        return ans;\n    }\n};"
     }
   ]
 }

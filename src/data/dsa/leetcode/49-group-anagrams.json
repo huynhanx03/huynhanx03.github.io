@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0049-group-anagrams/0049-group-anagrams.cpp",
-      "source": "/*\n Problem: 49. Group Anagrams\n Language: cpp\n Runtime: 37 ms (18.91%)\n Memory: 24.8 MB (91.02%)\n Tags: Array, Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        map<string, vector<string>> hm;\n\n        for (auto str: strs) {\n            string strSort = str;\n            sort(strSort.begin(), strSort.end());\n\n            hm[strSort].push_back(str);\n        }\n\n        vector<vector<string>> ans;\n\n        for (auto vstring: hm)\n            ans.push_back(vstring.second);\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0049-group-anagrams/0049-group-anagrams.cpp"
+      "source": "/*\n Problem: 49. Group Anagrams\n Language: cpp\n Runtime: 37 ms (18.91%)\n Memory: 24.8 MB (91.02%)\n Tags: Array, Hash Table, String, Sorting\n*/\nclass Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        map<string, vector<string>> hm;\n\n        for (auto str: strs) {\n            string strSort = str;\n            sort(strSort.begin(), strSort.end());\n\n            hm[strSort].push_back(str);\n        }\n\n        vector<vector<string>> ans;\n\n        for (auto vstring: hm)\n            ans.push_back(vstring.second);\n\n        return ans;\n    }\n};"
     }
   ]
 }

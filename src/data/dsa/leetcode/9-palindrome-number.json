@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0009-palindrome-number/0009-palindrome-number.cpp",
-      "source": "/*\n Problem: 9. Palindrome Number\n Language: cpp\n Runtime: 4 ms (31.68%)\n Memory: 8.5 MB (65.42%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool isPalindrome(int x) {\n        if (x < 0)\n            return 0;\n        \n        long tmp = x;\n        long reversed = 0;\n\n        while (tmp != 0) {\n            int digit = tmp % 10;\n            reversed = reversed * 10 + digit;\n            tmp /= 10; \n        }\n\n        return reversed == x;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0009-palindrome-number/0009-palindrome-number.cpp"
+      "source": "/*\n Problem: 9. Palindrome Number\n Language: cpp\n Runtime: 4 ms (31.68%)\n Memory: 8.5 MB (65.42%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool isPalindrome(int x) {\n        if (x < 0)\n            return 0;\n        \n        long tmp = x;\n        long reversed = 0;\n\n        while (tmp != 0) {\n            int digit = tmp % 10;\n            reversed = reversed * 10 + digit;\n            tmp /= 10; \n        }\n\n        return reversed == x;\n    }\n};"
     }
   ]
 }

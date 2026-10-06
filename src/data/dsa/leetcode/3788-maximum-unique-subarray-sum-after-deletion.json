@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3788-maximum-unique-subarray-sum-after-deletion/3788-maximum-unique-subarray-sum-after-deletion.cpp",
-      "source": "/*\n Problem: 3788. Maximum Unique Subarray Sum After Deletion\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 29.5 MB (81.35%)\n Tags: Array, Hash Table, Greedy\n*/\nclass Solution {\npublic:\n    int maxSum(vector<int>& nums) {\n        set<int> st;\n        int mn = -1e9;\n        \n        for (const auto&x : nums) {\n            if (x > 0) st.insert(x);\n            else mn = max(mn, x);\n        }\n\n        int res = 0;\n        \n        for (const auto&x : st) {\n            res += x;\n        }\n\n        return st.size() ? res : mn;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3788-maximum-unique-subarray-sum-after-deletion/3788-maximum-unique-subarray-sum-after-deletion.cpp"
+      "source": "/*\n Problem: 3788. Maximum Unique Subarray Sum After Deletion\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 29.5 MB (81.35%)\n Tags: Array, Hash Table, Greedy\n*/\nclass Solution {\npublic:\n    int maxSum(vector<int>& nums) {\n        set<int> st;\n        int mn = -1e9;\n        \n        for (const auto&x : nums) {\n            if (x > 0) st.insert(x);\n            else mn = max(mn, x);\n        }\n\n        int res = 0;\n        \n        for (const auto&x : st) {\n            res += x;\n        }\n\n        return st.size() ? res : mn;\n    }\n};"
     }
   ]
 }

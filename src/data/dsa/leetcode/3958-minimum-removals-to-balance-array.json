@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3958-minimum-removals-to-balance-array/3958-minimum-removals-to-balance-array.cpp",
-      "source": "/*\n Problem: 3958. Minimum Removals to Balance Array\n Language: cpp\n Runtime: 35 ms (42.74%)\n Memory: 105.1 MB (51.37%)\n Tags: Array, Binary Search, Sliding Window, Sorting\n*/\nclass Solution {\npublic:\n    int minRemoval(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size();\n        int i = 0, best = 0;\n\n        for (int j = 0; j < n; ++j) {\n            while ((long long)nums[j] > (long long)k * nums[i]) {\n                ++i;\n            }\n            best = max(best, j - i + 1);\n        }\n\n        return n - best;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3958-minimum-removals-to-balance-array/3958-minimum-removals-to-balance-array.cpp"
+      "source": "/*\n Problem: 3958. Minimum Removals to Balance Array\n Language: cpp\n Runtime: 35 ms (42.74%)\n Memory: 105.1 MB (51.37%)\n Tags: Array, Binary Search, Sliding Window, Sorting\n*/\nclass Solution {\npublic:\n    int minRemoval(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size();\n        int i = 0, best = 0;\n\n        for (int j = 0; j < n; ++j) {\n            while ((long long)nums[j] > (long long)k * nums[i]) {\n                ++i;\n            }\n            best = max(best, j - i + 1);\n        }\n\n        return n - best;\n    }\n};\n"
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:3992",
+  "platform": "leetcode",
+  "id": "3992",
+  "slug": "rearrange-string-to-avoid-character-pair",
+  "title": "Rearrange String to Avoid Character Pair",
+  "url": "https://leetcode.com/problems/rearrange-string-to-avoid-character-pair/",
+  "difficulty": "Easy",
+  "topics": [
+    "Two Pointers",
+    "String",
+    "Sorting"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> and two distinct lowercase English letters <code>x</code> and <code>y</code>.</p>\n\n<p>Rearrange the characters of <code>s</code> to construct a new string <code>t</code> such that:</p>\n\n<ul>\n\t<li><code>t</code> is a <span>permutation</span> of <code>s</code>.</li>\n\t<li>Every occurrence of <code>y</code> appears before every occurrence of <code>x</code> in <code>t</code>.</li>\n</ul>\n\n<p>Return any valid string <code>t</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"aabc\", x = \"a\", y = \"c\"</span></p>\n\n<p><strong>Output:</strong> <span>\"cbaa\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The string <code>\"cbaa\"</code> is a permutation of <code>\"aabc\"</code>, and every occurrence of <code>'c'</code> appears before every occurrence of <code>'a'</code>.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"dcab\", x = \"d\", y = \"b\"</span></p>\n\n<p><strong>Output:</strong> <span>\"cabd\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The string <code>\"cabd\"</code> is a permutation of <code>\"dcab\"</code>, and every occurrence of <code>'b'</code> appears before every occurrence of <code>'d'</code>.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"axe\", x = \"o\", y = \"x\"</span></p>\n\n<p><strong>Output:</strong> <span>\"axe\"</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The string <code>\"axe\"</code> is already valid. Since <code>'o'</code> does not occur in the string, the required condition is automatically satisfied.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n\t<li><code>x</code> and <code>y</code> are lowercase English letters.</li>\n\t<li><code>x != y</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/3992-rearrange-string-to-avoid-character-pair.cpp",
+      "source": "/*\n Problem: 3992. Rearrange String to Avoid Character Pair\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.4 MB (48.40%)\n Tags: Two Pointers, String, Sorting\n*/\nclass Solution {\npublic:\n    string rearrangeString(string s, char x, char y) {\n        stable_partition(s.begin(), s.end(), [&](char c) {\n           return c == y || c != x; \n        });\n        \n        return s;\n    }\n};"
+    }
+  ]
+}

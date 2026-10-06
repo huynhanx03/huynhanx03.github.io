@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3616-make-array-elements-equal-to-zero/3616-make-array-elements-equal-to-zero.cpp",
-      "source": "/*\n Problem: 3616. Make Array Elements Equal to Zero\n Language: cpp\n Runtime: 3 ms (79.22%)\n Memory: 21.7 MB (98.77%)\n Tags: Array, Simulation, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countValidSelections(vector<int>& nums) {\n        int totalSum = 0;\n        for (int num : nums) totalSum += num;\n        int validSelections = 0, leftSum = 0;\n        for (int num : nums) {\n            leftSum += num;\n            if (num != 0) continue;\n            int rightSum = totalSum - leftSum;\n            if (rightSum == leftSum || rightSum == leftSum + 1) validSelections++;\n            if (rightSum == leftSum || rightSum == leftSum - 1) validSelections++;\n        }\n        return validSelections;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3616-make-array-elements-equal-to-zero/3616-make-array-elements-equal-to-zero.cpp"
+      "source": "/*\n Problem: 3616. Make Array Elements Equal to Zero\n Language: cpp\n Runtime: 3 ms (79.22%)\n Memory: 21.7 MB (98.77%)\n Tags: Array, Simulation, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countValidSelections(vector<int>& nums) {\n        int totalSum = 0;\n        for (int num : nums) totalSum += num;\n        int validSelections = 0, leftSum = 0;\n        for (int num : nums) {\n            leftSum += num;\n            if (num != 0) continue;\n            int rightSum = totalSum - leftSum;\n            if (rightSum == leftSum || rightSum == leftSum + 1) validSelections++;\n            if (rightSum == leftSum || rightSum == leftSum - 1) validSelections++;\n        }\n        return validSelections;\n    }\n};"
     }
   ]
 }

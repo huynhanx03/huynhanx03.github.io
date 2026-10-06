@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3817-maximum-containers-on-a-ship/3817-maximum-containers-on-a-ship.cpp",
-      "source": "/*\n Problem: 3817. Maximum Containers on a Ship\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.5 MB (1.80%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int maxContainers(int n, int w, int maxWeight) {\n        return min(n * n, maxWeight / w);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3817-maximum-containers-on-a-ship/3817-maximum-containers-on-a-ship.cpp"
+      "source": "/*\n Problem: 3817. Maximum Containers on a Ship\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.5 MB (1.80%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int maxContainers(int n, int w, int maxWeight) {\n        return min(n * n, maxWeight / w);\n    }\n};"
     }
   ]
 }

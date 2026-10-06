@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0189-rotate-array/0189-rotate-array.cpp",
-      "source": "/*\n Problem: 189. Rotate Array\n Language: cpp\n Runtime: 21 ms (1.77%)\n Memory: 28.1 MB (100.00%)\n Tags: Array, Math, Two Pointers\n*/\nclass Solution {\npublic:\n    void rotate(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        k = k % n;\n\n        vector<int> a(n);\n\n        if (k != 0) {\n            // a[i] = a[(i + k) % n]\n            for (int i = 0; i < n; ++i)\n                a[i] = nums[(n - k + i) % n];\n\n            nums = a;\n        }\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0189-rotate-array/0189-rotate-array.cpp"
+      "source": "/*\n Problem: 189. Rotate Array\n Language: cpp\n Runtime: 21 ms (1.77%)\n Memory: 28.1 MB (100.00%)\n Tags: Array, Math, Two Pointers\n*/\nclass Solution {\npublic:\n    void rotate(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        k = k % n;\n\n        vector<int> a(n);\n\n        if (k != 0) {\n            // a[i] = a[(i + k) % n]\n            for (int i = 0; i < n; ++i)\n                a[i] = nums[(n - k + i) % n];\n\n            nums = a;\n        }\n    }\n};"
     }
   ]
 }

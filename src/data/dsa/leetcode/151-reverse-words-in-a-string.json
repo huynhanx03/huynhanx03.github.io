@@ -15,8 +15,7 @@
     {
       "language": "Python",
       "relativePath": "leetcode/Medium/0151-reverse-words-in-a-string/0151-reverse-words-in-a-string.py",
-      "source": "\"\"\"\n Problem: 151. Reverse Words in a String\n Language: python\n Runtime: 14 ms (6.51%)\n Memory: 12 MB (99.98%)\n Tags: Two Pointers, String\n\"\"\"\nclass Solution(object):\n    def reverseWords(self, s):\n        \"\"\"\n        :type s: str\n        :rtype: str\n        \"\"\"\n        x = s.split()\n        d = x[::-1]\n        ans = \" \".join(d)\n        return ans",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0151-reverse-words-in-a-string/0151-reverse-words-in-a-string.py"
+      "source": "\"\"\"\n Problem: 151. Reverse Words in a String\n Language: python\n Runtime: 14 ms (6.51%)\n Memory: 12 MB (99.98%)\n Tags: Two Pointers, String\n\"\"\"\nclass Solution(object):\n    def reverseWords(self, s):\n        \"\"\"\n        :type s: str\n        :rtype: str\n        \"\"\"\n        x = s.split()\n        d = x[::-1]\n        ans = \" \".join(d)\n        return ans"
     }
   ]
 }

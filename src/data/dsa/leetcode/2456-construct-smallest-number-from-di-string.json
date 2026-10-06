@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2456-construct-smallest-number-from-di-string/2456-construct-smallest-number-from-di-string.cpp",
-      "source": "/*\n Problem: 2456. Construct Smallest Number From DI String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (30.51%)\n Tags: String, Backtracking, Stack, Greedy\n*/\nclass Solution {\npublic:\n    string smallestNumber(string pattern) {\n        int n = pattern.length();\n        string result;\n        stack<int> stk;\n\n        for (int i = 0; i <= n; ++i) {\n            stk.push(i + 1);\n            if (i == n || pattern[i] == 'I') {\n                while (!stk.empty()) {\n                    result += to_string(stk.top());\n                    stk.pop();\n                }\n            }\n        }\n\n        return result;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2456-construct-smallest-number-from-di-string/2456-construct-smallest-number-from-di-string.cpp"
+      "source": "/*\n Problem: 2456. Construct Smallest Number From DI String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.3 MB (30.51%)\n Tags: String, Backtracking, Stack, Greedy\n*/\nclass Solution {\npublic:\n    string smallestNumber(string pattern) {\n        int n = pattern.length();\n        string result;\n        stack<int> stk;\n\n        for (int i = 0; i <= n; ++i) {\n            stk.push(i + 1);\n            if (i == n || pattern[i] == 'I') {\n                while (!stk.empty()) {\n                    result += to_string(stk.top());\n                    stk.pop();\n                }\n            }\n        }\n\n        return result;\n    }\n};"
     }
   ]
 }

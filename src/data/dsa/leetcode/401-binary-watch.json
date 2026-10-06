@@ -15,14 +15,12 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0401-binary-watch/0401-binary-watch.cpp",
-      "source": "/*\n Problem: 401. Binary Watch\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.7 MB (60.34%)\n Tags: Backtracking, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<string> readBinaryWatch(int turnedOn) {\n        vector<string> res;\n\n        for (int h = 0; h < 12; ++h) {\n            for (int m = 0; m < 60; ++m) {\n                if (__builtin_popcount(h) + __builtin_popcount(m) == turnedOn) {\n                    string t = to_string(h) + \":\";\n                    if (m < 10) t += \"0\";\n                    t += to_string(m);\n                    res.push_back(t);\n                }\n            }\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0401-binary-watch/0401-binary-watch.cpp"
+      "source": "/*\n Problem: 401. Binary Watch\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.7 MB (60.34%)\n Tags: Backtracking, Bit Manipulation\n*/\nclass Solution {\npublic:\n    vector<string> readBinaryWatch(int turnedOn) {\n        vector<string> res;\n\n        for (int h = 0; h < 12; ++h) {\n            for (int m = 0; m < 60; ++m) {\n                if (__builtin_popcount(h) + __builtin_popcount(m) == turnedOn) {\n                    string t = to_string(h) + \":\";\n                    if (m < 10) t += \"0\";\n                    t += to_string(m);\n                    res.push_back(t);\n                }\n            }\n        }\n\n        return res;\n    }\n};"
     },
     {
       "language": "Rust",
       "relativePath": "leetcode/Easy/0401-binary-watch/0401-binary-watch.rs",
-      "source": "/*\n Problem: 401. Binary Watch\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.2 MB (29.76%)\n Tags: Backtracking, Bit Manipulation\n*/\nimpl Solution {\n    pub fn read_binary_watch(turned_on: i32) -> Vec<String> {\n        let mut res = Vec::new();\n\n        for h in 0..12i32 {\n            for m in 0..60i32 {\n                if (h.count_ones() + m.count_ones()) as i32 == turned_on {\n                    res.push(format!(\"{}:{:02}\", h, m));\n                }\n            }\n        }\n\n        res\n    }\n}",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0401-binary-watch/0401-binary-watch.rs"
+      "source": "/*\n Problem: 401. Binary Watch\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.2 MB (29.76%)\n Tags: Backtracking, Bit Manipulation\n*/\nimpl Solution {\n    pub fn read_binary_watch(turned_on: i32) -> Vec<String> {\n        let mut res = Vec::new();\n\n        for h in 0..12i32 {\n            for m in 0..60i32 {\n                if (h.count_ones() + m.count_ones()) as i32 == turned_on {\n                    res.push(format!(\"{}:{:02}\", h, m));\n                }\n            }\n        }\n\n        res\n    }\n}"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1694-make-sum-divisible-by-p/1694-make-sum-divisible-by-p.cpp",
-      "source": "/*\n Problem: 1694. Make Sum Divisible by P\n Language: cpp\n Runtime: 59 ms (98.04%)\n Memory: 87.8 MB (68.98%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minSubarray(vector<int>& nums, int p) {\n        long long total = 0;\n        for (int x : nums) total += x;\n        int target = total % p;\n        if (target == 0) return 0;\n        unordered_map<int, int> mp;\n        mp[0] = -1;\n        int res = nums.size();\n        long long prefix = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            prefix = (prefix + nums[i]) % p;\n            int need = (prefix - target + p) % p;\n            if (mp.count(need)) res = min(res, i - mp[need]);\n            mp[prefix] = i;\n        }\n        return res == nums.size() ? -1 : res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1694-make-sum-divisible-by-p/1694-make-sum-divisible-by-p.cpp"
+      "source": "/*\n Problem: 1694. Make Sum Divisible by P\n Language: cpp\n Runtime: 59 ms (98.04%)\n Memory: 87.8 MB (68.98%)\n Tags: Array, Hash Table, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minSubarray(vector<int>& nums, int p) {\n        long long total = 0;\n        for (int x : nums) total += x;\n        int target = total % p;\n        if (target == 0) return 0;\n        unordered_map<int, int> mp;\n        mp[0] = -1;\n        int res = nums.size();\n        long long prefix = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            prefix = (prefix + nums[i]) % p;\n            int need = (prefix - target + p) % p;\n            if (mp.count(need)) res = min(res, i - mp[need]);\n            mp[prefix] = i;\n        }\n        return res == nums.size() ? -1 : res;\n    }\n};"
     }
   ]
 }

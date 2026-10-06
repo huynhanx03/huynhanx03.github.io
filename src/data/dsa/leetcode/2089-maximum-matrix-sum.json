@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2089-maximum-matrix-sum/2089-maximum-matrix-sum.cpp",
-      "source": "/*\n Problem: 2089. Maximum Matrix Sum\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 39.2 MB (31.03%)\n Tags: Array, Greedy, Matrix\n*/\nclass Solution {\npublic:\n    long long maxMatrixSum(vector<vector<int>>& matrix) {\n        long long sumAbs = 0;\n        long long minAbs = LLONG_MAX;\n        int negCount = 0;\n\n        for (const auto& row : matrix) {\n            for (int x : row) {\n                if (x < 0) negCount++;\n                long long ax = llabs(x);\n                sumAbs += ax;\n                minAbs = min(minAbs, ax);\n            }\n        }\n\n        if (negCount % 2 == 0) {\n            return sumAbs;\n        }\n\n        return sumAbs - 2 * minAbs;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2089-maximum-matrix-sum/2089-maximum-matrix-sum.cpp"
+      "source": "/*\n Problem: 2089. Maximum Matrix Sum\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 39.2 MB (31.03%)\n Tags: Array, Greedy, Matrix\n*/\nclass Solution {\npublic:\n    long long maxMatrixSum(vector<vector<int>>& matrix) {\n        long long sumAbs = 0;\n        long long minAbs = LLONG_MAX;\n        int negCount = 0;\n\n        for (const auto& row : matrix) {\n            for (int x : row) {\n                if (x < 0) negCount++;\n                long long ax = llabs(x);\n                sumAbs += ax;\n                minAbs = min(minAbs, ax);\n            }\n        }\n\n        if (negCount % 2 == 0) {\n            return sumAbs;\n        }\n\n        return sumAbs - 2 * minAbs;\n    }\n};\n"
     }
   ]
 }

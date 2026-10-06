@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/2383-add-two-integers/2383-add-two-integers.cpp",
-      "source": "/*\n Problem: 2383. Add Two Integers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8 MB (67.02%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int sum(int num1, int num2) {\n        return num1 + num2;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/2383-add-two-integers/2383-add-two-integers.cpp"
+      "source": "/*\n Problem: 2383. Add Two Integers\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8 MB (67.02%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int sum(int num1, int num2) {\n        return num1 + num2;\n    }\n};"
     }
   ]
 }

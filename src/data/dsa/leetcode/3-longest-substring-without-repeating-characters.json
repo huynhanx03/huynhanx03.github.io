@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0003-longest-substring-without-repeating-characters/0003-longest-substring-without-repeating-characters.cpp",
-      "source": "/*\n Problem: 3. Longest Substring Without Repeating Characters\n Language: cpp\n Runtime: 3 ms (79.42%)\n Memory: 11.6 MB (74.59%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        vector<int> dict(256, -1);\n        int maxLen = 0, start = -1;\n        for (int i = 0; i != s.length(); i++) {\n            if (dict[s[i]] > start)\n                start = dict[s[i]];\n            dict[s[i]] = i;\n            maxLen = max(maxLen, i - start);\n        }\n        return maxLen;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0003-longest-substring-without-repeating-characters/0003-longest-substring-without-repeating-characters.cpp"
+      "source": "/*\n Problem: 3. Longest Substring Without Repeating Characters\n Language: cpp\n Runtime: 3 ms (79.42%)\n Memory: 11.6 MB (74.59%)\n Tags: Hash Table, String, Sliding Window\n*/\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        vector<int> dict(256, -1);\n        int maxLen = 0, start = -1;\n        for (int i = 0; i != s.length(); i++) {\n            if (dict[s[i]] > start)\n                start = dict[s[i]];\n            dict[s[i]] = i;\n            maxLen = max(maxLen, i - start);\n        }\n        return maxLen;\n    }\n};"
     }
   ]
 }

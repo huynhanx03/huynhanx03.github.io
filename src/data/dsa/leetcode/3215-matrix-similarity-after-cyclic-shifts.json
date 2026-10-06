@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3215-matrix-similarity-after-cyclic-shifts/3215-matrix-similarity-after-cyclic-shifts.cpp",
-      "source": "/*\n Problem: 3215. Matrix Similarity After Cyclic Shifts\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.3 MB (49.69%)\n Tags: Array, Math, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    bool areSimilar(vector<vector<int>>& mat, int k) {\n        int n = mat.size(), m = mat[0].size();\n        k %= m;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < m; ++j) {\n                int nj = (i % 2 == 0)\n                    ? (j + k) % m\n                    : (j - k + m) % m;\n\n                if (mat[i][j] != mat[i][nj]) return false;\n            }\n        }\n        return true;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3215-matrix-similarity-after-cyclic-shifts/3215-matrix-similarity-after-cyclic-shifts.cpp"
+      "source": "/*\n Problem: 3215. Matrix Similarity After Cyclic Shifts\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 31.3 MB (49.69%)\n Tags: Array, Math, Matrix, Simulation\n*/\nclass Solution {\npublic:\n    bool areSimilar(vector<vector<int>>& mat, int k) {\n        int n = mat.size(), m = mat[0].size();\n        k %= m;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < m; ++j) {\n                int nj = (i % 2 == 0)\n                    ? (j + k) % m\n                    : (j - k + m) % m;\n\n                if (mat[i][j] != mat[i][nj]) return false;\n            }\n        }\n        return true;\n    }\n};"
     }
   ]
 }

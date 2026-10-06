@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0278-first-bad-version/0278-first-bad-version.cpp",
-      "source": "/*\n Problem: 278. First Bad Version\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (41.23%)\n Tags: Binary Search, Interactive\n*/\n// The API isBadVersion is defined for you.\n// bool isBadVersion(int version);\n\nclass Solution {\npublic:\n    int firstBadVersion(int n) {\n        int l = 1, r = n;\n\n        int res = -1;\n\n        while (l <= r) {\n            int mid = l + (r - l) / 2;\n\n            if (isBadVersion(mid)) {\n                res = mid;\n                r = mid - 1;\n            } else l = mid + 1;\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0278-first-bad-version/0278-first-bad-version.cpp"
+      "source": "/*\n Problem: 278. First Bad Version\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (41.23%)\n Tags: Binary Search, Interactive\n*/\n// The API isBadVersion is defined for you.\n// bool isBadVersion(int version);\n\nclass Solution {\npublic:\n    int firstBadVersion(int n) {\n        int l = 1, r = n;\n\n        int res = -1;\n\n        while (l <= r) {\n            int mid = l + (r - l) / 2;\n\n            if (isBadVersion(mid)) {\n                res = mid;\n                r = mid - 1;\n            } else l = mid + 1;\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

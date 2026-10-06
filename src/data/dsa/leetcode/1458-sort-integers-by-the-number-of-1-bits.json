@@ -17,8 +17,7 @@
     {
       "language": "Rust",
       "relativePath": "leetcode/Easy/1458-sort-integers-by-the-number-of-1-bits/1458-sort-integers-by-the-number-of-1-bits.rs",
-      "source": "/*\n Problem: 1458. Sort Integers by The Number of 1 Bits\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.2 MB (81.22%)\n Tags: Array, Bit Manipulation, Sorting, Counting\n*/\nimpl Solution {\n    pub fn sort_by_bits(mut arr: Vec<i32>) -> Vec<i32> {\n        arr.sort_by_key(|&x| (x.count_ones(), x));\n        arr\n    }\n}",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1458-sort-integers-by-the-number-of-1-bits/1458-sort-integers-by-the-number-of-1-bits.rs"
+      "source": "/*\n Problem: 1458. Sort Integers by The Number of 1 Bits\n Language: rust\n Runtime: 0 ms (100.00%)\n Memory: 2.2 MB (81.22%)\n Tags: Array, Bit Manipulation, Sorting, Counting\n*/\nimpl Solution {\n    pub fn sort_by_bits(mut arr: Vec<i32>) -> Vec<i32> {\n        arr.sort_by_key(|&x| (x.count_ones(), x));\n        arr\n    }\n}"
     }
   ]
 }

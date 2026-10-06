@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1630-count-odd-numbers-in-an-interval-range/1630-count-odd-numbers-in-an-interval-range.cpp",
-      "source": "/*\n Problem: 1630. Count Odd Numbers in an Interval Range\n Language: cpp\n Runtime: 2 ms (74.99%)\n Memory: 7.8 MB (69.92%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int countOdds(int low, int high) {\n        return (high + 1) / 2 - low / 2;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1630-count-odd-numbers-in-an-interval-range/1630-count-odd-numbers-in-an-interval-range.cpp"
+      "source": "/*\n Problem: 1630. Count Odd Numbers in an Interval Range\n Language: cpp\n Runtime: 2 ms (74.99%)\n Memory: 7.8 MB (69.92%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int countOdds(int low, int high) {\n        return (high + 1) / 2 - low / 2;\n    }\n};"
     }
   ]
 }

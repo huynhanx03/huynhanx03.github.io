@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0300-longest-increasing-subsequence/0300-longest-increasing-subsequence.cpp",
-      "source": "/*\n Problem: 300. Longest Increasing Subsequence\n Language: cpp\n Runtime: 61 ms (61.18%)\n Memory: 13.2 MB (100.00%)\n Tags: Array, Binary Search, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int lengthOfLIS(vector<int>& a) {\n        int n = a.size();\n        vector<int> dp(n, 1);\n\n        for (int i = 1; i < n; ++i)\n            for (int j = 0; j < i; ++j) {\n                if (a[i] > a[j])\n                    dp[i] = max(dp[i], dp[j] + 1);\n            }\n\n        return *max_element(dp.begin(), dp.end());\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0300-longest-increasing-subsequence/0300-longest-increasing-subsequence.cpp"
+      "source": "/*\n Problem: 300. Longest Increasing Subsequence\n Language: cpp\n Runtime: 61 ms (61.18%)\n Memory: 13.2 MB (100.00%)\n Tags: Array, Binary Search, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int lengthOfLIS(vector<int>& a) {\n        int n = a.size();\n        vector<int> dp(n, 1);\n\n        for (int i = 1; i < n; ++i)\n            for (int j = 0; j < i; ++j) {\n                if (a[i] > a[j])\n                    dp[i] = max(dp[i], dp[j] + 1);\n            }\n\n        return *max_element(dp.begin(), dp.end());\n    }\n};"
     }
   ]
 }

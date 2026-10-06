@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2478-longest-nice-subarray/2478-longest-nice-subarray.cpp",
-      "source": "/*\n Problem: 2478. Longest Nice Subarray\n Language: cpp\n Runtime: 1 ms (42.51%)\n Memory: 60.8 MB (89.23%)\n Tags: Array, Bit Manipulation, Sliding Window\n*/\nclass Solution {\npublic:\n    int longestNiceSubarray(vector<int>& nums) {\n        int bits = 0, left = 0, res = 0;\n\n        for (int right = 0; right < nums.size(); ++right) {\n            while ((left <= right) && ((bits & nums[right]) != 0))\n                bits ^= nums[left++];\n\n            bits |= nums[right];\n\n            res = max(res, right - left + 1);\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2478-longest-nice-subarray/2478-longest-nice-subarray.cpp"
+      "source": "/*\n Problem: 2478. Longest Nice Subarray\n Language: cpp\n Runtime: 1 ms (42.51%)\n Memory: 60.8 MB (89.23%)\n Tags: Array, Bit Manipulation, Sliding Window\n*/\nclass Solution {\npublic:\n    int longestNiceSubarray(vector<int>& nums) {\n        int bits = 0, left = 0, res = 0;\n\n        for (int right = 0; right < nums.size(); ++right) {\n            while ((left <= right) && ((bits & nums[right]) != 0))\n                bits ^= nums[left++];\n\n            bits |= nums[right];\n\n            res = max(res, right - left + 1);\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

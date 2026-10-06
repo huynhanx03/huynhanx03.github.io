@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2197-decode-the-slanted-ciphertext/2197-decode-the-slanted-ciphertext.cpp",
-      "source": "/*\n Problem: 2197. Decode the Slanted Ciphertext\n Language: cpp\n Runtime: 19 ms (84.75%)\n Memory: 36.6 MB (90.68%)\n Tags: String, Simulation\n*/\nclass Solution {\npublic:\n    string decodeCiphertext(string encodedText, int rows) {\n        const int n = encodedText.size();\n        const int cols = n / rows;\n\n        string res;\n        res.reserve(n);\n\n        for (int start = 0; start < cols; ++start) {\n            int i = 0, j = start;\n            while (i < rows && j < cols) {\n                res += encodedText[i * cols + j];\n                ++i;\n                ++j;\n            }\n        }\n\n        while (!res.empty() && res.back() == ' ') {\n            res.pop_back();\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2197-decode-the-slanted-ciphertext/2197-decode-the-slanted-ciphertext.cpp"
+      "source": "/*\n Problem: 2197. Decode the Slanted Ciphertext\n Language: cpp\n Runtime: 19 ms (84.75%)\n Memory: 36.6 MB (90.68%)\n Tags: String, Simulation\n*/\nclass Solution {\npublic:\n    string decodeCiphertext(string encodedText, int rows) {\n        const int n = encodedText.size();\n        const int cols = n / rows;\n\n        string res;\n        res.reserve(n);\n\n        for (int start = 0; start < cols; ++start) {\n            int i = 0, j = start;\n            while (i < rows && j < cols) {\n                res += encodedText[i * cols + j];\n                ++i;\n                ++j;\n            }\n        }\n\n        while (!res.empty() && res.back() == ' ') {\n            res.pop_back();\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

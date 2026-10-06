@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0100-same-tree/0100-same-tree.cpp",
-      "source": "/*\n Problem: 100. Same Tree\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 12.9 MB (46.59%)\n Tags: Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isSameTree(TreeNode* p, TreeNode* q) {\n        if (!p && !q) return true;\n        if (!p || !q) return false;\n        if (p->val != q->val) return false;\n        \n        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0100-same-tree/0100-same-tree.cpp"
+      "source": "/*\n Problem: 100. Same Tree\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 12.9 MB (46.59%)\n Tags: Tree, Depth-First Search, Breadth-First Search, Binary Tree\n*/\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isSameTree(TreeNode* p, TreeNode* q) {\n        if (!p && !q) return true;\n        if (!p || !q) return false;\n        if (p->val != q->val) return false;\n        \n        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n    }\n};\n"
     }
   ]
 }

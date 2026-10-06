@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0380-insert-delete-getrandom-o1/0380-insert-delete-getrandom-o1.cpp",
-      "source": "/*\n Problem: 380. Insert Delete GetRandom O(1)\n Language: cpp\n Runtime: 227 ms (5.05%)\n Memory: 103.1 MB (99.87%)\n Tags: Array, Hash Table, Math, Design, Randomized\n*/\nclass RandomizedSet {\npublic:\n    set<int> s;\n\n    RandomizedSet() {\n\n    }\n    \n    bool insert(int val) {\n        return s.insert(val).second;\n    }\n    \n    bool remove(int val) {\n        return s.erase(val) > 0;\n    }\n    \n    int getRandom() {\n        auto it = s.begin();\n        std::advance(it, rand() % s.size());\n        return *it;        \n    }\n};\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet* obj = new RandomizedSet();\n * bool param_1 = obj->insert(val);\n * bool param_2 = obj->remove(val);\n * int param_3 = obj->getRandom();\n */",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0380-insert-delete-getrandom-o1/0380-insert-delete-getrandom-o1.cpp"
+      "source": "/*\n Problem: 380. Insert Delete GetRandom O(1)\n Language: cpp\n Runtime: 227 ms (5.05%)\n Memory: 103.1 MB (99.87%)\n Tags: Array, Hash Table, Math, Design, Randomized\n*/\nclass RandomizedSet {\npublic:\n    set<int> s;\n\n    RandomizedSet() {\n\n    }\n    \n    bool insert(int val) {\n        return s.insert(val).second;\n    }\n    \n    bool remove(int val) {\n        return s.erase(val) > 0;\n    }\n    \n    int getRandom() {\n        auto it = s.begin();\n        std::advance(it, rand() % s.size());\n        return *it;        \n    }\n};\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet* obj = new RandomizedSet();\n * bool param_1 = obj->insert(val);\n * bool param_2 = obj->remove(val);\n * int param_3 = obj->getRandom();\n */"
     }
   ]
 }

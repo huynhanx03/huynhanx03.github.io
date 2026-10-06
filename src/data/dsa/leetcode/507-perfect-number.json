@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0507-perfect-number/0507-perfect-number.cpp",
-      "source": "/*\n Problem: 507. Perfect Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (19.69%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool checkPerfectNumber(int num) {\n        int sum = num == 1 ? 0 : 1;\n        for (int i = 2; i * i <= num; ++i) {\n            if (num % i == 0) {\n                int next = num / i;\n                sum += i + (i == next ? 0 : next);\n            }\n        }\n\n        return sum == num;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0507-perfect-number/0507-perfect-number.cpp"
+      "source": "/*\n Problem: 507. Perfect Number\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.9 MB (19.69%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    bool checkPerfectNumber(int num) {\n        int sum = num == 1 ? 0 : 1;\n        for (int i = 2; i * i <= num; ++i) {\n            if (num % i == 0) {\n                int next = num / i;\n                sum += i + (i == next ? 0 : next);\n            }\n        }\n\n        return sum == num;\n    }\n};"
     }
   ]
 }

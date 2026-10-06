@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0172-factorial-trailing-zeroes/0172-factorial-trailing-zeroes.cpp",
-      "source": "/*\n Problem: 172. Factorial Trailing Zeroes\n Language: cpp\n Runtime: 7 ms (2.73%)\n Memory: 8 MB (99.52%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int trailingZeroes(int n) {\n        vector <int> cnt(10, 0);\n\n        for (int i = 1; i <= n; ++i) {\n            int x = i;\n\n            while (x % 2 == 0) {\n                x /= 2;\n                ++cnt[2];\n            }\n\n            while (x % 5 == 0) {\n                x /= 5;\n                ++cnt[5];\n            }\n        }\n\n        return min(cnt[2], cnt[5]);\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0172-factorial-trailing-zeroes/0172-factorial-trailing-zeroes.cpp"
+      "source": "/*\n Problem: 172. Factorial Trailing Zeroes\n Language: cpp\n Runtime: 7 ms (2.73%)\n Memory: 8 MB (99.52%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    int trailingZeroes(int n) {\n        vector <int> cnt(10, 0);\n\n        for (int i = 1; i <= n; ++i) {\n            int x = i;\n\n            while (x % 2 == 0) {\n                x /= 2;\n                ++cnt[2];\n            }\n\n            while (x % 5 == 0) {\n                x /= 5;\n                ++cnt[5];\n            }\n        }\n\n        return min(cnt[2], cnt[5]);\n    }\n};"
     }
   ]
 }

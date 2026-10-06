@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4078-maximum-alternating-sum-of-squares/4078-maximum-alternating-sum-of-squares.cpp",
-      "source": "/*\n Problem: 4078. Maximum Alternating Sum of Squares\n Language: cpp\n Runtime: 59 ms (57.67%)\n Memory: 176.3 MB (34.01%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    long long maxAlternatingSum(vector<int>& nums) {\n        for (auto& x : nums) x = abs(x);\n        sort(nums.begin(), nums.end());\n\n        int n = nums.size();\n\n        long long ans = 0;\n\n        for (int i = 0; i < n; ++i) {\n            if (i < n / 2) ans -= nums[i] * nums[i];\n            else ans += nums[i] * nums[i];\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4078-maximum-alternating-sum-of-squares/4078-maximum-alternating-sum-of-squares.cpp"
+      "source": "/*\n Problem: 4078. Maximum Alternating Sum of Squares\n Language: cpp\n Runtime: 59 ms (57.67%)\n Memory: 176.3 MB (34.01%)\n Tags: Array, Greedy, Sorting\n*/\nclass Solution {\npublic:\n    long long maxAlternatingSum(vector<int>& nums) {\n        for (auto& x : nums) x = abs(x);\n        sort(nums.begin(), nums.end());\n\n        int n = nums.size();\n\n        long long ans = 0;\n\n        for (int i = 0; i < n; ++i) {\n            if (i < n / 2) ans -= nums[i] * nums[i];\n            else ans += nums[i] * nums[i];\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

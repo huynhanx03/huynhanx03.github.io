@@ -14,8 +14,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3612-adjacent-increasing-subarrays-detection-i/3612-adjacent-increasing-subarrays-detection-i.cpp",
-      "source": "/*\n Problem: 3612. Adjacent Increasing Subarrays Detection I\n Language: cpp\n Runtime: 13 ms (51.47%)\n Memory: 41.5 MB (5.72%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool hasIncreasingSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (n < 2 * k) return false;\n\n        vector<int> cnt(n, 0);\n        cnt[0] = 1;\n\n        for (int i = 1; i < n; ++i) {\n            cnt[i] = nums[i] > nums[i - 1] ? cnt[i - 1] + 1 : 1;\n        }\n\n        for (int i = k - 1; i <= n - k - 1; ++i) {\n            if (cnt[i] >= k && cnt[i + k] >= k) {\n                return true;\n            }\n        }\n\n        return false;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3612-adjacent-increasing-subarrays-detection-i/3612-adjacent-increasing-subarrays-detection-i.cpp"
+      "source": "/*\n Problem: 3612. Adjacent Increasing Subarrays Detection I\n Language: cpp\n Runtime: 13 ms (51.47%)\n Memory: 41.5 MB (5.72%)\n Tags: Array\n*/\nclass Solution {\npublic:\n    bool hasIncreasingSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (n < 2 * k) return false;\n\n        vector<int> cnt(n, 0);\n        cnt[0] = 1;\n\n        for (int i = 1; i < n; ++i) {\n            cnt[i] = nums[i] > nums[i - 1] ? cnt[i - 1] + 1 : 1;\n        }\n\n        for (int i = k - 1; i <= n - k - 1; ++i) {\n            if (cnt[i] >= k && cnt[i + k] >= k) {\n                return true;\n            }\n        }\n\n        return false;\n    }\n};\n"
     }
   ]
 }

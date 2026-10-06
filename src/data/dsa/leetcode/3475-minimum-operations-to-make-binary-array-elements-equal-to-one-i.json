@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/3475-minimum-operations-to-make-binary-array-elements-equal-to-one-i/3475-minimum-operations-to-make-binary-array-elements-equal-to-one-i.cpp",
-      "source": "/*\n Problem: 3475. Minimum Operations to Make Binary Array Elements Equal to One I\n Language: cpp\n Runtime: 4 ms (84.83%)\n Memory: 139.9 MB (82.39%)\n Tags: Array, Bit Manipulation, Queue, Sliding Window, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums) {\n        int count = 0;\n        int n = nums.size();\n        \n        for (int i = 0; i < n - 2; i++) {\n            if (nums[i] == 0) {\n                nums[i] ^= 1;\n                nums[i + 1] ^= 1;\n                nums[i + 2] ^= 1;\n                count++;\n            }\n        }\n        \n        return (nums[n - 2] == 1 && nums[n - 1] == 1) ? count : -1;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/3475-minimum-operations-to-make-binary-array-elements-equal-to-one-i/3475-minimum-operations-to-make-binary-array-elements-equal-to-one-i.cpp"
+      "source": "/*\n Problem: 3475. Minimum Operations to Make Binary Array Elements Equal to One I\n Language: cpp\n Runtime: 4 ms (84.83%)\n Memory: 139.9 MB (82.39%)\n Tags: Array, Bit Manipulation, Queue, Sliding Window, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minOperations(vector<int>& nums) {\n        int count = 0;\n        int n = nums.size();\n        \n        for (int i = 0; i < n - 2; i++) {\n            if (nums[i] == 0) {\n                nums[i] ^= 1;\n                nums[i + 1] ^= 1;\n                nums[i + 2] ^= 1;\n                count++;\n            }\n        }\n        \n        return (nums[n - 2] == 1 && nums[n - 1] == 1) ? count : -1;\n    }\n};"
     }
   ]
 }

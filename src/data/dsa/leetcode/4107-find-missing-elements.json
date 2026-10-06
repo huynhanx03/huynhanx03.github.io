@@ -15,9 +15,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Easy/4107-find-missing-elements/4107-find-missing-elements.cpp",
-      "source": "/*\n Problem: 4107. Find Missing Elements\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 32.3 MB (53.84%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> findMissingElements(vector<int>& nums) {\n        vector<bool> mp(105, false);\n        int mn = 105;\n        int mx = 1;\n        \n        for (const auto& x : nums) {\n            mp[x] = true;\n            mn = min(mn, x);\n            mx = max(mx, x);\n        }\n\n        vector <int> ans;\n\n        for (int x = mn; x <= mx; ++x) {\n            if (!mp[x])\n                ans.push_back(x);\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/4107-find-missing-elements/4107-find-missing-elements.cpp"
+      "relativePath": "leetcode/Easy/4107-find-missing-elements.cpp",
+      "source": "/*\n Problem: 4107. Find Missing Elements\n Language: cpp\n Runtime: 7 ms (19.99%)\n Memory: 32.3 MB (74.47%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    vector<int> findMissingElements(vector<int>& nums) {\n        vector<bool> mp(105, false);\n        int mn = 105;\n        int mx = 1;\n        \n        for (const auto& x : nums) {\n            mp[x] = true;\n            mn = min(mn, x);\n            mx = max(mx, x);\n        }\n\n        vector <int> ans;\n\n        for (int x = mn; x <= mx; ++x) {\n            if (!mp[x])\n                ans.push_back(x);\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

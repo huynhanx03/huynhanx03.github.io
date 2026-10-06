@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0981-delete-columns-to-make-sorted/0981-delete-columns-to-make-sorted.cpp",
-      "source": "/*\n Problem: 981. Delete Columns to Make Sorted\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.3 MB (96.84%)\n Tags: Array, String\n*/\nclass Solution {\npublic:\n    int minDeletionSize(vector<string>& strs) {\n        int n = strs.size();\n        int m = strs[0].size();\n        int deleted = 0;\n\n        for (int col = 0; col < m; ++col) {\n            for (int row = 1; row < n; ++row) {\n                if (strs[row][col] < strs[row - 1][col]) {\n                    ++deleted;\n                    break;\n                }\n            }\n        }\n        return deleted;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0981-delete-columns-to-make-sorted/0981-delete-columns-to-make-sorted.cpp"
+      "source": "/*\n Problem: 981. Delete Columns to Make Sorted\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 15.3 MB (96.84%)\n Tags: Array, String\n*/\nclass Solution {\npublic:\n    int minDeletionSize(vector<string>& strs) {\n        int n = strs.size();\n        int m = strs[0].size();\n        int deleted = 0;\n\n        for (int col = 0; col < m; ++col) {\n            for (int row = 1; row < n; ++row) {\n                if (strs[row][col] < strs[row - 1][col]) {\n                    ++deleted;\n                    break;\n                }\n            }\n        }\n        return deleted;\n    }\n};\n"
     }
   ]
 }

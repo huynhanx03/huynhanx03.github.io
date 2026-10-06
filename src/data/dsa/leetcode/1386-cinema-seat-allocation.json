@@ -1,0 +1,23 @@
+{
+  "key": "leetcode:1386",
+  "platform": "leetcode",
+  "id": "1386",
+  "slug": "cinema-seat-allocation",
+  "title": "Cinema Seat Allocation",
+  "url": "https://leetcode.com/problems/cinema-seat-allocation/",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Greedy",
+    "Bit Manipulation"
+  ],
+  "statementHtml": "<p></p>\n\n<p>A cinema has <code>n</code> rows of seats, numbered from 1 to <code>n</code>. Each row has 10 seats, numbered from 1 to 10.</p>\n\n<p>You are given a 2D integer array <code>reservedSeats</code>, where <code>reservedSeats[i] = [row<sub>i</sub>, seat<sub>i</sub>]</code> means that seat <code>seat<sub>i</sub></code> in row <code>row<sub>i</sub></code> is already reserved.</p>\n\n<p>A four-person group must be assigned to four seats in the <strong>same</strong> row. The group can be seated in one of the following seat blocks:</p>\n\n<ul>\n\t<li>seats <code>2, 3, 4, 5</code></li>\n\t<li>seats <code>4, 5, 6, 7</code></li>\n\t<li>seats <code>6, 7, 8, 9</code></li>\n</ul>\n\n<p>A block can be used only if <strong>none</strong> of its seats are reserved. Each seat can be assigned to <strong>at most </strong>one group.</p>\n\n<p>Return an integer denoting the <strong>maximum</strong> number of four-person groups that can be assigned.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<p></p>\n\n<pre><strong>Input:</strong> n = 3, reservedSeats = [[1,2],[1,3],[1,8],[2,6],[3,1],[3,10]]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The figure above shows an optimal allocation of four groups. Seats marked in blue are already reserved, and each set of four contiguous seats marked in orange is assigned to one group.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> n = 2, reservedSeats = [[2,1],[1,8],[2,6]]\n<strong>Output:</strong> 2\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> n = 4, reservedSeats = [[4,3],[1,4],[4,6],[1,7]]\n<strong>Output:</strong> 4\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= reservedSeats.length &lt;= min(10 * n, 10<sup>4</sup>)</code></li>\n\t<li><code>reservedSeats[i] == [row<sub>i</sub>, seat<sub>i</sub>]</code></li>\n\t<li><code>1 &lt;= row<sub>i</sub> &lt;= n</code></li>\n\t<li><code>1 &lt;= seat<sub>i</sub> &lt;= 10</code></li>\n\t<li>All <code>reservedSeats[i]</code> are distinct.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1386-cinema-seat-allocation.cpp",
+      "source": "/*\n Problem: 1386. Cinema Seat Allocation\n Language: cpp\n Runtime: 20 ms (69.30%)\n Memory: 59.2 MB (60.27%)\n Tags: Array, Hash Table, Greedy, Bit Manipulation\n*/\nclass Solution {\npublic:\n    int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {\n        unordered_map<int, int> mp;\n\n        for (auto& seat : reservedSeats) {\n            if (seat[1] >= 2 && seat[1] <= 9)\n                mp[seat[0]] |= 1 << seat[1];\n        }\n\n        const int L = (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5);\n        const int M = (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7);\n        const int R = (1 << 6) | (1 << 7) | (1 << 8) | (1 << 9);\n\n        int ans = (n - mp.size()) * 2;\n\n        for (auto& [row, mask] : mp) {\n            bool l = !(mask & L);\n            bool m = !(mask & M);\n            bool r = !(mask & R);\n\n            if (l && r) ans += 2;\n            else if (l || m || r) ans++;\n        }\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

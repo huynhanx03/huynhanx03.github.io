@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:1979",
+  "platform": "leetcode",
+  "id": "1979",
+  "slug": "find-greatest-common-divisor-of-array",
+  "title": "Find Greatest Common Divisor of Array",
+  "url": "https://leetcode.com/problems/find-greatest-common-divisor-of-array/",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Math",
+    "Number Theory",
+    "Euclidean Algorithm",
+    "Greatest Common Divisor"
+  ],
+  "statementHtml": "<p>Given an integer array <code>nums</code>, return<strong> </strong><em>the <strong>greatest common divisor</strong> of the smallest number and largest number in </em><code>nums</code>.</p>\n\n<p>The <strong>greatest common divisor</strong> of two numbers is the largest positive integer that evenly divides both numbers.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> nums = [2,5,6,9,10]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong>\nThe smallest number in nums is 2.\nThe largest number in nums is 10.\nThe greatest common divisor of 2 and 10 is 2.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> nums = [7,5,6,8,3]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong>\nThe smallest number in nums is 3.\nThe largest number in nums is 8.\nThe greatest common divisor of 3 and 8 is 1.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> nums = [3,3]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong>\nThe smallest number in nums is 3.\nThe largest number in nums is 3.\nThe greatest common divisor of 3 and 3 is 3.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 1000</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/1979-find-greatest-common-divisor-of-array.cpp",
+      "source": "/*\n Problem: 1979. Find Greatest Common Divisor of Array\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 16.1 MB (67.55%)\n Tags: Array, Math, Number Theory, Euclidean Algorithm, Greatest Common Divisor\n*/\nclass Solution {\npublic:\n    int findGCD(vector<int>& nums) {\n        auto [mn, mx] = minmax_element(nums.begin(), nums.end());\n        return __gcd(*mn, *mx);\n    }\n};"
+    }
+  ]
+}

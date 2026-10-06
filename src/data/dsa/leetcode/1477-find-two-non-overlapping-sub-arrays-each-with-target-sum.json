@@ -1,0 +1,24 @@
+{
+  "key": "leetcode:1477",
+  "platform": "leetcode",
+  "id": "1477",
+  "slug": "find-two-non-overlapping-sub-arrays-each-with-target-sum",
+  "title": "Find Two Non-overlapping Sub-arrays Each With Target Sum",
+  "url": "https://leetcode.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum/",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Binary Search",
+    "Dynamic Programming",
+    "Sliding Window"
+  ],
+  "statementHtml": "<p>You are given an array of integers <code>arr</code> and an integer <code>target</code>.</p>\n\n<p>You have to find <strong>two non-overlapping sub-arrays</strong> of <code>arr</code> each with a sum equal <code>target</code>. There can be multiple answers so you have to find an answer where the sum of the lengths of the two sub-arrays is <strong>minimum</strong>.</p>\n\n<p>Return <em>the minimum sum of the lengths</em> of the two required sub-arrays, or return <code>-1</code> if you cannot find such two sub-arrays.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<pre><strong>Input:</strong> arr = [3,2,2,4,3], target = 3\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> Only two sub-arrays have sum = 3 ([3] and [3]). The sum of their lengths is 2.\n</pre>\n\n<p><strong>Example 2:</strong></p>\n\n<pre><strong>Input:</strong> arr = [7,3,4,7], target = 7\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> Although we have three non-overlapping sub-arrays of sum = 7 ([7], [3,4] and [7]), but we will choose the first and third sub-arrays as the sum of their lengths is 2.\n</pre>\n\n<p><strong>Example 3:</strong></p>\n\n<pre><strong>Input:</strong> arr = [4,3,2,6,2,3,4], target = 6\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> We have only one sub-array of sum = 6.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= arr[i] &lt;= 1000</code></li>\n\t<li><code>1 &lt;= target &lt;= 10<sup>8</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/1477-find-two-non-overlapping-sub-arrays-each-with-target-sum.cpp",
+      "source": "/*\n Problem: 1477. Find Two Non-overlapping Sub-arrays Each With Target Sum\n Language: cpp\n Runtime: 7 ms (65.43%)\n Memory: 89 MB (49.06%)\n Tags: Array, Hash Table, Binary Search, Dynamic Programming, Sliding Window\n*/\nclass Solution {\npublic:\n    int minSumOfLengths(vector<int>& arr, int target) {\n        const int INF = 1e9;\n        int n = arr.size();\n\n        vector<int> best(n, INF);\n        int ans = INF;\n\n        int left = 0, sum = 0;\n\n        for (int right = 0; right < n; ++right) {\n            sum += arr[right];\n\n            while (sum > target)\n                sum -= arr[left++];\n\n            if (sum == target) {\n                int len = right - left + 1;\n\n                if (left > 0 && best[left - 1] != INF)\n                    ans = min(ans, len + best[left - 1]);\n\n                best[right] = len;\n            }\n\n            if (right > 0)\n                best[right] = min(best[right], best[right - 1]);\n        }\n\n        return ans == INF ? -1 : ans;\n    }\n};"
+    }
+  ]
+}

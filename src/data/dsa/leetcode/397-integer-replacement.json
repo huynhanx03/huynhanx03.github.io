@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0397-integer-replacement/0397-integer-replacement.cpp",
-      "source": "/*\n Problem: 397. Integer Replacement\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (54.10%)\n Tags: Dynamic Programming, Greedy, Bit Manipulation, Memoization\n*/\nclass Solution {\npublic:\n    int integerReplacement(int n) {\n        long long v = n;\n        \n        int step = 0;\n        \n        while (v != 1) {\n            if (v&1) {\n                if (v == 3 || v % 4 == 1) --v;\n                else ++v;\n            }\n            else {\n                v >>= 1;\n            }\n            ++step;\n        }\n\n        return step;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0397-integer-replacement/0397-integer-replacement.cpp"
+      "source": "/*\n Problem: 397. Integer Replacement\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 7.8 MB (54.10%)\n Tags: Dynamic Programming, Greedy, Bit Manipulation, Memoization\n*/\nclass Solution {\npublic:\n    int integerReplacement(int n) {\n        long long v = n;\n        \n        int step = 0;\n        \n        while (v != 1) {\n            if (v&1) {\n                if (v == 3 || v % 4 == 1) --v;\n                else ++v;\n            }\n            else {\n                v >>= 1;\n            }\n            ++step;\n        }\n\n        return step;\n    }\n};"
     }
   ]
 }

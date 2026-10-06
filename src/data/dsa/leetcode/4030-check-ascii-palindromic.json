@@ -1,0 +1,22 @@
+{
+  "key": "leetcode:4030",
+  "platform": "leetcode",
+  "id": "4030",
+  "slug": "check-ascii-palindromic",
+  "title": "Check ASCII Palindromic",
+  "url": "https://leetcode.com/problems/check-ascii-palindromic/",
+  "difficulty": "Easy",
+  "topics": [
+    "Two Pointers",
+    "String",
+    "Bit Manipulation"
+  ],
+  "statementHtml": "<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>\n\n<p>Construct a <span><strong>binary string</strong></span> by replacing each character in <code>s</code> with the 8-bit binary representation of its ASCII value, <strong>including leading zeros</strong>, while preserving the original order of the characters.</p>\n\n<p>Return <code>true</code> if the resulting binary string is a <span><strong>palindrome</strong></span>. Otherwise, return <code>false</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"ff\"</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The ASCII value of <code>f</code> is 102, whose 8-bit binary representation is <code>01100110</code>.</li>\n\t<li>Thus, the binary string is <code>0110011001100110</code>.</li>\n\t<li>Since this binary string is a <strong>palindrome</strong>, the output is <code>true</code>.</li>\n</ul>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>s = \"leet\"</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The ASCII values of <code>l</code>, <code>e</code>, <code>e</code>, and <code>t</code> are 108, 101, 101, and 116, respectively.</li>\n\t<li>Their 8-bit binary representations are <code>01101100</code>, <code>01100101</code>, <code>01100101</code>, and <code>01110100</code>.</li>\n\t<li>Thus, the binary string is <code>01101100011001010110010101110100</code>.</li>\n\t<li>Since this binary string is not a <strong>palindrome</strong>, the output is <code>false</code>.</li>\n</ul>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/4030-check-ascii-palindromic.cpp",
+      "source": "/*\n Problem: 4030. Check ASCII Palindromic\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.7 MB (11.86%)\n Tags: Two Pointers, String, Bit Manipulation\n*/\nclass Solution {\npublic:\n    bool isPalindromic(string s) {\n        string b;\n        for (const auto& c : s) b += bitset<8>(c).to_string();\n        return b == string(b.rbegin(), b.rend());\n    }\n};"
+    }
+  ]
+}

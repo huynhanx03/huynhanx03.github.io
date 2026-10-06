@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0063-unique-paths-ii/0063-unique-paths-ii.cpp",
-      "source": "/*\n Problem: 63. Unique Paths II\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.8 MB (54.64%)\n Tags: Array, Dynamic Programming, Matrix\n*/\nclass Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& a) {\n        int n = a.size(), m = a[0].size();\n        \n        vector<vector<int>> dp(n, vector<int>(m, 0));\n        \n        if (a[0][0]) return 0;\n        \n        dp[0][0] = 1;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if (a[i][j]) continue;\n\n                if (i > 0 && !a[i - 1][j])\n                    dp[i][j] += dp[i - 1][j];\n\n                if (j > 0 && !a[i][j - 1])\n                    dp[i][j] += dp[i][j - 1];\n            }\n\n        return dp[n - 1][m - 1];        \n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0063-unique-paths-ii/0063-unique-paths-ii.cpp"
+      "source": "/*\n Problem: 63. Unique Paths II\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 11.8 MB (54.64%)\n Tags: Array, Dynamic Programming, Matrix\n*/\nclass Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& a) {\n        int n = a.size(), m = a[0].size();\n        \n        vector<vector<int>> dp(n, vector<int>(m, 0));\n        \n        if (a[0][0]) return 0;\n        \n        dp[0][0] = 1;\n\n        for (int i = 0; i < n; ++i)\n            for (int j = 0; j < m; ++j) {\n                if (a[i][j]) continue;\n\n                if (i > 0 && !a[i - 1][j])\n                    dp[i][j] += dp[i - 1][j];\n\n                if (j > 0 && !a[i][j - 1])\n                    dp[i][j] += dp[i][j - 1];\n            }\n\n        return dp[n - 1][m - 1];        \n    }\n};"
     }
   ]
 }

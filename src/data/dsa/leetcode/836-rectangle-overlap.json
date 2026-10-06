@@ -1,0 +1,21 @@
+{
+  "key": "leetcode:836",
+  "platform": "leetcode",
+  "id": "836",
+  "slug": "rectangle-overlap",
+  "title": "Rectangle Overlap",
+  "url": "https://leetcode.com/problems/rectangle-overlap/",
+  "difficulty": "Easy",
+  "topics": [
+    "Math",
+    "Geometry"
+  ],
+  "statementHtml": "<p>An axis-aligned rectangle is represented as a list <code>[x1, y1, x2, y2]</code>, where <code>(x1, y1)</code> is the coordinate of its bottom-left corner, and <code>(x2, y2)</code> is the coordinate of its top-right corner. Its top and bottom edges are parallel to the X-axis, and its left and right edges are parallel to the Y-axis.</p>\n\n<p>Two rectangles overlap if the area of their intersection is <strong>positive</strong>. To be clear, two rectangles that only touch at the corner or edges do not overlap.</p>\n\n<p>Given two axis-aligned rectangles <code>rec1</code> and <code>rec2</code>, return <code>true</code><em> if they overlap, otherwise return </em><code>false</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>rec1 = [0,0,2,2], rec2 = [1,1,3,3]</span></p>\n\n<p><strong>Output:</strong> <span>true</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The rectangles overlap in the region with corners at <code>(1,1)</code>, <code>(2,1)</code>, <code>(1,2)</code>, and <code>(2,2)</code>.</p>\n\n<p>This region has positive area, so the rectangles overlap.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>rec1 = [0,0,1,1], rec2 = [1,0,2,1]</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The rectangles share the vertical edge where <code>x = 1</code>, but they do not have any common interior region.</p>\n\n<p>Since their intersection has zero area, the rectangles do not overlap.</p>\n</div>\n\n<p><strong>Example 3:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>rec1 = [0,0,1,1], rec2 = [2,2,3,3]</span></p>\n\n<p><strong>Output:</strong> <span>false</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The rectangles are completely separate. Rectangle <code>rec1</code> ends at <code>x = 1</code> and <code>y = 1</code>, while <code>rec2</code> starts at <code>x = 2</code> and <code>y = 2</code>.</p>\n\n<p>Therefore, they have no common points and do not overlap.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>rec1.length == 4</code></li>\n\t<li><code>rec2.length == 4</code></li>\n\t<li><code>-10<sup>9</sup> &lt;= rec1[i], rec2[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>rec1</code> and <code>rec2</code> represent a valid rectangle with a non-zero area.</li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Easy/836-rectangle-overlap.cpp",
+      "source": "/*\n Problem: 836. Rectangle Overlap\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.8 MB (79.57%)\n Tags: Math, Geometry\n*/\nclass Solution {\npublic:\n    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {\n        int left = max(rec1[0], rec2[0]);\n        int right = min(rec1[2], rec2[2]);\n\n        int bottom = max(rec1[1], rec2[1]);\n        int top = min(rec1[3], rec2[3]);\n\n        return left < right && bottom < top;\n    }\n};"
+    }
+  ]
+}

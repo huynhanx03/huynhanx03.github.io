@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/1631-number-of-sub-arrays-with-odd-sum/1631-number-of-sub-arrays-with-odd-sum.cpp",
-      "source": "/*\n Problem: 1631. Number of Sub-arrays With Odd Sum\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 112.1 MB (53.69%)\n Tags: Array, Math, Dynamic Programming, Prefix Sum\n*/\nclass Solution {\npublic:\n    int numOfSubarrays(vector<int>& arr) {\n        int sum = 0;    \n        vector<int> cnt(2, 0);\n        cnt[0] = 1;\n        int ans = 0;\n        const int MOD = 1e9 + 7;\n        \n        for (const auto& x : arr) {\n            sum += x;\n            ans = (ans + cnt[(sum % 2 + 1) % 2]) % MOD;\n            ++cnt[sum % 2];\n        }\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/1631-number-of-sub-arrays-with-odd-sum/1631-number-of-sub-arrays-with-odd-sum.cpp"
+      "source": "/*\n Problem: 1631. Number of Sub-arrays With Odd Sum\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 112.1 MB (53.69%)\n Tags: Array, Math, Dynamic Programming, Prefix Sum\n*/\nclass Solution {\npublic:\n    int numOfSubarrays(vector<int>& arr) {\n        int sum = 0;    \n        vector<int> cnt(2, 0);\n        cnt[0] = 1;\n        int ans = 0;\n        const int MOD = 1e9 + 7;\n        \n        for (const auto& x : arr) {\n            sum += x;\n            ans = (ans + cnt[(sum % 2 + 1) % 2]) % MOD;\n            ++cnt[sum % 2];\n        }\n\n        return ans;\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/3263-divide-an-array-into-subarrays-with-minimum-cost-i/3263-divide-an-array-into-subarrays-with-minimum-cost-i.cpp",
-      "source": "/*\n Problem: 3263. Divide an Array Into Subarrays With Minimum Cost I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.6 MB (45.03%)\n Tags: Array, Sorting, Enumeration\n*/\nclass Solution {\npublic:\n    int minimumCost(vector<int>& nums) {\n        int minPrefix = nums[1];\n        int ans = INT_MAX;\n        \n        for (int i = 2; i < nums.size(); i++) {\n            ans = min(ans, nums[0] + minPrefix + nums[i]);\n            minPrefix = min(minPrefix, nums[i]);\n        }\n        \n        return ans;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/3263-divide-an-array-into-subarrays-with-minimum-cost-i/3263-divide-an-array-into-subarrays-with-minimum-cost-i.cpp"
+      "source": "/*\n Problem: 3263. Divide an Array Into Subarrays With Minimum Cost I\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 30.6 MB (45.03%)\n Tags: Array, Sorting, Enumeration\n*/\nclass Solution {\npublic:\n    int minimumCost(vector<int>& nums) {\n        int minPrefix = nums[1];\n        int ans = INT_MAX;\n        \n        for (int i = 2; i < nums.size(); i++) {\n            ans = min(ans, nums[0] + minPrefix + nums[i]);\n            minPrefix = min(minPrefix, nums[i]);\n        }\n        \n        return ans;\n    }\n};\n"
     }
   ]
 }

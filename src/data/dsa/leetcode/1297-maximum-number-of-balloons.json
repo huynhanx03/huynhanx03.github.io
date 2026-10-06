@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1297-maximum-number-of-balloons/1297-maximum-number-of-balloons.cpp",
-      "source": "/*\n Problem: 1297. Maximum Number of Balloons\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.8 MB (69.04%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int maxNumberOfBalloons(string text) {\n        vector<int> cnt(26);\n\n        for (const auto& c : text) {\n            ++cnt[c - 'a'];\n        }\n\n        return min({\n            cnt['b' - 'a'],\n            cnt['a' - 'a'],\n            cnt['l' - 'a'] >> 1,\n            cnt['o' - 'a'] >> 1,\n            cnt['n' - 'a']\n        });\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1297-maximum-number-of-balloons/1297-maximum-number-of-balloons.cpp"
+      "source": "/*\n Problem: 1297. Maximum Number of Balloons\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.8 MB (69.04%)\n Tags: Hash Table, String, Counting\n*/\nclass Solution {\npublic:\n    int maxNumberOfBalloons(string text) {\n        vector<int> cnt(26);\n\n        for (const auto& c : text) {\n            ++cnt[c - 'a'];\n        }\n\n        return min({\n            cnt['b' - 'a'],\n            cnt['a' - 'a'],\n            cnt['l' - 'a'] >> 1,\n            cnt['o' - 'a'] >> 1,\n            cnt['n' - 'a']\n        });\n    }\n};"
     }
   ]
 }

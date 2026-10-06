@@ -16,9 +16,8 @@
   "solutions": [
     {
       "language": "C++",
-      "relativePath": "leetcode/Medium/0678-valid-parenthesis-string/0678-valid-parenthesis-string.cpp",
-      "source": "/*\n Problem: 678. Valid Parenthesis String\n Language: cpp\n Runtime: 3 ms (9.16%)\n Memory: 7.4 MB (100.00%)\n Tags: String, Dynamic Programming, Stack, Greedy\n*/\nclass Solution {\npublic:\n    bool checkValidString(string s) {\n        int p1 = 0;\n        int p2 = 0;\n\n        for (auto& c : s) {\n            if (c == '(')\n            {\n                ++p1;\n                ++p2;\n            }\n            else if (c == '*')\n                {\n                    ++p1;\n                    --p2;\n                }\n            else {\n                --p1;\n                --p2;\n            }\n\n            if (p1 < 0)\n                return false;\n\n            if (p2 < 0)\n                p2 = 0;\n        }\n\n        return p2 == 0;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0678-valid-parenthesis-string/0678-valid-parenthesis-string.cpp"
+      "relativePath": "leetcode/Medium/678-valid-parenthesis-string.cpp",
+      "source": "/*\n Problem: 678. Valid Parenthesis String\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 8.1 MB (76.19%)\n Tags: Dynamic Programming, Greedy, Stack, String\n*/\nclass Solution {\npublic:\n    bool checkValidString(string s) {\n        int p1 = 0;\n        int p2 = 0;\n\n        for (auto& c : s) {\n            if (c == '(')\n            {\n                ++p1;\n                ++p2;\n            }\n            else if (c == '*')\n                {\n                    ++p1;\n                    --p2;\n                }\n            else {\n                --p1;\n                --p2;\n            }\n\n            if (p1 < 0)\n                return false;\n\n            if (p2 < 0)\n                p2 = 0;\n        }\n\n        return p2 == 0;\n    }\n};"
     }
   ]
 }

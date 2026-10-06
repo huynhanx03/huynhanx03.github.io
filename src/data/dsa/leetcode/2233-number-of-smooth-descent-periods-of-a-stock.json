@@ -18,8 +18,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2233-number-of-smooth-descent-periods-of-a-stock/2233-number-of-smooth-descent-periods-of-a-stock.cpp",
-      "source": "/*\n Problem: 2233. Number of Smooth Descent Periods of a Stock\n Language: cpp\n Runtime: 7 ms (14.05%)\n Memory: 107 MB (52.74%)\n Tags: Array, Math, Two Pointers, Dynamic Programming, Sliding Window\n*/\nclass Solution {\npublic:\n    long long getDescentPeriods(vector<int>& prices) {\n        long long result = 0;\n        long long current = 0;\n\n        for (int i = 0; i < prices.size(); i++) {\n            if (i > 0 && prices[i] == prices[i - 1] - 1) {\n                current++;\n            } else {\n                current = 1;\n            }\n            result += current;\n        }\n\n        return result;\n    }\n};\n",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2233-number-of-smooth-descent-periods-of-a-stock/2233-number-of-smooth-descent-periods-of-a-stock.cpp"
+      "source": "/*\n Problem: 2233. Number of Smooth Descent Periods of a Stock\n Language: cpp\n Runtime: 7 ms (14.05%)\n Memory: 107 MB (52.74%)\n Tags: Array, Math, Two Pointers, Dynamic Programming, Sliding Window\n*/\nclass Solution {\npublic:\n    long long getDescentPeriods(vector<int>& prices) {\n        long long result = 0;\n        long long current = 0;\n\n        for (int i = 0; i < prices.size(); i++) {\n            if (i > 0 && prices[i] == prices[i - 1] - 1) {\n                current++;\n            } else {\n                current = 1;\n            }\n            result += current;\n        }\n\n        return result;\n    }\n};\n"
     }
   ]
 }

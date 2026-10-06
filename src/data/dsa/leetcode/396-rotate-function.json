@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0396-rotate-function/0396-rotate-function.cpp",
-      "source": "/*\n Problem: 396. Rotate Function\n Language: cpp\n Runtime: 3 ms (54.55%)\n Memory: 99.6 MB (76.92%)\n Tags: Array, Math, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxRotateFunction(vector<int>& nums) {\n        int n = nums.size();\n        long long sum = 0, f = 0;\n        for (int i = 0; i < n; ++i) {\n            sum += nums[i];\n            f += 1LL * i * nums[i];\n        }\n\n        long long ans = f;\n        for (int k = 1; k < n; ++k) {\n            f = f + sum - 1LL * n * nums[n - k];\n            ans = max(ans, f);\n        }\n\n        return (int)ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0396-rotate-function/0396-rotate-function.cpp"
+      "source": "/*\n Problem: 396. Rotate Function\n Language: cpp\n Runtime: 3 ms (54.55%)\n Memory: 99.6 MB (76.92%)\n Tags: Array, Math, Dynamic Programming\n*/\nclass Solution {\npublic:\n    int maxRotateFunction(vector<int>& nums) {\n        int n = nums.size();\n        long long sum = 0, f = 0;\n        for (int i = 0; i < n; ++i) {\n            sum += nums[i];\n            f += 1LL * i * nums[i];\n        }\n\n        long long ans = f;\n        for (int k = 1; k < n; ++k) {\n            f = f + sum - 1LL * n * nums[n - k];\n            ans = max(ans, f);\n        }\n\n        return (int)ans;\n    }\n};"
     }
   ]
 }

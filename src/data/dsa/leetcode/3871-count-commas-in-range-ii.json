@@ -1,0 +1,20 @@
+{
+  "key": "leetcode:3871",
+  "platform": "leetcode",
+  "id": "3871",
+  "slug": "count-commas-in-range-ii",
+  "title": "Count Commas in Range II",
+  "url": "https://leetcode.com/problems/count-commas-in-range-ii/",
+  "difficulty": "Medium",
+  "topics": [
+    "Math"
+  ],
+  "statementHtml": "<p>You are given an integer <code>n</code>.</p>\n\n<p>Return the <strong>total</strong> number of commas used when writing all integers from <code>[1, n]</code> (inclusive) in <strong>standard</strong> number formatting.</p>\n\n<p>In <strong>standard</strong> formatting:</p>\n\n<ul>\n\t<li>A comma is inserted after <strong>every three</strong> digits from the right.</li>\n\t<li>Numbers with <strong>fewer</strong> than 4 digits contain no commas.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Example 1:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 1002</span></p>\n\n<p><strong>Output:</strong> <span>3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The numbers <code>\"1,000\"</code>, <code>\"1,001\"</code>, and <code>\"1,002\"</code> each contain one comma, giving a total of 3.</p>\n</div>\n\n<p><strong>Example 2:</strong></p>\n\n<div>\n<p><strong>Input:</strong> <span>n = 998</span></p>\n\n<p><strong>Output:</strong> <span>0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><strong>​​​​​​​</strong>All numbers from 1 to 998 have fewer than four digits. Therefore, no commas are used.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>15</sup></code></li>\n</ul>",
+  "solutions": [
+    {
+      "language": "C++",
+      "relativePath": "leetcode/Medium/3871-count-commas-in-range-ii.cpp",
+      "source": "/*\n Problem: 3871. Count Commas in Range II\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.1 MB (14.30%)\n Tags: Math\n*/\nclass Solution {\npublic:\n    long long countCommas(long long n) {\n        long long ans = 0;\n        for (long long p = 1000; p <= n; p *= 1000)\n            ans += n - p + 1;\n\n        return ans;\n    }\n};"
+    }
+  ]
+}

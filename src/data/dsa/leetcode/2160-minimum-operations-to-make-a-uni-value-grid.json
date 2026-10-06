@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2160-minimum-operations-to-make-a-uni-value-grid/2160-minimum-operations-to-make-a-uni-value-grid.cpp",
-      "source": "/*\n Problem: 2160. Minimum Operations to Make a Uni-Value Grid\n Language: cpp\n Runtime: 55 ms (15.85%)\n Memory: 90 MB (57.50%)\n Tags: Array, Math, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    int minOperations(vector<vector<int>>& grid, int x) {\n        vector <int> arr;\n\n        for (const auto& v : grid) {\n            for (const auto& x: v) arr.emplace_back(x);\n        }\n\n        sort(arr.begin(), arr.end());\n\n        int n = arr.size();\n        int mid = arr[n / 2];\n        int res = 0;\n\n        for (int i = 0; i < n; ++i) {\n            int diff = abs(arr[i] - mid);\n            if (diff % x != 0) return -1;\n            res += diff / x;\n        }\n\n        return res;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2160-minimum-operations-to-make-a-uni-value-grid/2160-minimum-operations-to-make-a-uni-value-grid.cpp"
+      "source": "/*\n Problem: 2160. Minimum Operations to Make a Uni-Value Grid\n Language: cpp\n Runtime: 55 ms (15.85%)\n Memory: 90 MB (57.50%)\n Tags: Array, Math, Sorting, Matrix\n*/\nclass Solution {\npublic:\n    int minOperations(vector<vector<int>>& grid, int x) {\n        vector <int> arr;\n\n        for (const auto& v : grid) {\n            for (const auto& x: v) arr.emplace_back(x);\n        }\n\n        sort(arr.begin(), arr.end());\n\n        int n = arr.size();\n        int mid = arr[n / 2];\n        int res = 0;\n\n        for (int i = 0; i < n; ++i) {\n            int diff = abs(arr[i] - mid);\n            if (diff % x != 0) return -1;\n            res += diff / x;\n        }\n\n        return res;\n    }\n};"
     }
   ]
 }

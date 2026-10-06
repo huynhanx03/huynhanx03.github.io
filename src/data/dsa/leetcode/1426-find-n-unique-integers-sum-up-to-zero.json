@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/1426-find-n-unique-integers-sum-up-to-zero/1426-find-n-unique-integers-sum-up-to-zero.cpp",
-      "source": "/*\n Problem: 1426. Find N Unique Integers Sum up to Zero\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.7 MB (51.62%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    vector<int> sumZero(int n) {\n        vector <int> ans;\n        for (int i = 1; i <= n / 2; ++i) {\n            ans.push_back(i);\n            ans.push_back(-i);\n        }\n\n        if (n % 2 == 1) ans.push_back(0);\n\n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/1426-find-n-unique-integers-sum-up-to-zero/1426-find-n-unique-integers-sum-up-to-zero.cpp"
+      "source": "/*\n Problem: 1426. Find N Unique Integers Sum up to Zero\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 9.7 MB (51.62%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    vector<int> sumZero(int n) {\n        vector <int> ans;\n        for (int i = 1; i <= n / 2; ++i) {\n            ans.push_back(i);\n            ans.push_back(-i);\n        }\n\n        if (n % 2 == 1) ans.push_back(0);\n\n        return ans;\n    }\n};"
     }
   ]
 }

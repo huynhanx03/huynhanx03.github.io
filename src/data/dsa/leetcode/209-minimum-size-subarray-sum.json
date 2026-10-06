@@ -17,8 +17,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/0209-minimum-size-subarray-sum/0209-minimum-size-subarray-sum.cpp",
-      "source": "/*\n Problem: 209. Minimum Size Subarray Sum\n Language: cpp\n Runtime: 25 ms (4.82%)\n Memory: 30.4 MB (100.00%)\n Tags: Array, Binary Search, Sliding Window, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int l = 0;\n        int r = 0;\n        int n = nums.size();\n        int ans = n + 1;\n        int sum = 0;\n\n        while (r < n && sum < target) {\n            sum += nums[r];\n            \n            if (sum >= target)\n                while (sum >= target) {\n                    sum -= nums[l];\n                    ans = min(ans, r - l + 1);\n                    ++l;\n                }\n\n            ++r;\n        }\n\n        return ans == n + 1 ? 0 : ans;\n    } \n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/0209-minimum-size-subarray-sum/0209-minimum-size-subarray-sum.cpp"
+      "source": "/*\n Problem: 209. Minimum Size Subarray Sum\n Language: cpp\n Runtime: 25 ms (4.82%)\n Memory: 30.4 MB (100.00%)\n Tags: Array, Binary Search, Sliding Window, Prefix Sum\n*/\nclass Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int l = 0;\n        int r = 0;\n        int n = nums.size();\n        int ans = n + 1;\n        int sum = 0;\n\n        while (r < n && sum < target) {\n            sum += nums[r];\n            \n            if (sum >= target)\n                while (sum >= target) {\n                    sum -= nums[l];\n                    ans = min(ans, r - l + 1);\n                    ++l;\n                }\n\n            ++r;\n        }\n\n        return ans == n + 1 ? 0 : ans;\n    } \n};"
     }
   ]
 }

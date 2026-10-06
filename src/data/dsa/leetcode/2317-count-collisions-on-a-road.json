@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/2317-count-collisions-on-a-road/2317-count-collisions-on-a-road.cpp",
-      "source": "/*\n Problem: 2317. Count Collisions on a Road\n Language: cpp\n Runtime: 3 ms (94.06%)\n Memory: 19.3 MB (32.08%)\n Tags: String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    int countCollisions(string directions) {\n        int n = directions.size();\n        int left = 0, right = n - 1;\n\n        while (left < n && directions[left] == 'L') left++;\n        while (right >= 0 && directions[right] == 'R') right--;\n\n        int collisions = 0;\n        for (int i = left; i <= right; i++)\n            if (directions[i] != 'S') collisions++;\n\n        return collisions;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/2317-count-collisions-on-a-road/2317-count-collisions-on-a-road.cpp"
+      "source": "/*\n Problem: 2317. Count Collisions on a Road\n Language: cpp\n Runtime: 3 ms (94.06%)\n Memory: 19.3 MB (32.08%)\n Tags: String, Stack, Simulation\n*/\nclass Solution {\npublic:\n    int countCollisions(string directions) {\n        int n = directions.size();\n        int left = 0, right = n - 1;\n\n        while (left < n && directions[left] == 'L') left++;\n        while (right >= 0 && directions[right] == 'R') right--;\n\n        int collisions = 0;\n        for (int i = left; i <= right; i++)\n            if (directions[i] != 'S') collisions++;\n\n        return collisions;\n    }\n};"
     }
   ]
 }

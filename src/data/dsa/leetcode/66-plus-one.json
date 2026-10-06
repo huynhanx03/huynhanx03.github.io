@@ -15,8 +15,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0066-plus-one/0066-plus-one.cpp",
-      "source": "/*\n Problem: 66. Plus One\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.6 MB (99.95%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    vector<int> plusOne(vector<int>& digits) {\n        int n = digits.size();\n\n        int tmp = 1;\n\n        for (int i = n - 1; i >= 0; --i) {\n            digits[i] += tmp;\n\n            if (digits[i] > 9) {\n                tmp = 1;\n                digits[i] = 0;\n            } else {\n                tmp = 0;\n                break;\n            }\n        }\n\n        if (tmp) {\n            digits[0] = 1;\n            digits.push_back(0);\n        }\n        \n        return digits;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0066-plus-one/0066-plus-one.cpp"
+      "source": "/*\n Problem: 66. Plus One\n Language: cpp\n Runtime: 0 ms (100.00%)\n Memory: 10.6 MB (99.95%)\n Tags: Array, Math\n*/\nclass Solution {\npublic:\n    vector<int> plusOne(vector<int>& digits) {\n        int n = digits.size();\n\n        int tmp = 1;\n\n        for (int i = n - 1; i >= 0; --i) {\n            digits[i] += tmp;\n\n            if (digits[i] > 9) {\n                tmp = 1;\n                digits[i] = 0;\n            } else {\n                tmp = 0;\n                break;\n            }\n        }\n\n        if (tmp) {\n            digits[0] = 1;\n            digits.push_back(0);\n        }\n        \n        return digits;\n    }\n};"
     }
   ]
 }

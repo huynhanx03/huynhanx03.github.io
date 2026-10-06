@@ -20,8 +20,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Medium/4074-count-subarrays-with-majority-element-i/4074-count-subarrays-with-majority-element-i.cpp",
-      "source": "/*\n Problem: 4074. Count Subarrays With Majority Element I\n Language: cpp\n Runtime: 45 ms (44.43%)\n Memory: 39.5 MB (96.41%)\n Tags: Array, Hash Table, Divide and Conquer, Segment Tree, Merge Sort, Counting, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countMajoritySubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        int ans = 0;\n    \n        for (int i = 0; i < n; ++i) {\n            int cnt = 0;\n\n            for (int j = i; j < n; ++j) {\n                if (nums[j] == target) ++cnt;\n                int len = j - i + 1;\n                if (cnt > len / 2) {\n                    ++ans;\n                }\n            }\n        }\n        \n        return ans;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Medium/4074-count-subarrays-with-majority-element-i/4074-count-subarrays-with-majority-element-i.cpp"
+      "source": "/*\n Problem: 4074. Count Subarrays With Majority Element I\n Language: cpp\n Runtime: 45 ms (44.43%)\n Memory: 39.5 MB (96.41%)\n Tags: Array, Hash Table, Divide and Conquer, Segment Tree, Merge Sort, Counting, Prefix Sum\n*/\nclass Solution {\npublic:\n    int countMajoritySubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        int ans = 0;\n    \n        for (int i = 0; i < n; ++i) {\n            int cnt = 0;\n\n            for (int j = i; j < n; ++j) {\n                if (nums[j] == target) ++cnt;\n                int len = j - i + 1;\n                if (cnt > len / 2) {\n                    ++ans;\n                }\n            }\n        }\n        \n        return ans;\n    }\n};"
     }
   ]
 }

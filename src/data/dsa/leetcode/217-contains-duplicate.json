@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0217-contains-duplicate/0217-contains-duplicate.cpp",
-      "source": "/*\n Problem: 217. Contains Duplicate\n Language: cpp\n Runtime: 67 ms (17.48%)\n Memory: 74.6 MB (73.11%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    bool containsDuplicate(vector<int>& nums) {\n        map<int, int> cnt;\n\n        for (const auto& x : nums) {\n            ++cnt[x];\n            if (cnt[x] >= 2) return true;\n        }\n\n        return false;\n    }\n};",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0217-contains-duplicate/0217-contains-duplicate.cpp"
+      "source": "/*\n Problem: 217. Contains Duplicate\n Language: cpp\n Runtime: 67 ms (17.48%)\n Memory: 74.6 MB (73.11%)\n Tags: Array, Hash Table, Sorting\n*/\nclass Solution {\npublic:\n    bool containsDuplicate(vector<int>& nums) {\n        map<int, int> cnt;\n\n        for (const auto& x : nums) {\n            ++cnt[x];\n            if (cnt[x] >= 2) return true;\n        }\n\n        return false;\n    }\n};"
     }
   ]
 }

@@ -16,8 +16,7 @@
     {
       "language": "C++",
       "relativePath": "leetcode/Easy/0969-number-of-recent-calls/0969-number-of-recent-calls.cpp",
-      "source": "/*\n Problem: 969. Number of Recent Calls\n Language: cpp\n Runtime: 19 ms (46.10%)\n Memory: 64.3 MB (36.78%)\n Tags: Design, Queue, Data Stream\n*/\nclass RecentCounter {\nprivate:\n    queue<int> qu;\n\npublic:\n    RecentCounter() {\n        \n    }\n    \n    int ping(int t) {\n        qu.push(t);\n        while (!qu.empty() && qu.front() < t - 3000) qu.pop();\n        return qu.size();\n    }\n};\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * RecentCounter* obj = new RecentCounter();\n * int param_1 = obj->ping(t);\n */",
-      "githubUrl": "https://github.com/huynhanx03/Data-structures-Algorithms/blob/main/leetcode/Easy/0969-number-of-recent-calls/0969-number-of-recent-calls.cpp"
+      "source": "/*\n Problem: 969. Number of Recent Calls\n Language: cpp\n Runtime: 19 ms (46.10%)\n Memory: 64.3 MB (36.78%)\n Tags: Design, Queue, Data Stream\n*/\nclass RecentCounter {\nprivate:\n    queue<int> qu;\n\npublic:\n    RecentCounter() {\n        \n    }\n    \n    int ping(int t) {\n        qu.push(t);\n        while (!qu.empty() && qu.front() < t - 3000) qu.pop();\n        return qu.size();\n    }\n};\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * RecentCounter* obj = new RecentCounter();\n * int param_1 = obj->ping(t);\n */"
     }
   ]
 }
