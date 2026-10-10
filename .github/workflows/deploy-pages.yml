@@ -41,18 +41,18 @@ jobs:
         continue-on-error: true
         env:
           GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
-          PUBLIC_BASE_PATH: ${{ github.event.repository.name == 'huynhanx03.github.io' && '' || format('/{0}', github.event.repository.name) }}
+          PUBLIC_BASE_PATH: ${{ github.event.repository.name != 'huynhanx03.github.io' && format('/{0}', github.event.repository.name) || '' }}
       - name: Validate and build
         run: make check
         env:
           PUBLIC_SITE_URL: https://huynhanx03.github.io
-          PUBLIC_BASE_PATH: ${{ github.event.repository.name == 'huynhanx03.github.io' && '' || format('/{0}', github.event.repository.name) }}
+          PUBLIC_BASE_PATH: ${{ github.event.repository.name != 'huynhanx03.github.io' && format('/{0}', github.event.repository.name) || '' }}
           PUBLIC_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
       - name: Verify generated URLs
         run: make verify-build
         env:
           PUBLIC_SITE_URL: https://huynhanx03.github.io
-          PUBLIC_BASE_PATH: ${{ github.event.repository.name == 'huynhanx03.github.io' && '' || format('/{0}', github.event.repository.name) }}
+          PUBLIC_BASE_PATH: ${{ github.event.repository.name != 'huynhanx03.github.io' && format('/{0}', github.event.repository.name) || '' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
