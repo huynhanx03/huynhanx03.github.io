@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-06T02:20:32.029Z",
-  "leetcodeCursor": "2026-10-06T02:20:32.029Z",
+  "generatedAt": "2026-10-10T15:39:28.554Z",
+  "leetcodeCursor": "2026-10-10T14:41:41.999Z",
   "counts": {
-    "all": 820,
-    "leetcode": 786,
+    "all": 824,
+    "leetcode": 790,
     "cses": 34
   },
   "filters": {
@@ -850,6 +850,24 @@
       ]
     },
     {
+      "key": "leetcode:1081",
+      "platform": "leetcode",
+      "id": "1081",
+      "slug": "smallest-subsequence-of-distinct-characters",
+      "title": "Smallest Subsequence of Distinct Characters",
+      "url": "https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Stack",
+        "Greedy",
+        "Monotonic Stack"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1093",
       "platform": "leetcode",
       "id": "1093",
@@ -862,6 +880,26 @@
         "Depth-First Search",
         "String",
         "Tree"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1096",
+      "platform": "leetcode",
+      "id": "1096",
+      "slug": "brace-expansion-ii",
+      "title": "Brace Expansion II",
+      "url": "https://leetcode.com/problems/brace-expansion-ii/",
+      "difficulty": "Hard",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Backtracking",
+        "Stack",
+        "Breadth-First Search",
+        "Sorting"
       ],
       "languages": [
         "C++"
@@ -936,6 +974,43 @@
       ]
     },
     {
+      "key": "leetcode:1140",
+      "platform": "leetcode",
+      "id": "1140",
+      "slug": "stone-game-ii",
+      "title": "Stone Game II",
+      "url": "https://leetcode.com/problems/stone-game-ii/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming",
+        "Minimax",
+        "Prefix Sum",
+        "Game Theory",
+        "Zero-Sum Game"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:115",
+      "platform": "leetcode",
+      "id": "115",
+      "slug": "distinct-subsequences",
+      "title": "Distinct Subsequences",
+      "url": "https://leetcode.com/problems/distinct-subsequences/",
+      "difficulty": "Hard",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1170",
       "platform": "leetcode",
       "id": "1170",
@@ -978,6 +1053,23 @@
       "topics": [
         "Array",
         "Dynamic Programming"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1190",
+      "platform": "leetcode",
+      "id": "1190",
+      "slug": "reverse-substrings-between-each-pair-of-parentheses",
+      "title": "Reverse Substrings Between Each Pair of Parentheses",
+      "url": "https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Stack",
+        "Bracket Sequences"
       ],
       "languages": [
         "C++"
@@ -1135,6 +1227,23 @@
       ]
     },
     {
+      "key": "leetcode:1260",
+      "platform": "leetcode",
+      "id": "1260",
+      "slug": "shift-2d-grid",
+      "title": "Shift 2D Grid",
+      "url": "https://leetcode.com/problems/shift-2d-grid/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Matrix",
+        "Simulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1264",
       "platform": "leetcode",
       "id": "1264",
@@ -1221,6 +1330,22 @@
       ]
     },
     {
+      "key": "leetcode:1288",
+      "platform": "leetcode",
+      "id": "1288",
+      "slug": "remove-covered-intervals",
+      "title": "Remove Covered Intervals",
+      "url": "https://leetcode.com/problems/remove-covered-intervals/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Sorting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:129",
       "platform": "leetcode",
       "id": "129",
@@ -1232,6 +1357,21 @@
         "Binary Tree",
         "Depth-First Search",
         "Tree"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1291",
+      "platform": "leetcode",
+      "id": "1291",
+      "slug": "sequential-digits",
+      "title": "Sequential Digits",
+      "url": "https://leetcode.com/problems/sequential-digits/",
+      "difficulty": "Medium",
+      "topics": [
+        "Enumeration"
       ],
       "languages": [
         "C++"
@@ -1285,6 +1425,23 @@
         "Depth-First Search",
         "Matrix",
         "Union-Find"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1301",
+      "platform": "leetcode",
+      "id": "1301",
+      "slug": "number-of-paths-with-max-score",
+      "title": "Number of Paths with Max Score",
+      "url": "https://leetcode.com/problems/number-of-paths-with-max-score/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Matrix"
       ],
       "languages": [
         "C++"
@@ -1351,6 +1508,23 @@
         "Depth-First Search",
         "Graph Theory",
         "Hash Table"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1331",
+      "platform": "leetcode",
+      "id": "1331",
+      "slug": "rank-transform-of-an-array",
+      "title": "Rank Transform of an Array",
+      "url": "https://leetcode.com/problems/rank-transform-of-an-array/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sorting"
       ],
       "languages": [
         "C++"
@@ -1490,6 +1664,24 @@
       ]
     },
     {
+      "key": "leetcode:1386",
+      "platform": "leetcode",
+      "id": "1386",
+      "slug": "cinema-seat-allocation",
+      "title": "Cinema Seat Allocation",
+      "url": "https://leetcode.com/problems/cinema-seat-allocation/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Greedy",
+        "Bit Manipulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1387",
       "platform": "leetcode",
       "id": "1387",
@@ -1602,6 +1794,22 @@
       ]
     },
     {
+      "key": "leetcode:1401",
+      "platform": "leetcode",
+      "id": "1401",
+      "slug": "circle-and-rectangle-overlapping",
+      "title": "Circle and Rectangle Overlapping",
+      "url": "https://leetcode.com/problems/circle-and-rectangle-overlapping/",
+      "difficulty": "Medium",
+      "topics": [
+        "Math",
+        "Geometry"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1402",
       "platform": "leetcode",
       "id": "1402",
@@ -1613,6 +1821,26 @@
         "Array",
         "Dynamic Programming",
         "Matrix"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1406",
+      "platform": "leetcode",
+      "id": "1406",
+      "slug": "stone-game-iii",
+      "title": "Stone Game III",
+      "url": "https://leetcode.com/problems/stone-game-iii/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming",
+        "Minimax",
+        "Game Theory",
+        "Zero-Sum Game"
       ],
       "languages": [
         "C++"
@@ -1819,6 +2047,23 @@
       ]
     },
     {
+      "key": "leetcode:1464",
+      "platform": "leetcode",
+      "id": "1464",
+      "slug": "maximum-product-of-two-elements-in-an-array",
+      "title": "Maximum Product of Two Elements in an Array",
+      "url": "https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Heap (Priority Queue)"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1465",
       "platform": "leetcode",
       "id": "1465",
@@ -1864,6 +2109,25 @@
         "Array",
         "Binary Search",
         "Matrix"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1477",
+      "platform": "leetcode",
+      "id": "1477",
+      "slug": "find-two-non-overlapping-sub-arrays-each-with-target-sum",
+      "title": "Find Two Non-overlapping Sub-arrays Each With Target Sum",
+      "url": "https://leetcode.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Binary Search",
+        "Dynamic Programming",
+        "Sliding Window"
       ],
       "languages": [
         "C++"
@@ -1956,6 +2220,27 @@
       ],
       "languages": [
         "Python"
+      ]
+    },
+    {
+      "key": "leetcode:1510",
+      "platform": "leetcode",
+      "id": "1510",
+      "slug": "stone-game-iv",
+      "title": "Stone Game IV",
+      "url": "https://leetcode.com/problems/stone-game-iv/",
+      "difficulty": "Hard",
+      "topics": [
+        "Math",
+        "Dynamic Programming",
+        "Minimax",
+        "Game Theory",
+        "Nim Game",
+        "Sprague–Grundy Theorem",
+        "Zero-Sum Game"
+      ],
+      "languages": [
+        "C++"
       ]
     },
     {
@@ -2106,6 +2391,24 @@
       ]
     },
     {
+      "key": "leetcode:1563",
+      "platform": "leetcode",
+      "id": "1563",
+      "slug": "stone-game-v",
+      "title": "Stone Game V",
+      "url": "https://leetcode.com/problems/stone-game-v/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming",
+        "Game Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1567",
       "platform": "leetcode",
       "id": "1567",
@@ -2184,6 +2487,24 @@
       "topics": [
         "Array",
         "Binary Search"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1621",
+      "platform": "leetcode",
+      "id": "1621",
+      "slug": "number-of-sets-of-k-non-overlapping-line-segments",
+      "title": "Number of Sets of K Non-Overlapping Line Segments",
+      "url": "https://leetcode.com/problems/number-of-sets-of-k-non-overlapping-line-segments/",
+      "difficulty": "Medium",
+      "topics": [
+        "Math",
+        "Dynamic Programming",
+        "Combinatorics",
+        "Prefix Sum"
       ],
       "languages": [
         "C++"
@@ -2801,6 +3122,27 @@
       ]
     },
     {
+      "key": "leetcode:1872",
+      "platform": "leetcode",
+      "id": "1872",
+      "slug": "stone-game-viii",
+      "title": "Stone Game VIII",
+      "url": "https://leetcode.com/problems/stone-game-viii/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming",
+        "Minimax",
+        "Prefix Sum",
+        "Game Theory",
+        "Zero-Sum Game"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1876",
       "platform": "leetcode",
       "id": "1876",
@@ -3009,6 +3351,24 @@
       ]
     },
     {
+      "key": "leetcode:1927",
+      "platform": "leetcode",
+      "id": "1927",
+      "slug": "sum-game",
+      "title": "Sum Game",
+      "url": "https://leetcode.com/problems/sum-game/",
+      "difficulty": "Medium",
+      "topics": [
+        "Math",
+        "String",
+        "Greedy",
+        "Game Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:1956",
       "platform": "leetcode",
       "id": "1956",
@@ -3103,6 +3463,25 @@
       "difficulty": "Easy",
       "topics": [
         "Array"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:1979",
+      "platform": "leetcode",
+      "id": "1979",
+      "slug": "find-greatest-common-divisor-of-array",
+      "title": "Find Greatest Common Divisor of Array",
+      "url": "https://leetcode.com/problems/find-greatest-common-divisor-of-array/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Math",
+        "Number Theory",
+        "Euclidean Algorithm",
+        "Greatest Common Divisor"
       ],
       "languages": [
         "C++"
@@ -3354,6 +3733,28 @@
       ]
     },
     {
+      "key": "leetcode:2029",
+      "platform": "leetcode",
+      "id": "2029",
+      "slug": "stone-game-ix",
+      "title": "Stone Game IX",
+      "url": "https://leetcode.com/problems/stone-game-ix/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Greedy",
+        "Minimax",
+        "Counting",
+        "Game Theory",
+        "Nim Game",
+        "Zero-Sum Game"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:2037",
       "platform": "leetcode",
       "id": "2037",
@@ -3552,6 +3953,22 @@
         "Graph Theory",
         "Shortest Path",
         "Topological Sort"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:2091",
+      "platform": "leetcode",
+      "id": "2091",
+      "slug": "removing-minimum-and-maximum-from-array",
+      "title": "Removing Minimum and Maximum From Array",
+      "url": "https://leetcode.com/problems/removing-minimum-and-maximum-from-array/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Greedy"
       ],
       "languages": [
         "C++"
@@ -4210,6 +4627,24 @@
       ]
     },
     {
+      "key": "leetcode:2267",
+      "platform": "leetcode",
+      "id": "2267",
+      "slug": "check-if-there-is-a-valid-parentheses-string-path",
+      "title": " Check if There Is a Valid Parentheses String Path",
+      "url": "https://leetcode.com/problems/check-if-there-is-a-valid-parentheses-string-path/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Matrix",
+        "Bracket Sequences"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:2274",
       "platform": "leetcode",
       "id": "2274",
@@ -4659,6 +5094,24 @@
       ]
     },
     {
+      "key": "leetcode:2472",
+      "platform": "leetcode",
+      "id": "2472",
+      "slug": "maximum-number-of-non-overlapping-palindrome-substrings",
+      "title": "Maximum Number of Non-overlapping Palindrome Substrings",
+      "url": "https://leetcode.com/problems/maximum-number-of-non-overlapping-palindrome-substrings/",
+      "difficulty": "Hard",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:2473",
       "platform": "leetcode",
       "id": "2473",
@@ -4723,6 +5176,24 @@
       "topics": [
         "Math",
         "Number Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:2492",
+      "platform": "leetcode",
+      "id": "2492",
+      "slug": "minimum-score-of-a-path-between-two-cities",
+      "title": "Minimum Score of a Path Between Two Cities",
+      "url": "https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/",
+      "difficulty": "Medium",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union-Find",
+        "Graph Theory"
       ],
       "languages": [
         "C++"
@@ -5568,6 +6039,22 @@
       ]
     },
     {
+      "key": "leetcode:2904",
+      "platform": "leetcode",
+      "id": "2904",
+      "slug": "shortest-and-lexicographically-smallest-beautiful-string",
+      "title": "Shortest and Lexicographically Smallest Beautiful String",
+      "url": "https://leetcode.com/problems/shortest-and-lexicographically-smallest-beautiful-string/",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Sliding Window"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:2914",
       "platform": "leetcode",
       "id": "2914",
@@ -5582,6 +6069,23 @@
         "Heap (Priority Queue)",
         "Matrix",
         "Union-Find"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:2948",
+      "platform": "leetcode",
+      "id": "2948",
+      "slug": "make-lexicographically-smallest-array-by-swapping-elements",
+      "title": "Make Lexicographically Smallest Array by Swapping Elements",
+      "url": "https://leetcode.com/problems/make-lexicographically-smallest-array-by-swapping-elements/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Union-Find",
+        "Sorting"
       ],
       "languages": [
         "C++"
@@ -5607,6 +6111,23 @@
       ]
     },
     {
+      "key": "leetcode:2958",
+      "platform": "leetcode",
+      "id": "2958",
+      "slug": "length-of-longest-subarray-with-at-most-k-frequency",
+      "title": "Length of Longest Subarray With at Most K Frequency",
+      "url": "https://leetcode.com/problems/length-of-longest-subarray-with-at-most-k-frequency/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:2978",
       "platform": "leetcode",
       "id": "2978",
@@ -5618,6 +6139,23 @@
         "Hash Table",
         "Sorting",
         "String"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:2996",
+      "platform": "leetcode",
+      "id": "2996",
+      "slug": "smallest-missing-integer-greater-than-sequential-prefix-sum",
+      "title": "Smallest Missing Integer Greater Than Sequential Prefix Sum",
+      "url": "https://leetcode.com/problems/smallest-missing-integer-greater-than-sequential-prefix-sum/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sorting"
       ],
       "languages": [
         "C++"
@@ -5710,6 +6248,42 @@
       ]
     },
     {
+      "key": "leetcode:3014",
+      "platform": "leetcode",
+      "id": "3014",
+      "slug": "minimum-number-of-pushes-to-type-word-i",
+      "title": "Minimum Number of Pushes to Type Word I",
+      "url": "https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-i/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math",
+        "String",
+        "Greedy"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3016",
+      "platform": "leetcode",
+      "id": "3016",
+      "slug": "minimum-number-of-pushes-to-type-word-ii",
+      "title": "Minimum Number of Pushes to Type Word II",
+      "url": "https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-ii/",
+      "difficulty": "Medium",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Greedy",
+        "Sorting",
+        "Counting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:3019",
       "platform": "leetcode",
       "id": "3019",
@@ -5759,6 +6333,40 @@
       ]
     },
     {
+      "key": "leetcode:3069",
+      "platform": "leetcode",
+      "id": "3069",
+      "slug": "distribute-elements-into-two-arrays-i",
+      "title": "Distribute Elements Into Two Arrays I",
+      "url": "https://leetcode.com/problems/distribute-elements-into-two-arrays-i/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Simulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3090",
+      "platform": "leetcode",
+      "id": "3090",
+      "slug": "maximum-length-substring-with-two-occurrences",
+      "title": "Maximum Length Substring With Two Occurrences",
+      "url": "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/",
+      "difficulty": "Easy",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:31",
       "platform": "leetcode",
       "id": "31",
@@ -5787,6 +6395,26 @@
         "Depth-First Search",
         "Graph Theory",
         "Topological Sort"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3116",
+      "platform": "leetcode",
+      "id": "3116",
+      "slug": "kth-smallest-amount-with-single-denomination-combination",
+      "title": "Kth Smallest Amount With Single Denomination Combination",
+      "url": "https://leetcode.com/problems/kth-smallest-amount-with-single-denomination-combination/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Binary Search",
+        "Bit Manipulation",
+        "Combinatorics",
+        "Number Theory"
       ],
       "languages": [
         "C++"
@@ -6152,6 +6780,65 @@
       ]
     },
     {
+      "key": "leetcode:3302",
+      "platform": "leetcode",
+      "id": "3302",
+      "slug": "find-the-lexicographically-smallest-valid-sequence",
+      "title": "Find the Lexicographically Smallest Valid Sequence",
+      "url": "https://leetcode.com/problems/find-the-lexicographically-smallest-valid-sequence/",
+      "difficulty": "Medium",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3310",
+      "platform": "leetcode",
+      "id": "3310",
+      "slug": "remove-methods-from-project",
+      "title": "Remove Methods From Project",
+      "url": "https://leetcode.com/problems/remove-methods-from-project/",
+      "difficulty": "Medium",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3312",
+      "platform": "leetcode",
+      "id": "3312",
+      "slug": "sorted-gcd-pair-queries",
+      "title": "Sorted GCD Pair Queries",
+      "url": "https://leetcode.com/problems/sorted-gcd-pair-queries/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Math",
+        "Binary Search",
+        "Combinatorics",
+        "Counting",
+        "Number Theory",
+        "Prefix Sum",
+        "Euclidean Algorithm",
+        "Greatest Common Divisor"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:3325",
       "platform": "leetcode",
       "id": "3325",
@@ -6248,6 +6935,22 @@
         "Array",
         "Matrix",
         "Prefix Sum"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3345",
+      "platform": "leetcode",
+      "id": "3345",
+      "slug": "smallest-divisible-digit-product-i",
+      "title": "Smallest Divisible Digit Product I",
+      "url": "https://leetcode.com/problems/smallest-divisible-digit-product-i/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math",
+        "Enumeration"
       ],
       "languages": [
         "C++"
@@ -6412,6 +7115,24 @@
       "topics": [
         "Hash Table",
         "String"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3414",
+      "platform": "leetcode",
+      "id": "3414",
+      "slug": "maximum-score-of-non-overlapping-intervals",
+      "title": "Maximum Score of Non-overlapping Intervals",
+      "url": "https://leetcode.com/problems/maximum-score-of-non-overlapping-intervals/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming",
+        "Sorting"
       ],
       "languages": [
         "C++"
@@ -6681,6 +7402,22 @@
       ]
     },
     {
+      "key": "leetcode:3499",
+      "platform": "leetcode",
+      "id": "3499",
+      "slug": "maximize-active-section-with-trade-i",
+      "title": "Maximize Active Section with Trade I",
+      "url": "https://leetcode.com/problems/maximize-active-section-with-trade-i/",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Enumeration"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:35",
       "platform": "leetcode",
       "id": "35",
@@ -6714,6 +7451,154 @@
       ]
     },
     {
+      "key": "leetcode:3514",
+      "platform": "leetcode",
+      "id": "3514",
+      "slug": "number-of-unique-xor-triplets-ii",
+      "title": "Number of Unique XOR Triplets II",
+      "url": "https://leetcode.com/problems/number-of-unique-xor-triplets-ii/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Bit Manipulation",
+        "Enumeration"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3518",
+      "platform": "leetcode",
+      "id": "3518",
+      "slug": "smallest-palindromic-rearrangement-ii",
+      "title": "Smallest Palindromic Rearrangement II",
+      "url": "https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/",
+      "difficulty": "Hard",
+      "topics": [
+        "Hash Table",
+        "Math",
+        "String",
+        "Combinatorics",
+        "Counting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:352",
+      "platform": "leetcode",
+      "id": "352",
+      "slug": "data-stream-as-disjoint-intervals",
+      "title": "Data Stream as Disjoint Intervals",
+      "url": "https://leetcode.com/problems/data-stream-as-disjoint-intervals/",
+      "difficulty": "Hard",
+      "topics": [
+        "Hash Table",
+        "Binary Search",
+        "Union-Find",
+        "Design",
+        "Data Stream",
+        "Ordered Set"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3524",
+      "platform": "leetcode",
+      "id": "3524",
+      "slug": "find-x-value-of-array-i",
+      "title": "Find X Value of Array I",
+      "url": "https://leetcode.com/problems/find-x-value-of-array-i/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3525",
+      "platform": "leetcode",
+      "id": "3525",
+      "slug": "find-x-value-of-array-ii",
+      "title": "Find X Value of Array II",
+      "url": "https://leetcode.com/problems/find-x-value-of-array-ii/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Segment Tree"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3532",
+      "platform": "leetcode",
+      "id": "3532",
+      "slug": "path-existence-queries-in-a-graph-i",
+      "title": "Path Existence Queries in a Graph I",
+      "url": "https://leetcode.com/problems/path-existence-queries-in-a-graph-i/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Binary Search",
+        "Union-Find",
+        "Graph Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3534",
+      "platform": "leetcode",
+      "id": "3534",
+      "slug": "path-existence-queries-in-a-graph-ii",
+      "title": "Path Existence Queries in a Graph II",
+      "url": "https://leetcode.com/problems/path-existence-queries-in-a-graph-ii/",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Binary Search",
+        "Dynamic Programming",
+        "Greedy",
+        "Bit Manipulation",
+        "Graph Theory",
+        "Sorting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3536",
+      "platform": "leetcode",
+      "id": "3536",
+      "slug": "maximum-product-of-two-digits",
+      "title": "Maximum Product of Two Digits",
+      "url": "https://leetcode.com/problems/maximum-product-of-two-digits/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math",
+        "Sorting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:3548",
       "platform": "leetcode",
       "id": "3548",
@@ -6725,6 +7610,22 @@
         "Combinatorics",
         "Enumeration",
         "Hash Table",
+        "Math"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3550",
+      "platform": "leetcode",
+      "id": "3550",
+      "slug": "smallest-index-with-digit-sum-equal-to-index",
+      "title": "Smallest Index With Digit Sum Equal to Index",
+      "url": "https://leetcode.com/problems/smallest-index-with-digit-sum-equal-to-index/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
         "Math"
       ],
       "languages": [
@@ -6746,6 +7647,25 @@
         "Heap (Priority Queue)",
         "Matrix",
         "Shortest Path"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3568",
+      "platform": "leetcode",
+      "id": "3568",
+      "slug": "minimum-moves-to-clean-the-classroom",
+      "title": "Minimum Moves to Clean the Classroom",
+      "url": "https://leetcode.com/problems/minimum-moves-to-clean-the-classroom/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Bit Manipulation",
+        "Breadth-First Search",
+        "Matrix"
       ],
       "languages": [
         "C++"
@@ -7088,6 +8008,22 @@
       ]
     },
     {
+      "key": "leetcode:3658",
+      "platform": "leetcode",
+      "id": "3658",
+      "slug": "gcd-of-odd-and-even-sums",
+      "title": "GCD of Odd and Even Sums",
+      "url": "https://leetcode.com/problems/gcd-of-odd-and-even-sums/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math",
+        "Number Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:3676",
       "platform": "leetcode",
       "id": "3676",
@@ -7175,6 +8111,22 @@
       ]
     },
     {
+      "key": "leetcode:3702",
+      "platform": "leetcode",
+      "id": "3702",
+      "slug": "longest-subsequence-with-non-zero-bitwise-xor",
+      "title": "Longest Subsequence With Non-Zero Bitwise XOR",
+      "url": "https://leetcode.com/problems/longest-subsequence-with-non-zero-bitwise-xor/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Bit Manipulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:3704",
       "platform": "leetcode",
       "id": "3704",
@@ -7254,6 +8206,41 @@
         "Heap (Priority Queue)",
         "Math",
         "Sliding Window"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3718",
+      "platform": "leetcode",
+      "id": "3718",
+      "slug": "smallest-missing-multiple-of-k",
+      "title": "Smallest Missing Multiple of K",
+      "url": "https://leetcode.com/problems/smallest-missing-multiple-of-k/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3720",
+      "platform": "leetcode",
+      "id": "3720",
+      "slug": "lexicographically-smallest-permutation-greater-than-target",
+      "title": "Lexicographically Smallest Permutation Greater Than Target",
+      "url": "https://leetcode.com/problems/lexicographically-smallest-permutation-greater-than-target/",
+      "difficulty": "Medium",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Greedy",
+        "Counting",
+        "Enumeration"
       ],
       "languages": [
         "C++"
@@ -7354,6 +8341,23 @@
         "Dynamic Programming",
         "Matrix",
         "Memoization"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3734",
+      "platform": "leetcode",
+      "id": "3734",
+      "slug": "lexicographically-smallest-palindromic-permutation-greater-than-target",
+      "title": "Lexicographically Smallest Palindromic Permutation Greater Than Target",
+      "url": "https://leetcode.com/problems/lexicographically-smallest-palindromic-permutation-greater-than-target/",
+      "difficulty": "Hard",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Enumeration"
       ],
       "languages": [
         "C++"
@@ -8250,6 +9254,26 @@
       ]
     },
     {
+      "key": "leetcode:3867",
+      "platform": "leetcode",
+      "id": "3867",
+      "slug": "sum-of-gcd-of-formed-pairs",
+      "title": "Sum of GCD of Formed Pairs",
+      "url": "https://leetcode.com/problems/sum-of-gcd-of-formed-pairs/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Two Pointers",
+        "Sorting",
+        "Simulation",
+        "Number Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:387",
       "platform": "leetcode",
       "id": "387",
@@ -8268,6 +9292,36 @@
       ]
     },
     {
+      "key": "leetcode:3870",
+      "platform": "leetcode",
+      "id": "3870",
+      "slug": "count-commas-in-range",
+      "title": "Count Commas in Range",
+      "url": "https://leetcode.com/problems/count-commas-in-range/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3871",
+      "platform": "leetcode",
+      "id": "3871",
+      "slug": "count-commas-in-range-ii",
+      "title": "Count Commas in Range II",
+      "url": "https://leetcode.com/problems/count-commas-in-range-ii/",
+      "difficulty": "Medium",
+      "topics": [
+        "Math"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:3872",
       "platform": "leetcode",
       "id": "3872",
@@ -8279,6 +9333,38 @@
         "Counting",
         "Hash Table",
         "String"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3875",
+      "platform": "leetcode",
+      "id": "3875",
+      "slug": "construct-uniform-parity-array-i",
+      "title": "Construct Uniform Parity Array I",
+      "url": "https://leetcode.com/problems/construct-uniform-parity-array-i/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Math"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3876",
+      "platform": "leetcode",
+      "id": "3876",
+      "slug": "construct-uniform-parity-array-ii",
+      "title": "Construct Uniform Parity Array II",
+      "url": "https://leetcode.com/problems/construct-uniform-parity-array-ii/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math"
       ],
       "languages": [
         "C++"
@@ -8923,6 +10009,23 @@
       ]
     },
     {
+      "key": "leetcode:3987",
+      "platform": "leetcode",
+      "id": "3987",
+      "slug": "minimum-total-cost-to-process-all-elements",
+      "title": "Minimum Total Cost to Process All Elements",
+      "url": "https://leetcode.com/problems/minimum-total-cost-to-process-all-elements/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Simulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:399",
       "platform": "leetcode",
       "id": "399",
@@ -8938,6 +10041,23 @@
         "Shortest Path",
         "String",
         "Union-Find"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:3992",
+      "platform": "leetcode",
+      "id": "3992",
+      "slug": "rearrange-string-to-avoid-character-pair",
+      "title": "Rearrange String to Avoid Character Pair",
+      "url": "https://leetcode.com/problems/rearrange-string-to-avoid-character-pair/",
+      "difficulty": "Easy",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Sorting"
       ],
       "languages": [
         "C++"
@@ -8960,6 +10080,22 @@
       ]
     },
     {
+      "key": "leetcode:4000",
+      "platform": "leetcode",
+      "id": "4000",
+      "slug": "largest-integer-with-given-digit-sum",
+      "title": "Largest Integer With Given Digit Sum",
+      "url": "https://leetcode.com/problems/largest-integer-with-given-digit-sum/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math",
+        "Greedy"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:4005",
       "platform": "leetcode",
       "id": "4005",
@@ -8970,6 +10106,22 @@
       "topics": [
         "Array",
         "Greedy"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4006",
+      "platform": "leetcode",
+      "id": "4006",
+      "slug": "count-valid-prefixes",
+      "title": "Count Valid Prefixes",
+      "url": "https://leetcode.com/problems/count-valid-prefixes/",
+      "difficulty": "Easy",
+      "topics": [
+        "String",
+        "Counting"
       ],
       "languages": [
         "C++"
@@ -9028,6 +10180,42 @@
       ]
     },
     {
+      "key": "leetcode:4010",
+      "platform": "leetcode",
+      "id": "4010",
+      "slug": "maximize-pair-strength-using-gcd",
+      "title": "Maximize Pair Strength Using GCD",
+      "url": "https://leetcode.com/problems/maximize-pair-strength-using-gcd/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Math",
+        "Enumeration",
+        "Number Theory"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4014",
+      "platform": "leetcode",
+      "id": "4014",
+      "slug": "minimum-total-price-after-applying-discounts",
+      "title": "Minimum Total Price After Applying Discounts",
+      "url": "https://leetcode.com/problems/minimum-total-price-after-applying-discounts/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Greedy",
+        "Sorting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:4018",
       "platform": "leetcode",
       "id": "4018",
@@ -9064,6 +10252,38 @@
       ]
     },
     {
+      "key": "leetcode:4020",
+      "platform": "leetcode",
+      "id": "4020",
+      "slug": "elevator-requests-i",
+      "title": "Elevator Requests I",
+      "url": "https://leetcode.com/problems/elevator-requests-i/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Simulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4024",
+      "platform": "leetcode",
+      "id": "4024",
+      "slug": "nearest-available-drone",
+      "title": "Nearest Available Drone",
+      "url": "https://leetcode.com/problems/nearest-available-drone/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Enumeration"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:403",
       "platform": "leetcode",
       "id": "403",
@@ -9074,6 +10294,56 @@
       "topics": [
         "Array",
         "Dynamic Programming"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4030",
+      "platform": "leetcode",
+      "id": "4030",
+      "slug": "check-ascii-palindromic",
+      "title": "Check ASCII Palindromic",
+      "url": "https://leetcode.com/problems/check-ascii-palindromic/",
+      "difficulty": "Easy",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Bit Manipulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4034",
+      "platform": "leetcode",
+      "id": "4034",
+      "slug": "minimum-bishop-moves-to-reach-target",
+      "title": "Minimum Bishop Moves to Reach Target",
+      "url": "https://leetcode.com/problems/minimum-bishop-moves-to-reach-target/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4038",
+      "platform": "leetcode",
+      "id": "4038",
+      "slug": "count-integers-appearing-in-a-single-block",
+      "title": "Count Integers Appearing in a Single Block",
+      "url": "https://leetcode.com/problems/count-integers-appearing-in-a-single-block/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Counting"
       ],
       "languages": [
         "C++"
@@ -9108,6 +10378,23 @@
       "topics": [
         "Array",
         "Greedy"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4043",
+      "platform": "leetcode",
+      "id": "4043",
+      "slug": "count-rotations-with-exactly-k-equal-adjacent-pairs",
+      "title": "Count Rotations With Exactly K Equal Adjacent Pairs",
+      "url": "https://leetcode.com/problems/count-rotations-with-exactly-k-equal-adjacent-pairs/",
+      "difficulty": "Easy",
+      "topics": [
+        "String",
+        "Sliding Window",
+        "Enumeration"
       ],
       "languages": [
         "C++"
@@ -9194,6 +10481,23 @@
       "difficulty": "Easy",
       "topics": [
         "Math",
+        "Simulation"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4052",
+      "platform": "leetcode",
+      "id": "4052",
+      "slug": "cyclically-shift-rows-and-columns",
+      "title": "Cyclically Shift Rows and Columns",
+      "url": "https://leetcode.com/problems/cyclically-shift-rows-and-columns/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Matrix",
         "Simulation"
       ],
       "languages": [
@@ -9356,6 +10660,19 @@
         "Heap (Priority Queue)",
         "Matrix"
       ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:4070",
+      "platform": "leetcode",
+      "id": "4070",
+      "slug": "minimum-rotations-to-dial-a-number-i",
+      "title": "Minimum Rotations to Dial a Number I",
+      "url": "https://leetcode.com/problems/minimum-rotations-to-dial-a-number-i/",
+      "difficulty": "Easy",
+      "topics": [],
       "languages": [
         "C++"
       ]
@@ -10927,6 +12244,27 @@
       ]
     },
     {
+      "key": "leetcode:486",
+      "platform": "leetcode",
+      "id": "486",
+      "slug": "predict-the-winner",
+      "title": "Predict the Winner",
+      "url": "https://leetcode.com/problems/predict-the-winner/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming",
+        "Recursion",
+        "Minimax",
+        "Game Theory",
+        "Zero-Sum Game"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:49",
       "platform": "leetcode",
       "id": "49",
@@ -11333,6 +12671,23 @@
       ]
     },
     {
+      "key": "leetcode:628",
+      "platform": "leetcode",
+      "id": "628",
+      "slug": "maximum-product-of-three-numbers",
+      "title": "Maximum Product of Three Numbers",
+      "url": "https://leetcode.com/problems/maximum-product-of-three-numbers/",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Math",
+        "Sorting"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:63",
       "platform": "leetcode",
       "id": "63",
@@ -11582,6 +12937,26 @@
         "Dynamic Programming",
         "Math",
         "Memoization"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:703",
+      "platform": "leetcode",
+      "id": "703",
+      "slug": "kth-largest-element-in-a-stream",
+      "title": "Kth Largest Element in a Stream",
+      "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "Design",
+        "Binary Search Tree",
+        "Heap (Priority Queue)",
+        "Binary Tree",
+        "Data Stream"
       ],
       "languages": [
         "C++"
@@ -12099,6 +13474,38 @@
       ]
     },
     {
+      "key": "leetcode:835",
+      "platform": "leetcode",
+      "id": "835",
+      "slug": "image-overlap",
+      "title": "Image Overlap",
+      "url": "https://leetcode.com/problems/image-overlap/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Matrix"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:836",
+      "platform": "leetcode",
+      "id": "836",
+      "slug": "rectangle-overlap",
+      "title": "Rectangle Overlap",
+      "url": "https://leetcode.com/problems/rectangle-overlap/",
+      "difficulty": "Easy",
+      "topics": [
+        "Math",
+        "Geometry"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:84",
       "platform": "leetcode",
       "id": "84",
@@ -12129,6 +13536,23 @@
         "Matrix",
         "Monotonic Stack",
         "Stack"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:856",
+      "platform": "leetcode",
+      "id": "856",
+      "slug": "score-of-parentheses",
+      "title": "Score of Parentheses",
+      "url": "https://leetcode.com/problems/score-of-parentheses/",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Stack",
+        "Bracket Sequences"
       ],
       "languages": [
         "C++"
@@ -12205,6 +13629,26 @@
       ]
     },
     {
+      "key": "leetcode:877",
+      "platform": "leetcode",
+      "id": "877",
+      "slug": "stone-game",
+      "title": "Stone Game",
+      "url": "https://leetcode.com/problems/stone-game/",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Math",
+        "Dynamic Programming",
+        "Minimax",
+        "Game Theory",
+        "Zero-Sum Game"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:88",
       "platform": "leetcode",
       "id": "88",
@@ -12265,6 +13709,24 @@
       "difficulty": "Easy",
       "topics": [
         "Math"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
+      "key": "leetcode:901",
+      "platform": "leetcode",
+      "id": "901",
+      "slug": "online-stock-span",
+      "title": "Online Stock Span",
+      "url": "https://leetcode.com/problems/online-stock-span/",
+      "difficulty": "Medium",
+      "topics": [
+        "Stack",
+        "Design",
+        "Monotonic Stack",
+        "Data Stream"
       ],
       "languages": [
         "C++"
@@ -12336,6 +13798,24 @@
       ]
     },
     {
+      "key": "leetcode:921",
+      "platform": "leetcode",
+      "id": "921",
+      "slug": "minimum-add-to-make-parentheses-valid",
+      "title": "Minimum Add to Make Parentheses Valid",
+      "url": "https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Stack",
+        "Greedy",
+        "Bracket Sequences"
+      ],
+      "languages": [
+        "C++"
+      ]
+    },
+    {
       "key": "leetcode:925",
       "platform": "leetcode",
       "id": "925",
@@ -12370,6 +13850,22 @@
       ],
       "languages": [
         "Python"
+      ]
+    },
+    {
+      "key": "leetcode:940",
+      "platform": "leetcode",
+      "id": "940",
+      "slug": "distinct-subsequences-ii",
+      "title": "Distinct Subsequences II",
+      "url": "https://leetcode.com/problems/distinct-subsequences-ii/",
+      "difficulty": "Hard",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "languages": [
+        "C++"
       ]
     },
     {
@@ -12512,1139 +14008,17 @@
       ]
     },
     {
-      "key": "leetcode:921",
+      "key": "leetcode:2333",
       "platform": "leetcode",
-      "id": "921",
-      "slug": "minimum-add-to-make-parentheses-valid",
-      "title": "Minimum Add to Make Parentheses Valid",
-      "url": "https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/",
+      "id": "2333",
+      "slug": "minimum-sum-of-squared-difference",
+      "title": "Minimum Sum of Squared Difference",
+      "url": "https://leetcode.com/problems/minimum-sum-of-squared-difference/",
       "difficulty": "Medium",
-      "topics": [
-        "String",
-        "Stack",
-        "Greedy",
-        "Bracket Sequences"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:856",
-      "platform": "leetcode",
-      "id": "856",
-      "slug": "score-of-parentheses",
-      "title": "Score of Parentheses",
-      "url": "https://leetcode.com/problems/score-of-parentheses/",
-      "difficulty": "Medium",
-      "topics": [
-        "String",
-        "Stack",
-        "Bracket Sequences"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4070",
-      "platform": "leetcode",
-      "id": "4070",
-      "slug": "minimum-rotations-to-dial-a-number-i",
-      "title": "Minimum Rotations to Dial a Number I",
-      "url": "https://leetcode.com/problems/minimum-rotations-to-dial-a-number-i/",
-      "difficulty": "Easy",
-      "topics": [],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2267",
-      "platform": "leetcode",
-      "id": "2267",
-      "slug": "check-if-there-is-a-valid-parentheses-string-path",
-      "title": " Check if There Is a Valid Parentheses String Path",
-      "url": "https://leetcode.com/problems/check-if-there-is-a-valid-parentheses-string-path/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Dynamic Programming",
-        "Matrix",
-        "Bracket Sequences"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1190",
-      "platform": "leetcode",
-      "id": "1190",
-      "slug": "reverse-substrings-between-each-pair-of-parentheses",
-      "title": "Reverse Substrings Between Each Pair of Parentheses",
-      "url": "https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/",
-      "difficulty": "Medium",
-      "topics": [
-        "String",
-        "Stack",
-        "Bracket Sequences"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3550",
-      "platform": "leetcode",
-      "id": "3550",
-      "slug": "smallest-index-with-digit-sum-equal-to-index",
-      "title": "Smallest Index With Digit Sum Equal to Index",
-      "url": "https://leetcode.com/problems/smallest-index-with-digit-sum-equal-to-index/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Math"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1096",
-      "platform": "leetcode",
-      "id": "1096",
-      "slug": "brace-expansion-ii",
-      "title": "Brace Expansion II",
-      "url": "https://leetcode.com/problems/brace-expansion-ii/",
-      "difficulty": "Hard",
-      "topics": [
-        "Hash Table",
-        "String",
-        "Backtracking",
-        "Stack",
-        "Breadth-First Search",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3525",
-      "platform": "leetcode",
-      "id": "3525",
-      "slug": "find-x-value-of-array-ii",
-      "title": "Find X Value of Array II",
-      "url": "https://leetcode.com/problems/find-x-value-of-array-ii/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Math",
-        "Segment Tree"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3524",
-      "platform": "leetcode",
-      "id": "3524",
-      "slug": "find-x-value-of-array-i",
-      "title": "Find X Value of Array I",
-      "url": "https://leetcode.com/problems/find-x-value-of-array-i/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1401",
-      "platform": "leetcode",
-      "id": "1401",
-      "slug": "circle-and-rectangle-overlapping",
-      "title": "Circle and Rectangle Overlapping",
-      "url": "https://leetcode.com/problems/circle-and-rectangle-overlapping/",
-      "difficulty": "Medium",
-      "topics": [
-        "Math",
-        "Geometry"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1477",
-      "platform": "leetcode",
-      "id": "1477",
-      "slug": "find-two-non-overlapping-sub-arrays-each-with-target-sum",
-      "title": "Find Two Non-overlapping Sub-arrays Each With Target Sum",
-      "url": "https://leetcode.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Binary Search",
-        "Dynamic Programming",
-        "Sliding Window"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1621",
-      "platform": "leetcode",
-      "id": "1621",
-      "slug": "number-of-sets-of-k-non-overlapping-line-segments",
-      "title": "Number of Sets of K Non-Overlapping Line Segments",
-      "url": "https://leetcode.com/problems/number-of-sets-of-k-non-overlapping-line-segments/",
-      "difficulty": "Medium",
-      "topics": [
-        "Math",
-        "Dynamic Programming",
-        "Combinatorics",
-        "Prefix Sum"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2472",
-      "platform": "leetcode",
-      "id": "2472",
-      "slug": "maximum-number-of-non-overlapping-palindrome-substrings",
-      "title": "Maximum Number of Non-overlapping Palindrome Substrings",
-      "url": "https://leetcode.com/problems/maximum-number-of-non-overlapping-palindrome-substrings/",
-      "difficulty": "Hard",
-      "topics": [
-        "Two Pointers",
-        "String",
-        "Dynamic Programming",
-        "Greedy"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:836",
-      "platform": "leetcode",
-      "id": "836",
-      "slug": "rectangle-overlap",
-      "title": "Rectangle Overlap",
-      "url": "https://leetcode.com/problems/rectangle-overlap/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math",
-        "Geometry"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4052",
-      "platform": "leetcode",
-      "id": "4052",
-      "slug": "cyclically-shift-rows-and-columns",
-      "title": "Cyclically Shift Rows and Columns",
-      "url": "https://leetcode.com/problems/cyclically-shift-rows-and-columns/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Matrix",
-        "Simulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:835",
-      "platform": "leetcode",
-      "id": "835",
-      "slug": "image-overlap",
-      "title": "Image Overlap",
-      "url": "https://leetcode.com/problems/image-overlap/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Matrix"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3414",
-      "platform": "leetcode",
-      "id": "3414",
-      "slug": "maximum-score-of-non-overlapping-intervals",
-      "title": "Maximum Score of Non-overlapping Intervals",
-      "url": "https://leetcode.com/problems/maximum-score-of-non-overlapping-intervals/",
-      "difficulty": "Hard",
       "topics": [
         "Array",
         "Binary Search",
-        "Dynamic Programming",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3871",
-      "platform": "leetcode",
-      "id": "3871",
-      "slug": "count-commas-in-range-ii",
-      "title": "Count Commas in Range II",
-      "url": "https://leetcode.com/problems/count-commas-in-range-ii/",
-      "difficulty": "Medium",
-      "topics": [
-        "Math"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3870",
-      "platform": "leetcode",
-      "id": "3870",
-      "slug": "count-commas-in-range",
-      "title": "Count Commas in Range",
-      "url": "https://leetcode.com/problems/count-commas-in-range/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:940",
-      "platform": "leetcode",
-      "id": "940",
-      "slug": "distinct-subsequences-ii",
-      "title": "Distinct Subsequences II",
-      "url": "https://leetcode.com/problems/distinct-subsequences-ii/",
-      "difficulty": "Hard",
-      "topics": [
-        "String",
-        "Dynamic Programming"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4043",
-      "platform": "leetcode",
-      "id": "4043",
-      "slug": "count-rotations-with-exactly-k-equal-adjacent-pairs",
-      "title": "Count Rotations With Exactly K Equal Adjacent Pairs",
-      "url": "https://leetcode.com/problems/count-rotations-with-exactly-k-equal-adjacent-pairs/",
-      "difficulty": "Easy",
-      "topics": [
-        "String",
-        "Sliding Window",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:115",
-      "platform": "leetcode",
-      "id": "115",
-      "slug": "distinct-subsequences",
-      "title": "Distinct Subsequences",
-      "url": "https://leetcode.com/problems/distinct-subsequences/",
-      "difficulty": "Hard",
-      "topics": [
-        "String",
-        "Dynamic Programming"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3876",
-      "platform": "leetcode",
-      "id": "3876",
-      "slug": "construct-uniform-parity-array-ii",
-      "title": "Construct Uniform Parity Array II",
-      "url": "https://leetcode.com/problems/construct-uniform-parity-array-ii/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3875",
-      "platform": "leetcode",
-      "id": "3875",
-      "slug": "construct-uniform-parity-array-i",
-      "title": "Construct Uniform Parity Array I",
-      "url": "https://leetcode.com/problems/construct-uniform-parity-array-i/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Math"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3568",
-      "platform": "leetcode",
-      "id": "3568",
-      "slug": "minimum-moves-to-clean-the-classroom",
-      "title": "Minimum Moves to Clean the Classroom",
-      "url": "https://leetcode.com/problems/minimum-moves-to-clean-the-classroom/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Bit Manipulation",
-        "Breadth-First Search",
-        "Matrix"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2091",
-      "platform": "leetcode",
-      "id": "2091",
-      "slug": "removing-minimum-and-maximum-from-array",
-      "title": "Removing Minimum and Maximum From Array",
-      "url": "https://leetcode.com/problems/removing-minimum-and-maximum-from-array/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Greedy"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4038",
-      "platform": "leetcode",
-      "id": "4038",
-      "slug": "count-integers-appearing-in-a-single-block",
-      "title": "Count Integers Appearing in a Single Block",
-      "url": "https://leetcode.com/problems/count-integers-appearing-in-a-single-block/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Counting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2948",
-      "platform": "leetcode",
-      "id": "2948",
-      "slug": "make-lexicographically-smallest-array-by-swapping-elements",
-      "title": "Make Lexicographically Smallest Array by Swapping Elements",
-      "url": "https://leetcode.com/problems/make-lexicographically-smallest-array-by-swapping-elements/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Union-Find",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4034",
-      "platform": "leetcode",
-      "id": "4034",
-      "slug": "minimum-bishop-moves-to-reach-target",
-      "title": "Minimum Bishop Moves to Reach Target",
-      "url": "https://leetcode.com/problems/minimum-bishop-moves-to-reach-target/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3734",
-      "platform": "leetcode",
-      "id": "3734",
-      "slug": "lexicographically-smallest-palindromic-permutation-greater-than-target",
-      "title": "Lexicographically Smallest Palindromic Permutation Greater Than Target",
-      "url": "https://leetcode.com/problems/lexicographically-smallest-palindromic-permutation-greater-than-target/",
-      "difficulty": "Hard",
-      "topics": [
-        "Two Pointers",
-        "String",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3720",
-      "platform": "leetcode",
-      "id": "3720",
-      "slug": "lexicographically-smallest-permutation-greater-than-target",
-      "title": "Lexicographically Smallest Permutation Greater Than Target",
-      "url": "https://leetcode.com/problems/lexicographically-smallest-permutation-greater-than-target/",
-      "difficulty": "Medium",
-      "topics": [
-        "Hash Table",
-        "String",
         "Greedy",
-        "Counting",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2904",
-      "platform": "leetcode",
-      "id": "2904",
-      "slug": "shortest-and-lexicographically-smallest-beautiful-string",
-      "title": "Shortest and Lexicographically Smallest Beautiful String",
-      "url": "https://leetcode.com/problems/shortest-and-lexicographically-smallest-beautiful-string/",
-      "difficulty": "Medium",
-      "topics": [
-        "String",
-        "Sliding Window"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3718",
-      "platform": "leetcode",
-      "id": "3718",
-      "slug": "smallest-missing-multiple-of-k",
-      "title": "Smallest Missing Multiple of K",
-      "url": "https://leetcode.com/problems/smallest-missing-multiple-of-k/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Hash Table"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1872",
-      "platform": "leetcode",
-      "id": "1872",
-      "slug": "stone-game-viii",
-      "title": "Stone Game VIII",
-      "url": "https://leetcode.com/problems/stone-game-viii/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming",
-        "Minimax",
-        "Prefix Sum",
-        "Game Theory",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:901",
-      "platform": "leetcode",
-      "id": "901",
-      "slug": "online-stock-span",
-      "title": "Online Stock Span",
-      "url": "https://leetcode.com/problems/online-stock-span/",
-      "difficulty": "Medium",
-      "topics": [
-        "Stack",
-        "Design",
-        "Monotonic Stack",
-        "Data Stream"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:352",
-      "platform": "leetcode",
-      "id": "352",
-      "slug": "data-stream-as-disjoint-intervals",
-      "title": "Data Stream as Disjoint Intervals",
-      "url": "https://leetcode.com/problems/data-stream-as-disjoint-intervals/",
-      "difficulty": "Hard",
-      "topics": [
-        "Hash Table",
-        "Binary Search",
-        "Union-Find",
-        "Design",
-        "Data Stream",
-        "Ordered Set"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:703",
-      "platform": "leetcode",
-      "id": "703",
-      "slug": "kth-largest-element-in-a-stream",
-      "title": "Kth Largest Element in a Stream",
-      "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
-      "difficulty": "Easy",
-      "topics": [
-        "Tree",
-        "Design",
-        "Binary Search Tree",
-        "Heap (Priority Queue)",
-        "Binary Tree",
-        "Data Stream"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1927",
-      "platform": "leetcode",
-      "id": "1927",
-      "slug": "sum-game",
-      "title": "Sum Game",
-      "url": "https://leetcode.com/problems/sum-game/",
-      "difficulty": "Medium",
-      "topics": [
-        "Math",
-        "String",
-        "Greedy",
-        "Game Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4030",
-      "platform": "leetcode",
-      "id": "4030",
-      "slug": "check-ascii-palindromic",
-      "title": "Check ASCII Palindromic",
-      "url": "https://leetcode.com/problems/check-ascii-palindromic/",
-      "difficulty": "Easy",
-      "topics": [
-        "Two Pointers",
-        "String",
-        "Bit Manipulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3116",
-      "platform": "leetcode",
-      "id": "3116",
-      "slug": "kth-smallest-amount-with-single-denomination-combination",
-      "title": "Kth Smallest Amount With Single Denomination Combination",
-      "url": "https://leetcode.com/problems/kth-smallest-amount-with-single-denomination-combination/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Math",
-        "Binary Search",
-        "Bit Manipulation",
-        "Combinatorics",
-        "Number Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3069",
-      "platform": "leetcode",
-      "id": "3069",
-      "slug": "distribute-elements-into-two-arrays-i",
-      "title": "Distribute Elements Into Two Arrays I",
-      "url": "https://leetcode.com/problems/distribute-elements-into-two-arrays-i/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Two Pointers",
-        "Simulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1386",
-      "platform": "leetcode",
-      "id": "1386",
-      "slug": "cinema-seat-allocation",
-      "title": "Cinema Seat Allocation",
-      "url": "https://leetcode.com/problems/cinema-seat-allocation/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Greedy",
-        "Bit Manipulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1563",
-      "platform": "leetcode",
-      "id": "1563",
-      "slug": "stone-game-v",
-      "title": "Stone Game V",
-      "url": "https://leetcode.com/problems/stone-game-v/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming",
-        "Game Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4024",
-      "platform": "leetcode",
-      "id": "4024",
-      "slug": "nearest-available-drone",
-      "title": "Nearest Available Drone",
-      "url": "https://leetcode.com/problems/nearest-available-drone/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2029",
-      "platform": "leetcode",
-      "id": "2029",
-      "slug": "stone-game-ix",
-      "title": "Stone Game IX",
-      "url": "https://leetcode.com/problems/stone-game-ix/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Greedy",
-        "Minimax",
-        "Counting",
-        "Game Theory",
-        "Nim Game",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4020",
-      "platform": "leetcode",
-      "id": "4020",
-      "slug": "elevator-requests-i",
-      "title": "Elevator Requests I",
-      "url": "https://leetcode.com/problems/elevator-requests-i/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Simulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3702",
-      "platform": "leetcode",
-      "id": "3702",
-      "slug": "longest-subsequence-with-non-zero-bitwise-xor",
-      "title": "Longest Subsequence With Non-Zero Bitwise XOR",
-      "url": "https://leetcode.com/problems/longest-subsequence-with-non-zero-bitwise-xor/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Bit Manipulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3090",
-      "platform": "leetcode",
-      "id": "3090",
-      "slug": "maximum-length-substring-with-two-occurrences",
-      "title": "Maximum Length Substring With Two Occurrences",
-      "url": "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/",
-      "difficulty": "Easy",
-      "topics": [
-        "Hash Table",
-        "String",
-        "Sliding Window"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2958",
-      "platform": "leetcode",
-      "id": "2958",
-      "slug": "length-of-longest-subarray-with-at-most-k-frequency",
-      "title": "Length of Longest Subarray With at Most K Frequency",
-      "url": "https://leetcode.com/problems/length-of-longest-subarray-with-at-most-k-frequency/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Sliding Window"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2996",
-      "platform": "leetcode",
-      "id": "2996",
-      "slug": "smallest-missing-integer-greater-than-sequential-prefix-sum",
-      "title": "Smallest Missing Integer Greater Than Sequential Prefix Sum",
-      "url": "https://leetcode.com/problems/smallest-missing-integer-greater-than-sequential-prefix-sum/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1510",
-      "platform": "leetcode",
-      "id": "1510",
-      "slug": "stone-game-iv",
-      "title": "Stone Game IV",
-      "url": "https://leetcode.com/problems/stone-game-iv/",
-      "difficulty": "Hard",
-      "topics": [
-        "Math",
-        "Dynamic Programming",
-        "Minimax",
-        "Game Theory",
-        "Nim Game",
-        "Sprague–Grundy Theorem",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1140",
-      "platform": "leetcode",
-      "id": "1140",
-      "slug": "stone-game-ii",
-      "title": "Stone Game II",
-      "url": "https://leetcode.com/problems/stone-game-ii/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming",
-        "Minimax",
-        "Prefix Sum",
-        "Game Theory",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4014",
-      "platform": "leetcode",
-      "id": "4014",
-      "slug": "minimum-total-price-after-applying-discounts",
-      "title": "Minimum Total Price After Applying Discounts",
-      "url": "https://leetcode.com/problems/minimum-total-price-after-applying-discounts/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Two Pointers",
-        "Greedy",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3302",
-      "platform": "leetcode",
-      "id": "3302",
-      "slug": "find-the-lexicographically-smallest-valid-sequence",
-      "title": "Find the Lexicographically Smallest Valid Sequence",
-      "url": "https://leetcode.com/problems/find-the-lexicographically-smallest-valid-sequence/",
-      "difficulty": "Medium",
-      "topics": [
-        "Two Pointers",
-        "String",
-        "Dynamic Programming",
-        "Greedy"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3345",
-      "platform": "leetcode",
-      "id": "3345",
-      "slug": "smallest-divisible-digit-product-i",
-      "title": "Smallest Divisible Digit Product I",
-      "url": "https://leetcode.com/problems/smallest-divisible-digit-product-i/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3310",
-      "platform": "leetcode",
-      "id": "3310",
-      "slug": "remove-methods-from-project",
-      "title": "Remove Methods From Project",
-      "url": "https://leetcode.com/problems/remove-methods-from-project/",
-      "difficulty": "Medium",
-      "topics": [
-        "Depth-First Search",
-        "Breadth-First Search",
-        "Graph Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1406",
-      "platform": "leetcode",
-      "id": "1406",
-      "slug": "stone-game-iii",
-      "title": "Stone Game III",
-      "url": "https://leetcode.com/problems/stone-game-iii/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming",
-        "Minimax",
-        "Game Theory",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:877",
-      "platform": "leetcode",
-      "id": "877",
-      "slug": "stone-game",
-      "title": "Stone Game",
-      "url": "https://leetcode.com/problems/stone-game/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming",
-        "Minimax",
-        "Game Theory",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4010",
-      "platform": "leetcode",
-      "id": "4010",
-      "slug": "maximize-pair-strength-using-gcd",
-      "title": "Maximize Pair Strength Using GCD",
-      "url": "https://leetcode.com/problems/maximize-pair-strength-using-gcd/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Math",
-        "Enumeration",
-        "Number Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:4006",
-      "platform": "leetcode",
-      "id": "4006",
-      "slug": "count-valid-prefixes",
-      "title": "Count Valid Prefixes",
-      "url": "https://leetcode.com/problems/count-valid-prefixes/",
-      "difficulty": "Easy",
-      "topics": [
-        "String",
-        "Counting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:486",
-      "platform": "leetcode",
-      "id": "486",
-      "slug": "predict-the-winner",
-      "title": "Predict the Winner",
-      "url": "https://leetcode.com/problems/predict-the-winner/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Dynamic Programming",
-        "Recursion",
-        "Minimax",
-        "Game Theory",
-        "Zero-Sum Game"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3016",
-      "platform": "leetcode",
-      "id": "3016",
-      "slug": "minimum-number-of-pushes-to-type-word-ii",
-      "title": "Minimum Number of Pushes to Type Word II",
-      "url": "https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-ii/",
-      "difficulty": "Medium",
-      "topics": [
-        "Hash Table",
-        "String",
-        "Greedy",
-        "Sorting",
-        "Counting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3014",
-      "platform": "leetcode",
-      "id": "3014",
-      "slug": "minimum-number-of-pushes-to-type-word-i",
-      "title": "Minimum Number of Pushes to Type Word I",
-      "url": "https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-i/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math",
-        "String",
-        "Greedy"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3518",
-      "platform": "leetcode",
-      "id": "3518",
-      "slug": "smallest-palindromic-rearrangement-ii",
-      "title": "Smallest Palindromic Rearrangement II",
-      "url": "https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/",
-      "difficulty": "Hard",
-      "topics": [
-        "Hash Table",
-        "Math",
-        "String",
-        "Combinatorics",
-        "Counting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1464",
-      "platform": "leetcode",
-      "id": "1464",
-      "slug": "maximum-product-of-two-elements-in-an-array",
-      "title": "Maximum Product of Two Elements in an Array",
-      "url": "https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
         "Sorting",
         "Heap (Priority Queue)"
       ],
@@ -13653,355 +14027,52 @@
       ]
     },
     {
-      "key": "leetcode:4000",
+      "key": "leetcode:1541",
       "platform": "leetcode",
-      "id": "4000",
-      "slug": "largest-integer-with-given-digit-sum",
-      "title": "Largest Integer With Given Digit Sum",
-      "url": "https://leetcode.com/problems/largest-integer-with-given-digit-sum/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math",
-        "Greedy"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:628",
-      "platform": "leetcode",
-      "id": "628",
-      "slug": "maximum-product-of-three-numbers",
-      "title": "Maximum Product of Three Numbers",
-      "url": "https://leetcode.com/problems/maximum-product-of-three-numbers/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Math",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3536",
-      "platform": "leetcode",
-      "id": "3536",
-      "slug": "maximum-product-of-two-digits",
-      "title": "Maximum Product of Two Digits",
-      "url": "https://leetcode.com/problems/maximum-product-of-two-digits/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3514",
-      "platform": "leetcode",
-      "id": "3514",
-      "slug": "number-of-unique-xor-triplets-ii",
-      "title": "Number of Unique XOR Triplets II",
-      "url": "https://leetcode.com/problems/number-of-unique-xor-triplets-ii/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Bit Manipulation",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3499",
-      "platform": "leetcode",
-      "id": "3499",
-      "slug": "maximize-active-section-with-trade-i",
-      "title": "Maximize Active Section with Trade I",
-      "url": "https://leetcode.com/problems/maximize-active-section-with-trade-i/",
-      "difficulty": "Medium",
-      "topics": [
-        "String",
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1260",
-      "platform": "leetcode",
-      "id": "1260",
-      "slug": "shift-2d-grid",
-      "title": "Shift 2D Grid",
-      "url": "https://leetcode.com/problems/shift-2d-grid/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Matrix",
-        "Simulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1081",
-      "platform": "leetcode",
-      "id": "1081",
-      "slug": "smallest-subsequence-of-distinct-characters",
-      "title": "Smallest Subsequence of Distinct Characters",
-      "url": "https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/",
+      "id": "1541",
+      "slug": "minimum-insertions-to-balance-a-parentheses-string",
+      "title": "Minimum Insertions to Balance a Parentheses String",
+      "url": "https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/",
       "difficulty": "Medium",
       "topics": [
         "String",
         "Stack",
         "Greedy",
-        "Monotonic Stack"
+        "Bracket Sequences"
       ],
       "languages": [
         "C++"
       ]
     },
     {
-      "key": "leetcode:3992",
+      "key": "leetcode:1021",
       "platform": "leetcode",
-      "id": "3992",
-      "slug": "rearrange-string-to-avoid-character-pair",
-      "title": "Rearrange String to Avoid Character Pair",
-      "url": "https://leetcode.com/problems/rearrange-string-to-avoid-character-pair/",
+      "id": "1021",
+      "slug": "remove-outermost-parentheses",
+      "title": "Remove Outermost Parentheses",
+      "url": "https://leetcode.com/problems/remove-outermost-parentheses/",
       "difficulty": "Easy",
       "topics": [
-        "Two Pointers",
         "String",
-        "Sorting"
+        "Stack",
+        "Bracket Sequences"
       ],
       "languages": [
         "C++"
       ]
     },
     {
-      "key": "leetcode:1979",
+      "key": "leetcode:301",
       "platform": "leetcode",
-      "id": "1979",
-      "slug": "find-greatest-common-divisor-of-array",
-      "title": "Find Greatest Common Divisor of Array",
-      "url": "https://leetcode.com/problems/find-greatest-common-divisor-of-array/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Math",
-        "Number Theory",
-        "Euclidean Algorithm",
-        "Greatest Common Divisor"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3312",
-      "platform": "leetcode",
-      "id": "3312",
-      "slug": "sorted-gcd-pair-queries",
-      "title": "Sorted GCD Pair Queries",
-      "url": "https://leetcode.com/problems/sorted-gcd-pair-queries/",
+      "id": "301",
+      "slug": "remove-invalid-parentheses",
+      "title": "Remove Invalid Parentheses",
+      "url": "https://leetcode.com/problems/remove-invalid-parentheses/",
       "difficulty": "Hard",
       "topics": [
-        "Array",
-        "Hash Table",
-        "Math",
-        "Binary Search",
-        "Combinatorics",
-        "Counting",
-        "Number Theory",
-        "Prefix Sum",
-        "Euclidean Algorithm",
-        "Greatest Common Divisor"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3867",
-      "platform": "leetcode",
-      "id": "3867",
-      "slug": "sum-of-gcd-of-formed-pairs",
-      "title": "Sum of GCD of Formed Pairs",
-      "url": "https://leetcode.com/problems/sum-of-gcd-of-formed-pairs/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Two Pointers",
-        "Sorting",
-        "Simulation",
-        "Number Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3658",
-      "platform": "leetcode",
-      "id": "3658",
-      "slug": "gcd-of-odd-and-even-sums",
-      "title": "GCD of Odd and Even Sums",
-      "url": "https://leetcode.com/problems/gcd-of-odd-and-even-sums/",
-      "difficulty": "Easy",
-      "topics": [
-        "Math",
-        "Number Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1291",
-      "platform": "leetcode",
-      "id": "1291",
-      "slug": "sequential-digits",
-      "title": "Sequential Digits",
-      "url": "https://leetcode.com/problems/sequential-digits/",
-      "difficulty": "Medium",
-      "topics": [
-        "Enumeration"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3987",
-      "platform": "leetcode",
-      "id": "3987",
-      "slug": "minimum-total-cost-to-process-all-elements",
-      "title": "Minimum Total Cost to Process All Elements",
-      "url": "https://leetcode.com/problems/minimum-total-cost-to-process-all-elements/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Math",
-        "Simulation"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1331",
-      "platform": "leetcode",
-      "id": "1331",
-      "slug": "rank-transform-of-an-array",
-      "title": "Rank Transform of an Array",
-      "url": "https://leetcode.com/problems/rank-transform-of-an-array/",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3534",
-      "platform": "leetcode",
-      "id": "3534",
-      "slug": "path-existence-queries-in-a-graph-ii",
-      "title": "Path Existence Queries in a Graph II",
-      "url": "https://leetcode.com/problems/path-existence-queries-in-a-graph-ii/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Two Pointers",
-        "Binary Search",
-        "Dynamic Programming",
-        "Greedy",
-        "Bit Manipulation",
-        "Graph Theory",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:3532",
-      "platform": "leetcode",
-      "id": "3532",
-      "slug": "path-existence-queries-in-a-graph-i",
-      "title": "Path Existence Queries in a Graph I",
-      "url": "https://leetcode.com/problems/path-existence-queries-in-a-graph-i/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Hash Table",
-        "Binary Search",
-        "Union-Find",
-        "Graph Theory"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1288",
-      "platform": "leetcode",
-      "id": "1288",
-      "slug": "remove-covered-intervals",
-      "title": "Remove Covered Intervals",
-      "url": "https://leetcode.com/problems/remove-covered-intervals/",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Sorting"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:1301",
-      "platform": "leetcode",
-      "id": "1301",
-      "slug": "number-of-paths-with-max-score",
-      "title": "Number of Paths with Max Score",
-      "url": "https://leetcode.com/problems/number-of-paths-with-max-score/",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Dynamic Programming",
-        "Matrix"
-      ],
-      "languages": [
-        "C++"
-      ]
-    },
-    {
-      "key": "leetcode:2492",
-      "platform": "leetcode",
-      "id": "2492",
-      "slug": "minimum-score-of-a-path-between-two-cities",
-      "title": "Minimum Score of a Path Between Two Cities",
-      "url": "https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/",
-      "difficulty": "Medium",
-      "topics": [
-        "Depth-First Search",
-        "Breadth-First Search",
-        "Union-Find",
-        "Graph Theory"
+        "String",
+        "Backtracking",
+        "Breadth-First Search"
       ],
       "languages": [
         "C++"
