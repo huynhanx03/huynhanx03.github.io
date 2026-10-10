@@ -13,7 +13,8 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
   sync:
@@ -45,6 +46,21 @@ jobs:
           DSA_SYNC_ARTIFACT_DIR: ${{ runner.temp }}/dsa-fetch-output
       - name: Add sync summary
         run: cat "${RUNNER_TEMP}/dsa-fetch-output/sync-summary.json" >> "$GITHUB_STEP_SUMMARY"
+      - name: Create or update DSA sync pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(dsa): sync latest solutions"
+          branch: automation/sync-dsa
+          base: main
+          delete-branch: true
+          title: "chore(dsa): sync latest solutions"
+          body: |
+            Automated DSA data sync from LeetCode.
+
+            Review the updated problem index and solution files before merging.
+          add-paths: |
+            src/data/dsa-index.json
+            src/data/dsa/
       - uses: actions/upload-artifact@v4
         with:
           name: problem-solving-data
