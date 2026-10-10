@@ -77,6 +77,57 @@ describe('LeetCode solution metadata', () => {
 });
 
 describe('Portfolio-only LeetCode sync', () => {
+  it('syncs available solutions while retrying a problem whose statement is unavailable', async () => {
+    const root = await temporaryDirectory();
+    const outputRoot = path.join(root, 'src', 'data');
+    await createExistingSnapshot(outputRoot);
+    const progress: string[] = [];
+    let statementAvailable = false;
+    const fetchImpl = vi.fn(async (_url: URL | RequestInfo, init?: RequestInit) => {
+      const request = JSON.parse(String(init?.body)) as { operationName: string; variables: { id?: number; titleSlug?: string } };
+      if (request.operationName === 'submissionList') {
+        return Response.json({ data: { submissionList: { hasNext: false, submissions: [
+          { id: '110', title: 'Longest Resilient Subarray I', titleSlug: 'longest-resilient-subarray-i', statusDisplay: 'Accepted', lang: 'cpp', langName: 'C++', timestamp: '1791244802' },
+          { id: '111', title: 'Available', titleSlug: 'available', statusDisplay: 'Accepted', lang: 'rust', langName: 'Rust', timestamp: '1791244801' },
+        ] } } });
+      }
+      if (request.operationName === 'submissionDetails') {
+        return Response.json({ data: { submissionDetails: {
+          code: request.variables.id === 110 ? 'class Solution {};' : 'fn main() {}',
+          statusCode: 10, runtimeDisplay: '1 ms', memoryDisplay: '1 MB',
+          lang: request.variables.id === 110 ? { name: 'cpp', verboseName: 'C++' } : { name: 'rust', verboseName: 'Rust' },
+        } } });
+      }
+      if (request.operationName === 'questionData') {
+        const missing = request.variables.titleSlug === 'longest-resilient-subarray-i';
+        return Response.json({ data: { question: {
+          questionFrontendId: missing ? '5002' : '5001', title: missing ? 'Longest Resilient Subarray I' : 'Available',
+          titleSlug: request.variables.titleSlug, content: missing && !statementAvailable ? null : '<p>Statement</p>',
+          difficulty: 'Easy', topicTags: [],
+        } } });
+      }
+      throw new Error(`Unexpected LeetCode operation ${request.operationName}`);
+    });
+
+    const first = await runDsaSync({
+      outputRoot, env: { LEETCODE_SESSION: 's', LEETCODE_CSRF: 'c' }, fetchImpl,
+      now: new Date('2026-10-07T00:00:00.000Z'), requestIntervalMs: 0,
+      onProgress: (message: string) => { progress.push(message); },
+    });
+    expect(first).toMatchObject({ syncedSolutions: 1, skippedSolutions: 1 });
+    expect(Date.parse(first.cursor)).toBeLessThan(Date.parse('2026-10-06T00:00:02.000Z'));
+    expect(progress.some((message) => message.includes('longest-resilient-subarray-i') && message.includes('statement'))).toBe(true);
+    expect(await readFile(path.join(outputRoot, 'dsa', 'leetcode', '5001-available.json'), 'utf8')).toContain('fn main() {}');
+
+    statementAvailable = true;
+    const second = await runDsaSync({
+      outputRoot, env: { LEETCODE_SESSION: 's', LEETCODE_CSRF: 'c' }, fetchImpl,
+      now: new Date('2026-10-08T00:00:00.000Z'), requestIntervalMs: 0,
+    });
+    expect(second).toMatchObject({ syncedSolutions: 1, skippedSolutions: 0 });
+    expect(await readFile(path.join(outputRoot, 'dsa', 'leetcode', '5002-longest-resilient-subarray-i.json'), 'utf8')).toContain('class Solution {};');
+  });
+
   it('skips accepted submissions with no detail record and leaves the cursor before them for retry', async () => {
     const root = await temporaryDirectory();
     const outputRoot = path.join(root, 'src', 'data');
