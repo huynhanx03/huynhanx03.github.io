@@ -156,7 +156,8 @@ async function getProblemDetails({ submission, credentials, fetchImpl, existingP
     question = questionData.question;
     questionCache.set(submission.titleSlug, question);
   }
-  if (!question?.questionFrontendId || !question.title || !question.content) throw new Error(`LeetCode problem ${submission.titleSlug} did not include its full statement`);
+  if (!question?.content) return { skippedReason: `LeetCode problem ${submission.titleSlug} did not include its full statement` };
+  if (!question.questionFrontendId || !question.title) throw new Error(`LeetCode problem ${submission.titleSlug} is missing its id or title`);
   const language = languageFor(detail.lang?.name || submission.lang, detail.lang?.verboseName || submission.langName);
   const topics = (question.topicTags ?? []).map((topic) => topic.name).filter(Boolean);
   const problemId = String(question.questionFrontendId);
@@ -320,9 +321,9 @@ export async function runDsaSync({ outputRoot, env = process.env, fetchImpl = fe
   for (const [index, submission] of submissions.entries()) {
     onProgress(`Fetching solution ${index + 1}/${submissions.length}: ${submission.title} (${submission.language.display}).`);
     const details = await getProblemDetails({ submission, credentials, fetchImpl: rateLimitedFetch, existingProblem: bySlug.get(submission.titleSlug), questionCache });
-    if (!details) {
+    if (!details || details.skippedReason) {
       skippedSubmissions.push(submission);
-      onProgress(`Skipping submission ${submission.id} (${submission.title}, ${submission.language.display}): LeetCode returned no detail record; it will be retried next sync.`);
+      onProgress(`Skipping submission ${submission.id} (${submission.title}, ${submission.language.display}): ${details?.skippedReason ?? 'LeetCode returned no detail record'}; it will be retried next sync.`);
       continue;
     }
     const problem = byKey.get(details.problem.key) ?? { ...details.problem, solutions: [] };
