@@ -215,5 +215,44 @@
     "prerequisiteTopics": [
       "cadence-workflows"
     ]
+  },
+  {
+    "slug": "dsa-foundations",
+    "locales": ["vi"],
+    "title": { "vi": "Cấu trúc dữ liệu và thuật toán cơ bản" },
+    "description": { "vi": "Học cách diễn đạt bài toán, phân tích chi phí và xây nền tảng dữ liệu trước khi đi vào các kỹ thuật phức tạp." },
+    "prerequisites": { "vi": "Biết cú pháp Go cơ bản, hàm, vòng lặp và slice. Có thể đọc topic Nền tảng Go trước." },
+    "sections": [
+      {
+        "title": { "vi": "Tư duy giải thuật" },
+        "noteKeys": [
+          "data-structures-algorithms/problem-solving",
+          "data-structures-algorithms/complexity",
+          "data-structures-algorithms/abstract-data-types"
+        ]
+      },
+      {
+        "title": { "vi": "Công cụ dữ liệu đầu tiên" },
+        "noteKeys": [
+          "data-structures-algorithms/arrays-and-slices",
+          "data-structures-algorithms/recursion"
+        ]
+      }
+    ],
+    "prerequisiteTopics": ["go-fundamentals"]
+  },
+  {
+    "slug": "dsa-advanced",
+    "locales": ["vi"],
+    "title": { "vi": "Cấu trúc dữ liệu và thuật toán nâng cao" },
+    "description": { "vi": "Phát triển từ đệ quy sang các kỹ thuật thiết kế thuật toán và những cấu trúc, bài toán nâng cao." },
+    "prerequisites": { "vi": "Nắm cách phân tích độ phức tạp, slice và đệ quy; nên đọc topic DSA cơ bản trước." },
+    "sections": [
+      {
+        "title": { "vi": "Thiết kế thuật toán" },
+        "noteKeys": ["data-structures-algorithms/divide-and-conquer"]
+      }
+    ],
+    "prerequisiteTopics": ["dsa-foundations"]
   }
 ]
