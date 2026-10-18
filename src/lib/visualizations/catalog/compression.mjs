@@ -1,0 +1,2 @@
+import {metadata as m,collect} from './helpers.mjs';
+export const definitions=collect([['rle-codec','RLE encode / decode'],['huffman-codec','Huffman tree / code / decode'],['lz77-codec','LZ77 và copy chồng lấn']].map(([id,title])=>m('compression',id,title,'data-compression',id==='rle-codec'?'Run-length':id==='huffman-codec'?'Huffman':'Lempel',{text:'abababa',window:'4'},{text:''},'abababa','','≤24 byte UTF-8; LZ77 window 1–16. Output là bytes đã giải mã.')));

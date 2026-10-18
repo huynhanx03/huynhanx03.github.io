@@ -3,7 +3,6 @@ title: "Replay, Determinism và thay đổi Workflow đang chạy"
 category: "Workflow Engine"
 kind: "guide"
 translationKey: "cadence/replay-and-code-changes"
-translationPending: true
 series: "Cadence"
 seriesOrder: 3
 description: "Hiểu Event History, quy tắc determinism, side effect, replay test và cách thay đổi code mà không làm hỏng execution cũ."
@@ -17,17 +16,31 @@ sources:
   - title: "Cadence Continue-As-New"
     url: "https://cadenceworkflow.io/docs/go-client/continue-as-new"
 draft: false
+updated: 2026-10-15
 ---
 
-Event History là nhật ký có thứ tự của các sự kiện trong một Workflow Execution: bắt đầu, schedule Activity, kết quả Activity, timer, signal và kết thúc. Khi Worker nhận một Workflow Task, SDK chạy lại định nghĩa Workflow từ đầu với input ban đầu. Các lệnh cũ được đối chiếu với history; Activity đã hoàn tất trả về kết quả đã ghi, không chạy side effect thêm lần nữa. Khi code đến điểm cần tạo lệnh mới, SDK gửi command tiếp theo cho Service.
+Worker đang giữ biến `reserved=true` thì process chết. Biến trong RAM mất đi, nhưng nếu kết quả giữ hàng đã được ghi vào Event History, worker khác có thể dựng lại cùng nhánh quyết định. Nó chạy lại phần Workflow theo lịch sử, không tự gọi lại side effect đã hoàn tất.
 
-Điều này tạo yêu cầu determinism: với cùng input và cùng history, Workflow phải phát ra chuỗi quyết định tương thích với những gì lịch sử ghi nhận. Không đọc đồng hồ hệ điều hành, số ngẫu nhiên, biến global có thể đổi, file local, database hoặc HTTP trực tiếp trong Workflow. Hãy dùng primitive của SDK cho clock/timer/concurrency; chuyển thao tác bên ngoài vào Activity. Nếu Workflow tạo các goroutine SDK hoặc timer theo một thứ tự khác, replay có thể phát hiện lệnh lệch và báo nondeterminism.
+History lưu các sự kiện có thứ tự như bắt đầu execution, schedule/kết quả Activity, timer, Signal và kết thúc. Khi cần replay để dựng state, SDK đối chiếu lệnh cũ với history, cung cấp kết quả đã ghi rồi đi đến điểm cần quyết định mới. Worker có thể dùng cache giữa các task; không phải mọi Workflow Task đều bắt buộc phát lại toàn bộ từ đầu.
+
+Điều kiện để làm được là determinism: cùng input/history cần dẫn đến command tương thích. Không dùng trực tiếp đồng hồ hệ điều hành, random, global thay đổi, file, database hay HTTP trong Workflow. Dùng clock/timer/concurrency của SDK, đặt I/O trong Activity; đổi thứ tự tạo timer hoặc tác vụ có thể làm replay lệch.
+
+
 
 ## Side effect và idempotency
 
 Activity nằm ngoài replay path nhưng có thể được thực thi nhiều lần do timeout, worker crash hoặc phản hồi bị mất. Ví dụ, cổng thanh toán đã trừ tiền nhưng Activity chết trước khi báo kết quả; retry có thể gọi charge lần nữa. Dùng khóa idempotency do ứng dụng tạo từ định danh nghiệp vụ, lưu kết quả có thể tra cứu và thiết kế thao tác an toàn khi được thử lại. Không dựa vào giả định “Cadence chỉ gọi Activity đúng một lần”.
 
 Một Activity hoàn tất thường được ghi vào history cùng kết quả. Nếu workflow replay sau đó, kết quả này được cung cấp lại để khôi phục biến và nhánh logic. Nhưng side effect còn dang dở hoặc phản hồi chưa kịp được ghi nhận có thể được thực hiện lại. Mỗi tích hợp nên có quy trình đối soát: tìm charge theo idempotency key, kiểm tra trạng thái reservation, hoặc gửi hành động bù nếu không thể lặp thao tác an toàn.
+
+### Hai cửa sổ lỗi khác nhau
+
+| History đã ghi | Khi replay | Hệ thống ngoài có thể bị gọi lại? |
+| --- | --- | --- |
+| Activity thành công và có kết quả | Cấp lại kết quả cũ cho Workflow | Không vì riêng lần replay đó |
+| Provider thành công nhưng kết quả chưa ghi | Chưa có bằng chứng hoàn tất trong history | Có thể ở attempt tiếp theo |
+
+Khác biệt nằm ở kết quả đã được engine ghi bền vững, không chỉ ở việc hàm Activity đã chạy đến dòng cuối. Quy tắc này giải thích vì sao replay không gọi lại I/O cũ mà Activity vẫn cần idempotency.
 
 ## Thay đổi code có thể làm history cũ không còn hợp lệ
 
@@ -54,8 +67,22 @@ if version == workflow.DefaultVersion {
 
 Ví dụ trên chỉ minh họa vị trí version marker; hãy kiểm tra API SDK đang dùng và viết test cho cả history cũ lẫn execution mới. Sửa code bằng cách đổi tên Activity, chuyển lệnh qua nhánh khác hoặc thay đổi thứ tự timer đều cần được đánh giá theo history, không dựa vào cảm giác “logic vẫn vậy”.
 
+### Đọc version marker trong ví dụ
+
+`DefaultVersion` cho phép nhận diện đường đi tương thích với history trước khi có marker ở vị trí thay đổi. Nhánh mới gọi Validate rồi Reserve; nhánh cũ vẫn giữ Reserve như trước. Phần Charge của quy trình, cùng ActivityOptions và đăng ký các hàm, nằm ngoài đoạn trích minh họa.
+
+Marker là quyết định được giữ trong history, không đơn thuần một feature flag đọc từ môi trường. Đổi flag bên ngoài mỗi lần replay có thể đưa execution cũ sang nhánh khác. Điều kiện xóa đường cũ phải xét history còn cần nó và cách replay/reset được hỗ trợ, không chỉ tỷ lệ traffic hiện tại.
+
 ## History tăng không giới hạn
 
 Workflow sống dài sẽ tích lũy Event History. Khi lịch sử lớn, replay lâu hơn và giới hạn Service có thể trở thành rủi ro. `Continue-As-New` đóng run hiện tại rồi mở run mới cho cùng Workflow ID với input state đã chọn; history cũ không được sao chép sang run mới. Trước khi chuyển, serialize rõ state tối thiểu cần mang theo, tính đến message đang chờ và bảo đảm chuyển tiếp không làm mất nghiệp vụ.
 
 Quy tắc thực hành là coi workflow code như một protocol với các execution đang tồn tại. Mỗi lần đổi thứ tự command, đặt câu hỏi: history cũ replay với code này sẽ phát ra điều gì? Dùng version marker khi cần, lưu fixture history, chạy replayer và theo dõi Workflow Task failure sau deploy. Đó là cách biến determinism từ một khái niệm khó nắm thành quy trình triển khai kiểm chứng được.
+
+## Tự kiểm tra tương thích
+
+**Code mới chạy thành công với execution mới đã chứng minh đọc được history cũ chưa?** Chưa. Cần đối chiếu những command mà history cũ đã ghi.
+
+**Continue-As-New tự mang mọi biến và Signal đang chờ sang run mới không?** Không. Ứng dụng phải chọn state đầu vào và xử lý chuyển tiếp theo API, gồm cả message chưa xử lý.
+
+**Tăng replica có sửa nondeterminism sau deploy không?** Không. Cùng code không tương thích có thể tiếp tục lỗi; cần sửa/định tuyến worker tương thích và kiểm chứng với history thích hợp.

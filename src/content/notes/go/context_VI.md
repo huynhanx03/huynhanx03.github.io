@@ -1,126 +1,179 @@
 ---
-title: "Context"
+title: "Context: tín hiệu hủy, deadline và dữ liệu theo request"
 category: "Go"
 tags: ["golang", "context", "advanced", "fundamentals"]
+description: "Context truyền tín hiệu “không cần làm nữa”, deadline và dữ liệu đi cùng request qua các hàm. Nó không tự giết goroutine, không chờ worker dừng và không thay mọi tham số nghiệp vụ."
+updated: 2026-10-15
+translationKey: "go/context"
 ---
 
-# Context: Quản lý vòng đời và Ngữ cảnh thực thi
+Một HTTP handler khởi chạy truy vấn database rồi gọi service khác. Giữa chừng, client ngắt kết nối. Những thao tác phía sau cần biết request không còn cần kết quả, dù chúng nằm cách handler vài tầng lời gọi hàm.
 
-**context.Context** là cơ chế tiêu chuẩn của ngôn ngữ Go nhằm kiểm soát vòng đời của một yêu cầu (request) hoặc một chuỗi các hoạt động phụ thuộc trong môi trường xử lý đồng thời và hệ thống phân tán. Đây là giải pháp quản trị giúp điều phối các tín hiệu hủy bỏ, thời hạn thực thi và truyền dẫn dữ liệu đặc tả xuyên suốt các lớp ứng dụng.
+`context.Context` truyền thông tin vòng đời ấy qua chuỗi lời gọi: tín hiệu hủy, deadline và dữ liệu theo request. Mỗi operation vẫn phải hợp tác. Context không tự giết goroutine và không chờ nó dừng.
 
----
+Bài này giả định bạn biết hàm, [Goroutines](/vi/notes/go/goroutines/) và receive từ channel. Các đoạn trích độc lập; thêm import cần thiết và đặt khai báo ngoài `main`. Kết quả dự kiến được suy từ hợp đồng API, không phải số đo thời gian.
 
-## 1. Cơ sở ra đời và Tầm quan trọng
+## Truyền vòng đời của caller xuống công việc phía sau
 
-Trước khi có sự xuất hiện của gói `context`, việc quản lý các chuỗi thực thi không đồng bộ trong Go đối mặt với nhiều rủi ro về mặt vận hành:
--   **Tình trạng Goroutine Leak**: Các tiến trình con tiếp tục vận hành vô thời hạn ngay cả khi tiến trình cha đã kết thúc.
--   **Lãng phí tài nguyên hệ thống**: Máy chủ tiêu tốn năng lực xử lý cho các tác vụ mà kết quả không còn giá trị sử dụng (ví dụ: người dùng đã hủy yêu cầu sớm).
--   **Sự phức tạp trong mã nguồn**: Việc truyền thủ công các tham số timeout và tín hiệu hủy qua từng cấp độ hàm gây ra sự thiếu tường minh và khó khăn trong bảo trì (callback hell hoặc tham số dư thừa).
+Giả sử handler gọi `lookup(ctx, id)`, rồi lookup gọi database. Truyền `r.Context()` của handler qua cả hai tầng cho phép việc client ngắt hoặc deadline sớm hơn tới được database operation. Tạo `context.Background()` giữa đường sẽ cắt nhánh truyền cancellation ấy.
 
-**Context được thiết kế để giải quyết 3 bài toán lõi:**
-1.  **Thiết lập Thời hạn (Timeout / Deadline)**: Áp đặt giới hạn thời gian tồn tại cho một tác vụ để bảo vệ tài nguyên hệ thống.
-2.  **Cơ chế Hủy bỏ (Cancellation)**: Chủ động chấm dứt một chuỗi tác vụ khi kết quả của chúng không còn cần thiết.
-3.  **Truyền dẫn Metadata**: Vận chuyển các thông tin định danh (TraceID, UserID) giữa các ranh giới chức năng mà không làm ô nhiễm chữ ký hàm nghiệp vụ.
+Background là root context rỗng, không value, không cancellation và không deadline. Nó phù hợp lúc khởi động hoặc khi chủ ý tạo vòng đời cấp cao mới. TODO có hành vi tương tự nhưng ghi nhận rằng chưa chọn được context đúng. Không nên dùng chúng để âm thầm thay request context. Không truyền nil thay context; chọn root phù hợp khi thật sự không có context từ caller.
 
----
-
-## 2. Giải phẫu Giao diện Context
-
-Gói `context` định nghĩa một Interface duy nhất, cho phép tính linh hoạt cao trong việc triển khai và đảm bảo tính an toàn đồng thời (**Thread-safety**):
+Interface chung cung cấp bốn câu hỏi mà operation có thể đặt ra:
 
 ```go
 type Context interface {
-    Deadline() (time.Time, bool) // Trả về thời điểm kết thúc tác vụ (nếu có).
-    Done() <-chan struct{}       // Channel phát tín hiệu khi Context bị đóng. Đây là thành phần then chốt để các tiến trình hạ nguồn lắng nghe tín hiệu dừng.
-    Err() error                  // Trả về lý do Context bị vô hiệu hóa (context.Canceled hoặc context.DeadlineExceeded).
-    Value(key any) any           // Truy xuất dữ liệu đặc tả gắn liền với ngữ cảnh.
+    Deadline() (time.Time, bool)
+    Done() <-chan struct{}
+    Err() error
+    Value(key any) any
 }
 ```
 
----
+Deadline trả thời điểm và cờ có giới hạn hay không. Done trả channel đóng khi hủy hoặc hết hạn; channel có thể nil nếu context không thể hủy. Err là nil trước cancellation, rồi báo `context.Canceled` hoặc `context.DeadlineExceeded`. Value tra dữ liệu theo key, không có thì trả nil.
 
-## 3. Các loại Context cơ bản
+Nhiều goroutine dùng cùng context đồng thời được. Điều đó bảo vệ method của context, không bảo vệ object mutable bất kỳ đặt trong nó. Pointer lấy qua Value vẫn cần quy tắc ownership hoặc khóa thông thường.
 
-Hệ thống Context vận hành theo cấu trúc cây (Tree-based hierarchy). Khi một Context cha bị hủy, toàn bộ các Context dẫn xuất (con) sẽ nhận được tín hiệu hủy một cách đệ quy thông qua cơ chế lan tỏa.
+## Tạo vòng đời ngắn hơn mà vẫn giữ giới hạn của caller
 
-### 3.1. context.Background() 
--   **Bản chất**: Ngữ cảnh gốc (Root Context).
--   **Đặc tính**: Bất biến, không thể bị hủy bỏ, không có thời hạn và không chứa dữ liệu.
--   **Phạm vi**: Sử dụng tại các điểm khởi nguồn nơi vòng đời yêu cầu bắt đầu (hàm `main`, `init`, cấp độ Request handler hoặc trong Testing).
+Giả sử request có ngân sách mười giây, nhưng lookup database chỉ nên được tối đa hai giây:
 
-### 3.2. context.TODO()
--   **Bản chất**: Tương tự như `Background()`.
--   **Ý nghĩa**: Điểm đánh dấu (placeholder). Sử dụng khi thiết kế hệ thống chưa xác định rõ ranh giới ngữ cảnh, hoặc khi cần bổ sung tham số Context vào mã nguồn hiện có.
-
-### 3.3. context.WithCancel(parent)
--   **Mục đích**: Thiết lập cơ chế hủy bỏ chủ động theo logic nghiệp vụ.
--   **Hành vi**: Trả về Context con và một hàm `cancel()`. Khi gọi `cancel()`, channel `Done()` sẽ đóng và lan tỏa tín hiệu xuống toàn bộ cây con hạ nguồn.
--   **Ứng dụng**: Sử dụng khi xuất hiện lỗi hệ thống hoặc hành động hủy từ người dùng.
-
-### 3.4. context.WithTimeout(parent, duration)
--   **Mục đích**: Tự động phát tín hiệu hủy sau một khoảng thời gian xác định (`duration`).
--   **Cơ chế**: Context con sẽ tự động vô hiệu hóa nếu tác vụ kéo dài quá thời gian định trước.
--   **Ứng dụng**: Phù hợp cho các truy vấn DB hoặc gọi API bên thứ ba để đảm bảo cam kết SLA.
-
-### 3.5. context.WithDeadline(parent, absoluteTime)
--   **Mục đích**: Tự động hủy tác vụ tại một mốc thời gian tuyệt đối.
--   **Bản chất**: `WithTimeout` thực chất là một cách viết tắt của `WithDeadline` với mốc thời gian là `time.Now().Add(duration)`.
-
-### 3.6. context.WithValue(parent, key, value)
--   **Mục đích**: Vận chuyển Metadata xuyên suốt luồng thực thi.
--   **Phạm vi**: Chỉ sử dụng cho mục đích quan sát (Tracing, Logging, Auth tokens).
--   **Khuyến cáo**: Tuyệt đối không sử dụng để truyền tải dữ liệu nghiệp vụ (Business Data) vì Context được thiết kế để thẩm thấu qua nhiều lớp mà không tạo ra sự phụ thuộc chặt chẽ.
--   **Lưu ý quan trọng (Key Safety)**: Để tránh xung đột khóa (Value Collision) giữa các package, luôn định nghĩa key dưới dạng một kiểu dữ liệu nội bộ (**unexported struct**).
 ```go
-type contextKey struct{}
-var sessionKey = contextKey{} // Duy nhất, không thể bị ghi đè từ bên ngoài
+func query(ctx context.Context, db *sql.DB) (string, error) {
+    ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
+    defer cancel()
+    var name string
+    err := db.QueryRowContext(ctx,
+        "SELECT name FROM users WHERE id = ?", 1).Scan(&name)
+    return name, err
+}
 ```
 
-### 3.7. WithCancelCause (Go 1.20+)
--   **Cải tiến**: Cho phép đính kèm nguyên nhân lỗi cụ thể khi thực hiện hủy bỏ, giúp việc xử lý lỗi ở phía hạ nguồn (Observability) trở nên minh bạch hơn.
+Import `context`, `database/sql` và `time`. Caller cung cấp database handle; đổi placeholder `?` theo driver. WithTimeout trả child context cùng hàm hủy child đó. Query dùng child nên timeout riêng hoặc cancellation sớm hơn từ parent đều có thể kết thúc ngân sách.
+
+Child không kéo dài deadline sớm hơn của parent. Nếu upstream chỉ còn nửa giây, hàm này không được thêm hai giây mới. Cancel child để nguyên parent và các sibling; cancel parent lan xuống mọi descendant.
+
+WithDeadline nhận thời điểm tuyệt đối thay vì duration. WithCancel thêm quyền hủy thủ công mà không thêm deadline. Các hàm cancel trả về có thể gọi nhiều lần an toàn. Defer ngay sau khi tạo thành công để các nhánh trả về sớm giải phóng timer và liên kết parent-child phù hợp, thay vì giữ tới deadline hoặc parent cancellation.
+
+Deadline là tín hiệu, không bảo đảm hàm trả đúng tại mốc ấy. Driver và operation nền phải hỗ trợ hủy. WithTimeout không tạo một goroutine bọc query, không cưỡng bức driver bị chặn phải thoát và không rollback side effect bất kỳ.
+
+## Công việc tự viết cần điểm quan sát cancellation
+
+Một hàm chờ có thể cùng lắng nghe thời gian và cancellation:
+
+```go
+func wait(ctx context.Context, delay time.Duration) error {
+    timer := time.NewTimer(delay)
+    defer timer.Stop()
+    select {
+    case <-timer.C:
+        return nil
+    case <-ctx.Done():
+        return ctx.Err()
+    }
+}
+```
+
+Hàm cần context và time. Nếu bị hủy khi timer còn chờ, case thứ hai cho phép kết thúc chờ. Nếu cả hai sẵn sàng thì case nào cũng có thể thắng. Thứ tự case không ưu tiên cancellation; context đã hủy cũng không tự cấm mọi side effect phía sau.
+
+CPU loop phải kiểm tra hủy tại khoảng phù hợp; chọn khoảng là đánh đổi overhead với độ trễ phản ứng. I/O chặn cần API hỗ trợ context hoặc deadline. Kiểm tra `ctx.Err()` ngay trước lời gọi không thể hủy không làm lời gọi đó trở nên interruptible sau khi bắt đầu. Context cũng không phải transaction rollback: khi cần, hãy dùng bảo đảm transaction của chính operation.
+
+## Yêu cầu dừng và xác nhận đã dừng là hai bước riêng
+
+Giả sử owner chỉ được giải phóng tài nguyên sau cleanup của worker. Nó cần tín hiệu completion bên cạnh cancellation:
+
+```go
+ctx, cancel := context.WithCancel(context.Background())
+done := make(chan struct{})
+
+go func() {
+    defer close(done)
+    <-ctx.Done()
+    // Hoàn tất phần cleanup mà goroutine này phụ trách trước khi return.
+}()
+
+cancel()
+<-done
+fmt.Println(ctx.Err()) // context canceled
+```
+
+Worker sở hữu done và đóng sau cleanup, ở đường kết thúc của nó. `cancel()` yêu cầu dừng; `<-done` join worker. Cancellation có thể xảy ra trước khi goroutine bắt đầu chờ mà vẫn đúng: receive từ Done đã đóng sẽ đi tiếp khi worker được chạy. Không cần sleep để đoán worker sẵn sàng chưa.
+
+Worker thật phải bố trí sự hợp tác ấy quanh tất cả việc nó làm. Ví dụ không có nghĩa mọi hàm chặn đều ngắt được. Bước chờ hoàn tất vẫn có thể lâu nếu cleanup chậm hoặc dependency bỏ qua cancellation.
+
+## Thêm metadata theo request mà vẫn giữ tham số bắt buộc rõ ràng
+
+Request ID hữu ích xuyên qua logging và các tầng service, dù không phải đầu vào nghiệp vụ chính của từng hàm. Kiểu key riêng giữ metadata ấy tách khỏi key của package khác:
+
+```go
+type requestIDKey struct{}
+
+func withRequestID(ctx context.Context, id string) context.Context {
+    return context.WithValue(ctx, requestIDKey{}, id)
+}
+func requestID(ctx context.Context) (string, bool) {
+    id, ok := ctx.Value(requestIDKey{}).(string)
+    return id, ok
+}
+```
+
+WithValue tạo child wrapper, không sửa parent. Tra cùng key từ child sẽ thấy value gần nhất, che value cùng key ở parent. Hàm accessor gom assertion tại một nơi và cho caller xử lý trường hợp vắng mặt rõ ràng.
+
+Key phải comparable. Hai giá trị `requestIDKey{}` trong package này cố ý bằng nhau, nhờ đó ghi bằng một instance và đọc bằng instance khác vẫn đúng. Struct không export không khiến từng instance thành key độc nhất. Với metadata khác, dùng kiểu private khác hoặc phân biệt giá trị có chủ ý; tránh key string mà package không liên quan cũng có thể chọn trùng.
+
+Request ID, tracing metadata và principal theo request là những trường hợp hợp lý. Input nghiệp vụ bắt buộc và dependency như database client nên nằm ở tham số có kiểu hoặc field service rõ ràng. Giấu chúng sau Value biến việc thiếu tham số thành bất ngờ lúc chạy. Context truy cập đồng thời được cũng không làm object bên trong bất biến. Đừng log secret chỉ vì context đang mang nó.
+
+## Giữ nguyên nhân hủy khi caller cần biết thêm
+
+Có lúc caller cần cả phân loại cancellation chuẩn lẫn nguyên nhân cụ thể khiến công việc dừng:
+
 ```go
 ctx, cancel := context.WithCancelCause(parent)
-cancel(errors.New("connection_lost"))
-// Truy xuất qua: context.Cause(ctx)
+cancel(errors.New("upstream unavailable"))
+fmt.Println(ctx.Err())          // context canceled
+fmt.Println(context.Cause(ctx)) // upstream unavailable
 ```
 
----
+Đoạn trích giả định có parent context và import context, errors, fmt. WithCancelCause và Cause có từ Go 1.20. Err giữ phân loại chuẩn cho xử lý cancellation thông thường, còn Cause mang thêm thông tin lỗi. Ví dụ hủy trực tiếp child này; trong cây lớn hơn, lần cancellation xác lập cause có ý nghĩa, nên không xem các lần gọi sau là cách viết lại nguyên nhân đã có.
 
-## 4. Cấu trúc Nội bộ
+Go 1.21 thêm WithTimeoutCause và WithDeadlineCause để đặt cause khi hết giới hạn thời gian. CancelFunc trả về không nhận tham số error. WithoutCancel, cũng từ 1.21, giữ values nhưng bỏ deadline/cancellation của parent. Chỉ dùng khi công việc được chủ ý cho sống lâu hơn parent và đã có owner cùng giới hạn mới. Tách mọi operation gây bất tiện khỏi cancellation có thể biến request bị bỏ thành background work vô hạn.
 
-### 4.1. Các thực thể hiện thực hóa (Internal Structures)
-Go hiện thực hóa Interface Context thông qua các cấu trúc dữ liệu chuyên biệt để tối ưu hóa hiệu năng:
--   **emptyCtx**: Dùng cho `Background()` và `TODO()`. Là một kiểu số nguyên đơn giản, không thể bị hủy và không chứa dữ liệu.
--   **cancelCtx**: Cấu trúc lõi cho cơ chế hủy bỏ. Nó quản lý một channel `done` và một danh sách các con (`children`) để truyền tín hiệu hủy bỏ lũy kế.
--   **timerCtx**: Mở rộng từ `cancelCtx`, bổ sung thêm bộ định thời (`time.Timer`) và mốc thời gian (`deadline`) để tự động kích hoạt hàm `cancel`.
--   **valueCtx**: Cấu trúc chuyên dụng để lưu trữ dữ liệu đặc tả. Nó hoạt động như một nút trong danh sách liên kết ngược trỏ về cha.
+## Implementation giải thích vì sao cần cleanup và chuỗi value vừa phải
 
----
+```text
+backgroundCtx / todoCtx → emptyCtx
+cancelCtx: parent | done | children | error/cause
+  └─ timerCtx: deadline | timer
+valueCtx: parent | key | value
 
-### 4.2. Tại sao là sự kết hợp giữa Cây và Danh sách liên kết?
+cancel(parent) → children → descendants
+Value(key) → this wrapper → parent → root
+```
 
-Kiến trúc bên trong của Context là một ví dụ điển hình về việc lựa chọn cấu trúc dữ liệu dựa trên mục đích thực thi:
+Đây là mô hình đọc source, không phải struct layout công khai. Source đối chiếu ngày 2026-10-15 dùng emptyCtx dựa trên `struct{}`; mô tả integer lịch sử không còn đúng với source ấy.
 
-#### Cơ chế Hủy bỏ: Cấu trúc Cây (Directed Tree)
-`cancelCtx` và `timerCtx` tổ chức theo dạng Cây. Một nút cha quản lý danh sách các con thông qua một `map` (`children map[canceler]struct{}`).
--   **Lý do**: Vì hành động hủy mang tính chất **Lan tỏa (Broadcast)**. Khi một Context cha bị đóng, nó phải nhanh chóng "duyệt" (traverse) qua toàn bộ danh sách con để đóng channel của chúng. Cấu trúc cây giúp lan truyền tín hiệu hủy bỏ đệ quy một cách hiệu quả và triệt để theo chiều dọc của hệ thống.
+Context có thể hủy theo dõi quan hệ children để truyền cancellation xuống dưới. Cancel giải phóng liên kết phù hợp và dừng timer; đó là lý do bỏ qua cancel có thể giữ tài nguyên sau khi operation đã trả về. Wrapper value được tìm ngược về root thay vì nằm trong một map trung tâm. Chuỗi sâu có thể tăng chi phí lookup, thêm một lý do để mỗi value có mục đích rõ.
 
-#### Cơ chế Metadata: Danh sách liên kết ngược (Backward Linked List)
-`valueCtx` không lưu trữ dữ liệu tập trung (bên trong một map của cha). Thay vào đó, mỗi lần gọi `WithValue`, một nút mới được tạo ra bao bọc lấy khóa-giá trị và trỏ ngược về Context cha.
--   **Lý do**: 
-    1.  **Tính Bất biến (Immutability)**: Việc thêm dữ liệu không bao giờ làm thay đổi logic hay dữ liệu ở nút cha, giữ cho Context an toàn tuyệt đối khi được chia sẻ giữa hàng nghìn Goroutine đồng thời. 
-    2.  **Tra cứu tuần tự (Upward Search)**: Hàm `Value(key)` thực hiện tìm kiếm đệ quy từ nút hiện tại ngược lên phía gốc. Điều này đảm bảo dữ liệu ở nút con (gần nhất với điểm gọi) luôn có độ ưu tiên cao nhất, cho phép cơ chế ghi đè (override) dữ liệu một cách tự nhiên.
+## Để vòng đời hiện rõ trong thiết kế API
 
----
+Đặt `ctx context.Context` đầu danh sách tham số và truyền tiếp cho operation thuộc cùng request. Nhận context cho mỗi operation thay vì dùng lại context đã canceled. Struct service sống lâu thường giữ dependency, còn mỗi method nhận context từ caller của lần gọi ấy.
 
-## 5. Các nguyên tắc vận hành tiêu chuẩn
+Tránh context trong struct là hướng dẫn thiết kế để tránh nhập nhằng lifetime, không phải compiler cấm. API lịch sử như http.Request có lý do cụ thể để mang context. Khi cân nhắc ngoại lệ, câu hỏi hữu ích là caller có biết context lưu trong đó thuộc operation và vòng đời nào hay không.
 
-Để đảm bảo mã nguồn chuyên nghiệp và ổn định, hãy tuân thủ các nguyên tắc sau:
-1.  **Tính nhất quán**: `context.Context` luôn là tham số đầu tiên của hàm (`func Do(ctx Context, ...)`).
-2.  **Tính bất biến**: Context mang tính chất "dòng chảy" thực thi. Tuyệt đối không lưu trữ Context trong Struct để tránh sai lệch về vòng đời và gây khó khăn trong việc kiểm soát tài nguyên.
-3.  **Trách nhiệm giải phóng**: Hàm `cancel()` phải luôn được thực thi (thông qua `defer`) để thu hồi bộ định thời (Timer) và tài nguyên liên quan ngay lập tức khi tác vụ kết thúc.
-4.  **Tính Thread-safety**: Context an toàn cho việc truy cập đồng thời từ nhiều Goroutine.
+## Thử dự đoán trước khi xem đáp án
 
----
+1. Parent còn 300 ms; child đặt timeout hai giây. Ngân sách nào giới hạn operation? Cancel child có dừng sibling không?
+2. Vì sao query bỏ qua context vẫn có thể chạy quá deadline? `cancel()` có chứng minh worker xong chưa?
+3. Hai `requestIDKey{}` trong ví dụ có là hai key khác nhau không? Nếu package khác tự định nghĩa kiểu cùng tên thì sao?
 
-> Việc sử dụng Context đúng cách không chỉ là vấn đề kỹ thuật, mà còn là tư duy chịu trách nhiệm về tài nguyên trong các hệ thống quy mô lớn.
+**Giải thích:**
+
+1. Deadline sớm hơn của parent giới hạn operation. Cancel child tác động child và descendants, không tác động parent/sibling.
+2. Operation phải quan sát hủy; context không cưỡng bức code bất kỳ thoát. Cần completion signal hoặc WaitGroup riêng để xác nhận đã thoát và cleanup xong.
+3. Chúng bằng nhau trong cùng kiểu do package định nghĩa. Kiểu do package khác định nghĩa là kiểu riêng, giúp tránh va chạm vô tình.
+
+## Tài liệu đối chiếu
+
+- [context package](https://pkg.go.dev/context) — method, dẫn xuất context, cause và hợp đồng dùng đồng thời.
+- [Context and structs](https://go.dev/blog/context-and-structs) — thiết kế vòng đời API và ngoại lệ lịch sử.
+- [Context implementation](https://go.dev/src/context/context.go) — mô hình triển khai, đối chiếu ngày 2026-10-15.

@@ -1,364 +1,249 @@
 ---
-title: "Maps"
+title: "Maps: key lookup, synchronization, and runtime generations"
 category: "Go"
 tags: ["golang", "maps", "fundamentals"]
+description: "A map stores key → value associations. Learn the guaranteed language behavior first, then read bucket/Swiss Table internals as version-specific implementation details; these are different layers of knowledge."
+updated: 2026-10-15
+translationKey: "go/maps"
 ---
 
-# Maps: High-Performance Associative Arrays
+A score of zero can mean two things: a player has not scored, or the player is not in our records. A map lets us look up a score by name, but a plain lookup does not tell these situations apart. Start with that distinction; later, the same map will become shared state that needs a clear synchronization rule.
 
-In Go, a **Map** is a built-in data structure that implements an associative array of key-value pairs. Under the hood, it is realized as a sophisticated **Hash Table**. Designed for efficiency, Maps deliver near-constant time complexity—$O(1)$—for search, insertion, and deletion operations, making them indispensable for low-latency systems.
+This lesson assumes functions, structs, and basic slice use. The examples are independent snippets: put statements in `main`, declarations outside it, and import `fmt`, `math`, or `sync` where used. Expected results follow from language rules; runtime diagrams describe particular implementations rather than the language contract.
 
----
-
-## 1. Initialization and Semantics
-
-In the Go type system, a Map is a **Reference Type**. It can be initialized using either a literal syntax or the `make` built-in function:
+## Store a value, then ask whether the key exists
 
 ```go
-// Map Literal Initialization
-langs := map[string]string{
-    "Go":   "Google",
-    "Rust": "Mozilla",
-}
-
-// Pre-allocating capacity via make() for performance critical paths
 scores := make(map[string]int, 100)
-
-scores["Alice"] = 10   // Mutation
-delete(scores, "Alice") // Deletion
+scores["An"] = 0
+value, ok := scores["An"]
+fmt.Println(value, ok) // 0 true
+value, ok = scores["Binh"]
+fmt.Println(value, ok) // 0 false
+delete(scores, "An")
+fmt.Println(len(scores)) // 0
 ```
 
-### The "Comma-Ok" Idiom (Presence Verification)
-Accessing a non-existent key returns the **Zero Value** of the value type. To distinguish between a missing entry and an entry explicitly stored with a zero value, Go utilizes the "comma-ok" pattern:
+`map[string]int` associates string keys with integer values. The assignment creates the entry for An even though its value is zero. Looking up Binh returns the zero value of `int` too, but `ok` is false because there is no entry. Use the two-result form whenever absence has a meaning different from a stored zero.
+
+The argument 100 to `make` is a size hint. It creates no entries and does not give the map a public capacity; `cap(scores)` is invalid. A literal such as `map[string]int{"An": 10}` creates entries immediately. `len` counts entries, and deleting an absent key is valid.
+
+A zero-value map introduces another distinction:
 
 ```go
-val, ok := langs["Java"]
-if ok {
-    fmt.Println("Entry present:", val)
-}
+var missing map[string]int
+fmt.Println(missing["An"], len(missing)) // 0 0
+delete(missing, "An")                   // Valid.
+// missing["An"] = 1                    // Would panic.
+missing = make(map[string]int)
+missing["An"] = 1
 ```
 
----
+A nil map can be read, ranged over, and used with `delete`; it has no initialized storage for inserting an entry. Initialize it before writing. A non-nil empty map has no entries either, but accepts writes. This is why a function that lazily initializes a map must also arrange for the caller to retain the new map value.
 
-## 2. Internal Architecture (Basic & Go 1.23 and earlier)
-
-To achieve high performance, the Go Map (defined in `runtime/map.go`) is built from complex components beneath its simple syntax.
-
-### 2.0. The Philosophy of Buckets: Why Divide?
-
-Imagine searching for one specific book in a library with 1 million volumes:
-*   **A Single Giant Container**: To find your book, you might have to scan through every single one—a linear scan with $O(N)$ complexity. As the library grows, the search slows down proportionately.
-*   **Dividing into 131,072 Buckets**: Each bucket now contains an average of only 7-8 books. When you need a book, you simply hash its title to determine exactly which bucket it resides in, then check at most 8 slots within that bucket.
-
-**Conclusion**: Dividing the Map into many small buckets allows Go to **limit the search scope**. Instead of scanning the entire map, Go only scans a fixed-size bucket (8 slots), ensuring that lookup speed remains $O(1)$ whether the map has 100 or 100 million elements.
-
-### 2.1. hmap & bmap (Buckets)
-
-#### A. hmap (The Map Body)
-This is the metadata management structure. When you use `make(map[K]V)`, you are actually working with a pointer to an `hmap`.
+## Assignment shares entries; it does not clone them
 
 ```go
-// runtime/map.go (Simplified)
-type hmap struct {
-    count     int    // Number of active elements
-    B         uint8  // log2 of the number of buckets (Capacity = 2^B)
-    hash0     uint32 // Randomized seed to mitigate Hash Collision DoS
-    buckets   unsafe.Pointer // Pointer to the current bucket array
-    oldbuckets unsafe.Pointer // Pointer to the previous array during growth
-}
+a := map[string]int{"Go": 1}
+b := a
+b["Go"] = 2
+fmt.Println(a["Go"]) // 2
+b = map[string]int{"Go": 3}
+fmt.Println(a["Go"], b["Go"]) // 2 3
 ```
 
-*   **Bucket Count**: Determined by the `B` field. The number of buckets is always a power of 2: **$2^B$**.
-    *   Example: If `B=3`, there are $2^3 = 8$ buckets.
-*   **Bucket Array**: The `buckets` pointer points to a contiguous memory region containing the array of `bmap` buckets.
+The first assignment copies a map value that refers to the same data. Updating an entry through `b` therefore changes what `a` sees. The later assignment replaces only `b`'s map value; it does not redirect `a`. To make independent entries, allocate a new map and copy them. That copy remains shallow when values themselves contain pointers, maps, or slices.
 
-#### B. bmap (Inside a Bucket)
-Each bucket (`bmap`) is a fixed unit of storage containing at most **8 slots** for key-value pairs.
+A struct stored as a map value has a different consequence: lookup retrieves a value, not an addressable struct variable.
 
 ```go
-// runtime/map.go (Simplified)
-type bmap struct {
-    tophash [8]uint8 // High-order 8 bits of the hash for rapid filtering
-    // Data alignment handled implicitly by the compiler:
-    // keys     [8]keytype
-    // values   [8]valuetype
-    // overflow *bmap (Pointer to an overflow chain if required)
-}
+type User struct { Name string }
+users := map[int]User{1: {Name: "An"}}
+// users[1].Name = "Mai" // Invalid: map element is not addressable.
+u := users[1]
+u.Name = "Mai"
+users[1] = u
 ```
 
-Memory layout of a single bucket:
+Read the struct, modify the copy, and store it back. A `map[int]*User` permits mutation through the pointer, but the pointer can be nil and several entries or goroutines can share the same user. Changing the value type changes ownership and synchronization obligations as well as syntax.
 
-```text
-bucket (bmap)
-├─ tophash [8]uint8  (8 high-order bits of the hash for 8 corresponding keys)
-├─ keys    [8]K      (8 Key slots packed contiguously)
-├─ values  [8]V      (8 Value slots packed contiguously)
-└─ overflow *bmap    (Pointer to an overflow bucket if the current one is full)
-```
+## A key needs equality, not just a hash
 
-**Why separate `keys` and `values`?**
-If Go stored them as pairs (`k1, v1, k2, v2...`), it would often require **Memory Padding** (useless gap bytes) between every pair if key and value sizes differ (e.g., `map[int8]int64`).
-*   By packing all 8 Keys first, followed by all 8 Values, Go only needs to add padding **once at most**, significantly reducing memory footprint in large-scale maps.
+Keys must be comparable. Numbers, strings, pointers, and arrays or structs whose components are comparable can be keys. Slices, maps, and functions cannot. `map[any]int` is permitted, but inserting a slice as its dynamic key panics because that dynamic value is not comparable.
 
-### 2.2. Hashing & Tophash Filtering
-Upon insertion or lookup:
-1.  **Hashing**: A unique hash is generated using the key and the randomized `hash0` seed.
-2.  **Bucket Selection**: The low-order bits of the hash determine the specific bucket index.
-3.  **Tophash Filtering**: The top-order 8 bits are stored in the `tophash` array. During lookup, Go compares these 8 bits first. A full memory comparison only occurs if a match is found in `tophash`, drastically reducing the overhead of expensive key comparisons (e.g., long strings).
+Hashing narrows the search; equality confirms the actual key. Different keys may have the same hash, so a hash is not a unique identifier. Lookup, update, and deletion generally have good average cost, but the specification does not promise O(1) for every input.
 
-### 2.3. Evacuation & Incremental Growth
-Go manages performance through the **Load Factor** ($LF$). When the Load Factor exceeds **6.5** ($13/16 \approx 81\%$):
--   **Expansion**: A new bucket array with double the capacity is allocated.
--   **Incremental Evacuation**: To avoid **Stop The World (STW)** latency spikes, Go migrates data from the old array to the new one rải rác (incrementally) during subsequent write or delete operations.
-    -   *Downside*: Both old and new buckets exist simultaneously, causing a temporary spike in RAM usage during evacuation.
-
----
-
-## 3. Go 1.24 Evolution: Swiss Tables
-
-Go 1.24 introduces a paradigm shift by adopting the **Swiss Tables** design (popularized by Abseil/Rust's `hashbrown`), fundamentally changing how elements are managed and searched.
-
-### 3.1. Groups & Control Words (Visualizing Swiss Tables)
-
-Instead of isolated buckets, Swiss Tables organize data into **Groups**, each containing 8 slots. The key innovation is the **Control Word**.
-
-#### Group Structure:
-```text
-Group (Basic Building Block)
-├── Control Word (8 bytes of metadata)
-│   ├── [byte 0]: 7 bits hash (h2) of slot 0
-│   ├── [byte 1]: 7 bits hash (h2) of slot 1
-│   ├── ...
-│   └── [byte 7]: 7 bits hash (h2) of slot 7
-└── 8 Slots (Actual Data)
-    ├── [slot 0]: Key - Value
-    ├── [slot 1]: Key - Value
-    ├── ...
-    └── [slot 7]: Key - Value
-```
-
-*   **Metadata (Control Word)**: Each byte in the Control Word stores a 7-bit hash (h2) for rapid identification, along with special states like **Empty** or **Deleted**.
-
-### 3.2. The Power of SIMD Lookup
-
-This is why Swiss Tables are significantly faster than traditional iteration:
-
-*   **Legacy (Go 1.23)**: Scans each Tophash in a bucket sequentially (8 comparisons).
-*   **Modern (Go 1.24 - SIMD)**: 
-    1.  Extracts the 7-bit hash of the target Key (the `needle`).
-    2.  Uses a single CPU instruction (**SIMD**) to compare the `needle` against **all 8 bytes** in the Control Word simultaneously.
-    3.  Returns a bitmask indicating exactly which slots might match.
-    **Result**: Lookups are multiples faster with minimal CPU branching.
-
-### 3.3. Eliminating Overflow via Probing
-Swiss Tables abandon linked lists for overflow buckets. If a Group is full, Go performs **Probing** (searching) in the next Group within a flat array. This keeps data physically close in memory, making it highly **Cache-friendly**.
-
-### 3.4. Extendible Hashing (Directory Management)
-
-To avoid "freezing" the system when resizing massive maps, Go 1.24 utilizes **Extendible Hashing**.
-
-#### Directory Schema:
-```text
-Map (Go 1.24+)
-└── Directory (Indexing Table)
-    ├── [Index 00]: points to Sub-table A
-    ├── [Index 01]: points to Sub-table A (shared)
-    ├── [Index 10]: points to Sub-table B
-    └── [Index 11]: points to Sub-table C
-```
-
-*   **Divide and Conquer**: A massive Map is split into multiple **Sub-tables** (each containing up to **128 groups**).
-*   **Split instead of Rehash**: When a Sub-table is full, Go only "splits" that specific sub-table and updates the Directory. The rest of the Map remains untouched.
-*   **Benefit**: Write latency remains stable, eliminating the "latency spikes" typically seen during map growth.
-
----
-
-## 4. Operational Deep Dive
-
-### 4.1. Iteration Randomness
-Go developers must never rely on the order of `range` iteration over a Map.
-*   **Mechanism**: In every `range` loop, the Go runtime selects a **Random Seed** to decide on a random starting bucket and a random offset within that bucket.
-*   **Rationale**: This ensures your code doesn't implicitly depend on hash table ordering, which naturally changes after map expansion.
-
-### 4.2. Same-size Grow (Compaction)
-In addition to doubling memory when overloaded ($LF > 6.5$), Go performs a "same-size" grow if the number of **Overflow Buckets** is excessive while the Load Factor remains low.
-*   **Objective**: This combats "sparse" maps (caused by frequent additions and deletions). Go reshuffles elements to pack them tightly, eliminating redundant overflow chains to maintain $O(1)$ performance.
-
-### 4.3. The NaN Key Paradox (float64)
-In Go, `float64` can be used as a Key, but `math.NaN()` is dangerous. Per IEEE 754, `NaN != NaN`.
-*   **Consequence**: If you insert an entry with a `NaN` key, you will **never** be able to retrieve it via Lookup (since the input `NaN` never equals the stored `NaN`). It becomes permanent "zombie" memory.
-
-### 4.4. Pattern: Set Implementation
-Go lacks a built-in `Set` type. The most efficient way to implement a Set is using a Map with `struct{}`:
-```go
-set := make(map[string]struct{})
-set["item1"] = struct{}{}
-```
-*   **Why `struct{}`?**: An empty struct occupies **0 bytes**. Using a `bool` would cost 1 byte per element. This technique maximizes resource efficiency for large collections.
-
----
-
-## 5. Concurrency Control Strategies
-
-Go Maps are **not thread-safe** by default. Concurrent write operations (or concurrent read/write) without synchronization will trigger a fatal error: **Fatal Error: concurrent map iteration and map write**.
-
-To protect a Map, developers typically use **sync.Mutex** or **sync.RWMutex**, often encapsulated within a `struct` to package the data and the protection mechanism together.
-
-### 5.1. Option 1: sync.Mutex (Full Lock)
-Ideal when write frequency is high or comparable to read frequency. A Mutex locks the entire Map, allowing only one Goroutine access at a time.
+One unusual comparable value explains why equality matters:
 
 ```go
-type SafeMap struct {
-    mu   sync.Mutex
-    data map[string]int
+n := math.NaN()
+values := map[float64]string{n: "value"}
+_, found := values[n]
+fmt.Println(found) // false
+clear(values)
+fmt.Println(len(values)) // 0
+```
+
+NaN is unequal to itself. The entry can be inserted and encountered during range, but looking it up or deleting it with NaN cannot match its key. `clear`, available since Go 1.21, removes every entry, including this one. Avoid floating-point keys when your domain admits NaN and requires ordinary retrieve/delete behavior.
+
+A membership set uses a map without a meaningful payload:
+
+```go
+languages := map[string]struct{}{"Go": {}}
+_, present := languages["Go"]
+fmt.Println(present) // true
+```
+
+`struct{}` expresses that only membership matters. Although that value has size zero, the map still needs keys, metadata, and possibly padding. It does not guarantee an exact one-byte saving per entry compared with `bool`.
+
+## Iteration is a traversal, not a sorted view
+
+Range order is unspecified and may change on the next traversal. For a report with stable output, collect keys into a slice, sort them, and look up values in that order.
+
+Changes made during an otherwise synchronized traversal have defined limits: an entry deleted before it is reached is not produced; an entry newly inserted may be produced or skipped. Do not use this permission as authorization for unsynchronized writes from another goroutine. Iteration and concurrent access are separate questions.
+
+## Protect the operation the caller actually needs
+
+Read-only goroutines can share a map once it has been safely published and no goroutine mutates it. When writes overlap accesses, protect the relevant reads and writes. Runtime checks may terminate the process with a fatal concurrent-map error, but absence of that error does not establish safety or replace the race detector.
+
+Suppose two requests increment the same counter. Separate locked `Get` and `Set` methods prevent unsynchronized individual accesses, yet permit this schedule:
+
+| Step | Request A | Request B |
+| --- | --- | --- |
+| Read under its own lock | Reads 0 | Reads 0 |
+| Compute outside the lock | Computes 1 | Computes 1 |
+| Write under its own lock | Stores 1 | Stores 1 |
+
+The final count is 1 instead of 2. This is a lost update even if there is no data race. Give the API an operation that protects the complete read–modify–write sequence:
+
+```go
+type Counts struct {
+    mu sync.Mutex
+    values map[string]int
 }
 
-func (m *SafeMap) Set(key string, val int) {
-    m.mu.Lock()          // Block all other access (Read and Write)
-    defer m.mu.Unlock()
-    m.data[key] = val
+func (c *Counts) Increment(key string) int {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    if c.values == nil {
+        c.values = make(map[string]int)
+    }
+    c.values[key]++
+    return c.values[key]
 }
 
-func (m *SafeMap) Get(key string) int {
-    m.mu.Lock()
-    defer m.mu.Unlock()
-    return m.data[key]
+func (c *Counts) Get(key string) (int, bool) {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    value, ok := c.values[key]
+    return value, ok
+}
+
+func (c *Counts) Set(key string, value int) {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    if c.values == nil {
+        c.values = make(map[string]int)
+    }
+    c.values[key] = value
 }
 ```
 
-*   **Pros**: Simple to implement, deterministic, provides absolute safety.
-*   **Cons**: Blocks all readers even if only one writer is active; can become a bottleneck under high contention.
-*   **When to use**: Frequent writes, small map sizes, or when code simplicity is the priority.
-*   **When NOT to use**: Systems requiring millions of concurrent reads across many CPU cores.
+The zero value works because reads on nil maps are valid and writes initialize under the lock. Keeping the field private helps prevent callers from bypassing the lock. Every access must follow the same discipline, and `Counts` must not be copied after its mutex has been used. Call `Increment` for increments; composing `Get` and `Set` still has the lost-update problem.
 
-### 5.2. Option 2: sync.RWMutex (Shared/Exclusive Lock)
-Optimized for **Read-heavy** workloads with **infrequent writes**.
-*   **RLock()**: Allows an unlimited number of concurrent readers (Shared Lock).
-*   **Lock()**: Grants exclusive access to a single writer (Exclusive Lock—blocks all readers and writers).
+### When readers share a lock
 
-```go
-type RWMap struct {
-    mu   sync.RWMutex
-    data map[string]int
-}
+`sync.RWMutex` lets several readers hold `RLock` concurrently while writers use exclusive `Lock`. To adapt the example, change the mutex type and use `RLock`/`RUnlock` in `Get`; `Set` and `Increment` keep exclusive locking.
 
-func (m *RWMap) Get(key string) (int, bool) {
-    m.mu.RLock()         // Multiple threads can read simultaneously
-    defer m.mu.RUnlock()
-    val, ok := m.data[key]
-    return val, ok
-}
+When a writer is waiting, new readers are blocked so the writer has a chance to proceed. Existing long reads can still delay it. Do not recursively acquire read locks or try to upgrade a held `RLock` directly to `Lock`: those patterns can deadlock. More reads than writes is a reason to investigate `RWMutex`, not proof that its additional bookkeeping pays off. Compare the actual workload.
 
-func (m *RWMap) Set(key string, val int) {
-    m.mu.Lock()          // Block all for exclusive write
-    defer m.mu.Unlock()
-    m.data[key] = val
-}
-```
-
-*   **Pros**: Maximizes read throughput by allowing parallel reads.
-*   **Cons**: Higher management overhead than a simple Mutex. Risk of "write starvation" if readers constantly hold the shared lock.
-*   **When to use**: Read-heavy applications (Caches, Configuration stores, File registries).
-*   **When NOT to use**: When write frequency is equal to or higher than read frequency.
-
----
-
-## 6. sync.Map: High-Performance Concurrent Map
-
-Standard since Go 1.9, `sync.Map` is a specialized data structure designed for multi-core systems where traditional `RWMutex` contention becomes a performance bottleneck.
-
-### 6.1. Internal Structs (Source Code Anatomy)
-
-To understand why `sync.Map` is efficient, we look at its internal definition in the Go standard library:
+### When sync.Map fits
 
 ```go
-// sync/map.go (Simplified)
-type Map struct {
-    mu Mutex
-    read atomic.Pointer[readOnly] // Thread-safe read-only map (Lock-free)
-    dirty map[any]*entry           // Map containing new/unpromoted data (Needs Mutex)
-    misses int                     // Counter for 'read' map lookup failures
+var values sync.Map
+values.Store("Go", 2009)
+if raw, ok := values.Load("Go"); ok {
+    if year, ok := raw.(int); ok {
+        fmt.Println(year)
+    }
 }
-
-type readOnly struct {
-    m       map[any]*entry
-    amended bool // true if 'dirty' contains keys not present in 'read'
-}
-
-type entry struct {
-    p atomic.Pointer[any] // Pointer to the actual value (nil, expunged, or v)
-}
-```
-
-*   **`read` map**: Accessed via **Atomic Pointers**. This is the first line of defense, allowing lookups (Load) to be **Lock-free** and extremely fast.
-*   **`dirty` map**: Stores newly inserted elements or those not yet "promoted". Every operation on `dirty` requires holding the `mu` Mutex.
-*   **`entry`**: The brilliance of `sync.Map` is that both maps (`read` and `dirty`) **point to the same `entry` objects**. 
-    - When updating an existing key, Go simply performs an atomic swap on the `p` pointer inside the `entry`. Both maps see the update instantly without any locking.
-*   **`amended` flag**: An optimization flag. If `amended = false`, Go knows for certain that all data is in the `read` map, skipping the expensive Mutex lock to check `dirty`.
-
-### 6.2. The "Misses" Strategy & Promotion
-
-#### A. Load Operation
-1.  Check the `read` map first (**Lock-free**). If found, return immediately.
-2.  If not found, Lock the Mutex and check the `dirty` map.
-3.  Increment the `misses` counter.
-
-#### B. Promotion Mechanism
-When the number of "Misses" (failures to find in `read` requiring a `dirty` fallback) equals the number of elements in the `dirty` map:
-*   Go performs **Promotion**: The `dirty` map is promoted to become the new `read` map.
-*   Future lookups for those keys become **Lock-free** again.
-
-### 6.3. Strategy Assessment (sync.Map)
-
-*   **Pros**: Extremely high lookup performance (Lock-free) for stable keys. Minimizes CPU contention on high-core systems.
-*   **Cons**: Higher memory footprint (maintains dual maps). Loss of **Type Safety** (uses `any`/`interface{}`), requiring type assertion overhead.
-*   **When to use**: 
-    1.  **Stable Keys**: When the set of keys rarely changes (mostly reads and updates to existing entries).
-    2.  **High Contention**: When dozens of CPU cores are competing for a single RWMutex.
-*   **When NOT to use**: When frequently adding/deleting new keys (causes continuous "Dirty mismatch" and forced promotions, degrading performance).
-
-### 6.4. Practical sync.Map Example
-
-```go
-var sm sync.Map
-
-// 1. Store: Write data
-sm.Store("Go", 2009)
-sm.Store("Rust", 2010)
-
-// 2. Load: Read data
-if val, ok := sm.Load("Go"); ok {
-    fmt.Println("Found:", val.(int)) // Type Assertion required
-}
-
-// 3. LoadOrStore: Atomic "get or set"
-// Returns the actual value and true if loaded, false if stored
-actual, loaded := sm.LoadOrStore("Java", 1995)
-
-// 4. Delete: Remove data
-sm.Delete("Rust")
-
-// 5. Range: Thread-safe iteration
-sm.Range(func(key, value any) bool {
-    fmt.Printf("Key: %v, Value: %v\n", key, value)
-    return true // Return true to continue, false to break
+actual, loaded := values.LoadOrStore("Rust", 2010)
+fmt.Println(actual, loaded) // 2010 false
+values.Delete("Rust")
+values.Range(func(key, value any) bool {
+    fmt.Println(key, value)
+    return true
 })
 ```
 
-**Comparison Matrix:**
+`sync.Map` has a usable zero value and safe concurrent API operations; do not copy it after first use. `LoadOrStore` checks/inserts as one map operation. A `Load`, local computation, and `Store` sequence still is not one atomic increment. `Range` is not a consistent snapshot of the entire map, and a stored pointer's mutable object needs its own protection.
 
-| Criteria | map + RWMutex | sync.Map |
-| :--- | :--- | :--- |
-| **Lock Type** | Granular Lock (Entire Map) | Atomic (Read path) + Mutex (Dirty path) |
-| **Performance** | Predictable, stable | Superior for Read-heavy & Stable Keys |
-| **Type Safety** | **Strong (via Generics)** | Weak (uses `any`) |
-| **Complexity** | Simple, intuitive | Sophisticated, higher RAM usage |
+The API uses `any`, so concrete values require assertions. A typed map with a lock often expresses related invariants more clearly. `sync.Map` is specialized for cases such as keys written once and read many times or goroutines working on mostly disjoint key sets. Choose by required behavior, then measure CPU and memory; neither representation wins universally.
 
----
+## Reading runtime history without changing the language rules
 
-### Memory Persistence
-A Map **does not shrink** its allocated memory after a `delete` operation.
-- To fully reclaim heap space, the map must be set to `nil` or reinitialized to trigger Garbage Collection.
+These details explain source code and performance investigations. They do not change the lookup, sharing, or locking rules above.
 
-### Key Constraints (Comparability)
-Only **comparable** types (types that support the `==` operator) can serve as Map keys. Therefore, **Slices**, **Maps**, and **Functions** are disallowed as keys.
+### Buckets through Go 1.23
+
+```text
+hmap: count | B | hash0 | buckets | oldbuckets
+bucket count = 2^B
+bmap: tophash[8] | keys[8] | values[8] | overflow reference
+```
+
+`B` controls a power-of-two bucket count, not an exact public capacity. A per-map hash seed changes distribution. Low hash bits choose a bucket; `tophash` filters candidates before full equality. Eight primary slots do not limit lookup to eight comparisons because collisions can create overflow chains. Separating keys from values can reduce padding relative to alternating pairs, depending on the key/value layout.
+
+The historical implementation typically grew around 6.5 entries per bucket, roughly 81% of the primary slots. It retained old and new bucket arrays together and evacuated buckets incrementally during mutations. This spreads migration work rather than copying the entire map at once. Excess overflow could trigger a same-size grow to reorganize storage without doubling bucket count. This growth is map work, not a GC stop-the-world phase.
+
+### Swiss Tables introduced in Go 1.24
+
+```text
+map → directory → tables → groups
+                           control word: 8 control bytes
+                           slots: 8 key-value pairs
+hash → select table/group → filter by 7-bit h2 → full equality
+                         ↘ probe other groups when needed
+```
+
+A control byte records empty/deleted state or a seven-bit hash fragment, `h2`. Comparing control metadata as a word filters multiple candidate slots together; matching `h2` still needs full equality. Depending on architecture, SIMD or portable arithmetic and bit operations implement the comparison. A lookup is not universally one SIMD instruction.
+
+Probing follows a group sequence rather than an overflow list or necessarily the next adjacent group. Directory-based extendible hashing lets one table grow or split while others remain unaffected. The Go 1.24 design limits a table to 1,024 slots, or 128 groups, before splitting; small maps have a specialized path. These are versioned implementation details that limit growth work, not promises of zero latency spikes or faster operations for every workload.
+
+### sync.Map has a separate history
+
+```text
+before Go 1.24:
+  mu | read (atomic pointer) | dirty | misses
+           ↘ shared entries ↙
+                  entry.p
+from Go 1.24:
+  concurrent hash trie (HashTrieMap)
+```
+
+In the older design, `read` served a fast view while `dirty` held keys needing a slow path. An `amended` flag indicated keys outside `read`. A load missing the fast view could lock, consult `dirty`, and increase the miss count; enough misses promoted `dirty` to `read`. Shared entry pointers supported atomic value updates, while nil/expunged states handled deletion and reinsertion. That did not make every update lock-free. Go 1.24 replaced this organization with a concurrent hash trie; do not use read/dirty diagrams to explain the newer implementation.
+
+## Removing entries and releasing memory are different events
+
+Neither `delete` nor `clear` promises immediate storage shrinkage. If a formerly large map will remain small, copying retained entries into a new map can release the old storage once every alias stops retaining it. Dropping the map entirely works when none of its entries are needed. Both require synchronization if other goroutines use the map.
+
+GC eligibility is another step, and returning pages to the operating system is another. RSS need not drop immediately after entries disappear. [Garbage collection](/en/notes/go/garbage_collection/) explains those measurements.
+
+## Predict before reading the answers
+
+1. After `b := a`, will `b = make(map[string]int)` empty `a`? Will `clear(b)` before that replacement affect `a`?
+2. Why can locked `Get` then locked `Set` lose a counter increment? What must the lock cover?
+3. An article describes `oldbuckets`; another describes directory splits; a third describes `dirty` promotion. Which structures do they describe?
+
+**Answers:**
+
+1. Replacement changes only `b`; `a` still names the old map. Clearing before replacement removes entries in the shared map and is visible through `a`.
+2. Another goroutine can read the same old count between the calls. Hold one lock over reading, computing, and writing, as in `Increment`.
+3. `oldbuckets` belongs to the historical built-in map through Go 1.23; directory splits belong to the Swiss Table built-in map introduced in 1.24; dirty promotion belongs to the older `sync.Map`, replaced in 1.24. None is a language-level requirement.
+
+## References
+
+- [Go specification: maps](https://go.dev/ref/spec#Map_types), [indexing](https://go.dev/ref/spec#Index_expressions), and [range](https://go.dev/ref/spec#For_range) — language behavior.
+- [Swiss Table maps](https://go.dev/blog/swisstable) — the Go 1.24 design and growth rationale.
+- [sync.Map](https://pkg.go.dev/sync#Map) and [RWMutex](https://pkg.go.dev/sync#RWMutex) — API contracts.
+- [Go 1.23 map source](https://github.com/golang/go/blob/go1.23.0/src/runtime/map.go), [Go 1.23 sync.Map source](https://github.com/golang/go/blob/go1.23.0/src/sync/map.go), and [Go 1.24 release notes](https://go.dev/doc/go1.24#sync) — historical implementations and transition.

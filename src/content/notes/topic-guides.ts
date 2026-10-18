@@ -8,6 +8,8 @@ export interface TopicGuideDefinition {
   locales?: NoteLocale[];
   title: LocalizedText;
   description: LocalizedText;
+  source?: LocalizedText;
+  sourceNote?: LocalizedText;
   prerequisites: LocalizedText;
   prerequisiteTopics?: string[];
   sections: Array<{ title: LocalizedText; noteKeys: string[] }>;
@@ -17,6 +19,8 @@ export interface TopicGuide {
   slug: string;
   title: string;
   description: string;
+  source?: string;
+  sourceNote?: string;
   prerequisites: string;
   prerequisiteTopics: Array<{ slug: string; title: string }>;
   sections: Array<{ title: string; steps: TopicGuideStep[] }>;
@@ -69,6 +73,8 @@ export function resolveTopicGuides(
       slug: definition.slug,
       title: localizedText(definition.title, locale, definition.slug),
       description: localizedText(definition.description, locale, definition.slug),
+      source: definition.source ? localizedText(definition.source, locale, definition.slug) : undefined,
+      sourceNote: definition.sourceNote ? localizedText(definition.sourceNote, locale, definition.slug) : undefined,
       prerequisites: localizedText(definition.prerequisites, locale, definition.slug),
       prerequisiteTopics,
       sections,

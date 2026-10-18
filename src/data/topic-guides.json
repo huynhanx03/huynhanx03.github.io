@@ -110,21 +110,26 @@
   {
     "slug": "cadence-workflows",
     "locales": [
+      "en",
       "vi"
     ],
     "title": {
-      "vi": "Cadence Workflows"
+      "vi": "Cadence Workflows",
+      "en": "Cadence Workflows"
     },
     "description": {
-      "vi": "Lộ trình Cadence từ khái niệm và ứng dụng Go đầu tiên đến thiết kế workflow an toàn, kiểm thử và vận hành production."
+      "vi": "Lộ trình Cadence từ khái niệm và ứng dụng Go đầu tiên đến thiết kế workflow an toàn, kiểm thử và vận hành production.",
+      "en": "Learn Cadence from its core concepts and your first Go application through safe workflow design, testing, and production operations."
     },
     "prerequisites": {
-      "vi": "Nên biết Go cơ bản, API, database, queue và xử lý lỗi backend. Bài đầu hướng dẫn chạy Cadence local."
+      "vi": "Nên biết Go cơ bản, API, database, queue và xử lý lỗi backend. Bài đầu hướng dẫn chạy Cadence local.",
+      "en": "Basic Go, APIs, databases, queues, and backend error handling are helpful. The first note shows how to run Cadence locally."
     },
     "sections": [
       {
         "title": {
-          "vi": "Nền tảng và ứng dụng đầu tiên"
+          "vi": "Nền tảng và ứng dụng đầu tiên",
+          "en": "Foundations and your first application"
         },
         "noteKeys": [
           "cadence/fundamentals",
@@ -133,7 +138,8 @@
       },
       {
         "title": {
-          "vi": "Replay, Activity và độ tin cậy"
+          "vi": "Replay, Activity và độ tin cậy",
+          "en": "Replay, Activities, and reliability"
         },
         "noteKeys": [
           "cadence/replay-and-code-changes",
@@ -142,7 +148,8 @@
       },
       {
         "title": {
-          "vi": "Điều phối và dữ liệu"
+          "vi": "Điều phối và dữ liệu",
+          "en": "Orchestration and data"
         },
         "noteKeys": [
           "cadence/orchestration",
@@ -151,7 +158,8 @@
       },
       {
         "title": {
-          "vi": "Production và lựa chọn engine"
+          "vi": "Production và lựa chọn engine",
+          "en": "Production and choosing an engine"
         },
         "noteKeys": [
           "cadence/production-operations",
@@ -163,21 +171,26 @@
   {
     "slug": "temporal-workflows",
     "locales": [
+      "en",
       "vi"
     ],
     "title": {
-      "vi": "Temporal Workflows"
+      "vi": "Temporal Workflows",
+      "en": "Temporal Workflows"
     },
     "description": {
-      "vi": "Lộ trình Temporal bằng Go: hiểu durable execution, xây Workflow an toàn, kiểm thử thay đổi và vận hành hệ thống thực tế."
+      "vi": "Lộ trình Temporal bằng Go: hiểu durable execution, xây Workflow an toàn, kiểm thử thay đổi và vận hành hệ thống thực tế.",
+      "en": "Learn Temporal with Go: understand durable execution, build safe Workflows, test changes, and operate a real system."
     },
     "prerequisites": {
-      "vi": "Nắm Go cơ bản; nên học Cadence trước."
+      "vi": "Nắm Go cơ bản; nên học Cadence trước.",
+      "en": "Know basic Go; learning Cadence first is recommended."
     },
     "sections": [
       {
         "title": {
-          "vi": "Nền tảng và replay"
+          "vi": "Nền tảng và replay",
+          "en": "Foundations and replay"
         },
         "noteKeys": [
           "temporal/fundamentals",
@@ -186,7 +199,8 @@
       },
       {
         "title": {
-          "vi": "Activity và điều phối"
+          "vi": "Activity và điều phối",
+          "en": "Activities and orchestration"
         },
         "noteKeys": [
           "temporal/activity-reliability",
@@ -195,7 +209,8 @@
       },
       {
         "title": {
-          "vi": "Kiểm thử và dữ liệu"
+          "vi": "Kiểm thử và dữ liệu",
+          "en": "Testing and data"
         },
         "noteKeys": [
           "temporal/testing-and-deployment",
@@ -204,7 +219,8 @@
       },
       {
         "title": {
-          "vi": "Production và mẫu nâng cao"
+          "vi": "Production và mẫu nâng cao",
+          "en": "Production and advanced patterns"
         },
         "noteKeys": [
           "temporal/production",
@@ -218,13 +234,28 @@
   },
   {
     "slug": "dsa-foundations",
-    "locales": ["vi"],
-    "title": { "vi": "Cấu trúc dữ liệu và thuật toán cơ bản" },
-    "description": { "vi": "Học cách diễn đạt bài toán, phân tích chi phí và xây nền tảng dữ liệu trước khi đi vào các kỹ thuật phức tạp." },
-    "prerequisites": { "vi": "Biết cú pháp Go cơ bản, hàm, vòng lặp và slice. Có thể đọc topic Nền tảng Go trước." },
+    "locales": [
+      "en",
+      "vi"
+    ],
+    "title": {
+      "vi": "Cấu trúc dữ liệu và thuật toán cơ bản",
+      "en": "Data Structures and Algorithms: Foundations"
+    },
+    "description": {
+      "vi": "Học cách diễn đạt bài toán, phân tích chi phí và xây nền tảng dữ liệu trước khi đi vào các kỹ thuật phức tạp.",
+      "en": "Learn to express problems clearly, analyze their costs, and build a foundation in data structures before moving on to more complex techniques."
+    },
+    "prerequisites": {
+      "vi": "Biết cú pháp Go cơ bản, hàm, vòng lặp và slice. Có thể đọc topic Nền tảng Go trước.",
+      "en": "Know basic Go syntax, functions, loops, and slices. You can read the Go Fundamentals topic first."
+    },
     "sections": [
       {
-        "title": { "vi": "Tư duy giải thuật" },
+        "title": {
+          "vi": "Tư duy giải thuật",
+          "en": "Algorithmic thinking"
+        },
         "noteKeys": [
           "data-structures-algorithms/problem-solving",
           "data-structures-algorithms/complexity",
@@ -232,27 +263,1396 @@
         ]
       },
       {
-        "title": { "vi": "Công cụ dữ liệu đầu tiên" },
+        "title": {
+          "vi": "Công cụ dữ liệu đầu tiên",
+          "en": "Your first data structures"
+        },
         "noteKeys": [
           "data-structures-algorithms/arrays-and-slices",
-          "data-structures-algorithms/recursion"
+          "data-structures-algorithms/recursion",
+          "data-structures-algorithms/linked-lists",
+          "data-structures-algorithms/stacks-queues-deques",
+          "data-structures-algorithms/hash-tables"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Tìm kiếm, sắp xếp và liệt kê",
+          "en": "Searching, sorting, and enumeration"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/searching",
+          "data-structures-algorithms/elementary-sorting",
+          "data-structures-algorithms/efficient-sorting",
+          "data-structures-algorithms/distribution-sorting",
+          "data-structures-algorithms/configuration-generation",
+          "data-structures-algorithms/backtracking"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Cây và đồ thị đầu tiên",
+          "en": "Your first trees and graphs"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/trees-and-traversals",
+          "data-structures-algorithms/binary-search-trees",
+          "data-structures-algorithms/heaps-priority-queues",
+          "data-structures-algorithms/graph-representation-bfs-dfs"
         ]
       }
     ],
-    "prerequisiteTopics": ["go-fundamentals"]
+    "prerequisiteTopics": [
+      "go-fundamentals"
+    ]
   },
   {
     "slug": "dsa-advanced",
-    "locales": ["vi"],
-    "title": { "vi": "Cấu trúc dữ liệu và thuật toán nâng cao" },
-    "description": { "vi": "Phát triển từ đệ quy sang các kỹ thuật thiết kế thuật toán và những cấu trúc, bài toán nâng cao." },
-    "prerequisites": { "vi": "Nắm cách phân tích độ phức tạp, slice và đệ quy; nên đọc topic DSA cơ bản trước." },
+    "locales": [
+      "en",
+      "vi"
+    ],
+    "title": {
+      "vi": "Cấu trúc dữ liệu và thuật toán nâng cao",
+      "en": "Data Structures and Algorithms: Advanced"
+    },
+    "description": {
+      "vi": "Phát triển từ đệ quy sang các kỹ thuật thiết kế thuật toán và những cấu trúc, bài toán nâng cao.",
+      "en": "Build on recursion with algorithm design techniques, advanced data structures, and more challenging problems."
+    },
+    "prerequisites": {
+      "vi": "Nắm cách phân tích độ phức tạp, slice và đệ quy; nên đọc topic DSA cơ bản trước.",
+      "en": "Understand complexity analysis, slices, and recursion; the DSA Foundations topic is a recommended starting point."
+    },
     "sections": [
       {
-        "title": { "vi": "Thiết kế thuật toán" },
-        "noteKeys": ["data-structures-algorithms/divide-and-conquer"]
+        "title": {
+          "vi": "Thiết kế thuật toán",
+          "en": "Algorithm design"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/divide-and-conquer",
+          "data-structures-algorithms/greedy",
+          "data-structures-algorithms/dynamic-programming",
+          "data-structures-algorithms/dp-classics",
+          "data-structures-algorithms/branch-and-bound"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Cấu trúc dữ liệu nâng cao",
+          "en": "Advanced data structures"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/balanced-search-trees",
+          "data-structures-algorithms/b-trees",
+          "data-structures-algorithms/tries-radix-trees",
+          "data-structures-algorithms/segment-fenwick-trees",
+          "data-structures-algorithms/union-find"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Thuật toán đồ thị",
+          "en": "Graph algorithms"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/topological-scc",
+          "data-structures-algorithms/bridges-articulation",
+          "data-structures-algorithms/shortest-paths",
+          "data-structures-algorithms/floyd-warshall",
+          "data-structures-algorithms/minimum-spanning-trees",
+          "data-structures-algorithms/max-flow",
+          "data-structures-algorithms/bipartite-matching",
+          "data-structures-algorithms/euler-hamilton"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Chuỗi, nén và độ khó tính toán",
+          "en": "Strings, compression, and computational complexity"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/string-matching",
+          "data-structures-algorithms/suffix-approximate",
+          "data-structures-algorithms/data-compression",
+          "data-structures-algorithms/complexity-classes"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Truy vấn trên cây",
+          "en": "Tree queries"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/lca-binary-lifting",
+          "data-structures-algorithms/heavy-light-decomposition",
+          "data-structures-algorithms/centroid-decomposition"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Đồ thị động và luồng có chi phí",
+          "en": "Dynamic graphs and minimum-cost flow"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/dsu-rollback",
+          "data-structures-algorithms/min-cost-flow"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Xử lý chuỗi chuyên sâu",
+          "en": "Advanced string processing"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/rolling-hash",
+          "data-structures-algorithms/z-function",
+          "data-structures-algorithms/manacher",
+          "data-structures-algorithms/aho-corasick",
+          "data-structures-algorithms/suffix-array-construction",
+          "data-structures-algorithms/suffix-automaton",
+          "data-structures-algorithms/suffix-tree"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Lý thuyết trò chơi",
+          "en": "Game theory"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/nim-sprague-grundy",
+          "data-structures-algorithms/alpha-beta-pruning"
+        ]
       }
     ],
-    "prerequisiteTopics": ["dsa-foundations"]
+    "prerequisiteTopics": [
+      "dsa-foundations"
+    ]
+  },
+  {
+    "slug": "algorithmic-math",
+    "locales": [
+      "en",
+      "vi"
+    ],
+    "title": {
+      "vi": "Toán cho thuật toán",
+      "en": "Algorithmic Math"
+    },
+    "description": {
+      "vi": "Số học, tổ hợp và xác suất theo thứ tự từ phép chia lấy dư tới các kỹ thuật đếm nâng cao.",
+      "en": "Study number theory, combinatorics, and probability in order, from modular arithmetic to advanced counting techniques."
+    },
+    "prerequisites": {
+      "vi": "Biết vòng lặp, hàm, mảng và phân tích độ phức tạp cơ bản.",
+      "en": "Know loops, functions, arrays, and basic complexity analysis."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Số học cơ bản",
+          "en": "Number theory fundamentals"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/modular-arithmetic-euclid",
+          "data-structures-algorithms/primes-factorization-divisors",
+          "data-structures-algorithms/modular-inverse-crt"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Số học nâng cao",
+          "en": "Advanced number theory"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/arithmetic-functions",
+          "data-structures-algorithms/binomial-lucas-wilson",
+          "data-structures-algorithms/modular-roots-discrete-log"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Đếm và xác suất",
+          "en": "Counting and probability"
+        },
+        "noteKeys": [
+          "data-structures-algorithms/combinatorics-inclusion-exclusion",
+          "data-structures-algorithms/probability-for-algorithms"
+        ]
+      }
+    ],
+    "prerequisiteTopics": [
+      "dsa-foundations"
+    ]
+  },
+  {
+    "slug": "computer-architecture",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Kiến trúc máy tính"
+    },
+    "description": {
+      "vi": "Theo chương trình từ các lớp phần mềm xuống ISA và CPU; xây nền để học bộ nhớ, tiến trình và hệ điều hành."
+    },
+    "prerequisites": {
+      "vi": "Không cần kiến thức trước. Có thể đọc lần lượt từ bài đầu."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Bản đồ của hệ thống máy tính"
+        },
+        "noteKeys": [
+          "operating-system/computer-model",
+          "operating-system/binary-data-and-integer-representation",
+          "operating-system/64-bit-architecture-and-addressing"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Lệnh máy, ISA và lời gọi hàm"
+        },
+        "noteKeys": [
+          "operating-system/instruction-set-architecture",
+          "operating-system/assembly-addressing-and-calls",
+          "operating-system/cpu-execution",
+          "operating-system/x86-64-registers-calling-convention",
+          "operating-system/cpu-interrupts-exceptions-and-system-calls"
+        ]
+      },
+      {
+        "title": {
+          "vi": "CPU hiện đại và hệ thống bộ nhớ"
+        },
+        "noteKeys": [
+          "operating-system/cpu-pipeline",
+          "operating-system/superscalar-out-of-order-execution",
+          "operating-system/cache-memory-hierarchy",
+          "operating-system/branch-prediction-and-speculation",
+          "operating-system/cpu-cache-coherence-multiprocessor",
+          "operating-system/simd-data-parallelism",
+          "operating-system/cpu-instruction-pipeline-hazards",
+          "operating-system/cache-coherence-false-sharing"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Tương thích và hiệu năng"
+        },
+        "noteKeys": [
+          "operating-system/cpu-architecture-evolution",
+          "operating-system/performance-latency-throughput"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "memory",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Memory"
+    },
+    "description": {
+      "vi": "Từ không gian địa chỉ đến paging, TLB, page fault, cấp phát, chia sẻ và áp lực bộ nhớ."
+    },
+    "prerequisites": {
+      "vi": "Nên học topic Kiến trúc máy tính trước để quen với cache, địa chỉ và vai trò của CPU."
+    },
+    "prerequisiteTopics": [
+      "computer-architecture"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Không gian địa chỉ và cấp phát"
+        },
+        "noteKeys": [
+          "operating-system/memory-address-space",
+          "operating-system/segmentation-and-relocation",
+          "operating-system/dynamic-memory-api",
+          "operating-system/memory-allocation",
+          "operating-system/free-space-management"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Paging và dịch địa chỉ"
+        },
+        "noteKeys": [
+          "operating-system/paging-page-tables",
+          "operating-system/page-table-size-and-multilevel",
+          "operating-system/tlb-address-translation",
+          "operating-system/address-translation-worked-example",
+          "operating-system/tlb-shootdown-and-address-space-switch"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Nạp trang, chia sẻ và áp lực RAM"
+        },
+        "noteKeys": [
+          "operating-system/demand-paging-page-faults",
+          "operating-system/shared-memory-and-copy-on-write",
+          "operating-system/page-replacement-and-thrashing",
+          "operating-system/vax-vms-virtual-memory-case-study",
+          "operating-system/page-replacement-algorithms",
+          "operating-system/virtual-memory-mmap-and-file-mapping",
+          "operating-system/swap-memory-pressure-oom",
+          "operating-system/page-fault-types-and-copy-on-write",
+          "operating-system/numa-memory-locality",
+          "operating-system/memory-fragmentation-compaction",
+          "operating-system/linux-swap-zram-hibernation"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "processes-and-scheduling",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Processes & Scheduling"
+    },
+    "description": {
+      "vi": "Hiểu process, system call và vòng đời chương trình, rồi học cách kernel phân phối CPU trên máy một lõi và đa lõi."
+    },
+    "prerequisites": {
+      "vi": "Nên học Kiến trúc máy tính và biết sơ lược về không gian địa chỉ."
+    },
+    "prerequisiteTopics": [
+      "computer-architecture",
+      "memory"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Process và ranh giới kernel"
+        },
+        "noteKeys": [
+          "operating-system/process-model",
+          "operating-system/limited-direct-execution",
+          "operating-system/system-calls-and-traps",
+          "operating-system/process-creation-and-exec",
+          "operating-system/context-switch-and-process-state",
+          "operating-system/signals-interprocess-communication",
+          "operating-system/process-thread-signal-lifecycle",
+          "operating-system/linux-proc-signals-jobs"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Mục tiêu và thuật toán lập lịch"
+        },
+        "noteKeys": [
+          "operating-system/scheduling-goals",
+          "operating-system/scheduling-algorithms",
+          "operating-system/proportional-share-scheduling",
+          "operating-system/scheduling-worked-example",
+          "operating-system/mlfq-aging-and-starvation",
+          "operating-system/mlfq-priority-boost-and-feedback",
+          "operating-system/lottery-scheduling-stride",
+          "operating-system/scheduler-tickless-preemption-latency",
+          "operating-system/linux-real-time-scheduling-rt"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Đa lõi và quan sát hệ thống"
+        },
+        "noteKeys": [
+          "operating-system/multiprocessor-scheduling",
+          "operating-system/linux-process-observation",
+          "operating-system/linux-scheduler-priorities-and-nice"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "concurrency-and-synchronization",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Concurrency & Synchronization"
+    },
+    "description": {
+      "vi": "Học cách nhiều luồng cùng tiến triển, bảo vệ trạng thái chia sẻ, phối hợp chờ và chẩn đoán bế tắc."
+    },
+    "prerequisites": {
+      "vi": "Nên nắm process, thread và các trạng thái bộ nhớ cơ bản."
+    },
+    "prerequisiteTopics": [
+      "processes-and-scheduling",
+      "memory"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Mô hình đồng thời và atomic"
+        },
+        "noteKeys": [
+          "operating-system/concurrency-fundamentals",
+          "operating-system/thread-lifecycle-api",
+          "operating-system/atomic-operations-memory-order",
+          "operating-system/concurrency-atomicity-ordering-bugs",
+          "operating-system/memory-ordering-acquire-release"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Lock và cơ chế chờ"
+        },
+        "noteKeys": [
+          "operating-system/locks-and-mutexes",
+          "operating-system/lock-implementation-spin-wait",
+          "operating-system/condition-variables",
+          "operating-system/semaphores",
+          "operating-system/priority-inversion-and-lock-contention",
+          "operating-system/reader-writer-locks-fairness",
+          "operating-system/semaphore-counting-binary",
+          "operating-system/robust-mutexes-owner-death"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Cấu trúc và pattern phối hợp"
+        },
+        "noteKeys": [
+          "operating-system/concurrent-data-structures",
+          "operating-system/concurrency-barrier-patterns",
+          "operating-system/deadlocks-and-livelocks",
+          "operating-system/event-based-concurrency",
+          "operating-system/producer-consumer-condition-variables",
+          "operating-system/deadlock-detection-recovery"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "io-and-storage",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "I/O & Storage"
+    },
+    "description": {
+      "vi": "Theo một yêu cầu I/O qua kernel và thiết bị, rồi phân tích latency, throughput và cấu hình lưu trữ chịu lỗi."
+    },
+    "prerequisites": {
+      "vi": "Nên nắm system call, memory cache và khái niệm process."
+    },
+    "prerequisiteTopics": [
+      "processes-and-scheduling",
+      "memory"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Đường đi và hoàn tất I/O"
+        },
+        "noteKeys": [
+          "operating-system/io-device-model",
+          "operating-system/interrupts-and-dma",
+          "operating-system/io-durability-contracts"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Block device và hiệu năng lưu trữ"
+        },
+        "noteKeys": [
+          "operating-system/linux-block-storage-stack",
+          "operating-system/disks-and-storage-latency",
+          "operating-system/disk-scheduling-and-queues",
+          "operating-system/ssd-trim-endurance-write-amplification",
+          "operating-system/disk-queueing-and-io-scheduling",
+          "operating-system/raid-rebuild-scrubbing-and-failure-modes",
+          "operating-system/io-polling-interrupts-completion-queues",
+          "operating-system/ssd-gc-trim-nvme-queues"
+        ]
+      },
+      {
+        "title": {
+          "vi": "RAID và khả năng chịu lỗi"
+        },
+        "noteKeys": [
+          "operating-system/raid-redundancy-and-performance",
+          "operating-system/raid-levels-write-hole"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "file-systems",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "File Systems"
+    },
+    "description": {
+      "vi": "Đi từ tên file và inode đến block allocation, locality, journal và các lớp bảo vệ dữ liệu."
+    },
+    "prerequisites": {
+      "vi": "Nên học I/O & Storage trước để hiểu thiết bị, block và cache."
+    },
+    "prerequisiteTopics": [
+      "io-and-storage",
+      "memory"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "VFS, file và metadata"
+        },
+        "noteKeys": [
+          "operating-system/vfs-path-resolution-and-open-file",
+          "operating-system/files-and-inodes",
+          "operating-system/filesystem-implementation",
+          "operating-system/directories-pathnames-and-hard-links",
+          "operating-system/filesystem-inodes-df-space",
+          "operating-system/linux-disk-partitions-filesystem-uuid",
+          "operating-system/filesystem-quota-and-reserved-space"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Cache và locality"
+        },
+        "noteKeys": [
+          "operating-system/page-cache-buffered-direct-io",
+          "operating-system/filesystem-locality-and-ffs",
+          "operating-system/filesystem-fsync-rename-atomicity"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Crash consistency và integrity"
+        },
+        "noteKeys": [
+          "operating-system/crash-consistency-and-journaling",
+          "operating-system/filesystem-journaling-modes",
+          "operating-system/log-structured-filesystems",
+          "operating-system/filesystem-integrity-and-recovery",
+          "operating-system/mount-options-and-filesystem-namespace",
+          "operating-system/backup-restore-and-filesystem-checks",
+          "operating-system/filesystem-journal-modes-data-integrity"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "linux-system",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Linux System"
+    },
+    "description": {
+      "vi": "Từ device node và boot tới systemd, quyền người dùng, log, storage và giám sát tài nguyên."
+    },
+    "prerequisites": {
+      "vi": "Nên học Process, I/O và File Systems; có thể đọc các bài theo thứ tự."
+    },
+    "prerequisiteTopics": [
+      "processes-and-scheduling",
+      "io-and-storage",
+      "file-systems"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Thiết bị, boot và dịch vụ"
+        },
+        "noteKeys": [
+          "operating-system/linux-kernel-user-space-and-users",
+          "operating-system/linux-filesystem-hierarchy",
+          "operating-system/linux-devices-udev",
+          "operating-system/linux-boot-process",
+          "operating-system/systemd-units-and-boot",
+          "operating-system/linux-service-troubleshooting",
+          "operating-system/linux-kernel-boot-and-initramfs",
+          "operating-system/systemd-service-dependencies-and-timers",
+          "operating-system/linux-kernel-modules-and-devices",
+          "operating-system/systemd-targets-timers-and-scheduling",
+          "operating-system/linux-systemd-security-sandbox",
+          "operating-system/linux-boot-targets-rescue-emergency",
+          "operating-system/linux-userspace-proc-sysfs-device-tree"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Quyền, log, storage và tài nguyên"
+        },
+        "noteKeys": [
+          "operating-system/linux-users-permissions-pam",
+          "operating-system/linux-logs-time-jobs",
+          "operating-system/linux-storage-mounts",
+          "operating-system/linux-resource-monitoring-cgroups",
+          "operating-system/linux-journal-logging-rotation",
+          "operating-system/proc-sys-kernel-interfaces",
+          "operating-system/linux-lvm-device-mapper",
+          "operating-system/linux-user-groups-sudo-authentication",
+          "operating-system/linux-cgroups-cpu-memory-pids",
+          "operating-system/linux-capabilities-seccomp-lsm",
+          "operating-system/linux-process-limits-ulimit",
+          "operating-system/cpu-utilization-load-average-runnable"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "linux-tools-and-environment",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Linux Tools & Environment"
+    },
+    "description": {
+      "vi": "Dùng shell, command line và môi trường user an toàn; sau đó hiểu build tool cùng desktop services."
+    },
+    "prerequisites": {
+      "vi": "Nên học Linux System để biết process, quyền và filesystem."
+    },
+    "prerequisiteTopics": [
+      "linux-system"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Dòng lệnh và process"
+        },
+        "noteKeys": [
+          "operating-system/linux-command-line-basics",
+          "operating-system/shell-streams-and-pipelines",
+          "operating-system/linux-jobs-and-process-control",
+          "operating-system/linux-text-archives",
+          "operating-system/gnu-text-tools-and-regular-expressions",
+          "operating-system/shell-quoting-exit-status-pipelines"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Script và môi trường"
+        },
+        "noteKeys": [
+          "operating-system/shell-scripting-reliability",
+          "operating-system/linux-user-environment",
+          "operating-system/environment-login-shell-profile",
+          "operating-system/linux-shell-startup-and-dotfiles"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Build và desktop"
+        },
+        "noteKeys": [
+          "operating-system/build-tools-and-linking",
+          "operating-system/linux-desktop-and-printing",
+          "operating-system/linux-packages-and-shared-libraries",
+          "operating-system/linux-printing-cups-and-queues",
+          "operating-system/compiler-assembler-linker-pipeline",
+          "operating-system/linux-desktop-sessions-display-server"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "virtualization-and-containers",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Virtualization & Containers"
+    },
+    "description": {
+      "vi": "Phân biệt VM với container, đi qua CPU/bộ nhớ ảo hóa rồi xem namespace, cgroup và ranh giới bảo mật."
+    },
+    "prerequisites": {
+      "vi": "Nên học Process, Memory và Linux System trước."
+    },
+    "prerequisiteTopics": [
+      "processes-and-scheduling",
+      "memory",
+      "linux-system"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Máy ảo và bộ nhớ hypervisor"
+        },
+        "noteKeys": [
+          "operating-system/virtual-machines-and-hypervisors",
+          "operating-system/vm-memory-virtualization",
+          "operating-system/hypervisor-trap-and-emulate-vt-x",
+          "operating-system/virtual-device-emulation-and-virtio"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Container và filesystem isolation"
+        },
+        "noteKeys": [
+          "operating-system/container-namespaces-cgroups",
+          "operating-system/filesystem-mount-namespace",
+          "operating-system/container-lifecycle-and-security"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "network-foundations",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Network Foundations"
+    },
+    "description": {
+      "vi": "Học các tầng TCP/IP, địa chỉ IP, subnet và quyết định route/next hop."
+    },
+    "prerequisites": {
+      "vi": "Không cần kiến thức trước; bắt đầu từ cách dữ liệu đi qua các tầng."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Mô hình, địa chỉ và liên mạng"
+        },
+        "noteKeys": [
+          "network/internet-architecture-end-to-end-best-effort",
+          "network/tcpip-layers-and-encapsulation",
+          "network/ip-addressing-subnets-cidr",
+          "network/routing-next-hop-and-gateway",
+          "network/internet-routing-as-bgp",
+          "network/cidr-subnetting-worked-examples",
+          "network/bgp-path-selection-filtering"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "link-layer",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Link Layer"
+    },
+    "description": {
+      "vi": "Tìm hiểu Ethernet, Wi-Fi, switch, MTU và phân giải địa chỉ của next hop."
+    },
+    "prerequisites": {
+      "vi": "Nên học Network Foundations để phân biệt địa chỉ IP với địa chỉ link-layer."
+    },
+    "prerequisiteTopics": [
+      "network-foundations"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Frame, switching và VLAN"
+        },
+        "noteKeys": [
+          "network/ethernet-wifi-switching-mtu",
+          "network/vlan-bridging-loop-prevention",
+          "network/ethernet-frame-mtu-and-switch-learning",
+          "network/vlan-trunk-spanning-tree"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Wi-Fi và neighbor resolution"
+        },
+        "noteKeys": [
+          "network/wifi-association-and-airtime",
+          "network/arp-and-neighbor-discovery",
+          "network/arp-cache-proxy-and-spoofing"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "ip-and-network-control",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "IP & Network Control"
+    },
+    "description": {
+      "vi": "Hiểu IPv4/IPv6 forwarding, MTU, cấu hình địa chỉ, ICMP và multicast."
+    },
+    "prerequisites": {
+      "vi": "Nên học Network Foundations và Link Layer trước."
+    },
+    "prerequisiteTopics": [
+      "network-foundations",
+      "link-layer"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "IP header, forwarding và fragment"
+        },
+        "noteKeys": [
+          "network/ip-packet-forwarding-fragmentation",
+          "network/ipv4-header-and-options",
+          "network/ipv4-fragmentation-details"
+        ]
+      },
+      {
+        "title": {
+          "vi": "IPv6 và cấu hình host"
+        },
+        "noteKeys": [
+          "network/ipv6-addressing-autoconfiguration",
+          "network/ipv6-extension-headers-and-nd",
+          "network/dhcp-address-autoconfiguration",
+          "network/dhcp-relay-renewal",
+          "network/dhcpv6-slaac-and-address-lifecycle",
+          "network/path-mtu-discovery-black-hole"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Control plane, MTU và multicast"
+        },
+        "noteKeys": [
+          "network/icmp-diagnostics-path-mtu",
+          "network/icmp-errors-and-rate-limits",
+          "network/ip-multicast-broadcast",
+          "network/multicast-membership-igmp-mld"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "transport-layer",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Transport Layer"
+    },
+    "description": {
+      "vi": "Đi sâu UDP và TCP: byte stream, kết nối, reliability, flow control, congestion và server lifecycle."
+    },
+    "prerequisites": {
+      "vi": "Nên hiểu IP, route, MTU và socket ở mức cơ bản."
+    },
+    "prerequisiteTopics": [
+      "network-foundations",
+      "ip-and-network-control"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "UDP và TCP service model"
+        },
+        "noteKeys": [
+          "network/udp-datagrams-and-design",
+          "network/udp-checksum-and-ipv6",
+          "network/udp-fragmentation-path-mtu",
+          "network/tcp-service-byte-stream",
+          "network/tcp-sequence-numbers-and-options",
+          "network/tcp-options-mss-window-scaling",
+          "network/tcp-nagle-delayed-ack-latency",
+          "network/tcp-listen-backlog-accept-queue"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Kết nối và phục hồi loss"
+        },
+        "noteKeys": [
+          "network/tcp-connection-state-machine",
+          "network/tcp-state-edge-cases",
+          "network/tcp-retransmission-rto-sack",
+          "network/tcp-rtt-estimation-rto",
+          "network/tcp-fin-time-wait-and-reset",
+          "network/socket-nat-ephemeral-ports"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Windows và congestion"
+        },
+        "noteKeys": [
+          "network/tcp-flow-control-windows",
+          "network/tcp-congestion-control",
+          "network/tcp-congestion-control-algorithms"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Vòng đời và server"
+        },
+        "noteKeys": [
+          "network/tcp-keepalive-and-timeouts",
+          "network/tcp-server-sockets-backlog"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "network-services-and-security",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Network Services & Security"
+    },
+    "description": {
+      "vi": "Phân giải tên, quản lý firewall/NAT và chọn cơ chế bảo vệ đúng lớp."
+    },
+    "prerequisites": {
+      "vi": "Nên học Network Foundations, IP và Transport Layer trước."
+    },
+    "prerequisiteTopics": [
+      "network-foundations",
+      "ip-and-network-control",
+      "transport-layer"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "DNS và name resolution"
+        },
+        "noteKeys": [
+          "network/dns-resolution-and-caching",
+          "network/dns-message-zones-and-updates",
+          "network/dns-records-protocol-security",
+          "network/dnssec-dkim-integrity",
+          "network/dns-recursive-resolution-delegation",
+          "network/dns-troubleshooting-nxdomain-servfail",
+          "network/ntp-clock-synchronization"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Policy, TLS và key trust"
+        },
+        "noteKeys": [
+          "network/firewalls-nat-conntrack",
+          "network/network-security-foundations-tls",
+          "network/pki-certificates-and-key-lifecycle",
+          "network/ipsec-eap-network-access",
+          "network/cryptographic-primitives-key-agreement",
+          "network/tls-handshake-record-protocol",
+          "network/ipsec-ike-esp-modes",
+          "network/eap-8021x-access-control",
+          "network/conntrack-nat-state-timeouts",
+          "network/tls-certificate-name-validation-sni"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "linux-networking-and-distributed-filesystems",
+    "locales": [
+      "vi"
+    ],
+    "title": {
+      "vi": "Linux Networking & Distributed Filesystems"
+    },
+    "description": {
+      "vi": "Cấu hình network trên Linux, vận hành service, chẩn đoán packet và truy cập filesystem qua mạng/container."
+    },
+    "prerequisites": {
+      "vi": "Nên học Link Layer, IP, Transport và Network Services & Security trước."
+    },
+    "prerequisiteTopics": [
+      "link-layer",
+      "ip-and-network-control",
+      "transport-layer",
+      "network-services-and-security"
+    ],
+    "sections": [
+      {
+        "title": {
+          "vi": "Linux interface, DNS và service"
+        },
+        "noteKeys": [
+          "network/linux-network-interfaces-and-config",
+          "network/linux-name-resolution",
+          "network/linux-network-services-and-sockets",
+          "network/linux-firewall-nftables",
+          "network/network-diagnostics-packet-capture",
+          "network/network-diagnostics-interfaces-routes",
+          "network/linux-policy-routing-and-multiple-uplinks"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Filesystem phân tán"
+        },
+        "noteKeys": [
+          "network/nfs-remote-file-semantics",
+          "network/afs-callback-cache",
+          "network/smb-cifs-linux-file-sharing",
+          "network/nfs-rpc-mount-and-v4"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Mạng container"
+        },
+        "noteKeys": [
+          "network/container-networking"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "database-systems",
+    "locales": [
+      "vi",
+      "en"
+    ],
+    "title": {
+      "vi": "Hệ thống cơ sở dữ liệu",
+      "en": "Database Systems"
+    },
+    "description": {
+      "vi": "Học cách dữ liệu được mô hình hóa, lưu trên đĩa, truy vấn, giao dịch và phân tán qua nhiều node.",
+      "en": "Learn how data is modeled, stored on disk, queried, transacted, and distributed across nodes."
+    },
+    "source": {
+      "vi": "Sách nguồn chính: Database Internals",
+      "en": "Primary source: Database Internals"
+    },
+    "sourceNote": {
+      "vi": "Ba bài nền về mô hình dữ liệu và truy vấn được đặt ở đầu lộ trình, tổng hợp từ các chương tương ứng trong sách MySQL và PostgreSQL.",
+      "en": "Three foundation notes on data modeling and queries begin this path; they synthesize the corresponding chapters from the MySQL and PostgreSQL books."
+    },
+    "prerequisites": {
+      "vi": "Biết lập trình cơ bản và quen với dữ liệu dạng bảng là hữu ích; các bài đầu giải thích thuật ngữ cần thiết.",
+      "en": "Basic programming and familiarity with tabular data help; early notes explain the terminology you need."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Mô hình và lưu trữ",
+          "en": "Models and storage"
+        },
+        "noteKeys": [
+          "database/relational-model-and-data-design",
+          "database/storage-models-and-pages",
+          "database/btree-indexes-and-maintenance",
+          "database/lsm-and-write-optimized-storage",
+          "database/lsm-lookup-and-reconciliation",
+          "database/lsm-unordered-stores-and-log-stacking",
+          "database/database-file-formats-and-page-integrity",
+          "database/btree-implementation-variants",
+          "database/lsm-compaction-and-amplification"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Giao dịch, đồng thời và khôi phục",
+          "en": "Transactions, concurrency, and recovery"
+        },
+        "noteKeys": [
+          "database/acid",
+          "database/concurrency-control-mvcc-and-locks",
+          "database/write-ahead-logging-and-recovery",
+          "database/buffer-management-and-aries-recovery"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Truy vấn và hiệu năng",
+          "en": "Queries and performance"
+        },
+        "noteKeys": [
+          "database/query-processing-and-planning",
+          "database/index-design-and-query-performance"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Cơ sở dữ liệu phân tán",
+          "en": "Distributed databases"
+        },
+        "noteKeys": [
+          "database/distributed-database-failures-and-consistency",
+          "database/distributed-execution-and-shared-state",
+          "database/distributed-time-links-and-delivery",
+          "database/distributed-failure-detection",
+          "database/distributed-leader-election",
+          "database/distributed-consistency-models",
+          "database/replication-consistency-and-anti-entropy",
+          "database/distributed-transaction-protocols",
+          "database/distributed-transactions-and-consensus",
+          "database/distributed-failure-detection-and-election",
+          "database/distributed-replication-quorums-and-anti-entropy",
+          "database/distributed-transactions-and-partitioning",
+          "database/consensus-protocol-failure-traces",
+          "database/distributed-consensus-algorithms"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "mysql-design-performance-operations",
+    "locales": [
+      "vi",
+      "en"
+    ],
+    "title": {
+      "vi": "MySQL — Thiết kế, tối ưu và vận hành",
+      "en": "MySQL — Design, Optimization & Operations"
+    },
+    "description": {
+      "vi": "Đi từ kiến trúc server và InnoDB đến schema, index, đo hiệu năng, replication và backup MySQL.",
+      "en": "Move from server architecture and InnoDB through schema, indexes, performance measurement, replication, and MySQL backups."
+    },
+    "source": {
+      "vi": "Sách nguồn chính: High Performance MySQL",
+      "en": "Primary source: High Performance MySQL"
+    },
+    "prerequisites": {
+      "vi": "Nên đọc Hệ thống cơ sở dữ liệu trước để hiểu transaction, index và query plan.",
+      "en": "Read Database Systems first for transaction, index, and query-plan foundations."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Kiến trúc, transaction và thiết kế dữ liệu",
+          "en": "Architecture, transactions, and data design"
+        },
+        "noteKeys": [
+          "database/mysql-architecture-and-storage-engines",
+          "database/mysql-transactions-locking-and-innodb-mvcc",
+        "database/mysql-schema-and-data-types",
+        "database/mysql-data-types-and-schema-decisions",
+        "database/mysql-schema-evolution-and-derived-data",
+        "database/mysql-innodb-pages-and-flushing"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Index, query và feature SQL",
+          "en": "Indexes, queries, and SQL features"
+        },
+        "noteKeys": [
+          "database/mysql-indexes-and-access-paths",
+          "database/mysql-query-planning-and-execution",
+          "database/mysql-query-optimization-and-features",
+          "database/mysql-advanced-features-and-version-changes",
+          "database/mysql-query-patterns-count-pagination-and-joins"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Đo lường, cấu hình và chẩn đoán",
+          "en": "Measurement, tuning, and diagnosis"
+        },
+        "noteKeys": [
+          "database/mysql-measuring-and-tuning-performance",
+          "database/mysql-benchmarking-and-profiling",
+          "database/mysql-server-and-hardware-tuning",
+          "database/mysql-diagnostics-tools-and-locks",
+          "database/mysql-status-counters-and-innodb-monitor",
+          "database/mysql-application-optimization-and-caching",
+          "database/mysql-configuration-scope-and-memory-budget"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Scale out, sharding và định tuyến",
+          "en": "Scale-out, sharding, and routing"
+        },
+        "noteKeys": [
+          "database/mysql-scalability-sharding-and-routing"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Replication, backup và độ sẵn sàng cao",
+          "en": "Replication, backup, and high availability"
+        },
+        "noteKeys": [
+          "database/mysql-replication-scaling-and-ha",
+          "database/mysql-replication-failover-and-cloud",
+          "database/mysql-high-availability-and-failover",
+          "database/mysql-cloud-deployment-and-operations",
+          "database/mysql-backup-recovery-and-tooling",
+          "database/mysql-backup-and-point-in-time-recovery"
+        ]
+      }
+    ],
+    "prerequisiteTopics": [
+      "database-systems"
+    ]
+  },
+  {
+    "slug": "postgresql-transactions-queries-storage",
+    "locales": [
+      "vi",
+      "en"
+    ],
+    "title": {
+      "vi": "PostgreSQL — Giao dịch, truy vấn và lưu trữ",
+      "en": "PostgreSQL — Transactions, Queries & Storage"
+    },
+    "description": {
+      "vi": "Khám phá page, tuple, MVCC, vacuum, WAL, lock, planner và replication của PostgreSQL.",
+      "en": "Explore PostgreSQL pages, tuples, MVCC, vacuum, WAL, locks, planning, and replication."
+    },
+    "source": {
+      "vi": "Sách nguồn chính: PostgreSQL Internals 14",
+      "en": "Primary source: PostgreSQL Internals 14"
+    },
+    "sourceNote": {
+      "vi": "Có thêm một bài về replication, backup và PITR dựa trên tài liệu PostgreSQL chính thức; đây là phần mở rộng ngoài nội dung sách.",
+      "en": "One note on replication, backup, and PITR extends the path using official PostgreSQL documentation; it is outside the book's substantive chapters."
+    },
+    "prerequisites": {
+      "vi": "Nên đọc Hệ thống cơ sở dữ liệu; các bài PostgreSQL ghi rõ khác biệt giữa sách phiên bản 14 và tài liệu hiện hành.",
+      "en": "Read Database Systems first; PostgreSQL notes distinguish the version 14 book from current documentation."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Page, tuple và snapshot",
+          "en": "Pages, tuples, and snapshots"
+        },
+        "noteKeys": [
+          "database/postgresql-architecture-and-data-layout",
+          "database/postgresql-mvcc-snapshots-and-tuples",
+          "database/postgresql-snapshot-anomalies-and-hot-chains",
+          "database/postgresql-tuples-pages-and-toast"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Vacuum, WAL và concurrency",
+          "en": "Vacuum, WAL, and concurrency"
+        },
+        "noteKeys": [
+          "database/postgresql-vacuum-freezing-and-maintenance",
+          "database/postgresql-vacuum-phases-and-freezing",
+          "database/postgresql-wal-buffer-cache-and-recovery",
+          "database/postgresql-locks-and-concurrency",
+          "database/postgresql-lock-modes-and-deadlock-examples",
+          "database/postgresql-buffer-cache-and-wal-modes"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Query plan, execution và index",
+          "en": "Query plans, execution, and indexes"
+        },
+        "noteKeys": [
+          "database/postgresql-query-planner-and-execution",
+          "database/postgresql-query-protocol-and-statistics",
+          "database/postgresql-scans-joins-and-sorting",
+          "database/postgresql-index-types-and-operator-classes",
+          "database/postgresql-index-structures-and-maintenance"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Replication và vận hành",
+          "en": "Replication and operations"
+        },
+        "noteKeys": [
+          "database/postgresql-replication-backup-and-operations"
+        ]
+      }
+    ],
+    "prerequisiteTopics": [
+      "database-systems"
+    ]
+  },
+  {
+    "slug": "redis-data-structures-applications",
+    "locales": [
+      "vi",
+      "en"
+    ],
+    "title": {
+      "vi": "Redis — Cấu trúc dữ liệu và ứng dụng thực tế",
+      "en": "Redis — Data Structures & Real-World Applications"
+    },
+    "description": {
+      "vi": "Chọn structure Redis cho cache, counter, coordination, queue và ứng dụng; hiểu persistence và giới hạn vận hành.",
+      "en": "Choose Redis structures for caches, counters, coordination, queues, and applications while understanding persistence and operational limits."
+    },
+    "source": {
+      "vi": "Sách nguồn chính: Redis in Action",
+      "en": "Primary source: Redis in Action"
+    },
+    "prerequisites": {
+      "vi": "Nên biết key–value cơ bản; đọc Hệ thống cơ sở dữ liệu để có nền về consistency, replication và transaction.",
+      "en": "Basic key–value concepts help; read Database Systems for foundations in consistency, replication, and transactions."
+    },
+    "sections": [
+      {
+        "title": {
+          "vi": "Kiểu dữ liệu và cơ chế cốt lõi",
+          "en": "Data types and core mechanics"
+        },
+        "noteKeys": [
+          "database/redis-data-models-and-data-types",
+          "database/redis-commands-transactions-and-scripting",
+          "database/redis-persistence-replication-and-safety",
+          "database/redis-memory-models-and-compact-structures",
+          "database/redis-lua-scripting-patterns",
+          "database/redis-getting-started-and-client-basics",
+          "database/redis-core-structures-and-command-semantics"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Ứng dụng web và hỗ trợ dịch vụ",
+          "en": "Web applications and service support"
+        },
+        "noteKeys": [
+          "database/redis-web-application-patterns",
+          "database/redis-caching-counters-and-application-support",
+          "database/redis-application-support-patterns"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Coordination, queue và messaging",
+          "en": "Coordination, queues, and messaging"
+        },
+        "noteKeys": [
+          "database/redis-locks-semaphores-and-coordination",
+          "database/redis-autocomplete-and-coordination-components",
+          "database/redis-queues-messaging-and-streams",
+          "database/redis-pull-messaging-and-file-distribution"
+        ]
+      },
+      {
+        "title": {
+          "vi": "Search, social và scale",
+          "en": "Search, social, and scale"
+        },
+        "noteKeys": [
+          "database/redis-search-and-social-patterns",
+          "database/redis-search-advertising-and-job-indexes",
+          "database/redis-social-network-and-timelines",
+          "database/redis-memory-scaling-and-operations",
+          "database/redis-sharding-and-scaling-patterns"
+        ]
+      }
+    ],
+    "prerequisiteTopics": [
+      "database-systems"
+    ]
   }
 ]

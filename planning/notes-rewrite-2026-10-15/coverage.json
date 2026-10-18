@@ -1,0 +1,1272 @@
+{
+  "files": 126,
+  "status_counts": {
+    "updated": 124,
+    "approved-sample": 2
+  },
+  "existing_bilingual_pairs": 23,
+  "visualizations": 161,
+  "errors": [],
+  "notes": [
+    {
+      "path": "cadence/activity-reliability_VI.md",
+      "status": "updated",
+      "words_before": 856,
+      "words_after": 1183,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "8112ccd94b2bf29c77cc8cb52cc41f71e1311fea11a552e4d64fb923bd30c4ec",
+      "sha256_after": "d8e25ddc60eaf8a6636b9175a3dd8494024c80df0f9cddddc363745092bdbe23"
+    },
+    {
+      "path": "cadence/choosing-cadence_VI.md",
+      "status": "updated",
+      "words_before": 753,
+      "words_after": 1149,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "becad0001fbb4d831a0b16a8dd935d608d0e7908d8682e9c9e87aa769cbf6e17",
+      "sha256_after": "7f8370540885bde0e74b69b9b8eb048241884e7807388d52f4d784084423dc18"
+    },
+    {
+      "path": "cadence/data-and-observability_VI.md",
+      "status": "updated",
+      "words_before": 843,
+      "words_after": 1229,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "8b41eac0eb53a6f006214b08c3718626c2f207539abaf58871611238428fee3c",
+      "sha256_after": "117035b55754de33aa821e4d2a6c6c78ac28dbed901703f7d7ca49bc43f95c9f"
+    },
+    {
+      "path": "cadence/first-workflow_VI.md",
+      "status": "updated",
+      "words_before": 723,
+      "words_after": 1034,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "0b444904ddf743819eed160706917c02f2387b30c1220d0301381b48dcd570cc",
+      "sha256_after": "b7e2f13511beb2af69fb6e85ed26486d184db438d112a3dcdb501284af4d154c"
+    },
+    {
+      "path": "cadence/fundamentals_VI.md",
+      "status": "updated",
+      "words_before": 773,
+      "words_after": 1038,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "0d05c5a3ca1e33551d1f9dd05024ec0056944343ef4072dd36302ad53c2b0586",
+      "sha256_after": "6e2611a5047023848397f1ea9297510a2dd93f1b7acf624cf42adbf05ac06945"
+    },
+    {
+      "path": "cadence/orchestration_VI.md",
+      "status": "updated",
+      "words_before": 1001,
+      "words_after": 1443,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "54ba6ebd20d2d4f567a2377b7da0fe3ca03a0cb491246890c63f9a1a62d05f79",
+      "sha256_after": "fc4bd5fdb4c03d256763b34e44778326d702a940693b4a39fa7c0c3880d754be"
+    },
+    {
+      "path": "cadence/production-operations_VI.md",
+      "status": "updated",
+      "words_before": 828,
+      "words_after": 1176,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "289c69cb446187786582fde91b3626787ee0bed24d321bd64719f1304ce46cc5",
+      "sha256_after": "4daa25421e2a0a84a7e38f98f2684a840349a9b44842155805bf879e4b329aaf"
+    },
+    {
+      "path": "cadence/replay-and-code-changes_VI.md",
+      "status": "updated",
+      "words_before": 876,
+      "words_after": 1215,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "781bb1c3473683020b53d67084de5f59b7e6be2cef05f6d1c8d88877c4f66de6",
+      "sha256_after": "ce181764e7096919b86c836a057c0718d27209006185b17956b642a4bc265d73"
+    },
+    {
+      "path": "data-structures-algorithms/abstract-data-types_VI.md",
+      "status": "updated",
+      "words_before": 1066,
+      "words_after": 1459,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "39786a38b6c18b3614304ac1f1d7174adb60001cac37ba6b056d546035c68524",
+      "sha256_after": "2807bed681c67367470d9633f7a19bf3be2e8fa6ea36b9d84e11ed19c8029e78"
+    },
+    {
+      "path": "data-structures-algorithms/aho-corasick_VI.md",
+      "status": "updated",
+      "words_before": 792,
+      "words_after": 1370,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "16c2152669384ce86c1ba26c1b6457d879dd6234bfe098798cad30357f92686f",
+      "sha256_after": "e626d30f0dbf4efeaf3aa6a76cec6abdd87dbf0d972bb763c3960e86d6ce94d9"
+    },
+    {
+      "path": "data-structures-algorithms/alpha-beta-pruning_VI.md",
+      "status": "updated",
+      "words_before": 550,
+      "words_after": 1236,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "06263d0d64776c2d21d4ad46c681939227f628a8ec68c4e623ac6ee2538a92cb",
+      "sha256_after": "56d62c5069266abd376776a53fde3d01489d4935bd9ad15603aebafc8b9c1e2c"
+    },
+    {
+      "path": "data-structures-algorithms/arithmetic-functions_VI.md",
+      "status": "updated",
+      "words_before": 539,
+      "words_after": 1119,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "830bd0939ff63fe79bc36096078936a914bed5cd6041c3525a01423375049e6d",
+      "sha256_after": "0d8edc06153c838b6c83f6d757ebfa7faf2cc00c0630021acfd6e7c09dd3faf6"
+    },
+    {
+      "path": "data-structures-algorithms/arrays-and-slices_VI.md",
+      "status": "updated",
+      "words_before": 1197,
+      "words_after": 1522,
+      "visualizations_before": 4,
+      "visualizations_after": 4,
+      "sha256_before": "bfadf469885285b9957d017d47575fc5f54737f3858d7bc5de1fa3b1817779b8",
+      "sha256_after": "c43110f3190dc21cfc813c61e0ac6a28a1e5e52fffab480599cc28d1709726d2"
+    },
+    {
+      "path": "data-structures-algorithms/b-trees_VI.md",
+      "status": "updated",
+      "words_before": 536,
+      "words_after": 1320,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "e1b45d3f8ddfd8404d5c364dc3b434c8d2cfc2fd5aea33f1d0f26b812114e20a",
+      "sha256_after": "36c3537d15210caced1ca3c8afa51f71febe28465e6ac4370448f0ea58abba11"
+    },
+    {
+      "path": "data-structures-algorithms/backtracking_VI.md",
+      "status": "updated",
+      "words_before": 588,
+      "words_after": 1196,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "5c62c45d6503105b90177b04cdd79b3b50949df8d0e67b2c485a0973e92b0d1c",
+      "sha256_after": "4f0cc95a8e2b4fa93423ee1a196bbd1078e387dec8b83ad598b53ad3eef5ec16"
+    },
+    {
+      "path": "data-structures-algorithms/balanced-search-trees_VI.md",
+      "status": "updated",
+      "words_before": 536,
+      "words_after": 1338,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "42243b6a3378cdff5ce25fa86fa55b438f6b4aebfb7dcef09077f95ee7ff18d8",
+      "sha256_after": "00ff36e1999b10302d563e49d0956c113ce3d1e794299a8f1cc08d616eebbb3c"
+    },
+    {
+      "path": "data-structures-algorithms/binary-search-trees_VI.md",
+      "status": "updated",
+      "words_before": 614,
+      "words_after": 1152,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "8a1e207a74bc3c44a9eb59262afa96684bfb3494999babff254f4b3903d3d617",
+      "sha256_after": "85627b9772858e96d9af056d3af34392e66b1b68a5ad641a4ce2d6463a4b3a91"
+    },
+    {
+      "path": "data-structures-algorithms/binomial-lucas-wilson_VI.md",
+      "status": "updated",
+      "words_before": 595,
+      "words_after": 1120,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "d9a0500ca507d870827998397cf73e893324d7a4e14b68527c7720e8c95cda62",
+      "sha256_after": "d702121693e3ac3902d3dafccede5ae7b2c3227e71817aec94109386d5f732bd"
+    },
+    {
+      "path": "data-structures-algorithms/bipartite-matching_VI.md",
+      "status": "updated",
+      "words_before": 534,
+      "words_after": 975,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "245799a7a8ace8abbc7f521c0c8692f92c3ac5a316116c7a45435742d725f123",
+      "sha256_after": "3f872944d94978b5547831d8b71cd9ad012188fbff7dd3fa266f8b3f8650f722"
+    },
+    {
+      "path": "data-structures-algorithms/branch-and-bound_VI.md",
+      "status": "updated",
+      "words_before": 707,
+      "words_after": 1188,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "567d16f427c9bdaf8bb451a287fa313091fa5885b90db016ce75de8ea0dbba44",
+      "sha256_after": "831e3e8d745c34d6bf54d172996edbceaedfbb0878131ecb5ab25c4f4585d45a"
+    },
+    {
+      "path": "data-structures-algorithms/bridges-articulation_VI.md",
+      "status": "updated",
+      "words_before": 687,
+      "words_after": 1184,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "15b83b43ceb92d15d93102198512da8e1a5ece5e0d1c0e736b437630d51c6e6e",
+      "sha256_after": "432a2855d04dec95473c6b0a6a6f12d8e4fd734a2734a8521661799abe316941"
+    },
+    {
+      "path": "data-structures-algorithms/centroid-decomposition_VI.md",
+      "status": "updated",
+      "words_before": 522,
+      "words_after": 1131,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "bc51d55a3fbb359525a6aa9b9544a87a17b7c6ee7da8a7cc2647fe3ee6a773ea",
+      "sha256_after": "fe8bbffc39ce73688a938dea9716ff04d6f542e127ecd70be181481a55178138"
+    },
+    {
+      "path": "data-structures-algorithms/combinatorics-inclusion-exclusion_VI.md",
+      "status": "updated",
+      "words_before": 543,
+      "words_after": 1098,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "11995fe1cd558aba051ede05d47674c67b69025d76bf7d85dfe558c07e136d49",
+      "sha256_after": "fc887082d8c0858e32f5769dae1e67ada1f8a4dcf513d9aff12a85f4ca156d75"
+    },
+    {
+      "path": "data-structures-algorithms/complexity-classes_VI.md",
+      "status": "updated",
+      "words_before": 622,
+      "words_after": 1438,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "22be02e1a6adc922fa31077c1905537f4de7a67acb8c8a4a2cf19e1c2aac96a5",
+      "sha256_after": "8965dfa5a8e22699118b543b77cd8d017627c789073902c5bddac5a7f93d38e3"
+    },
+    {
+      "path": "data-structures-algorithms/complexity_VI.md",
+      "status": "updated",
+      "words_before": 1252,
+      "words_after": 1682,
+      "visualizations_before": 4,
+      "visualizations_after": 4,
+      "sha256_before": "d442f6745e0b3804d9787e865870c232cbe9392e4be02c0a376a5b7e12ff177f",
+      "sha256_after": "0f87368bf78c98689e1a41427fffb12e87a4043c5f5a31e0fc4af4f66f80dd43"
+    },
+    {
+      "path": "data-structures-algorithms/configuration-generation_VI.md",
+      "status": "updated",
+      "words_before": 600,
+      "words_after": 1277,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "fc216b23e4cccd37948e4393b079fae394b8810e2b2a5dad5d713eb92a741162",
+      "sha256_after": "66c0a775d488a041233f34cc4bd7c48d24a74ff82bd31249d1799db8b928581b"
+    },
+    {
+      "path": "data-structures-algorithms/data-compression_VI.md",
+      "status": "updated",
+      "words_before": 603,
+      "words_after": 1314,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "7720a7c2dbec17d3f92eac9f1866748e97385dd7dc46439f3a304eff197dff4a",
+      "sha256_after": "5ce5c17596ace5c30be40701538e6461fc7d9d035177a34cf799f473e543dbbd"
+    },
+    {
+      "path": "data-structures-algorithms/distribution-sorting_VI.md",
+      "status": "updated",
+      "words_before": 585,
+      "words_after": 1212,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "694b5465d3c147290ff11cdcc66472e9bd8a569b7b11ffadcdca352506064cce",
+      "sha256_after": "42397a4106a3f6b68d4a1a46b87e0cd8011520bc529a6951fe54eb96070216bd"
+    },
+    {
+      "path": "data-structures-algorithms/divide-and-conquer_VI.md",
+      "status": "updated",
+      "words_before": 1078,
+      "words_after": 1444,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "34770deca853f680ba12bc8fe350c7efe1790cbf0140d64ca0578f8f04f8af1d",
+      "sha256_after": "aa64c67cec9e2a1ea117a78b7be3a27bbeca84f604b9474f50be5b5a5356d436"
+    },
+    {
+      "path": "data-structures-algorithms/dp-classics_VI.md",
+      "status": "updated",
+      "words_before": 521,
+      "words_after": 1146,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "c61d89cb9878facb9ea3f208a1083626774c053fad54d1b846018c96cc233566",
+      "sha256_after": "5c7f125475847dba238abf54399cc30914b7664c8c851b5491661454a6bd4a3d"
+    },
+    {
+      "path": "data-structures-algorithms/dsu-rollback_VI.md",
+      "status": "updated",
+      "words_before": 598,
+      "words_after": 1196,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "4dab01256823a17ab80ed666b8cc787536f5b72796f3d34df6f7b07cada49529",
+      "sha256_after": "8476765ef6460bc1d0b7c5df568409fb144adce3f4aa6cf1487533717cc72605"
+    },
+    {
+      "path": "data-structures-algorithms/dynamic-programming_VI.md",
+      "status": "updated",
+      "words_before": 555,
+      "words_after": 1072,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "0efa23b6da1a95bb989019df24b9699e033289d072f016fc7abc797a281ee74c",
+      "sha256_after": "f4892470cce8edc7d05c6b7d00f7178beb503bdb5013ae884ed82c40d2d68022"
+    },
+    {
+      "path": "data-structures-algorithms/efficient-sorting_VI.md",
+      "status": "updated",
+      "words_before": 628,
+      "words_after": 1342,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "43225c58a79d09b9a8410a4a3d5518170449c6b8359a128b8136440771749a47",
+      "sha256_after": "c4711b396037aaa23ca49895afbedd39db626748792fcf3bf6f34fa15f62269b"
+    },
+    {
+      "path": "data-structures-algorithms/elementary-sorting_VI.md",
+      "status": "updated",
+      "words_before": 601,
+      "words_after": 1175,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "897b09fbd9336789fb41b368e534bd71a013f856c70aab4633c93173a12903dd",
+      "sha256_after": "27b6ba3181b306b73a7afb6334dbfe33ab0e2460dfd3b70c7713d7505cc4a394"
+    },
+    {
+      "path": "data-structures-algorithms/euler-hamilton_VI.md",
+      "status": "updated",
+      "words_before": 585,
+      "words_after": 1152,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "04abec36c33b15283f8f17135a4dfb2baf615fd375e640e29394a9a75009d58a",
+      "sha256_after": "346d6718143e304a21a01725267dbd813eef9f245fb339b8a553fff083907f82"
+    },
+    {
+      "path": "data-structures-algorithms/floyd-warshall_VI.md",
+      "status": "updated",
+      "words_before": 626,
+      "words_after": 1011,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "82d5518d8df2290f2b853d39837f054d22adafa446bfe1d9cb4c1ec1315b6009",
+      "sha256_after": "53bb8f3fb5f39d1a7e19ecacdd8058cd17c446533240727e86356eccba121a28"
+    },
+    {
+      "path": "data-structures-algorithms/graph-representation-bfs-dfs_VI.md",
+      "status": "updated",
+      "words_before": 614,
+      "words_after": 1095,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "da55ccb84e403a739efd0ed3c55c1fbd77dbff308930c49c999d09453a6dc6be",
+      "sha256_after": "a5e020cc57500ebd2550a4f4e05b16e4bdf2abdb45a4d2c058e9b2dbfda20bf9"
+    },
+    {
+      "path": "data-structures-algorithms/greedy_VI.md",
+      "status": "updated",
+      "words_before": 528,
+      "words_after": 1058,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "aa634b66f1347e3f6d0eea8f85828aee6efe3cabf263bfbd92dd4250a586a47d",
+      "sha256_after": "918746420d4ee73695bb594249d9ff685c6b46d1b6409b684907322d8804ee68"
+    },
+    {
+      "path": "data-structures-algorithms/hash-tables_VI.md",
+      "status": "updated",
+      "words_before": 665,
+      "words_after": 1281,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "530dfac809bfd3e367d46d778d2d8aec6762b14442f5d2f0bc97232f729d7d40",
+      "sha256_after": "dd51b0cfed03f66c0df69ba61bb257cd0a4069fd9f20d30bf5369fd41ed5e4f1"
+    },
+    {
+      "path": "data-structures-algorithms/heaps-priority-queues_VI.md",
+      "status": "updated",
+      "words_before": 538,
+      "words_after": 1196,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "760a69801cd1257a2dd3c5a3da2471da0e053d9e9444a93d02bd8cd3d9cca542",
+      "sha256_after": "d7efe8f0b0f12abcaa7de360695025c9f0e3f9466c8ffe62003ba535b7955d8c"
+    },
+    {
+      "path": "data-structures-algorithms/heavy-light-decomposition_VI.md",
+      "status": "updated",
+      "words_before": 719,
+      "words_after": 1183,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "a79238d425893b7f0362ef5d2adced6070ef3094f4c338c42cf26f1742d28c08",
+      "sha256_after": "85ca51bcac2265fa9cb72576c8de8011a4f12bbef5d91088c5bb9df5270bf95c"
+    },
+    {
+      "path": "data-structures-algorithms/lca-binary-lifting_VI.md",
+      "status": "updated",
+      "words_before": 783,
+      "words_after": 1178,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "247df0759fb9ebe7c8ede2b68f9575daa02397ff8c375638b5051337090ca39b",
+      "sha256_after": "be2f48644d0a78e33a2f70f027f8b70229db2e7d5c4b65e7e56f9ee5f793400d"
+    },
+    {
+      "path": "data-structures-algorithms/linked-lists_VI.md",
+      "status": "updated",
+      "words_before": 768,
+      "words_after": 1272,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "483a889e95bb47f8a487e94f3ef53c5146804f85d245fa3b54dc27b6a29dbb16",
+      "sha256_after": "18b18a616b1af6a6633f0b3d59e451380803b4509eaa5308a24b11bda307f38d"
+    },
+    {
+      "path": "data-structures-algorithms/manacher_VI.md",
+      "status": "updated",
+      "words_before": 722,
+      "words_after": 1213,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "88137d4235f54f02cdb7634ed86605143da742b216c36724115b1335974a7518",
+      "sha256_after": "0901bd9e321a54862ad73b9131a5b11ce57d5dc3c00c589dc4cfcd1828771dc6"
+    },
+    {
+      "path": "data-structures-algorithms/max-flow_VI.md",
+      "status": "updated",
+      "words_before": 514,
+      "words_after": 996,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "b5ca3265d1d07b8e46dd29938cc5086d89daf8dcda03fb476a4359414e764e75",
+      "sha256_after": "0379e695f97c8539214f6240cf2515371f6111f6ec1d3e92cf2e29891b82ea0d"
+    },
+    {
+      "path": "data-structures-algorithms/min-cost-flow_VI.md",
+      "status": "updated",
+      "words_before": 783,
+      "words_after": 1114,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "4e74584e9bf3873b88fcaaf15082cfa113dc65d06702c35cb5aa3791a0719bfc",
+      "sha256_after": "9c4b54e3b00970875cc2a3fb519baf521efd24766106e9d6f3b684f63d45e2b4"
+    },
+    {
+      "path": "data-structures-algorithms/minimum-spanning-trees_VI.md",
+      "status": "updated",
+      "words_before": 514,
+      "words_after": 929,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "4ede9a6f67cea39bd91e4a4d753252e13b876b37b9d8bc81c5c656489be68ead",
+      "sha256_after": "96b1ad4c631e889f221fbff423290200888e7aac0d3cab7ab9d3c64738459f41"
+    },
+    {
+      "path": "data-structures-algorithms/modular-arithmetic-euclid_VI.md",
+      "status": "updated",
+      "words_before": 614,
+      "words_after": 1247,
+      "visualizations_before": 4,
+      "visualizations_after": 4,
+      "sha256_before": "e735929559d71b1ea28bb72117e33fd7d16351d8ce027700ee279885aa767d13",
+      "sha256_after": "5674ee5100f076ec511a60c6e37b031b8e30a427d6f875008aa8ce1c94b62f48"
+    },
+    {
+      "path": "data-structures-algorithms/modular-inverse-crt_VI.md",
+      "status": "updated",
+      "words_before": 616,
+      "words_after": 1217,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "4f6af3dfe1abc82549a26f25ce581516a9e9d420e698d1e85cab50b000c04155",
+      "sha256_after": "fa62ba4680cb0db8d2ee34125d3d5d01cfb599186779e81dae9e579fe29486bc"
+    },
+    {
+      "path": "data-structures-algorithms/modular-roots-discrete-log_VI.md",
+      "status": "updated",
+      "words_before": 526,
+      "words_after": 1050,
+      "visualizations_before": 4,
+      "visualizations_after": 4,
+      "sha256_before": "fdfee5dc46e24bf9314351b9832c8110ba430777a4322d5102f88d835b53ae89",
+      "sha256_after": "ba05cbe27453544b3d59b62298edcae4e9ce3aee1eccfedddacfe48adaf0b3bb"
+    },
+    {
+      "path": "data-structures-algorithms/nim-sprague-grundy_VI.md",
+      "status": "updated",
+      "words_before": 541,
+      "words_after": 1201,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "7ebb84cdc69f27008408ac8dda61f2c49b836d57f70ffda12ec336e973c6fd14",
+      "sha256_after": "a5ebd023174af89fa0f5204afc717560e3f335914f0a925e7e72900acf92ed74"
+    },
+    {
+      "path": "data-structures-algorithms/primes-factorization-divisors_VI.md",
+      "status": "updated",
+      "words_before": 500,
+      "words_after": 1207,
+      "visualizations_before": 6,
+      "visualizations_after": 6,
+      "sha256_before": "ccc7e613dfcc56c1ffe16a4b6defd89a825468ea9cc458368ee47ee27a22eab8",
+      "sha256_after": "101829f40e0433e9c4e7398b6f4ace50b20c1c1b2e515e235f823fd598072d36"
+    },
+    {
+      "path": "data-structures-algorithms/probability-for-algorithms_VI.md",
+      "status": "updated",
+      "words_before": 569,
+      "words_after": 1258,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "875e0f25046eae22ce8905e515082f47024aaf1e03dd07944da76afcfb3099d1",
+      "sha256_after": "0d8e7eaeef14b4d20f07d5183c1a729ecb77231445d4f24bd0e1c2a965d57c06"
+    },
+    {
+      "path": "data-structures-algorithms/problem-solving_VI.md",
+      "status": "updated",
+      "words_before": 1343,
+      "words_after": 1609,
+      "visualizations_before": 1,
+      "visualizations_after": 1,
+      "sha256_before": "d12107ab8ad9e91e850fb5ae37c6dacc70a020ea3672d4b98c68dd88ff368dd9",
+      "sha256_after": "57ac714ab0a7880dcbb3ba5e71e97eb97177f39c0af7b6f578815b9509c32fe2"
+    },
+    {
+      "path": "data-structures-algorithms/recursion_VI.md",
+      "status": "updated",
+      "words_before": 1130,
+      "words_after": 1406,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "49b00ce4460bb16300bb4b7f183cf3f8b3375a44bff06b1ef71ca976aa055c40",
+      "sha256_after": "cab956f0eac8f72c5ba8fa95964d251a23be06e0e82ccc1d4fe01ba476947ca5"
+    },
+    {
+      "path": "data-structures-algorithms/rolling-hash_VI.md",
+      "status": "updated",
+      "words_before": 577,
+      "words_after": 1111,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "9480636373aa92eb570185de91b372f9a6384c36e9642c37207a0283295bee3f",
+      "sha256_after": "a6c367be612afe7cb740371be5cd76cb26cac8d5618223f6994f395fbe5f66e5"
+    },
+    {
+      "path": "data-structures-algorithms/searching_VI.md",
+      "status": "updated",
+      "words_before": 585,
+      "words_after": 1179,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "59611980b708ae8159b92046021eae1cfae36e4e7038f801348e084832e194fe",
+      "sha256_after": "ca323c753423ec79aa12259961ec8e3416b2b486ae639b35249df38cfc29a7f5"
+    },
+    {
+      "path": "data-structures-algorithms/segment-fenwick-trees_VI.md",
+      "status": "updated",
+      "words_before": 535,
+      "words_after": 1319,
+      "visualizations_before": 4,
+      "visualizations_after": 4,
+      "sha256_before": "2aaf8340d0e46eeaa328bfda302324bd4eea9759026a34c12ca69ed029453931",
+      "sha256_after": "9af7d4805b5b85bd7af025958fb39b81dba4b8e5e16ab9d3cea59144afa1ac5a"
+    },
+    {
+      "path": "data-structures-algorithms/shortest-paths_VI.md",
+      "status": "updated",
+      "words_before": 517,
+      "words_after": 970,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "7ef2d23ff2a1b72ccffb0a977333f42a8ff7a8a3c6f03a26c22dd13980e44fa0",
+      "sha256_after": "5b11c3e35c0b63fee265a82ebe492e1bd5b4f8daf22217f6d0a2db04b8c51ec2"
+    },
+    {
+      "path": "data-structures-algorithms/stacks-queues-deques_VI.md",
+      "status": "updated",
+      "words_before": 643,
+      "words_after": 1261,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "5702e21ead37dfe7208339ac375775c9014007b415fdf4dfaf12834948a14208",
+      "sha256_after": "d89fdb33fb810cb7166e18de17e1bf0b7b625720fcd78c5792f4602179b42b59"
+    },
+    {
+      "path": "data-structures-algorithms/string-matching_VI.md",
+      "status": "updated",
+      "words_before": 577,
+      "words_after": 1338,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "aeafa8dfe4b86491e374a32fd1798a7d1b77cf0cb93bd385f348192bad35f704",
+      "sha256_after": "9e6fc465a6c995a01a631e1ca9f53bbda956b9e31b3765159eafe7a7562fc032"
+    },
+    {
+      "path": "data-structures-algorithms/suffix-approximate_VI.md",
+      "status": "updated",
+      "words_before": 527,
+      "words_after": 1214,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "3bafb9a7cad3ba11b60d6351e73ecfd58dd35f862d14db3900070dc68e7c1679",
+      "sha256_after": "25e0c499d55654fd2a01eea9be4f120761426888395adfcb58018213bd0b342e"
+    },
+    {
+      "path": "data-structures-algorithms/suffix-array-construction_VI.md",
+      "status": "updated",
+      "words_before": 665,
+      "words_after": 667,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "716d4d54e6bfd8ed569e6a3b7e6d0b10e763d275259bf6fea7a607471caa59ba",
+      "sha256_after": "2085d0f7fe845a318a1fdb733bb75f81ae053c6f9567cc2780354efb5e6b1420"
+    },
+    {
+      "path": "data-structures-algorithms/suffix-automaton_VI.md",
+      "status": "updated",
+      "words_before": 610,
+      "words_after": 612,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "ae3ab43f8d0c1028dd2f0d1adc80b3317e1b6674c97f0765616cf3d7a4d9022f",
+      "sha256_after": "a5c6436416d093e939e4802e2a4da1b35120099108d5f7650c715e2f14e55495"
+    },
+    {
+      "path": "data-structures-algorithms/suffix-tree_VI.md",
+      "status": "updated",
+      "words_before": 631,
+      "words_after": 633,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "80545579ba3f62b3dad86375651521b28e879bf4608cbd3213daeff6ae329bda",
+      "sha256_after": "d30574a53331bf56228dff1fe57a42e7180dae46bb94fdeaf3a450ff097f7436"
+    },
+    {
+      "path": "data-structures-algorithms/topological-scc_VI.md",
+      "status": "updated",
+      "words_before": 535,
+      "words_after": 1043,
+      "visualizations_before": 5,
+      "visualizations_after": 5,
+      "sha256_before": "5771178c4f28bee72dbe9c6525bd7f9b6cdfd69a2202d88f5ea4927f62152900",
+      "sha256_after": "a8d03a7b5560e1e277238fd3f457846978b1faebadea40e3e22428c15f78be9e"
+    },
+    {
+      "path": "data-structures-algorithms/trees-and-traversals_VI.md",
+      "status": "updated",
+      "words_before": 594,
+      "words_after": 1343,
+      "visualizations_before": 4,
+      "visualizations_after": 4,
+      "sha256_before": "7f5700de36501467e0b5b60eff14e6a00b40dee66c34bfd3fe01cf351a06e916",
+      "sha256_after": "53654b11b190219f876788791f11ffeb101a32b0cf3ddeed4c5e77d2f5cc1028"
+    },
+    {
+      "path": "data-structures-algorithms/tries-radix-trees_VI.md",
+      "status": "updated",
+      "words_before": 532,
+      "words_after": 1353,
+      "visualizations_before": 3,
+      "visualizations_after": 3,
+      "sha256_before": "8143774cf2ce2f372f78e49bb5516c7578dadf685203cf742224669a6606fd7d",
+      "sha256_after": "d8480bf7de6323a02390e2f2a0568fcbd953403699c984a828583479b116e350"
+    },
+    {
+      "path": "data-structures-algorithms/union-find_VI.md",
+      "status": "updated",
+      "words_before": 433,
+      "words_after": 1203,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "51985cc1f14114a2ab64a52461edca546dcc79e72d4108ec30b5fd2dbce81ff6",
+      "sha256_after": "279c6bb74464e4e21557febcc8528d5e69cdcf74dbe0522d5d66b66cfb2333b0"
+    },
+    {
+      "path": "data-structures-algorithms/z-function_VI.md",
+      "status": "updated",
+      "words_before": 566,
+      "words_after": 1128,
+      "visualizations_before": 2,
+      "visualizations_after": 2,
+      "sha256_before": "7f3fc0ba2e7bea9cdc7982fe18f594ca0c2567afffc1a11165df346875228346",
+      "sha256_after": "4530b1d5320f8b99dc2af375612681b1104d529e6790eafa5a2a6efd737bb4e2"
+    },
+    {
+      "path": "database/acid_EN.md",
+      "status": "updated",
+      "words_before": 432,
+      "words_after": 815,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "38a39e540b42512e1ca7608e8e2d4390ad900f13ad340bc52583fced0ff9d14b",
+      "sha256_after": "317e0eea7688483fa7093a68115d0e22e4dd1faeae9ccb1107cd9f05bfcd0636"
+    },
+    {
+      "path": "database/acid_VI.md",
+      "status": "updated",
+      "words_before": 578,
+      "words_after": 1131,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "faa9f77d731db542e1b64206aa9502591b5e38ba53dbd6b26ed4ae5be2e66dc8",
+      "sha256_after": "75985931348a9e82cb5e25d7e667e8729267d005772ff06165b09850333873f8"
+    },
+    {
+      "path": "fundamentals/concurrency_race_EN.md",
+      "status": "updated",
+      "words_before": 478,
+      "words_after": 958,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "a2b5d736913ebeea20fa0b189101cda9970b63fc6181a039c49c1ff7ca5b01c6",
+      "sha256_after": "72266e4d45bdfbf545ccbeb329d866b5b6037a456c628a8d7b29b1ebf19fed88"
+    },
+    {
+      "path": "fundamentals/concurrency_race_VI.md",
+      "status": "updated",
+      "words_before": 662,
+      "words_after": 1248,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "705f6baa5f18c328121027196ffd58422d8a12867f9716fc8c8c17d21f37b86b",
+      "sha256_after": "e26fd5436a5f163eee53377befc6d0d1d96f8384b8f6aa13000f26a291da7abb"
+    },
+    {
+      "path": "fundamentals/oop_EN.md",
+      "status": "updated",
+      "words_before": 675,
+      "words_after": 864,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "dfa099e6368a6e5ab7f0d62d7786f1859ac5dfc477bcb5d00cbb49ea4568d584",
+      "sha256_after": "301fa821a217d8beecd8241d70fe092ae7de7a949714e8cb6510cf255b3cc5b4"
+    },
+    {
+      "path": "fundamentals/oop_VI.md",
+      "status": "updated",
+      "words_before": 884,
+      "words_after": 1166,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "38e90c376b00c64e9ab3b808bd6d131db81e6580f50076c7bb07962c31c20ee4",
+      "sha256_after": "e1cf6f90163fffb93122ddab38937bee527e831900fc6c74397f1d057f7473c2"
+    },
+    {
+      "path": "fundamentals/solid_EN.md",
+      "status": "updated",
+      "words_before": 534,
+      "words_after": 897,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "e80b1d6fd0617c8ff21554413b9be6c19b58d30b53fc556939159d1b08990dd8",
+      "sha256_after": "2dfbf5681dd3776b7bc63ce3e4fa61a19658880d262b229be8158e3fda4e8630"
+    },
+    {
+      "path": "fundamentals/solid_VI.md",
+      "status": "updated",
+      "words_before": 587,
+      "words_after": 1236,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "f465c2f6f7f4086b51f1fe8a2162c628c479a1e1f3d1c8bc7451636389b137cc",
+      "sha256_after": "55a97ee755664f9098d555ae64012feafec8b05d5898567be19aace2f9f2da47"
+    },
+    {
+      "path": "go/channels_EN.md",
+      "status": "updated",
+      "words_before": 1106,
+      "words_after": 1908,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "7d84a297a62fc3a3e73e0056edfafe99f158b66c4d6c98bdcfd18d21312a201c",
+      "sha256_after": "52b3bbe0c006cb209a018c4cab22dbf90df84b6581754d7e939e5b77cf920027"
+    },
+    {
+      "path": "go/channels_VI.md",
+      "status": "updated",
+      "words_before": 1283,
+      "words_after": 2142,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "431ebd3293e156d6c898f4d813061c65f4198437ba33bb8040269a732fcef177",
+      "sha256_after": "38c76a8e8db0c44f8d41cec688de9a1b1ff59b783f3ed9391ff4560e741f03ab"
+    },
+    {
+      "path": "go/composition_EN.md",
+      "status": "updated",
+      "words_before": 683,
+      "words_after": 1379,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "d343106d5e98b587bdd2a016f5d28a36d1cea2d736e38071bdfad906cf3f192c",
+      "sha256_after": "2ece0a126fa5a6cfe0ce3109d1662ca7ed1fdca2ede0504b48d5847d450fc4be"
+    },
+    {
+      "path": "go/composition_VI.md",
+      "status": "updated",
+      "words_before": 828,
+      "words_after": 1538,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "2982964c8193118ce30997001aae3b0df0d5f050a179f0a088ebb50db52d0927",
+      "sha256_after": "b9058de1dc723eb6e49b98dd295b0fda362aea0c082f4ceaa7877a26c958046d"
+    },
+    {
+      "path": "go/context_EN.md",
+      "status": "updated",
+      "words_before": 1028,
+      "words_after": 1761,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "4203ce8d1bcd21a1e4901d82d0ffdf0209958458874ac783aa5b1caca8c40730",
+      "sha256_after": "bbaffdf821719f0eba780e7faca0273721adae609214de71073b70157db547ec"
+    },
+    {
+      "path": "go/context_VI.md",
+      "status": "updated",
+      "words_before": 1214,
+      "words_after": 1920,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "be53bb6b8dd9156114455c68cd50888f8aad0fd82d267b721f8e238a9c91a378",
+      "sha256_after": "1fd4446563967d986070b3d4d17932c012a6885e09a1c7214592d350d3c894b5"
+    },
+    {
+      "path": "go/errors_EN.md",
+      "status": "updated",
+      "words_before": 844,
+      "words_after": 1697,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "ef0c84efb9cf617a1fb09934c49613550e1600ea073a62872e6ab47fc23b6f87",
+      "sha256_after": "9becf8edd6496a78adc97f352895db62c644e440bcfe4b1e72c9022534aa124e"
+    },
+    {
+      "path": "go/errors_VI.md",
+      "status": "updated",
+      "words_before": 992,
+      "words_after": 1946,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "c7b7413825ee0831d0726c22c5abd825e8d45c23b978e97b3a67aa10c44df48d",
+      "sha256_after": "a55ff2ea18097ae9d27635058e1d6380b614df9f30130c6fb96028e1b1bb0adf"
+    },
+    {
+      "path": "go/flow_EN.md",
+      "status": "updated",
+      "words_before": 799,
+      "words_after": 1809,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "87be65a78509b566ac92f89659efd69e27dd7264f571501661ee085ed3c7bd91",
+      "sha256_after": "33230ad1a96f436859b132b384d4fa0ffcd6566c78cdfaeb4d1132060945e973"
+    },
+    {
+      "path": "go/flow_VI.md",
+      "status": "updated",
+      "words_before": 962,
+      "words_after": 2196,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "74fc08c9d15f59ef871adaa105c9d50c689380fceeeb90dd9ee3347c61810b15",
+      "sha256_after": "3398bb338391230ba2f3bf55dc5cd6283d2cb4990c4aa62a1a4023cfd08efbc3"
+    },
+    {
+      "path": "go/functions_EN.md",
+      "status": "updated",
+      "words_before": 863,
+      "words_after": 1826,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "37636b9195cb2ff18d09365e114bbda4e588349a76a46f88cf2e12fb9c76d7b8",
+      "sha256_after": "20e2d77df4487bcf498a2cf6a365297307de2081fcf38f74c0dae7eaf18d9aba"
+    },
+    {
+      "path": "go/functions_VI.md",
+      "status": "updated",
+      "words_before": 1013,
+      "words_after": 2179,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "3d2ad30b0269cf6e59e3cacfcfd55606b4ce9fa9fc932cab0223f9dca5810783",
+      "sha256_after": "fc666b210e222f115472aac52aa857e07c5f1e22d1cec52184e1a5ca88c21e5a"
+    },
+    {
+      "path": "go/garbage_collection_EN.md",
+      "status": "updated",
+      "words_before": 1340,
+      "words_after": 2247,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "0e26a4b7b0bc1c8646639de9a817f2c77de4d00a320e3f4ff132b07a9ba5df16",
+      "sha256_after": "e3225e99bb18052f25d47ab0e40fec9a8248e22b4f0e6143013dc3c6a067d6be"
+    },
+    {
+      "path": "go/garbage_collection_VI.md",
+      "status": "updated",
+      "words_before": 1638,
+      "words_after": 2540,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "137f1f71f79993deac037eacbbeb626bbc32238be59bf5ff8d2201906583812b",
+      "sha256_after": "a5c6d866ea683f99170815b41ffb6c6780b6c3e56eefa1a972467b83a791038a"
+    },
+    {
+      "path": "go/goroutines_EN.md",
+      "status": "updated",
+      "words_before": 1558,
+      "words_after": 2322,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "4a09795d7fc2b4b97f2933ad0bfa13b71bd8c9d2edb1670fac68ff6e9991dfed",
+      "sha256_after": "4a64133136953fa81cfb1a567086df7d25b40c51fa479d1a2cde638dbf4ebcfe"
+    },
+    {
+      "path": "go/goroutines_VI.md",
+      "status": "updated",
+      "words_before": 1895,
+      "words_after": 2671,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "95b8a1589d95be25f6ed42d75e3159f3287ccc7e84f87b2562974c44f91291ec",
+      "sha256_after": "2edbf1e4d2fefc625f34a692379aeb23ab64c5f7c563a1b6ac2184fcba8de872"
+    },
+    {
+      "path": "go/interfaces_EN.md",
+      "status": "updated",
+      "words_before": 849,
+      "words_after": 1555,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "b850aa220f43f63512a1810e157ac74969adf8f96a814a0f4a41985bf1cd425b",
+      "sha256_after": "db781179ea528f30d95ed3e2364f5b4252537eae7d0d733b9683647d2a2c7e0c"
+    },
+    {
+      "path": "go/interfaces_VI.md",
+      "status": "updated",
+      "words_before": 960,
+      "words_after": 1719,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "20a9e66ec5a18a231b9a10ef53c413a42e45637b7220bceeb4c043f8b75827e0",
+      "sha256_after": "dd34f1e09f3d3d97704099b1ca7ff9859878d5d7db3635bb24855c383cd20951"
+    },
+    {
+      "path": "go/intro_EN.md",
+      "status": "updated",
+      "words_before": 830,
+      "words_after": 1438,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "366f29a726db6ba02f23fd9d2b40ea8314c7e2ef9bde69788dee5bc447ef6498",
+      "sha256_after": "0fdac19a2c08ecf1e502ccfff5975260f756910056b486891af6eaa2dc148195"
+    },
+    {
+      "path": "go/intro_VI.md",
+      "status": "updated",
+      "words_before": 1090,
+      "words_after": 1828,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "53b41f12bf04d1432320178aa68ab656d8ccde9a6a643b9260a219fd8054a70d",
+      "sha256_after": "6b333866f628c2967207e22876d3f5ae6833f13773014e2da87b30c3ed16717f"
+    },
+    {
+      "path": "go/maps_EN.md",
+      "status": "updated",
+      "words_before": 1608,
+      "words_after": 2217,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "a3968daf91771917d9f5d0d0a214ed3bdcefe367084a6cf35bc9a9591fe6970b",
+      "sha256_after": "cf78c3f8e6bcde5b94be1b98a848b2b62733ea63bfa68442b2e781b1b4994332"
+    },
+    {
+      "path": "go/maps_VI.md",
+      "status": "updated",
+      "words_before": 1831,
+      "words_after": 2548,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "437214339efe820af327f8fb6328944aaa1916c07e633b61684067e02016ae9f",
+      "sha256_after": "5992b23ce7afa4198efecb8765ae389ff2d5b1cc6e15c6893c85176e8c9450e6"
+    },
+    {
+      "path": "go/methods_EN.md",
+      "status": "updated",
+      "words_before": 721,
+      "words_after": 1414,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "11a97f69c0218c2d947dd0b17b0b6e041896a9da6b887a635e91ef10b13c43f2",
+      "sha256_after": "4551d1344d6330898d8272f943fce8e469b4e06e996c0965b58ebe59a7241454"
+    },
+    {
+      "path": "go/methods_VI.md",
+      "status": "updated",
+      "words_before": 821,
+      "words_after": 1620,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "ce0fc9101b5c11b7a6b6353fa348beee36096230eac45c02fd46554b1d456c16",
+      "sha256_after": "b0dc28b0eea10b60b688ab691b628e4af042b51121ff83946d14814363fcb2e3"
+    },
+    {
+      "path": "go/pointers_EN.md",
+      "status": "updated",
+      "words_before": 764,
+      "words_after": 1725,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "f40db2785a0728e67bd8a91a729320e679e11d27904f84b8a218276f1c59d82e",
+      "sha256_after": "bd1f83899cd718aaa20b93e8ba537dbb1c2dba06a3fe230fed8bc2d82d935fda"
+    },
+    {
+      "path": "go/pointers_VI.md",
+      "status": "updated",
+      "words_before": 940,
+      "words_after": 2103,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "b83daa1a9ef810833cbc3f3a1f7b4e165c8d1c45a8639343ec35bec37c4d9991",
+      "sha256_after": "52b77b17bcacc1b0596b833700e1b31487351eab985498578f4aa6ebe7e4d00d"
+    },
+    {
+      "path": "go/slices_EN.md",
+      "status": "approved-sample",
+      "words_before": 2426,
+      "words_after": 2426,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "32593c4f7eac7ba40b09a66e8fddb95c7a71cba70c4fa85867895465cd14d6b9",
+      "sha256_after": "32593c4f7eac7ba40b09a66e8fddb95c7a71cba70c4fa85867895465cd14d6b9"
+    },
+    {
+      "path": "go/slices_VI.md",
+      "status": "approved-sample",
+      "words_before": 2962,
+      "words_after": 2962,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "51fd1ef937c1fb40af6051c47b809f7af4991dd16d41d599b478465afdb83ce6",
+      "sha256_after": "51fd1ef937c1fb40af6051c47b809f7af4991dd16d41d599b478465afdb83ce6"
+    },
+    {
+      "path": "go/structs_EN.md",
+      "status": "updated",
+      "words_before": 729,
+      "words_after": 1608,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "83f0ca585e92286f049809e15761aa1970ef6427c78bad39acfb61595ea20d34",
+      "sha256_after": "bc8a4861d3262f222d38599b9c74591c9f38a3bb7f30c3c9878e2d31160bda4a"
+    },
+    {
+      "path": "go/structs_VI.md",
+      "status": "updated",
+      "words_before": 884,
+      "words_after": 1937,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "294d521fb1eac9c4cb4cc09089655bf156e78b7987b05cf0d7407fb8f106cefd",
+      "sha256_after": "e5ab0a3a6ce47419b4ce0007a1079e080435db5f60fcf61470ccf80e6bcf2d5f"
+    },
+    {
+      "path": "go/variables_EN.md",
+      "status": "updated",
+      "words_before": 848,
+      "words_after": 1644,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "19ebb59a55c3a57144015724bd965d29039e46127fcf713f4392b557b39bab86",
+      "sha256_after": "614db65e3450e0729437fdb275f23ec47a589b87bcd0f439d617716cd66ffe9c"
+    },
+    {
+      "path": "go/variables_VI.md",
+      "status": "updated",
+      "words_before": 1012,
+      "words_after": 2032,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "71418303e7738faee90f12e8e0eddb8863c786ba3ff51a920f7fa67f086391b8",
+      "sha256_after": "f525bbf0dad50e984cf4e7a367c7a43931c480238a3201643ce1f3832f4b2fc6"
+    },
+    {
+      "path": "libraries/ants_EN.md",
+      "status": "updated",
+      "words_before": 790,
+      "words_after": 1037,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "7d274100c0f3abf850226bf1ddc4b2752d4bad9a88713d319e14168d9cfda810",
+      "sha256_after": "a5078c0c2b620593c32a3207b9febb89a6e95d836847494e02e7c024526d89d0"
+    },
+    {
+      "path": "libraries/ants_VI.md",
+      "status": "updated",
+      "words_before": 877,
+      "words_after": 1398,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "815a8f8dcc397462cc13df63f2b111f6c7ceceb4796fa85886c8dc630923aaf2",
+      "sha256_after": "a55001df00c5e5fc01becb7227f6f99a0ce96fd37e22b0e4122f0f6004ac5a09"
+    },
+    {
+      "path": "network/api-communication_EN.md",
+      "status": "updated",
+      "words_before": 566,
+      "words_after": 960,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "bc70b42bb306ab06f81dbdd5c152b6dd59afb5ad32e4cf176fff978be634a4ea",
+      "sha256_after": "18614b293b9c02b9048057dbcf3613e8021636cf438459c1325d8f17c185fbda"
+    },
+    {
+      "path": "network/api-communication_VI.md",
+      "status": "updated",
+      "words_before": 718,
+      "words_after": 1266,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "92498a4aa3152840e73fad5233d708ce5d060a1fd50a5b53fdfb587d29c422e0",
+      "sha256_after": "a2556dc76387cc34b914bbe991dedc1ceb0415a231d55d81ff94451512cdc941"
+    },
+    {
+      "path": "operating-system/stack_vs_heap_EN.md",
+      "status": "updated",
+      "words_before": 440,
+      "words_after": 907,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "a31264a71969b304457c8e19c7af0d24f4c56cad73ca10f4e9c29d26f04b2869",
+      "sha256_after": "3cd822564e3e09f1039295226c046eedd92fea6a557d3a1d3761ecbe6736739a"
+    },
+    {
+      "path": "operating-system/stack_vs_heap_VI.md",
+      "status": "updated",
+      "words_before": 608,
+      "words_after": 1236,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "4a07e6b89607b98163ff7eb2f2025f8314c98969da3dab19a2208d6e3eb21c10",
+      "sha256_after": "e82ae457de51f8f5dc2b15bac170c25b39b0dfa67cdf425d54451ac55af04bc0"
+    },
+    {
+      "path": "temporal/activity-reliability_VI.md",
+      "status": "updated",
+      "words_before": 934,
+      "words_after": 1250,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "c293eef30578d7c05cf43d12cee95db74b549607b7a0e7dc18cc6f2989cfe738",
+      "sha256_after": "941ea6c61ce83b83af3c9b13967e160c43fedb5724093e5c5428e0ddc7f7e5a2"
+    },
+    {
+      "path": "temporal/advanced-patterns_VI.md",
+      "status": "updated",
+      "words_before": 1050,
+      "words_after": 1480,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "f402fe0b69ae66bfd035e2678ac7475aa933267507804e5d1ea7e6798831a094",
+      "sha256_after": "a6f2c158d613c67aa4698a0ac66fbd23cd9f5484324b754e969c0c337b364be9"
+    },
+    {
+      "path": "temporal/data-and-observability_VI.md",
+      "status": "updated",
+      "words_before": 964,
+      "words_after": 1337,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "98eb1d44a2a06c31a5b215507fab61233c50e39a57363097f6d8b6a3089cae1d",
+      "sha256_after": "376a4c8515b05024bf3a84f36ca25f91603232076fecc444a324811d9b9f4b35"
+    },
+    {
+      "path": "temporal/fundamentals_VI.md",
+      "status": "updated",
+      "words_before": 830,
+      "words_after": 1073,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "28fb4e5ff1efb949d8d05c7f7e6fa350f0fd754f4b8a4c44de9dd84fb478b13f",
+      "sha256_after": "f340a7aaf99a2bd253ea3e7bc42c8a6718282fe0ab89309afa026dd11e60d740"
+    },
+    {
+      "path": "temporal/history-and-determinism_VI.md",
+      "status": "updated",
+      "words_before": 803,
+      "words_after": 1047,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "3c278701b042b8d47adc113f8e3c7d6948413fe0a0de1fc4d1bc0eb8f443290c",
+      "sha256_after": "5454bc6d3c01ea65ce57f79c770d66cad685989ec0facc4a91a9458035820b23"
+    },
+    {
+      "path": "temporal/orchestration_VI.md",
+      "status": "updated",
+      "words_before": 886,
+      "words_after": 1331,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "a695cbe7f932bf3b6a75fc7f16e77303719d9ec25d090ca80b25cb10f6d6a0c3",
+      "sha256_after": "91c99db3f115c9cc436b4a534db6f84ad64ac825c0f8edd49a2ca1053efd619e"
+    },
+    {
+      "path": "temporal/production_VI.md",
+      "status": "updated",
+      "words_before": 885,
+      "words_after": 1234,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "7bc11bafddcd6508be787e7fbf87250e9f56647f765d2883be6807b28d534299",
+      "sha256_after": "42e9c4f0d0e68110e3f43edd85ff096b5a5705f019410e0f52651f82b0270904"
+    },
+    {
+      "path": "temporal/testing-and-deployment_VI.md",
+      "status": "updated",
+      "words_before": 919,
+      "words_after": 1328,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "0a6c2a9e7f7a6be43a3544a0a20bf9123004cb24d90d8af59784b101dc4efdba",
+      "sha256_after": "015172e18e0ab72f460c030af0eefd552850a43de784fabe907947402691760a"
+    },
+    {
+      "path": "workflow-engine/cron-vs-schedule_VI.md",
+      "status": "updated",
+      "words_before": 378,
+      "words_after": 903,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "861c6a5b50afdfbe2a6c7d09f89e7775a9b7b9514805bb7e3f73007efb1f9f0f",
+      "sha256_after": "a24438719ec0054b8a53f47895305353673b877919dd9f63fee488378abd25ff"
+    },
+    {
+      "path": "workflow-engine/workflow-history_VI.md",
+      "status": "updated",
+      "words_before": 383,
+      "words_after": 951,
+      "visualizations_before": 0,
+      "visualizations_after": 0,
+      "sha256_before": "2b22d7c11e8a26c35a79599bb39fcd5b25b3aab8c507b9d01c647987538bcc7a",
+      "sha256_after": "fba678b909c9e5aafdcaef7db29ec8dd6371db5b478f5b80b859723c8d9c3e16"
+    }
+  ]
+}

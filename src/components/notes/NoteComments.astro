@@ -1,0 +1,81 @@
+---
+import { noteCommentsConfig, noteCommentsEnabled } from '../../data/note-comments';
+import type { NoteLocale } from '../../content/notes';
+
+interface Props {
+  locale: NoteLocale;
+  translationKey: string;
+}
+
+const { locale, translationKey } = Astro.props;
+const title = locale === 'vi' ? 'Thảo luận' : 'Discussion';
+const description = locale === 'vi'
+  ? 'Trao đổi về bài viết này. Bạn cần đăng nhập GitHub để bình luận.'
+  : 'Discuss this note. Sign in to GitHub to leave a comment.';
+---
+
+{noteCommentsEnabled && <section class="note-section note-comments" aria-labelledby="note-comments-heading">
+  <p class="eyebrow">{locale === 'vi' ? 'Cùng học' : 'Learn together'}</p>
+  <h2 id="note-comments-heading">{title}</h2>
+  <p class="note-comments-description">{description}</p>
+  <div
+    class="giscus"
+    data-repo={noteCommentsConfig.repo}
+    data-repo-id={noteCommentsConfig.repoId}
+    data-category={noteCommentsConfig.category}
+    data-category-id={noteCommentsConfig.categoryId}
+    data-term={translationKey}
+    data-lang={locale}
+    aria-label={title}
+  ></div>
+</section>}
+
+<script>
+  const container = document.querySelector<HTMLElement>('.giscus');
+  if (container) {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('data-repo', container.dataset.repo ?? '');
+    script.setAttribute('data-repo-id', container.dataset.repoId ?? '');
+    script.setAttribute('data-category', container.dataset.category ?? '');
+    script.setAttribute('data-category-id', container.dataset.categoryId ?? '');
+    script.setAttribute('data-mapping', 'specific');
+    script.setAttribute('data-term', container.dataset.term ?? '');
+    script.setAttribute('data-strict', '1');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    script.setAttribute('data-lang', container.dataset.lang ?? 'en');
+    script.setAttribute('data-loading', 'lazy');
+    container.append(script);
+
+    const syncTheme = () => {
+      const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+      frame?.contentWindow?.postMessage({
+        giscus: {
+          setConfig: {
+            theme: document.documentElement.dataset.theme === 'light' ? 'light' : 'dark',
+          },
+        },
+      }, 'https://giscus.app');
+    };
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>
+
+<style>
+  .note-comments-description {
+    margin: -0.35rem 0 1.5rem;
+    max-width: 42rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .giscus {
+    min-height: 8rem;
+  }
+</style>

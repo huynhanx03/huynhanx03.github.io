@@ -3,7 +3,6 @@ title: "Điều phối Workflow bằng Signal, Query và Timer"
 category: "Workflow Engine"
 kind: "guide"
 translationKey: "cadence/orchestration"
-translationPending: true
 series: "Cadence"
 seriesOrder: 5
 description: "Chọn đúng primitive để nhận yêu cầu, đọc trạng thái, chờ lịch và phối hợp các bước nghiệp vụ dài hạn."
@@ -17,9 +16,14 @@ sources:
   - title: "Cadence Child Workflows"
     url: "https://cadenceworkflow.io/docs/concepts/workflows"
 draft: false
+updated: 2026-10-15
 ---
 
-Workflow hữu ích khi nó có thể chờ và nhận thay đổi nghiệp vụ mà không cần giữ process hoặc goroutine thường sống suốt thời gian đó. Ví dụ đơn hàng chờ khách bổ sung giấy tờ, chờ thời hạn thanh toán, hoặc nhận sự kiện giao hàng. Các primitive message, timer và child workflow giải quyết những nhu cầu khác nhau; dùng nhầm primitive làm logic khó hiểu và history khó vận hành.
+Đơn hàng chờ khách thanh toán trong 15 phút. Dashboard muốn biết còn chờ không; webhook có thể báo đã trả tiền; hết hạn thì workflow cần giải phóng hàng. Ba yêu cầu này nhìn giống “giao tiếp với workflow”, nhưng không có cùng hợp đồng.
+
+Ta sẽ chọn primitive theo điều cần bảo đảm: đưa sự kiện vào, đọc state, chờ một hạn hay tạo một đơn vị execution mới. Cadence có thể giữ tiến trình qua các lần worker dừng; nó không cần một goroutine Go thông thường giữ nguyên trong RAM suốt thời gian chờ.
+
+
 
 ## Signal và Query có hợp đồng khác nhau
 
@@ -28,6 +32,14 @@ Signal gửi thông tin vào Workflow đang chạy theo kiểu bất đồng b�
 Query đọc state hiện tại mà không ghi event mới. Query phù hợp cho dashboard hỏi “đơn này đang ở bước nào?” nhưng handler phải đọc state trong bộ nhớ Workflow và không gọi database hay thay đổi trạng thái. Query không phải API để chạy một tác vụ mới; kết quả có thể phản ánh một thời điểm cụ thể và client nên hiểu workflow có thể tiến triển ngay sau đó.
 
 Cadence hiện cung cấp Signal để ghi bất đồng bộ và Query để đọc state; đừng gán cho Cadence API Update như Temporal. Nếu Client cần kết quả xác nhận cho một yêu cầu ghi, phải thiết kế hợp đồng rõ ràng: gửi Signal mang request ID, Workflow lưu kết quả và gửi phản hồi qua một kênh ứng dụng, hoặc chờ một Query sau khi biết Workflow đã xử lý request đó. Query đọc đồng bộ nhưng không tự bảo đảm nó đã nhìn thấy Signal cụ thể nào. Chương so sánh cuối sẽ nói rõ vì cùng tên khái niệm không đảm bảo API và hành vi giống hệt.
+
+### Gửi thành công chưa có nghĩa đã xử lý xong
+
+Giả sử webhook gửi Signal `payment-received` mang request ID. Phản hồi gửi thành công chưa phải kết quả nghiệp vụ “đơn đã chuyển PAID”. Workflow có thể đang chờ task hoặc xử lý một bước khác. Nếu bên gửi cần xác nhận đã áp dụng sự kiện, hợp đồng phải có kết quả được gắn với chính request ID đó.
+
+Cadence có Query eventual và strong. Strong Query phản ánh các event đã được Service nhận thành công trước lúc gửi Query; eventual Query có thể chưa thấy Signal trước đó. Nhưng nhận event chưa đồng nghĩa mọi bước Activity phát sinh từ nó đã xong. Ghi request ID và trạng thái hoàn tất nghiệp vụ để phân biệt các mốc ấy. Xem [Consistent Query](https://cadenceworkflow.io/docs/go-client/queries#consistent-query).
+
+Nếu webhook tới hai lần, khóa sự kiện phải biểu thị cùng hành động logic để tránh cộng hoặc chuyển trạng thái hai lần. Signal là đường chuyển thông tin, không tự thay thế quy tắc nghiệp vụ chống trùng.
 
 ## Timer, Cron và Schedule
 
@@ -43,6 +55,12 @@ Child Workflow hữu ích khi một phần quy trình cần vòng đời và his
 
 Khi start nhiều child, quyết định rõ parent đóng thì child được để chạy, cancel hay terminate; chờ kết quả của tất cả hay chấp nhận kết quả từng phần. Giới hạn số child đồng thời để tránh tạo bão task. Child không tự chia sẻ bộ nhớ với parent; dùng kết quả, Signal hoặc persisted input/output làm hợp đồng.
 
+### Khi thanh toán và timer cùng sẵn sàng
+
+Một lần chờ thanh toán cần quyết định thế nào khi thông báo trả tiền tới gần hạn. Timer fire không đủ để suy ra provider chưa thu tiền; Signal tới cũng cần xác thực và kiểm tra đúng đơn. Workflow nên có quy tắc chuyển trạng thái rõ, chẳng hạn chỉ quyết định một lần từ WAITING, còn kết quả bên ngoài đến muộn được đưa vào nhánh đối soát/hoàn tiền thích hợp.
+
+Selector và channel của SDK giúp xử lý chờ theo mô hình deterministic. Chúng không tự chọn thay chính sách nghiệp vụ cho tranh chấp tại deadline. Ghi quy tắc ấy vào state machine để người vận hành hiểu vì sao execution đi theo nhánh đã chọn.
+
 ## Cancellation, timeout và compensation
 
 Cancellation là yêu cầu hợp tác. Workflow có thể dừng chờ, gửi cancellation xuống Activity/child, chạy cleanup rồi đóng trạng thái đã hủy. Termination là dừng cưỡng bức, không cho code cơ hội dọn dẹp. Dùng termination khi cần cắt execution ngay và chấp nhận trạng thái ngoài hệ thống có thể dang dở; với thanh toán hay giao hàng, cancel có phối hợp thường an toàn hơn.
@@ -50,3 +68,11 @@ Cancellation là yêu cầu hợp tác. Workflow có thể dừng chờ, gửi c
 Saga compensation không phải rollback transaction tự động. Nếu reserve hàng thành công rồi charge thất bại, Workflow gọi một bước nghiệp vụ mới để release hàng. Compensation cũng có thể thất bại hoặc cần retry; thiết kế nó thành Activity idempotent, ghi rõ thứ tự, và quyết định dừng hay tiếp tục các bước bù. Càng nhiều side effect thì càng cần trạng thái nghiệp vụ minh bạch.
 
 Hãy bắt đầu từ câu hỏi “điều gì có thể gửi vào quy trình, và quy trình chờ cái gì?”. Từ đó chọn Signal cho sự kiện bất đồng bộ, Query cho đọc state, Timer cho chờ bên trong một execution, Schedule cho recurring start, Child Workflow khi cần đơn vị độc lập, và compensation khi rollback nghiệp vụ không thể thực hiện nguyên tử.
+
+## Tự kiểm tra primitive
+
+**Query có nên sửa trạng thái để đánh dấu “đã xem” không?** Không. Nếu cần ghi sự kiện đó, dùng một đường ghi phù hợp; handler đọc không được biến thành command ngầm.
+
+**Một báo cáo hằng ngày là timer của đơn hàng hay Schedule?** Nếu mỗi ngày cần một execution báo cáo độc lập, Schedule diễn đạt recurring start rõ hơn. Timer phù hợp với hạn/chờ của một execution đang tồn tại.
+
+**Release hàng thất bại sau Charge lỗi có phải Saga đã rollback xong không?** Không. Compensation là công việc mới có thể lỗi, cần retry hoặc trạng thái yêu cầu người xử lý; phải quan sát cả bước bù.

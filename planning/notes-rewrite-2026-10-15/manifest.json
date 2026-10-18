@@ -1,0 +1,989 @@
+[
+  {
+    "path": "cadence/activity-reliability_VI.md",
+    "words_before": 856,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "cadence/choosing-cadence_VI.md",
+    "words_before": 753,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "cadence/data-and-observability_VI.md",
+    "words_before": 843,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "cadence/first-workflow_VI.md",
+    "words_before": 723,
+    "visualizations": [],
+    "images": [
+      "![Cadence khôi phục Workflow bằng history mà không gọi lại Activity đã hoàn tất](/images/notes/cadence/durable-replay.png)"
+    ]
+  },
+  {
+    "path": "cadence/fundamentals_VI.md",
+    "words_before": 773,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "cadence/orchestration_VI.md",
+    "words_before": 1001,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "cadence/production-operations_VI.md",
+    "words_before": 828,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "cadence/replay-and-code-changes_VI.md",
+    "words_before": 876,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/abstract-data-types_VI.md",
+    "words_before": 1066,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"stack-contract\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/aho-corasick_VI.md",
+    "words_before": 792,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"aho-trie\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"aho-failure\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"aho-scan\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/alpha-beta-pruning_VI.md",
+    "words_before": 550,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"minimax\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"alpha-beta\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/arithmetic-functions_VI.md",
+    "words_before": 539,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"totient\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"mobius\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/arrays-and-slices_VI.md",
+    "words_before": 1197,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"slice-alias\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"two-pointers\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"prefix-sum\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"utf8-bytes-runes\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/b-trees_VI.md",
+    "words_before": 536,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"btree-insert\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bplus-range\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/backtracking_VI.md",
+    "words_before": 588,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"n-queens\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/balanced-search-trees_VI.md",
+    "words_before": 536,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"avl-insert\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"red-black-insert\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"splay-access\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/binary-search-trees_VI.md",
+    "words_before": 614,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"bst-search\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bst-insert\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bst-delete\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/binomial-lucas-wilson_VI.md",
+    "words_before": 595,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"binomial-pascal\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"lucas\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"wilson-factorial\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/bipartite-matching_VI.md",
+    "words_before": 534,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"bipartite-augment\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"matching-as-flow\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"min-cost-assignment\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/branch-and-bound_VI.md",
+    "words_before": 707,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"knapsack-branch-bound\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/bridges-articulation_VI.md",
+    "words_before": 687,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"bridges-lowlink\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"articulation-lowlink\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/centroid-decomposition_VI.md",
+    "words_before": 522,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"nearest-red\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"centroid-build\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/combinatorics-inclusion-exclusion_VI.md",
+    "words_before": 543,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"permutations-count\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"combinations-count\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"inclusion-exclusion\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/complexity-classes_VI.md",
+    "words_before": 622,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"hamilton-certificate\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/complexity_VI.md",
+    "words_before": 1252,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"linear-count\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"nested-loop-count\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"halving-count\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"dynamic-capacity\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/configuration-generation_VI.md",
+    "words_before": 600,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"binary-configurations\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"next-permutation\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/data-compression_VI.md",
+    "words_before": 603,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"rle-codec\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"huffman-codec\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"lz77-codec\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/distribution-sorting_VI.md",
+    "words_before": 585,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"counting-sort\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"radix-sort\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bucket-sort\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/divide-and-conquer_VI.md",
+    "words_before": 1078,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"merge-call-tree\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/dp-classics_VI.md",
+    "words_before": 521,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"lis-dp\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"knapsack-dp\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"edit-distance\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/dsu-rollback_VI.md",
+    "words_before": 598,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"dsu-rollback\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"offline-connectivity\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/dynamic-programming_VI.md",
+    "words_before": 555,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"stairs-bottom-up\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"stairs-memo\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/efficient-sorting_VI.md",
+    "words_before": 628,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"merge-sort\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"quick-sort\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"heap-sort\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/elementary-sorting_VI.md",
+    "words_before": 601,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"selection-sort\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"insertion-sort\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bubble-sort\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/euler-hamilton_VI.md",
+    "words_before": 585,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"euler-check\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hierholzer\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hamilton-search\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/floyd-warshall_VI.md",
+    "words_before": 626,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"floyd-warshall\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/graph-representation-bfs-dfs_VI.md",
+    "words_before": 614,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"graph-adjacency\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bfs\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"dfs\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/greedy_VI.md",
+    "words_before": 528,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"interval-scheduling\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"greedy-coin-counterexample\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/hash-tables_VI.md",
+    "words_before": 665,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"hash-chaining\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hash-linear-probing\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hash-rehash\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/heaps-priority-queues_VI.md",
+    "words_before": 538,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"heap-push-pop\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"build-heap\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"heap-top-k\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/heavy-light-decomposition_VI.md",
+    "words_before": 719,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"hld-decompose\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hld-path-query\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/lca-binary-lifting_VI.md",
+    "words_before": 783,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"ancestor-table\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"lca-query\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"tree-distance\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/linked-lists_VI.md",
+    "words_before": 768,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"singly-linked-list\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"doubly-linked-list\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"floyd-cycle\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/manacher_VI.md",
+    "words_before": 722,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"manacher-odd\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"manacher-even\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/max-flow_VI.md",
+    "words_before": 514,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"max-flow-augment\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"min-cut\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/min-cost-flow_VI.md",
+    "words_before": 783,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"min-cost-flow\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/minimum-spanning-trees_VI.md",
+    "words_before": 514,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"mst-cut\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"kruskal\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"prim\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/modular-arithmetic-euclid_VI.md",
+    "words_before": 614,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"normalize-modulo\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"euclid\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"extended-euclid\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"binary-power\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/modular-inverse-crt_VI.md",
+    "words_before": 616,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"modular-inverse\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"crt-merge\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/modular-roots-discrete-log_VI.md",
+    "words_before": 526,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"euler-criterion\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"sqrt-mod-3\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"tonelli-shanks\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bsgs\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/nim-sprague-grundy_VI.md",
+    "words_before": 541,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"nim-xor\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"nim-winning-move\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"grundy-mex\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/primes-factorization-divisors_VI.md",
+    "words_before": 500,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"eratosthenes\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"spf-factorization\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"trial-factorization\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"miller-rabin\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"pollard-rho\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"divisor-count-sum\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/probability-for-algorithms_VI.md",
+    "words_before": 569,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"probability-outcomes\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"conditional-probability\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"expectation\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/problem-solving_VI.md",
+    "words_before": 1343,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"scan-maximum\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/recursion_VI.md",
+    "words_before": 1130,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"factorial-stack\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"fibonacci-calls\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/rolling-hash_VI.md",
+    "words_before": 577,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"hash-prefix\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hash-substring\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"hash-window\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/searching_VI.md",
+    "words_before": 585,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"binary-search\",\"preset\":\"found\"}\n```",
+      "```note-visualization\n{\"id\":\"upper-bound\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"answer-binary-search\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/segment-fenwick-trees_VI.md",
+    "words_before": 535,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"segment-query\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"segment-update\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"fenwick-query\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"fenwick-update\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/shortest-paths_VI.md",
+    "words_before": 517,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"dag-shortest-path\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"dijkstra\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"bellman-ford\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/stacks-queues-deques_VI.md",
+    "words_before": 643,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"stack-operations\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"circular-queue\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"monotonic-deque\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/string-matching_VI.md",
+    "words_before": 577,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"prefix-function\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"kmp-search\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"boyer-moore\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/suffix-approximate_VI.md",
+    "words_before": 527,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"suffix-search\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"approximate-matching\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/suffix-array-construction_VI.md",
+    "words_before": 665,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"suffix-doubling\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"kasai-lcp\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/suffix-automaton_VI.md",
+    "words_before": 610,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"sam-extend\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"sam-substring-count\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/suffix-tree_VI.md",
+    "words_before": 631,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"suffix-trie-compress\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"suffix-tree-search\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/topological-scc_VI.md",
+    "words_before": 535,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"kahn-topo\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"dfs-topo\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"scc-condensation\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"tarjan-scc\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"kosaraju-scc\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/trees-and-traversals_VI.md",
+    "words_before": 594,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"tree-preorder\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"tree-inorder\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"tree-postorder\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"tree-level-order\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/tries-radix-trees_VI.md",
+    "words_before": 532,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"trie-insert-search\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"trie-delete\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"radix-compression\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/union-find_VI.md",
+    "words_before": 433,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"union-by-size\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"path-compression\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "data-structures-algorithms/z-function_VI.md",
+    "words_before": 566,
+    "visualizations": [
+      "```note-visualization\n{\"id\":\"z-box\",\"preset\":\"normal\"}\n```",
+      "```note-visualization\n{\"id\":\"z-pattern\",\"preset\":\"normal\"}\n```"
+    ],
+    "images": []
+  },
+  {
+    "path": "database/acid_EN.md",
+    "words_before": 432,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "database/acid_VI.md",
+    "words_before": 578,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "fundamentals/concurrency_race_EN.md",
+    "words_before": 478,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "fundamentals/concurrency_race_VI.md",
+    "words_before": 662,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "fundamentals/oop_EN.md",
+    "words_before": 675,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "fundamentals/oop_VI.md",
+    "words_before": 884,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "fundamentals/solid_EN.md",
+    "words_before": 534,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "fundamentals/solid_VI.md",
+    "words_before": 587,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/channels_EN.md",
+    "words_before": 1106,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/channels_VI.md",
+    "words_before": 1283,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/composition_EN.md",
+    "words_before": 683,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/composition_VI.md",
+    "words_before": 828,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/context_EN.md",
+    "words_before": 1028,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/context_VI.md",
+    "words_before": 1214,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/errors_EN.md",
+    "words_before": 844,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/errors_VI.md",
+    "words_before": 992,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/flow_EN.md",
+    "words_before": 799,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/flow_VI.md",
+    "words_before": 962,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/functions_EN.md",
+    "words_before": 863,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/functions_VI.md",
+    "words_before": 1013,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/garbage_collection_EN.md",
+    "words_before": 1340,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/garbage_collection_VI.md",
+    "words_before": 1638,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/goroutines_EN.md",
+    "words_before": 1558,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/goroutines_VI.md",
+    "words_before": 1895,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/interfaces_EN.md",
+    "words_before": 849,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/interfaces_VI.md",
+    "words_before": 960,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/intro_EN.md",
+    "words_before": 830,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/intro_VI.md",
+    "words_before": 1090,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/maps_EN.md",
+    "words_before": 1608,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/maps_VI.md",
+    "words_before": 1831,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/methods_EN.md",
+    "words_before": 721,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/methods_VI.md",
+    "words_before": 821,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/pointers_EN.md",
+    "words_before": 764,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/pointers_VI.md",
+    "words_before": 940,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/slices_EN.md",
+    "words_before": 2426,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/slices_VI.md",
+    "words_before": 2962,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/structs_EN.md",
+    "words_before": 729,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/structs_VI.md",
+    "words_before": 884,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/variables_EN.md",
+    "words_before": 848,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "go/variables_VI.md",
+    "words_before": 1012,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "libraries/ants_EN.md",
+    "words_before": 790,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "libraries/ants_VI.md",
+    "words_before": 877,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "network/api-communication_EN.md",
+    "words_before": 566,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "network/api-communication_VI.md",
+    "words_before": 718,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "operating-system/stack_vs_heap_EN.md",
+    "words_before": 440,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "operating-system/stack_vs_heap_VI.md",
+    "words_before": 608,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "temporal/activity-reliability_VI.md",
+    "words_before": 934,
+    "visualizations": [],
+    "images": [
+      "![Ranh giới Workflow deterministic, Activity có I/O và dependency bên ngoài](/images/notes/temporal/workflow-activity-boundary.jpg)"
+    ]
+  },
+  {
+    "path": "temporal/advanced-patterns_VI.md",
+    "words_before": 1050,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "temporal/data-and-observability_VI.md",
+    "words_before": 964,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "temporal/fundamentals_VI.md",
+    "words_before": 830,
+    "visualizations": [],
+    "images": [
+      "![Temporal Client, Service, Event History, Worker và Activity giao tiếp qua Task Queue](/images/notes/temporal/temporal-architecture.jpg)"
+    ]
+  },
+  {
+    "path": "temporal/history-and-determinism_VI.md",
+    "words_before": 803,
+    "visualizations": [],
+    "images": [
+      "![Temporal dựng lại state từ Event History rồi tiếp tục tại điểm cần tiến triển](/images/notes/temporal/durable-execution-replay.jpg)"
+    ]
+  },
+  {
+    "path": "temporal/orchestration_VI.md",
+    "words_before": 886,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "temporal/production_VI.md",
+    "words_before": 885,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "temporal/testing-and-deployment_VI.md",
+    "words_before": 919,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "workflow-engine/cron-vs-schedule_VI.md",
+    "words_before": 378,
+    "visualizations": [],
+    "images": []
+  },
+  {
+    "path": "workflow-engine/workflow-history_VI.md",
+    "words_before": 383,
+    "visualizations": [],
+    "images": []
+  }
+]

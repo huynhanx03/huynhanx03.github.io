@@ -4,23 +4,29 @@ category: "Data Structures & Algorithms"
 kind: "guide"
 difficulty: "intermediate"
 translationKey: "data-structures-algorithms/divide-and-conquer"
-translationPending: true
 series: "DSA nâng cao"
 seriesOrder: 1
 tags: ["divide-and-conquer", "merge-sort", "recurrence", "master-theorem", "go"]
 description: "Đi từ merge sort đến cây đệ quy, Master theorem, và hiểu khi nào chia bài toán không giúp giảm chi phí."
 draft: false
+updated: 2026-10-15
 ---
 
-Chia để trị gồm ba bước: **chia** một bài toán thành các bài toán nhỏ cùng dạng, **giải** từng phần, rồi **ghép** các kết quả. Từ “chia” nghe đơn giản, nhưng chất lượng thuật toán nằm ở câu hỏi: *chi phí ghép là bao nhiêu, các phần có cân bằng không, và chúng có lặp lại cùng công việc không?*
+Một dãy chưa sắp có thể khó xử lý trực tiếp, nhưng hai dãy đã sắp thì trộn được bằng cách nhìn phần tử đầu còn lại của mỗi bên. Merge sort tận dụng điều này: chia dãy làm hai, sắp từng nửa, rồi giải bài toán ghép đơn giản hơn.
 
-Merge sort là ví dụ minh bạch. Chia dãy làm hai nửa, sắp xếp mỗi nửa, rồi trộn hai dãy đã sắp thành một dãy đã sắp. Base case là đoạn dài 0 hoặc 1: nó đã có thứ tự.
+Chia để trị không chỉ là có hai lời gọi đệ quy. Ta phải biết phần con có nhỏ đi không, có giải lặp không, và công việc ghép có đủ rẻ để việc chia mang lại lợi ích. Bài này dùng merge sort để nối cách cài, chứng minh và phương trình chi phí.
 
-## 1. Theo dõi một lần trộn
+## Tại sao trộn hai nửa đã sắp lại rẻ?
 
-Giả sử hai nửa đã sắp là `[2, 7, 9]` và `[1, 5, 8]`. Đặt con trỏ ở đầu mỗi nửa. So sánh `2` với `1`, lấy `1`; tiếp tục so sánh `2` với `5`, lấy `2`; sau đó lần lượt lấy `5`, `7`, `8`, `9`. Kết quả là `[1, 2, 5, 7, 8, 9]`. Mỗi phần tử được ghi một lần vào vùng đệm, nên trộn `n` phần tử tốn `Θ(n)`.
+Cho `[2,7,9]` và `[1,5,8]`. Hai giá trị đầu 2 và 1 là hai ứng viên nhỏ nhất của phần chưa lấy. Chọn 1 rồi tiến con trỏ bên phải; so 2 với 5, chọn 2; tiếp theo chọn 5, 7, 8. Bên phải hết, chép nốt 9. Kết quả `[1,2,5,7,8,9]` không đòi tìm minimum bằng một lần quét mới ở mỗi vị trí.
 
-**Bất biến của bước trộn:** sau khi ghi `k` phần tử, đoạn đầu của kết quả chứa đúng `k` phần tử nhỏ nhất trong hai nửa, theo thứ tự không giảm. Hai phần tử chưa dùng nhỏ nhất luôn ở đầu phần còn lại của từng nửa; lấy phần tử nhỏ hơn sẽ duy trì bất biến. Nếu bằng nhau, chọn từ nửa trái trước để giữ thứ tự tương đối của các phần tử bằng nhau: tính **stable**.
+Sau k lần ghi, bất biến là k vị trí đầu kết quả chứa đúng k phần tử nhỏ nhất của cả hai nửa đầu vào gộp lại, theo thứ tự không giảm. Mỗi phần tử nhỏ nhất chưa dùng của một nửa luôn nằm ở đầu phần còn lại của nửa ấy. Vì vậy chọn đầu nhỏ hơn là hợp lệ; khi một bên hết, bên kia đã có thứ tự để chép tiếp. Mỗi phần tử được ghi một lần, nên ghép n phần tử là `Θ(n)`.
+
+Nếu khóa bằng nhau, cần theo dõi cả danh tính: trái có `4A`, phải có `4B`, A xuất hiện trước B trong đầu vào. Chọn trái khi bằng giữ A trước B. Đây là điều kiện để merge sort ổn định, không tự có từ thao tác chia đôi.
+
+## Khoảng nửa mở và một buffer dùng lại
+
+Code Go sau sửa trực tiếp `values`; khai báo các hàm ở phạm vi package, không cần import. `buffer` được tạo đúng một lần trong hàm ngoài.
 
 ```go
 func MergeSort(values []int) {
@@ -63,32 +69,50 @@ func mergeSortRange(values, buffer []int, lo, hi int) {
 }
 ```
 
-`buffer` được cấp phát **một lần** và dùng lại; nếu mỗi tầng tự tạo một slice mới, tổng cấp phát và áp lực GC có thể lớn hơn dù bậc thời gian vẫn là `O(n log n)`. Đoạn `[lo, hi)` nửa mở giúp `hi-lo` chính là độ dài và hai nửa `[lo, mid)`, `[mid, hi)` không chồng nhau. Hàm sửa trực tiếp `values`; API cần nói rõ điều này.
+Đoạn `[lo,hi)` có độ dài `hi-lo`. Base case độ dài 0 hoặc 1 đã có thứ tự. `mid=lo+(hi-lo)/2` tạo hai đoạn liền kề không chồng nhau: `[lo,mid)` và `[mid,hi)`. Dãy lẻ chỉ làm độ dài lệch một, không bỏ phần tử nào.
 
-## 2. Từ code sang phương trình truy hồi
+Hai lời gọi con sửa xong mỗi nửa trước khi bắt đầu trộn. Ba index i, j, k lần lượt là vị trí đọc trái, đọc phải, ghi buffer. Các vòng chép đuôi chỉ chạy cho phần chưa hết, sau đó copy đoạn đã trộn về đúng vùng của values. Không copy toàn bộ array ở mỗi nút đệ quy, chỉ copy đoạn của nút ấy.
 
-Với `n` phần tử, có hai lời gọi trên cỡ `n/2` và bước trộn `Θ(n)`: `T(n) = 2T(n/2) + Θ(n)`, `T(1)=Θ(1)`. Cây đệ quy có khoảng `log₂ n` tầng; ở mỗi tầng, tổng số phần tử được trộn là `n`. Tổng thời gian là `Θ(n log n)`. Vùng đệm là `Θ(n)`; call stack sâu `Θ(log n)`, nên bộ nhớ phụ tổng thể là `Θ(n)`.
+Tính đúng được chứng minh theo độ dài: base case đúng; giả sử hai nửa ngắn hơn được sắp đúng, invariant trộn tạo đúng thứ tự của toàn đoạn và giữ nguyên đa tập phần tử. Vì lời gọi luôn nhỏ hơn, đệ quy kết thúc. Dãy rỗng đi thẳng vào base case; khóa trùng vẫn được xử lý với quy tắc trái trước.
 
-Nếu `n` lẻ, hai nửa khác nhau một phần tử; điều đó không đổi kết luận tiệm cận. Với mọi thuật toán dựa chỉ trên so sánh, sắp xếp tổng quát có cận dưới `Ω(n log n)` ở worst-case, nên merge sort đạt đúng bậc tối ưu trong mô hình này. Counting/radix sort vượt được cận đó vì chúng khai thác thêm giả định về khóa, không chỉ so sánh.
+```note-visualization
+{"id":"merge-call-tree","preset":"normal"}
+```
 
-## 3. Master theorem là công cụ, không phải câu thần chú
+## Chi phí nằm ở cả mỗi tầng
 
-Nhiều thuật toán có dạng `T(n) = aT(n/b) + f(n)`: tạo `a` bài toán con cỡ `n/b`, còn `f(n)` là công việc chia và ghép. So sánh `f(n)` với `n^{log_b a}` để biết chi phí chủ yếu nằm ở lá, đều giữa các tầng hay ở gần gốc, **khi các điều kiện áp dụng của định lý được thỏa**.
+Với n phần tử, hai lời gọi khoảng n/2 và trộn/copy tuyến tính cho truy hồi `T(n)=2T(n/2)+Θ(n)`, với base case hằng số. Cho n=8: tầng gốc xử lý 8 phần tử; tầng hai có hai đoạn 4, tổng 8; tầng ba bốn đoạn 2, tổng 8. Có khoảng log₂ n tầng trộn, nên tổng `Θ(n log n)`.
 
-| Truy hồi | Cách nhìn | Kết quả |
+Số lời gọi không đủ tính thời gian nếu bỏ việc trộn. Ngược lại, cộng n cho mọi node như thể mọi node xử lý toàn dãy sẽ đếm thừa. Cần dùng đúng kích thước đoạn tại mỗi node.
+
+Buffer chiếm `Θ(n)`. Hai nhánh chạy nối tiếp nên stack chỉ giữ một đường sâu `Θ(log n)` cùng lúc, không giữ toàn cây lời gọi trên stack. Tổng bộ nhớ phụ `Θ(n)`. Tạo buffer mới ở nhiều lời gọi có thể tăng tổng lượng cấp phát và áp lực GC, dù cách tổ chức cụ thể có thể vẫn giữ cùng bậc thời gian hoặc bộ nhớ đỉnh; dùng lại buffer làm mục đích rõ và tránh cấp phát không cần thiết.
+
+Sắp xếp chỉ dùng so sánh có cận dưới worst-case `Ω(n log n)` trên dữ liệu tổng quát. Merge sort đạt bậc đó. Counting/radix sort có thể nhanh hơn theo n khi tận dụng miền khóa/chữ số; chúng đổi mô hình thao tác và thêm giả định, không phủ nhận cận dưới so sánh.
+
+## Dùng cây đệ quy trước khi dùng một định lý
+
+Dạng quen thuộc `T(n)=aT(n/b)+f(n)` có a bài con gần bằng nhau, b>1 cố định, f(n) là việc ngoài đệ quy. Đặt `p=log_b a`; `n^p` phản ánh tốc độ tăng số lá. Những trường hợp cơ bản của Master theorem so f(n) với mốc này:
+
+| Quan hệ thích hợp | Chi phí chủ yếu | Kết quả thường dùng |
 | --- | --- | --- |
-| `2T(n/2)+Θ(n)` | mỗi tầng tốn `Θ(n)` | `Θ(n log n)` |
-| `T(n/2)+Θ(1)` | số tầng là `log n` | `Θ(log n)` |
-| `4T(n/2)+Θ(n)` | số bài toán con tăng nhanh | `Θ(n²)` |
+| `f(n)=O(n^(p-ε))`, ε>0 | gần lá | `Θ(n^p)` |
+| `f(n)=Θ(n^p)` | mỗi tầng đóng góp cùng bậc | `Θ(n^p log n)` |
+| `f(n)=Ω(n^(p+ε))` và điều kiện đều đặn | gần gốc | `Θ(f(n))` |
 
-Không ép Master theorem lên `T(n)=T(n-1)+1`, vì bài toán con không có kích thước `n/b` với `b>1`. Cũng không bỏ qua giả định rằng các bài toán con có kích thước gần nhau. Nếu chia lệch nặng, hãy viết truy hồi thực tế hoặc dùng cây đệ quy.
+Ở trường hợp cuối, cần điều kiện như `a f(n/b)≤c f(n)` với c<1 khi n đủ lớn. Bảng chỉ nêu dạng cơ bản; không ép mọi f hoặc mọi phép chia vào nó. `2T(n/2)+Θ(n)` cho `Θ(n log n)`; `T(n/2)+Θ(1)` cho `Θ(log n)`; `4T(n/2)+Θ(n)` cho `Θ(n²)`.
 
-## 4. Phân biệt với các kỹ thuật họ hàng
+`T(n)=T(n-1)+1` không có bài con cỡ n/b cố định. Phân hoạch quicksort lệch 0 và n-1 cũng không trở thành hai nửa chỉ vì code có hai nhánh. Khi điều kiện không khớp, khai triển hoặc vẽ cây với kích thước thực tế sẽ rõ hơn.
 
-Binary search là **giảm để trị**: mỗi bước chỉ tiếp tục trên *một* nửa, không giải cả hai. Quicksort chia quanh pivot, nhưng nếu pivot luôn tạo đoạn kích thước `0` và `n-1`, worst-case là `Θ(n²)`; chọn pivot tốt hơn cải thiện hành vi điển hình chứ không tự tạo bảo đảm worst-case cân bằng. Quy hoạch động cũng chia thành bài toán con, nhưng các bài toán con thường **chồng lặp**, nên cần lưu kết quả để tránh giải lại. Merge sort giải hai nửa không chồng lặp rồi ghép.
+## Những quan hệ bài toán con khác nhau
 
-Khi gặp một bài mới, hãy tự hỏi: (1) Phần con có cùng cấu trúc với bài gốc không? (2) Có bị giải lặp không? (3) Có chia được tương đối cân bằng không? (4) Ghép kết quả có rẻ hơn giải trực tiếp không? Nếu bước ghép trở thành `Θ(n²)`, một phép chia đẹp trên giấy chưa chắc tạo thuật toán tốt.
+Binary search chỉ tiếp tục một nửa, thường được gọi giảm để trị. Quicksort xử lý cả hai phía pivot, nhưng cân bằng hay không phụ thuộc phân hoạch; pivot đầu trên dãy tăng có thể liên tục tạo một phía n-1 và dẫn tới `Θ(n²)`. Pivot ngẫu nhiên cho bảo đảm kỳ vọng phù hợp chứ không làm mọi lần phân hoạch cân bằng.
 
-**Tự luyện:** (1) Vẽ cây đệ quy cho `n=8` của merge sort và cộng chi phí từng tầng. (2) Đổi `<=` trong bước trộn thành `<`; với hai phần tử bằng nhau có nguồn ở hai nửa khác nhau, tính stable thay đổi thế nào? (3) Phân tích `T(n)=3T(n/2)+Θ(n)` bằng cách so sánh chi phí mỗi tầng. (4) Tìm đầu vào khiến quicksort chọn phần tử đầu làm pivot bị chia lệch liên tục.
+DP lưu các trạng thái chồng lặp. Hai nửa merge sort không chồng nhau nên không cần memoization để tránh sắp lại cùng một nửa. Quay lui có thể chia thành nhiều lựa chọn nhưng còn hoàn tác trạng thái giữa các nhánh. Tên kỹ thuật nên đi sau việc hiểu quan hệ các phần, không thay cho sự phân tích ấy.
 
-*Đọc thêm trong bộ sách: Hemant Jain, chương 18 và chương 6; Adam Drozdek, chương 2 và 9; Lê Minh Hoàng, phần 2 §8.*
+Trước một phép chia mới, hỏi phần con có cùng cấu trúc không, có thu nhỏ đủ không, có bị giải lặp không và ghép mất bao nhiêu. Nếu ghép `Θ(n²)`, một cây chia cân bằng chưa tự cho tổng `Θ(n log n)`.
+
+## Tự kiểm tra có lời giải
+
+**1.** Đổi `<=` trong trộn thành `<` ảnh hưởng gì? **2.** `3T(n/2)+Θ(n)` tăng theo bậc nào? **3.** Vì sao dãy tăng gây khó cho quicksort pivot đầu?
+
+**Giải thích:** Khi hai đầu bằng nhau, `<` chọn bên phải trước, có thể đảo thứ tự của hai bản ghi bằng khóa từ hai nửa, nên mất ổn định. Với truy hồi thứ hai, tầng j có việc tỷ lệ `n(3/2)^j`; tầng gần lá chi phối và cho `Θ(n^(log₂3))`. Với quicksort nói trên, pivot luôn là minimum, một phía rỗng và phía còn lại chỉ giảm một; cộng chi phí phân hoạch n+(n-1)+... cho bậc hai. Cần nêu cách xử lý khóa bằng nhau nếu dùng dữ liệu nhiều trùng.

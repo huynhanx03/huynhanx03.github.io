@@ -1,73 +1,103 @@
 ---
-title: "ants - High-Performance Goroutine Pool"
+title: "ants: bounding work and understanding goroutine pools"
 category: "Libraries"
 tags: ["golang", "concurrency", "ants", "pool", "performance"]
+description: "Follow submission, idle workers, capacity waiting, and cleanup while separating API behavior from ants v2.11.0 internals."
+updated: 2026-10-15
+translationKey: "libraries/ants"
 ---
 
-# ants: Decoding High-Performance Optimizations in Goroutine Pools
+A program has many independent jobs. A goroutine per job is convenient, but input arriving faster than processing can create too many live jobs, consuming stacks, retaining data, and overloading dependencies.
 
-`ants` is more than just a library for managing goroutines; it is a masterclass in leveraging the Go Runtime for peak performance. This guide explores the sophisticated techniques used by `ants` to achieve massive throughput and a minimal memory footprint.
+`ants` provides a goroutine pool to bound and reuse workers. Its first benefit is concurrency control; performance depends on the workload. This article distinguishes pool usage from implementation details in **ants v2.11.0**, without claiming it is the latest version.
 
-*   **GitHub**: [panjf2000/ants](https://github.com/panjf2000/ants)
+## Follow a job through the pool
 
----
+On `Submit`, the pool looks for an idle worker. With none available and capacity remaining, it can create a worker. At capacity, submission may wait or return an overload error depending on configuration. After executing a task, a worker can return to the idle queue.
 
-## 1. Sophisticated Worker Management
+A pool does not accelerate the computation itself. If a dependency supports only 20 concurrent queries, a pool can express that bound, but thousands of callers blocked in Submit may still retain substantial memory. Bound admission and waiting callers as well as workers. Read `Nonblocking` and `MaxBlockingTasks` according to the selected version's contract.
 
-### 1.1. Worker Stack vs. CPU Cache Locality
-By default, `ants` employs a **Stack (LIFO)** to store idle workers.
-*   **Why LIFO?**: A worker that has just finished a task is pushed onto the top of the stack. When a new task arrives, `ants` pops the most recently used (MRU) worker first.
-*   **The Benefit**: This maximizes **CPU Cache Locality**. The worker that just executed is highly likely to have its data and execution context remaining in the L1/L2 cache, significantly reducing latency for the subsequent task.
+```go
+func runBatch() error {
+    pool, err := ants.NewPool(2)
+    if err != nil {
+        return err
+    }
+    defer pool.Release()
 
-### 1.2. Adaptive Channel Buffering via GOMAXPROCS
-`ants` intelligently calculates `workerChanCap` based on the available CPU cores:
-*   **GOMAXPROCS = 1**: Uses a **blocking channel** (buffer = 0). This triggers an immediate context switch from the sender to the receiver, which is optimal for single-core environments.
-*   **GOMAXPROCS > 1**: Uses a **buffered channel** (buffer = 1). This small buffer prevents the producer from being immediately blocked by the consumer's CPU-bound work, enabling better instruction-level parallelism across multiple cores.
+    results := make([]int, 4)
+    var wg sync.WaitGroup
+    var submitErr error
+    for index := range results {
+        index := index // Capture this iteration's index for older Go language versions too.
+        wg.Add(1)
+        err := pool.Submit(func() {
+            defer wg.Done()
+            results[index] = index * index
+        })
+        if err != nil {
+            wg.Done()
+            submitErr = err
+            break
+        }
+    }
+    wg.Wait()
+    if submitErr != nil {
+        return submitErr
+    }
+    fmt.Println(results) // [0 1 4 9]
+    return nil
+}
+```
 
-### 1.3. Efficient Scavenging with Binary Search
-`ants` ensures that idle workers do not persist indefinitely through a background "scavenger" goroutine:
-*   **Binary Search**: Since workers in the idle queue are strictly sorted by their `lastUsedTime`, `ants` uses binary search to near-instantaneously identify the boundary between "active" and "expired" workers.
-*   **Memory Efficiency**: Expired workers are closed and their underlying structures are returned to a `sync.Pool` to mitigate Garbage Collection (GC) pressure.
+This illustrative function imports `fmt`, `sync`, and `github.com/panjf2000/ants/v2`. `index := index` gives the closure a distinct variable even when the module still uses older loop semantics; without that line, Go 1.22 and later provide distinct per-iteration variables only when the module or file language version selects the new semantics. Tasks write different indices, and `Wait` precedes reading results. Completion order is unspecified, but fixed result positions give stable output on success.
 
----
+If Submit fails, the unaccepted task needs the caller to balance `wg.Add(1)` with `Done`. Submission stops, but already accepted tasks are still awaited. `Release` is not a business-result join; WaitGroup provides that here. Tasks that may panic or hang require application-specific error, deadline, and cleanup policies.
 
-## 2. Low-Level Performance Tweaks
+## How are idle workers selected?
 
-### 2.1. SpinLock vs. Standard Mutex
-For extremely short critical sections (e.g., slice operations when detaching/inserting workers), `ants` utilizes a **SpinLock** implemented with **Exponential Backoff**.
-*   **Mechanism**: Instead of calling `sync.Mutex` (which may trigger a kernel-level context switch to suspend the thread), the SpinLock busy-waits for a few cycles while calling `runtime.Gosched()` to yield control politely.
-*   **Why it's faster**: For ultra-short lock durations, the overhead of sleeping and waking up an OS Thread far exceeds the cost of spinning for a few CPU cycles.
+The checked version normally stores idle workers in a stack: the most recently returned worker is taken first. With PreAlloc, it uses a ring-buffer loop queue. These structures select idle workers, not task-completion order.
 
-### 2.2. Atomic Time Caching (Ticktock Mechanism)
-To avoid frequent `time.Now()` calls when checking worker expiration, `ants` implements a `ticktock` background goroutine that caches the current timestamp in an `int64` variable.
-*   **The Problem**: `time.Now()` is a **system call** (e.g., `gettimeofday` on Linux). In high-concurrency scenarios processing millions of tasks per second, the cumulative overhead of these syscalls becomes a significant CPU bottleneck.
-*   **The Solution**: `ants` updates the cached time every 500ms using `atomic.StoreInt64`. Workers then retrieve this cached value via `atomic.LoadInt64`.
-*   **Why `int64` over `time.Time`?**:
-    1.  **Atomic Safety**: Go's `sync/atomic` package operates directly on `int64`. `time.Time` is a multi-field struct that cannot be updated or read atomically without incurring lock overhead.
-    2.  **Memory & Computation**: An `int64` (8 bytes) is much leaner than a `time.Time` struct (24 bytes). Comparing two integers is a single CPU instruction, outperforming struct-based time comparisons.
+LIFO offers an opportunity to reuse a recently active worker; it does not guarantee L1/L2 residency or execution on the same CPU. FIFO queue storage likewise does not guarantee fairness among all Submit callers because lock contention and scheduling still intervene.
 
----
+References: [worker_stack.go v2.11.0](https://github.com/panjf2000/ants/blob/v2.11.0/worker_stack.go), [worker_loop_queue.go v2.11.0](https://github.com/panjf2000/ants/blob/v2.11.0/worker_loop_queue.go).
 
-## 3. Intelligent Coordination with `sync.Cond`
+## Waiting for capacity differs from acquiring a lock
 
-Instead of relying on channels for task dispatching when the pool is at capacity, `ants` leverages `sync.Cond` (Wait/Signal/Broadcast).
-*   **Mechanism**: When the pool capacity is reached, submitting goroutines invoke `cond.Wait()`.
-    *   **Suspended State**: The goroutine is fully **suspended**, consuming zero CPU cycles (unlike a busy-loop).
-    *   **FIFO Queueing**: `sync.Cond` maintains an internal FIFO queue. Waiting goroutines are added to the end of this queue.
-    *   **Lock Handover**: Calling `Wait()` **atomically unlocks** the associated SpinLock, allowing returning workers to re-enter the pool. Upon being `Signal()`-ed, the goroutine automatically re-contends for the lock before resuming.
-*   **Advantage**: This is far more efficient than channel-based throttling for managing thousands of waiting goroutines, as it avoids complex data structures and minimizes lock contention.
+Taking and returning workers requires protecting pool state. This version uses an atomic-CAS spin lock, calling `runtime.Gosched()` while acquisition fails and increasing yields through bounded exponential backoff. It is a short-critical-section implementation choice, not proof that spinning always beats `sync.Mutex`. Go mutexes also have fast paths and goroutine parking; every Lock is not an OS-thread sleep.
 
----
+When the pool has no worker capacity, `sync.Cond` lets a goroutine suspend rather than poll continuously. `Wait` releases the lock and waits, then reacquires it before returning. The condition must be rechecked because another goroutine may take a worker first. `Signal` does not guarantee first lock acquisition for the awakened goroutine.
 
-## 4. Zero-Allocation Philosophy
+These are different waits: brief competition for a data-structure lock and potentially longer waiting for processing capacity. One spin loop is not a general solution for both.
 
-### 4.1. Struct Reuse via `sync.Pool`
-Internal worker structures (`goWorker`) are recycled through `sync.Pool`. This strategy significantly reduces the churn of object allocation and deallocation, leading to lower GC pauses.
+References: [spinlock v2.11.0](https://github.com/panjf2000/ants/blob/v2.11.0/pkg/sync/spinlock.go), [sync.Cond](https://pkg.go.dev/sync#Cond).
 
-### 4.2. Generic Worker Support
-With the introduction of Go Generics, `ants` provides `PoolWithFuncGeneric[T]`.
-*   **Why it matters**: It allows passing tasks with specific types without the overhead of `interface{}` (any). This ensures **Type-Safety** while avoiding **Boxing/Unboxing** costs (heap allocations for interface headers), resulting in faster execution and less memory fragmentation.
+## Small channels and cached time address different costs
 
----
+`workerChanCap` is computed during package initialization: `GOMAXPROCS(0)==1` selects an unbuffered channel; larger values select capacity 1. It does not continuously adapt to core counts or later GOMAXPROCS changes. An unbuffered channel creates a sender/receiver rendezvous, not a guarantee of immediate receiver scheduling; capacity 1 does not make every send nonblocking.
 
-> **Key takeaway**: `ants` demonstrates how a deep understanding of the Go Runtime (GMP, GC, Scheduler) can be used to build tools that operate at the physical limits of the system's performance.
+In this version a ticktock goroutine refreshes cached time every 500 ms. Importantly, it stores `time.Time` in `atomic.Value`, rather than an integer timestamp through `atomic.StoreInt64` as some older descriptions suggest. Reducing hot-path time reads trades against the cache's update granularity.
+
+`time.Now()` is not universally a straightforward system call; platforms can provide fast time paths. Struct size or instruction counts alone do not establish overall performance. See [ants.go v2.11.0](https://github.com/panjf2000/ants/blob/v2.11.0/ants.go) for these concrete implementation choices.
+
+## Expiring workers and reusing objects
+
+A scavenger periodically examines expired idle workers. This version's structures use binary search over the relevant idle-time order. Finding the boundary can be logarithmic, but separating lists, shifting/clearing entries, and terminating workers still cost work proportional to affected elements; an entire cleanup is not necessarily O(log n).
+
+Worker structs are also reused through `sync.Pool`, reducing some allocation churn. That cache may discard objects, so it is not durable storage for long-lived resources. Struct reuse does not make every goroutine or application task allocation-free.
+
+`PoolWithFuncGeneric[T]` defines a worker function receiving T and an `Invoke` accepting T, avoiding user-side assertions from `any`. This improves the type contract. Generics do not guarantee elimination of every boxing/heap allocation or a speedup for every workload; closures, T, and task implementation still matter.
+
+Reference: [PoolWithFuncGeneric v2.11.0](https://github.com/panjf2000/ants/blob/v2.11.0/pool_func_generic.go).
+
+## Choose limits from resources, not an attractive number
+
+Network-waiting tasks and CPU-saturating tasks can need different worker counts. Consider database limits, retained data, waiting callers, and latency requirements. Moving millions of tasks from running goroutines to blocked callers does not solve admission overload.
+
+A task holding a worker while submitting dependent work to the same bounded pool can deadlock: all workers may wait for work that no worker can accept. Design task decomposition and waiting relationships instead of merely increasing size for one run.
+
+**Check your understanding.** Does size 10 guarantee only 10 live requests in the application? No: callers waiting for workers or other stages still exist. Admission control and end-to-end backpressure matter.
+
+**Should every goroutine use a pool?** No. Go already manages lightweight goroutines; a pool adds limits, waiting policies, and coordination overhead. Choose it for explicit concurrency or reuse needs, then measure the workload.
+
+Read [Goroutines](/en/notes/go/goroutines/) and [Channels](/en/notes/go/channels/) before optimizing a pool.

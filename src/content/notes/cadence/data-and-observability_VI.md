@@ -3,7 +3,6 @@ title: "Payload, Visibility và quan sát Workflow"
 category: "Workflow Engine"
 kind: "guide"
 translationKey: "cadence/data-and-observability"
-translationPending: true
 series: "Cadence"
 seriesOrder: 6
 description: "Quản lý dữ liệu đi vào Event History, tìm execution bằng Visibility và nối trace qua các Activity mà không lộ dữ liệu nhạy cảm."
@@ -17,15 +16,26 @@ sources:
   - title: "Cadence Advanced Visibility"
     url: "https://cadenceworkflow.io/docs/concepts/search-workflows"
 draft: false
+updated: 2026-10-15
 ---
 
-Event History vừa giúp khôi phục Workflow vừa là nơi dữ liệu được lưu để Worker replay. Workflow input, Activity input/output, Signal payload và kết quả khác có thể nằm trong history trong thời gian retention. Vì vậy, payload không chỉ là chi tiết truyền giữa hai hàm; nó là dữ liệu lưu trữ, bảo mật và vận hành. Hãy thiết kế trước khi đưa cả object lớn hoặc thông tin cá nhân vào lệnh Workflow.
+Nhân viên hỗ trợ hỏi “đơn nào đã chờ thanh toán hơn 30 phút?”. Đọc history của từng đơn có thể trả lời được từng trường hợp, nhưng không phải cách tìm kiếm phù hợp cho cả hệ thống. Ngược lại, một dòng Visibility cho biết execution đang mở chưa đủ giải thích vì sao Activity cuối thất bại.
+
+Ta cần tách nơi lưu dữ liệu để replay, chỉ mục để tìm execution và telemetry để quan sát thời gian/lỗi. Workflow input, Activity input/output, Signal và những payload được ghi có thể tồn tại lâu hơn một lời gọi hàm. Thiết kế chúng cần xét khả năng tiếp tục, dung lượng, bảo mật và retention cùng nhau.
+
+
 
 ## Chỉ lưu thứ cần để tiếp tục
 
 Nếu Activity xử lý video, hồ sơ lớn hoặc báo cáo, đừng gửi nguyên file qua Workflow. Lưu blob ở object storage và đưa một reference bền vững vào history. Đây là claim-check pattern. Reference cần tồn tại lâu hơn execution có thể retry/continue; khóa phải xác định ổn định để replay không sinh vô số blob rác. Cần kiểm tra quyền truy cập, retention, xóa dữ liệu và tình huống blob đã hết hạn nhưng Workflow còn chạy.
 
 Cadence ghi nhận giới hạn payload ở mức khoảng 2 MB trong các tài liệu và ví dụ hiện hành, nhưng phải xác nhận giới hạn của server, SDK và trường dữ liệu cụ thể mình sử dụng. Giảm payload bằng compression có thể giúp một số trường hợp, nhưng không thay thế việc đặt budget kích thước. Đặt metric cho số byte input/result và phát hiện payload tăng dần trước khi chạm ngưỡng.
+
+### Một reference cần mang ý nghĩa gì?
+
+Với video xử lý lâu, history có thể giữ object key, phiên bản dữ liệu và checksum thay vì toàn bộ file. Key cần chỉ đúng nội dung mà attempt sau phải dùng. Nếu object bị ghi đè bằng một file khác, replay vẫn có thể dựng state nhưng Activity về sau lại đọc dữ liệu khác với hợp đồng ban đầu.
+
+Đặt policy cho ba vòng đời: execution, object và khóa giải mã. Chúng không nhất thiết có cùng ngày hết hạn, nhưng phải tương thích với mọi đường retry/continue/điều tra còn được hỗ trợ. URL tải tạm thời không tự thay thế định danh object bền vững.
 
 ## Data Converter, mã hóa và những nơi nằm ngoài nó
 
@@ -39,10 +49,24 @@ Không đưa credential, access token hoặc secret dùng một lần vào workf
 
 Advanced Visibility phục vụ danh sách và truy vấn nhiều execution bằng metadata như Workflow ID, type, trạng thái, thời gian và custom Search Attributes. Nó trả lời “đơn hàng nào đang chờ thanh toán quá 30 phút?”. Event History trả lời “execution này đã nhận signal nào, schedule Activity lúc nào và Activity thất bại ra sao?”. Dùng nhầm hai bề mặt sẽ khiến dashboard quét history từng execution hoặc cố nhét toàn bộ payload vào chỉ mục tìm kiếm.
 
-Search Attributes là metadata có kiểu, do ứng dụng chọn. Đặt tên ổn định, tránh cardinality quá cao nếu backend visibility không phù hợp, không lưu secret, và xác nhận khả năng query/index trên deployment đang chạy. Query CLI/API thường bị giới hạn theo Domain và kích thước trang; khi danh sách lớn cần pagination hoặc API phù hợp.
+Search Attributes là metadata có kiểu, do ứng dụng chọn. Chúng được index để truy vấn, nên cần Advanced Visibility và key/type đã đăng ký trên server; Memo có thể hiện trong danh sách nhưng không được index để tìm kiếm. Nếu deployment chưa bật đúng backend, thêm thuộc tính vào Workflow chưa đủ để truy vấn nó. Đặt tên ổn định, tránh cardinality quá cao nếu backend visibility không phù hợp, không lưu secret, và xác nhận khả năng query/index trên deployment đang chạy. Query CLI/API thường bị giới hạn theo Domain và kích thước trang; khi danh sách lớn cần pagination hoặc API phù hợp. Xem [tài liệu Advanced Visibility](https://cadenceworkflow.io/docs/concepts/search-workflows) để kiểm tra yêu cầu của server.
+
+### Từ danh sách đến nguyên nhân
+
+Giả sử Visibility tìm được `order-42` đang chờ. History cho thấy Activity đã schedule nhưng chưa start; ta kiểm tra Task List và worker routing trước khi tối ưu code Activity. Nếu Activity đã start rồi timeout nhiều lần, bước kế là đối chiếu attempt với trace/log downstream.
+
+Nếu execution đang chờ timer thanh toán đúng thiết kế, tuổi execution cao chưa tự là lỗi. Alert nên dựa vào bước nghiệp vụ và SLO, tránh coi mọi workflow sống lâu là kẹt. Tách “chờ có chủ đích” với “không có khả năng tiến triển” giúp dashboard dẫn đến hành động đúng.
 
 ## Trace xuyên qua quy trình
 
 Một trace HTTP có thể bắt đầu khi người dùng submit đơn, nhưng workflow có thể tiếp tục nhiều giờ sau đó. Propagate trace/correlation ID qua Workflow input và Activity context theo thư viện tracing được SDK hỗ trợ; không lưu span đang sống qua timer. Tạo span mới cho từng Activity attempt và gắn Workflow ID, Run ID ở nơi an toàn để tìm tương quan. Tránh dùng ID không giới hạn làm label metric vì làm phình cardinality.
 
 Tối thiểu nên có metric: execution mở theo trạng thái nghiệp vụ, tuổi của workflow lâu nhất, Activity retry/timeout, Workflow Task failure, schedule latency và kích thước history/payload. Log cần chứa correlation key nhưng không in dữ liệu bí mật. Cùng nhau, Visibility cho biết quy mô và vị trí, History giải thích một execution, còn trace/metric giúp thấy độ trễ và quan hệ giữa service.
+
+## Tự kiểm tra bề mặt dữ liệu
+
+**Mã hóa payload rồi đưa email khách hàng vào Search Attributes có còn cần xét quyền đọc không?** Có. Không giả định converter bao phủ metadata chỉ mục hoặc log.
+
+**Dùng Workflow ID làm correlation key có nên đưa nó vào mọi metric label không?** Không mặc định. Số giá trị không giới hạn làm tăng cardinality; có thể dùng nó trong log/trace và đường tra cứu phù hợp.
+
+**Visibility và History khác nhau ở đâu?** Visibility giúp chọn execution cần xem; History cho diễn biến của execution ấy. Quyết định nghiệp vụ vẫn cần nguồn trạng thái có thẩm quyền, không chỉ kết quả tìm kiếm có thể trễ.

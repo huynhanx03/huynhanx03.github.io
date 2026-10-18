@@ -1,318 +1,201 @@
 ---
-title: "Goroutines"
+title: "Goroutines: concurrency, scheduling, and lifecycle ownership"
 category: "Go"
 tags: ["golang", "concurrency", "goroutines", "fundamentals"]
+description: "A goroutine is an execution stream managed by the Go runtime. The go keyword starts concurrent work, but the more important questions are who waits for it, who requests termination, and when cleanup occurs."
+updated: 2026-10-15
+translationKey: "go/goroutines"
 ---
 
-# Goroutines: Ultra-lightweight Concurrency
+A function can take a long time without needing the caller's attention the whole time. Prefixing a call with `go` starts it concurrently, allowing the caller to continue. That immediately creates a second problem: when the caller returns, who knows whether the work has finished?
 
-Go was built to conquer the multi-core world. At the heart of this power lies the **Goroutine**. Forget the heavy "Threads" of traditional operating systems; Goroutines are entities thousands of times more efficient.
+This lesson follows that question from a small program to runtime scheduling and production diagnostics. It assumes functions and basic shared-data concepts. Examples are separate snippets; put statements in `main` and import the packages used. Scheduling observations below are possibilities or implementation details, not promised output orders.
 
-## 1. What is a Goroutine?
-
-A Goroutine is a function capable of executing concurrently with other functions. A single Go application can run millions of Goroutines simultaneously without overwhelming the system.
-
-> **The main function is a Goroutine:** When a Go program starts, the runtime creates a special Goroutine called the `main goroutine`. If `main` exits, the entire program terminates immediately, regardless of whether other Goroutines are still running.
-
----
-
-## 2. Basic Mechanics
-
-### 2.1. Initiation with the `go` keyword
-Usage is simple: just add the `go` keyword before any function call.
+## Starting work and waiting for its completion
 
 ```go
-func SayHello(name string) {
-    fmt.Println("Hello", name)
-}
+func hello(name string) { fmt.Println("Hello,", name) }
 
 func main() {
-    go SayHello("An") // Executes concurrently in the background
-    fmt.Println("The main function continues running...")
-    
-    // Critical Note: If main exits, background Goroutines are terminated
-    time.Sleep(time.Second) 
+    var wg sync.WaitGroup
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        hello("An")
+    }()
+    fmt.Println("main continues")
+    wg.Wait()
 }
 ```
 
-### 2.2. Synchronization with WaitGroup
-How do we ensure the `main` function patiently waits until all Goroutines have completed their tasks? We use `sync.WaitGroup`.
+With imports `fmt` and `sync`, this is a complete program body after adding `package main` and imports. `go` starts another **goroutine**, an execution stream managed by the Go runtime. The caller continues without waiting for `hello` to return. Either printed line may appear first; the code establishes completion before `main` returns, not an order between those two prints.
+
+The `WaitGroup` counts unfinished tasks. `Add(1)` records the task before it starts, `Done` removes it when the worker exits, and `Wait` blocks until the count reaches zero. Adding inside the worker would allow `Wait` to observe zero before the worker even registers. Pair each task with exactly one `Done`, and do not copy a `WaitGroup` after first use.
+
+Returning from `main` ends the program without automatically joining other goroutines. `time.Sleep` merely waits for time to pass: a slow machine or blocked dependency can outlast it. A completion mechanism expresses the actual condition you need.
+
+Go 1.25 added `WaitGroup.Go` for starting tracked tasks; the supplied function must not panic. The explicit Add/Done form remains useful for older toolchains. Neither form carries errors, requests cancellation, or protects shared objects from concurrent mutation.
+
+## Overlapping work is not necessarily simultaneous work
+
+Concurrency organizes tasks whose progress overlaps. Parallelism means tasks actually execute simultaneously on multiple execution resources. One logical CPU can support concurrency by switching between tasks, especially while some wait for I/O. CPU work needs available processing capacity to run in parallel.
+
+Distinguish logical CPUs from physical cores: SMT, such as Intel Hyper-Threading, lets multiple hardware threads share a core's execution resources. A logical CPU count therefore does not imply that many independent cores or a proportional speedup. [Intel explains the relationship between cores and logical processors](https://www.intel.com/content/www/us/en/developer/articles/guide/hyper-thread-tuning-guide-for-video-ai-workload.html).
+
+Launching more goroutines does not increase a database's capacity or remove a hot mutex. Once a dependency saturates, extra work may simply accumulate in queues, retaining stacks, buffers, and connections. Bounded worker pools or semaphores put a deliberate limit on active work. The useful limit depends on CPU, dependency capacity, and acceptable queuing delay.
+
+Here is a small case where it is easy to reason about shared writes:
 
 ```go
-var wg sync.WaitGroup
+func squares(input []int) []int {
+    output := make([]int, len(input))
+    var wg sync.WaitGroup
+    for i, value := range input {
+        wg.Add(1)
+        go func(index, n int) {
+            defer wg.Done()
+            output[index] = n * n
+        }(i, value)
+    }
+    wg.Wait()
+    return output
+}
 
-wg.Add(1) // Declare 1 pending task
-go func() {
-    defer wg.Done() // Signal completion when the function returns
-    fmt.Println("Processing intensive data...")
-}()
-
-wg.Wait() // Blocks until all 'Done' signals are received
-fmt.Println("All tasks completed!")
+fmt.Println(squares([]int{3, 1, 2})) // [9 1 4]
 ```
 
-### 2.3. Concurrency vs. Parallelism
--   **Concurrency**: The ability to structure and manage multiple tasks to be processed simultaneously (e.g., a chef multi-tasking on one stove).
--   **Parallelism**: Executing multiple tasks at the exact same physical time (e.g., two chefs cooking on two different stoves).
+Each task receives its own index and number, then writes a distinct element. No task appends to or replaces `output`. `Wait` ensures all writes complete before the caller reads the result. Tasks may finish in any order while the result order stays tied to input indices. The caller must not mutate the input concurrently while `squares` reads it.
 
-Go is designed for you to write code with a Concurrency mindset, while the Go Runtime automatically distributes these tasks to run in Parallelism across available CPU cores.
+This example explains lifecycle and data ownership, not an efficient way to square integers. Tiny multiplications may be cheaper than goroutine overhead, and an enormous input would launch too much work. Assume numbers whose squares fit in `int`; arithmetic overflow is a separate concern.
 
-> Avoid overusing the `go` keyword indiscriminately. Every Goroutine should have a clear purpose and a strictly managed lifecycle to prevent resource exhaustion.
+## A goroutine is not an operating-system thread
 
----
+| Unit | Memory relationship | Who schedules it? | Resource implications |
+| --- | --- | --- | --- |
+| Process | Normally isolated from other processes | OS | Own resources; communication often needs IPC |
+| OS thread | Shares its process address space | OS | Own stack; switch costs depend on the OS |
+| Goroutine | Shares process memory with other goroutines | Go runtime over OS threads | Small adaptable stack; no one-to-one thread mapping |
 
-## 3. Why are Goroutines so Powerful? (Architecture & Internals)
+A private stack does not make heap objects private. Two goroutines can still hold references to the same map or user object and race on it.
 
-The efficiency of Goroutines doesn't come from magic, but from radical optimizations in the Go Runtime's internal architecture (The G-M-P Model).
+The often-quoted 2 KiB stack size is a runtime minimum, not a guarantee that every goroutine always occupies exactly that amount. Initial sizing can adapt, and stacks can grow or shrink. Stack growth may allocate new storage and copy the stack. Ordinary switching saves and restores execution state such as SP and PC; it does not require copying the entire stack on every switch.
 
-### 3.1. Comparison: Process vs. OS Thread vs. Goroutine
+There is no fixed nanosecond switching cost or universally safe goroutine count. Hundreds of thousands can be reasonable for some workloads, but stacks, retained objects, socket limits, GC, and CPU constrain the useful count. The OS continues to schedule the threads underneath Go's scheduler.
 
-Compared to traditional OS Threads:
-- Tiny stack (starting at a few KB), automatically grows/shrinks flexibly.
-- Extremely lightweight Context Switch since it's conducted in user-space (no kernel intervention required).
-- Scheduler is fully controlled by the Go runtime instead of the Operating System.
+## How G, M, and P divide the runtime's job
 
-**Benefits:**
-- Avoids 1:1 mapping between Goroutines and OS Threads.
-- Eliminates the heavy Context Switch overhead of the OS Kernel.
-- Maximizes the utilization of multi-core CPUs.
+```text
+G: goroutine state + stack
+             executes on
+M: OS thread + P: resources/right to execute ordinary Go code
+                 ├─ local runnable queue
+                 ├─ runnext
+                 └─ allocation/runtime caches
 
-**1. Each Goroutine has its own Stack memory:**
--   **Individual Stack:** Each Goroutine is born with its own dedicated memory area called a Stack (starting at just **2KB**) to store local variables and function calls. This allows them to operate independently without interfering with each other.
--   **Dynamic Scaling (Contiguous Stacks):** If 2KB is insufficient, the Go runtime automatically allocates a larger memory area and moves the data over. Unlike OS Threads, which always hold a fixed 1-8MB (leading to waste), Goroutines use only what they actually need.
+shared global queue ↔ scheduler ↔ network poller
+```
 
-**2. Scheduler's Context Switch Mechanism:**
--   A Goroutine is not a real operating system thread; it is a logical entity containing code and its own Stack area.
--   **Execution (Pointer Swap):** When it is a Goroutine's turn to run, the Go Scheduler performs an ultra-fast swap: it updates CPU registers (such as **SP - Stack Pointer** and **PC - Program Counter**) to point directly to the new Goroutine's Stack.
--   **Performance:** Since the Stack memory already exists in memory (Heap), the switch is simply a change in the address the CPU points to. **No stack data is ever copied**, allowing the switch speed to reach nanosecond levels.
+A G holds work and execution state. An M is an OS thread executing instructions. A P is a logical scheduling resource needed by an M to execute ordinary Go code. A P is not a core; neither G nor M is pinned to a particular core by this model.
 
-#### Comparison Table: Process vs. OS Thread vs. Goroutine
+`GOMAXPROCS` controls the number of Ps. It does not cap total goroutines or OS threads: blocked syscalls or cgo can require more Ms than Ps. This is why setting it to 2 does not mean the process owns only two threads.
 
-| Metric | Process | OS Thread | Goroutine |
-| :--- | :--- | :--- | :--- |
-| **Nature** | Resource isolation unit | Execution unit within process | Logic unit in Go |
-| **Managed By** | OS Kernel | OS Kernel | Go runtime |
-| **Memory Space** | Isolated | Shared | Shared |
-| **Heap** | Private | Shared | Shared |
-| **Stack** | Private | Private | Private |
-| **Stack Size** | Large, fixed | ~1–8 MB, fixed | ~2 KB, dynamic |
-| **New Creation** | Very expensive | Expensive | Very cheap |
-| **Context Switch** | Very expensive (Kernel) | Expensive (Kernel) | Cheap (User-space) |
-| **Scheduling** | Kernel | Kernel | Go scheduler |
-| **Max Quantity** | Very few | Several thousand | Hundreds of thousands – millions |
-| **Communication** | IPC | Shared memory | Channels / shared memory |
-| **Scalability** | Poor | Moderate | Very good |
-| **Design Goal** | Safety, isolation | Parallelism | Efficient concurrency |
+For source readers, familiar implementations give each P a local queue of 256 entries plus a separate preferred `runnext` slot. The bootstrap thread is called M0, but that does not promise `main` always runs there. Each M has a `g0` used on a system stack for certain runtime work; it is not an ordinary application goroutine created by `go`. These names and sizes belong to runtime implementations.
 
-### 3.2. The G-M-P Scheduler Model
+### Why container CPU configuration matters
 
--   **Goroutine**: Consumes only about **2KB** at start and has the ability to grow flexibly (growable stacks).
+Before Go 1.25, the default `GOMAXPROCS` usually followed the logical CPUs available at startup. Go 1.25 introduced Linux cgroup CPU-limit awareness and periodic adjustment as limits change. A Kubernetes CPU request is different from a CPU limit. Manual `GOMAXPROCS` configuration and compatibility settings can disable or change the automatic behavior.
 
-GMP is the scheduler model of the Go runtime, used to map logical units of work (Goroutines) onto physical execution units (OS Thread/Machine) efficiently. Go uses a highly intelligent internal scheduler. Instead of letting the Operating System manage millions of Threads, the Go Scheduler distributes millions of Goroutines (G) onto a small number of operating system threads (M) via logical processors (P). This ensures that context switching happens extremely fast.
+Inspect the application's Go version and configuration before explaining container performance from the host CPU count. `runtime.GOMAXPROCS(0)` reads the current setting without changing it.
 
-- **G (Goroutine)**: Logical unit of work.
-- **M (Machine)**: OS Thread/Physical internal thread.
-- **P (Processor)**: Intermediate execution resource, holding the right to run Go code.
+## Follow what happens when work stops being runnable
 
-#### 3.2.1. G – Goroutine (Unit of Work)
+A runnable G can be selected by an M holding a P and begin running. If it must wait for a channel or lock, it can **park**: the G waits while the M/P executes another G. The parked G generally uses no continuous CPU, but its stack and reachable objects still consume memory.
 
-| Criteria | Detailed Description |
-| :--- | :--- |
-| **Nature** | A logical task, not a Thread. Very lightweight (stack of a few KB, can grow/shrink). Not fixed to an OS Thread. |
-| **Role** | Contains: The function to run, Stack, and Metadata (status, pointers, panic info...). |
-| **Key Point** | Goroutines do not run on their own. They must be assigned to a P and run on an M. |
+A blocking syscall is different: the OS may block the M itself. Runtime mechanisms release or retake its P so another M can execute Go work. After the syscall returns, the G may reacquire a P or become runnable and wait again. There is no single return path that applies in every situation.
 
-#### 3.2.2. M – Machine (OS Thread)
+For supported network I/O, the network poller waits for readiness using OS mechanisms such as epoll, kqueue, or IOCP. That lets a waiting G release execution resources. Not every file operation or cgo call uses this path, so “I/O blocks only a goroutine” needs that qualification.
 
-| Criteria | Detailed Description |
-| :--- | :--- |
-| **Nature** | A real OS Thread created and managed by the Go runtime. |
-| **Role** | Actually executes CPU instructions. Runs Go code or is blocked by syscalls. |
-| **Key Point** | The number of Ms can be greater than Ps. M does not own the work; it is just the "worker" that executes it. |
+Idle Ps can steal runnable work from other Ps, commonly taking part of a queue to reduce contention. A global runnable queue holds shared work, and fairness checks help avoid starving it. Some scheduler paths check it every 61 scheduling ticks; a scheduling tick is not a millisecond or a bound on waiting time.
 
-#### 3.2.3. P – Processor (Scheduling Core)
+Historical global batching used roughly `len(global queue)/P + 1`, further bounded by available Gs, the caller's requested limit, and about half a local queue. A formula such as `min(..., 128)` is only a simplified view. The scheduler also considers timers, network readiness, GC, and thread state; there is no universal local → global → steal → poller search order.
 
-| Criteria | Detailed Description |
-| :--- | :--- |
-| **Nature** | P is not a CPU. P represents: The right to run Go code and comes with a local run queue to hold Goroutines. |
-| **Role** | Holds the local Run Queue of Goroutines, Cache allocator, GC state. Coordinates Goroutines very fast without global locks. |
-| **Relationship** | 1 P ↔ maximum 1 M at a time. M must have a P to run Go code. |
-| **GOMAXPROCS** | Number of Ps is determined by the `GOMAXPROCS` environment variable (defaults to the number of CPU cores). |
-| **Local Run Queue** | Each P owns a private queue containing up to **256** Goroutines waiting to run. There is also a special slot called `runnext` to prioritize the Goroutine that just woke up. |
+Go 1.14 introduced asynchronous preemption on supported platforms in addition to cooperative safe points. Consequently, modern Go should not be described as a purely cooperative scheduler. Preemption makes execution possible for other work; it does not supply the synchronization your program needs. `runtime.Gosched` likewise yields without establishing a shared-memory protocol.
 
-#### 3.2.4. Special Internal Entities
+## Give every goroutine an owner and an exit path
 
-- **M0 (Machine 0)**: The first thread created when the program starts. It is responsible for initializing the runtime and executing the `main` function.
-- **G0 (Goroutine 0)**: Every M is accompanied by a G0. G0 does not run user code but runs on the **System Stack** to perform scheduling, memory allocation, and GC management tasks.
+Suppose a worker has produced a value but the caller abandons the result. An unconditional send can wait forever. A cancellable send provides another way out:
 
-### 3.3. Smart Scheduling Mechanisms
+```go
+func forward(ctx context.Context, out chan<- int, value int) error {
+    select {
+    case out <- value:
+        return nil
+    case <-ctx.Done():
+        return ctx.Err()
+    }
+}
+```
 
-#### 3.3.1. Execution Flow
+This function needs `context`. If the send cannot proceed and cancellation occurs, it returns an error. If both cases are ready, either may win; cancellation has no priority merely because of case placement. CPU loops before this send still need cancellation checks, and earlier I/O needs APIs that support context or deadlines.
 
-1. Goroutine (G) is created and put into P's Run Queue.
-2. A ready OS Thread (M) will grab a Processor (P).
-3. M takes a Goroutine (G) from P's Run Queue.
-4. M executes that Goroutine.
+Cancellation requests termination cooperatively. It does not join the worker. The owner needs a `WaitGroup` or completion channel when it must know cleanup has finished; see [Context](/en/notes/go/context/) for a worked cancel-then-join example. The [Channels](/en/notes/go/channels/) lesson explains how a coordinator closes output only after all senders finish.
 
-Goroutine termination states:
-- **Finished** → Exit.
-- **Blocked** → Detached from M.
-- **Voluntary Yield** → Hands CPU back to another Goroutine.
+### Several different problems are often called a leak
 
-> **Summary:** M runs, P coordinates, G is the work.
+| Retained thing | A possible cause | Ownership decision needed |
+| --- | --- | --- |
+| Goroutine | Send without receiver, receive without future sender, missing completion | Exit condition and join |
+| Context resources | Ignored cancel function | Cancel on appropriate return paths |
+| Timer work/storage | Repeated creation or retained timers | Timer lifetime and version semantics |
+| External resource | Unclosed body, file, or database rows | The owner calls `Close` |
+| Heap object | A small slice retains a large array | Copy retained data or drop aliases |
 
-#### 3.3.2. Handling Blocking Syscalls
+A mutex is not reentrant: taking the same lock twice can deadlock, as can cyclic lock dependencies or forgetting `Unlock`. I/O without an effective timeout can retain work indefinitely. An unclosed HTTP response body may impair connection reuse and retain resources, but does not imply exactly one leaked goroutine per body. GC does not perform the application's shutdown protocol.
 
-When a Goroutine performs a blocking syscall (e.g., I/O, network), the OS Thread (M) will be blocked along with it. If M holds P, all other Goroutines on that P will stall.
+Timer advice must specify the version. Before Go 1.23, unstopped timers and tickers had collection limitations. Under the newer semantics introduced in 1.23, unreferenced timers/tickers can be reclaimed without `Stop`. The module's Go version and compatibility `GODEBUG` settings affect which semantics apply. Repeated `time.After` can still create allocation churn or accidentally restart a timeout on every loop; “every loop leaks until the timer fires” is not universally correct.
 
-**Go's solution:**
-- When a Goroutine enters a blocking syscall: M releases P (allowing the blocked Goroutine to run on M without needing P).
-- P is immediately assigned to another idle M.
-- **Result:** When the syscall is done, the Goroutine returns to the Run Queue. Other Goroutines on P continue to be scheduled and run without interruption.
+### Panic recovery belongs at a deliberate boundary
 
-#### 3.3.3. Work Stealing (Load Balancing)
-
-- **Problem:** One Processor (P) is idle while another P is overloaded with too many Goroutines in its queue.
-- **Solution:** The idle P will "steal" roughly 1/2 of the Goroutines from another P's Run Queue.
-- **Benefit:** Avoids total dependence on the Global Queue, reduces lock contention, and optimizes cache locality.
-
-#### 3.3.4. Global Run Queue (GRQ) - Shared Waiting Hall
-
-When P's Local Queue is full (over 256), newly created Goroutines are pushed into the **Global Run Queue**. The GRQ is a shared queue for the entire system, protected by a global lock.
-
-**Retrieval from Global Queue:**
-1.  **Fairness (1/61 Rule):** To prevent cases where a P only runs Goroutines in its Local Queue and "starves" Goroutines in the Global Queue, the Go scheduler applies a special rule: Every **61 ticks** (scheduling events), P is forced to check the GRQ before looking at its own Local Queue.
-2.  **Batch Picking:** When a P is idle or it's its turn to check the GRQ, it doesn't just take one Goroutine. To optimize and reduce lock contention on the GRQ, P fetches a "batch" of Goroutines.
-    *   **Formula:** `n = min(len(GRQ)/Gomaxprocs + 1, 128)`.
-    *   These Goroutines are filled into half of the P's Local Queue to be processed sequentially.
-3.  **Priority Order:** When a P searches for work (`findrunnable`), the order is usually: Local Queue -> **Global Queue** -> Stealing (from other Ps) -> Network Poller.
-
-#### 3.3.5. Network Poller (Non-blocking I/O)
-
-Go handles millions of network connections without needing millions of OS Threads thanks to the **Network Poller**.
-
-- **Mechanism:** When a Goroutine requests network I/O (read/write socket), it is put into the Network Poller (using OS mechanisms like `epoll`, `kqueue`, or `IOCP`).
-- **Benefit:** The OS Thread (M) is not blocked. M can stay free to run other Goroutines. When I/O is ready, the Network Poller notifies the scheduler to put the Goroutine back into a Run Queue.
-
-#### 3.3.6. Scheduler Preemption
-
-Go scheduler is a **Cooperative Scheduler**, meaning Goroutines must manually yield at check points (usually function calls).
-
-- **From Go 1.14 onwards:** Go introduced **Asynchronous Preemption**. If a Goroutine runs for too long (e.g., an infinite loop with no function calls), the runtime sends a signal to force it to stop and make room for others. This keeps the system stable and prevents "greedy" Goroutines from hogging the CPU.
-
----
-
-## 4. Lifecycle Management & Safety
-
-### 4.1. Concurrency Leaks: Taxonomy & Scenarios
-
-**Concurrency Leak** occurs when resources (Goroutines, Contexts, Timers, Connections) are stalled or not released, leading to resource waste and system exhaustion over time.
-
-#### 4.1.1. Ecosystem of 5 Common Leak Types
-
-In Go, resources are not only leaked through Goroutines but also through other runtime entities and memory. Five main groups must be distinguished:
-
-| Leak Type | Root Cause (Culprit) | Impact (Symptoms) |
-| :--- | :--- | :--- |
-| **Goroutine Leak** | G is permanently blocked (Channel, Mutex, WaitGroup). | Increased RAM (Stack), CPU overhead for the Scheduler. |
-| **Context Leak** | Forgetting to call `cancel()` from `WithCancel` or `WithTimeout`. | Retention of timers and references within the Context tree. |
-| **Timer Leak** | Misusing `time.After` inside a loop. | Gradual heap RAM increase due to accumulated junk Timer structs. |
-| **Resource Leak** | Not `close()`ing HTTP Body, File, or DB Connection. | Causes background Goroutine leaks (starving workers/connections). |
-| **Memory Leak** | Holding large array references via small slices passed between Gs. | Higher RAM usage, GC cannot reclaim the original array (Pinning). |
-
-These leaks often form a chain. For example: **Resource Leak** (forgetting to close Body) -> directly holds a **background Goroutine** (G leak) to manage the connection -> this G leak in turn holds onto the **Context** (Context leak). Therefore, look for the "resource origin" rather than just counting Goroutines.
-
-#### 4.1.2. Practical Leak Scenarios (Detailed Case Studies)
-
-Below are detailed mechanisms and reasons for leaks in specific scenarios:
-
-**A. Goroutine Leak (Most Common)**
-The phenomenon where a Goroutine hangs indefinitely at synchronization points or I/O:
-
-1.  **Sending to a Channel with no Receiver**: 
-    *   **Mechanism**: Sending data (`ch <- data`) to an unbuffered channel with no Goroutine ready to receive (`<-ch`).
-    *   **Blocking Behavior**: The sending Goroutine "stalls" permanently at that specific line.
-    *   **Root Cause**: If the receiver Goroutine exits early or is never created, the sender's Stack resource is never released.
-
-2.  **Receiving from a Channel with no Sender**: 
-    *   **Mechanism**: Attempting to receive (`<-ch`) from an empty channel (or an exhausted buffered channel) where no more Gs will send.
-    *   **Blocking Behavior**: The receiving Goroutine enters an indefinite waiting state.
-    *   *Root Cause**: If the sending Goroutine crashes or exits without `close(ch)`, the receiver remains trapped forever.
-
-3.  **Mutex Deadlock**: 
-    *   **Mechanism**: A Goroutine attempts to acquire a Lock (`mutex.Lock()`) that is already held by itself or forms a wait-cycle with another G.
-    *   **Blocking Behavior**: Permanent hang in the "Waiting for Lock" state.
-    *   **Root Cause**: Go does not support Reentrant Locks, leading to G blocking itself.
-
-4.  **I/O without Timeout**: 
-    *   **Mechanism**: Calling network APIs, reading files, or connecting to a DB without setting a timeout/deadline.
-    *   **Blocking Behavior**: When the target server hangs or the network is lost, the Goroutine and its OS Thread (M) are "frozen."
-    *   **Root Cause**: Lack of a forced exit mechanism when external events fail.
-
-**B. Context Leak**
-- **Example**: Calling `ctx, _ := context.WithTimeout(...)` but forgetting `defer cancel()`.
-- **Mechanism**: The Go runtime maintains an internal timer and references in the context tree until the parent context finishes.
-- **Impact**: If this function is called continuously, "junk" timers fill up memory before they naturally expire.
-
-**C. Timer Leak**
-- **Example**: Using `time.After(time.Hour)` inside a `for-select` loop.
-- **Mechanism**: Each call to `time.After` creates a new Timer. If the `Default` case is chosen, the 1-hour Timer remains "alive" in the runtime heap.
-- **Impact**: Heap RAM increases proportionally with the number of iterations, even if the logic is done.
-
-**D. Resource Leak (Hidden Goroutine Leak)**
-- **Example**: Forgetting `resp.Body.Close()` after an HTTP request.
-- **Mechanism**: The `net/http` library maintains a background reading Goroutine to reuse the connection (keep-alive).
-- **Impact**: Connection pool exhaustion and an increase in "orphaned" Goroutines not directly authored by you.
-
-**E. Memory Leak (Pinning Memory)**
-- **Example**: Slicing a small portion from a massive array (`huge[:10]`) and holding/sending that slice.
-- **Mechanism**: The small slice still holds a reference to the entire backing array.
-- **Impact**: The Garbage Collector (GC) cannot reclaim the massive array, causing significant RAM waste.
-
-> **Remember:** Goroutine Leak is the "tip of the iceberg," while Context/Resource Leaks are often the submerged part causing it.
-
-#### 4.1.3. Safety Strategies (Performance & Reliability)
-
-To build resilient (Reliability) and optimized (Performance) concurrent systems, follow these techniques:
-
-1.  **Ownership Management:** Every Goroutine born must have an "Owner" responsible for its lifecycle. Use `context.Context` to propagate cancellation signals throughout the tree.
-2.  **"Forced Exit" Principle:** 
-    *   **Channel**: Always combine `select` with `ctx.Done()` to ensure the Goroutine always has a way out.
-    *   **I/O**: Always set a `Timeout/Deadline` for every external connection.
-3.  **Resource Cleanup:** Always use `defer` immediately after initialization: `defer cancel()`, `defer resp.Body.Close()`, `defer rows.Close()`.
-4.  **Observability & Testing:**
-    *   **Profiling**: Use `pprof` to analyze Goroutine graphs (`/debug/pprof/goroutine?debug=2`).
-    *   **Metrics**: Monitor `runtime.NumGoroutine()` to detect early signs of abnormal growth.
-    *   **Testing**: Integrate `go.uber.org/goleak` into your Unit Tests to catch leaks during CI/CD (e.g., `defer goleak.VerifyNone(t)`).
-
-### 4.2. Panic and Recover Rules
-**A panic in any Goroutine will crash the entire program**, even if `main` has a `recover()`.
-- **Rule**: Every Goroutine must manage its own `recover()` internally.
+An unrecovered panic in any goroutine can terminate the process. A deferred recovery must execute on the same goroutine as the panic; a recover in the caller cannot catch a panic in a new worker.
 
 ```go
 go func() {
     defer func() {
-        if r := recover(); r != nil {
-            log.Printf("Recovered from panic in goroutine: %v", r)
+        if value := recover(); value != nil {
+            log.Printf("worker panic: %v\n%s", value, debug.Stack())
+            // Report failure through the application's result mechanism.
         }
     }()
-    // Core logic
     doWork()
 }()
 ```
 
----
+This fragment assumes `doWork` exists and imports `log` and `runtime/debug`. It illustrates where recovery works, not a complete result protocol. If a service deliberately recovers at a boundary, record a stack and surface failure; logging alone must not make a failed task look successful. There is no need to wrap every `go` statement in recovery by default.
 
-## 5. Observability Tools
+## Investigate lifetime before changing scheduler settings
 
-### 5.1. Monitoring with GODEBUG
-Run your application with the environment variable:
-`GODEBUG=schedtrace=1000 ./app`
-- This provides visual insight into G-M-P distribution every 1000ms, helping detect resource starvation or excessive OS thread creation.
+Track `runtime.NumGoroutine` over time alongside active requests. An increase during load may be expected; an increase after load has ended needs more evidence. A goroutine profile shows where workers remain parked, while pprof and execution traces reveal contention, scheduling delays, and CPU use.
 
-### 5.2. Useful Runtime Functions
-- `runtime.NumGoroutine()`: Returns the number of currently living Goroutines (essential for debugging leaks).
-- `runtime.Gosched()`: Voluntarily yields the CPU.
-- `runtime.GOMAXPROCS(n)`: Adjusts the number of logical processors.
+`GODEBUG=schedtrace=1000` prints scheduler state roughly every 1,000 milliseconds; `scheddetail=1` adds detail. These are diagnostic settings, not performance fixes. Keep debugging HTTP endpoints off the public Internet.
 
----
+The race detector finds unsynchronized memory accesses in exercised paths, not every lost update, deadlock, or lifetime bug. Tools such as `go.uber.org/goleak` can help identify leftover goroutines in tests, with allowances for legitimate background work. Interpret tool output against ownership and expected shutdown behavior.
+
+## Predict before reading the answers
+
+1. Can `WaitGroup.Wait` replace a mutex around increments to one shared integer?
+2. The caller cancels while a worker is blocked sending. What lets the worker exit, and what tells the caller it has exited?
+3. Does a thousand parked goroutines imply a thousand blocked OS threads? Does a rising goroutine count prove a leak?
+
+**Answers:**
+
+1. No. Waiting coordinates completion; it does not stop workers from racing while they run. Protect shared updates or assign independent data as in `squares`.
+2. A select on the send and `ctx.Done()` provides an exit path. A completion channel or `WaitGroup` provides the separate join. Earlier blocking operations also need a stop policy.
+3. No to both. Parked Gs can share far fewer Ms. The count must be compared with workload, retained resources, stacks, and whether the goroutines disappear after their owner finishes.
+
+## References
+
+- [sync.WaitGroup](https://pkg.go.dev/sync#WaitGroup) — completion and `Go` contracts.
+- [Runtime scheduler source](https://go.dev/src/runtime/proc.go) — implementation details, checked on 2026-10-15.
+- [Go 1.25 runtime changes](https://go.dev/doc/go1.25#runtime) and [Go 1.14 runtime changes](https://go.dev/doc/go1.14#runtime) — versioned scheduling behavior.
+- [Go 1.23 timer changes](https://go.dev/wiki/Go123Timer) — timer collection and compatibility.
+- [Diagnostics](https://go.dev/doc/diagnostics) — profiles, traces, and other observation tools.

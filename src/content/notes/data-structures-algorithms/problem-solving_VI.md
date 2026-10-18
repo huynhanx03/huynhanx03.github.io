@@ -4,58 +4,70 @@ category: "Data Structures & Algorithms"
 kind: "guide"
 difficulty: "beginner"
 translationKey: "data-structures-algorithms/problem-solving"
-translationPending: true
 series: "DSA cơ bản"
 seriesOrder: 1
 tags: ["algorithm-design", "correctness", "invariant", "go"]
 description: "Từ đề bài đến lời giải: làm rõ hợp đồng, thử ví dụ nhỏ, chọn cách biểu diễn, chứng minh đúng và kiểm tra ca biên."
 draft: false
+updated: 2026-10-15
 ---
 
-Một bài toán thuật toán không bắt đầu ở dòng `for` đầu tiên. Nó bắt đầu khi ta trả lời được ba câu hỏi: **đầu vào là gì, đầu ra phải thỏa điều gì, và những trường hợp nào được phép xuất hiện?** Viết code trước khi làm rõ ba điều này thường dẫn đến một lời giải đúng với ví dụ mẫu nhưng sai với dữ liệu thật.
+Với dãy `[7, 2, 2, 5]`, “phần tử nhỏ thứ hai” là 2 hay 5? Nếu xếp mọi phần tử theo vị trí thì là 2; nếu cần **giá trị nhỏ thứ hai phân biệt** thì là 5. Một lời giải có thể chạy nhanh và không gặp lỗi cú pháp nhưng vẫn giải nhầm bài, vì hai cách hiểu này dẫn đến hai hợp đồng khác nhau.
 
-Hãy dùng bài toán xuyên suốt chương: cho một dãy số nguyên, tìm **giá trị nhỏ thứ hai phân biệt**. Với `[7, 2, 2, 5]`, kết quả là `5`, không phải `2`. Với `[4, 4, 4]`, kết quả không tồn tại. Đầu ra của một hàm Go có thể là `(value, found)` để biểu diễn rõ cả hai khả năng; dùng một số đặc biệt như `-1` làm tín hiệu lỗi sẽ sai nếu `-1` cũng là đáp án hợp lệ.
+Ta sẽ giải phiên bản có giá trị phân biệt, từ cách đọc đề đến trạng thái của thuật toán một lượt. Mục tiêu là tự giải thích được vì sao mỗi nhánh cập nhật đúng, thay vì nhớ một đoạn code để áp dụng cho mọi bài tìm cực trị.
 
-## 1. Viết lại hợp đồng bằng ví dụ
+## Hợp đồng cần bao gồm cả trường hợp không có đáp án
 
-Trước khi nghĩ thuật toán, ta thử các đầu vào có chủ đích:
+Đầu vào là một dãy số nguyên, có thể rỗng, trùng nhau hoặc chứa số âm. Nếu dãy có ít nhất hai giá trị phân biệt, đầu ra là giá trị nhỏ thứ hai trong số đó. Nếu không đủ, đầu ra phải biểu đạt sự vắng mặt.
 
-| Đầu vào | Kết quả | Lý do |
+| Đầu vào | Đáp án | Điều đang được kiểm tra |
 | --- | --- | --- |
-| `[]` | không có | chưa có giá trị nào |
-| `[9]` | không có | mới có một giá trị phân biệt |
-| `[2, 2]` | không có | trùng nhau không tạo hạng hai |
-| `[7, 2, 2, 5]` | `5` | hai giá trị nhỏ nhất phân biệt là `2`, `5` |
-| `[-8, -3, -8]` | `-3` | số âm vẫn là dữ liệu bình thường |
+| `[]` | không có | chưa có phần tử |
+| `[9]` | không có | mới một giá trị |
+| `[2,2]` | không có | số lần xuất hiện không tạo thêm hạng |
+| `[7,2,2,5]` | `5` | bỏ qua giá trị trùng |
+| `[-8,-3,-8]` | `-3` | số âm vẫn là dữ liệu hợp lệ |
 
-Tiếp theo đọc ràng buộc. Dãy vài chục phần tử cho phép nhiều cách giải; dãy hàng triệu phần tử khiến việc sao chép và sắp xếp trở thành chi phí đáng cân nhắc. Nếu đề không nói rõ dãy có thể rỗng hay không, thiết kế hàm xử lý cả trường hợp rỗng sẽ an toàn hơn. Cũng cần hỏi có được sửa dãy gốc không: `sort.Ints(a)` thay đổi dữ liệu mà người gọi đang giữ.
+Một hàm Go có thể trả `(value, found)`. `found=false` cho biết không có đáp án; lúc đó không diễn giải `value` như một kết quả tìm được. Nếu dùng `-1` để báo vắng mặt, dãy `[-2,-1]` sẽ khiến tín hiệu ấy trùng với đáp án thật. Tương tự, không dùng `math.MaxInt` làm trạng thái “chưa có”, bởi `MaxInt` cũng có thể xuất hiện trong dãy.
 
-## 2. Bắt đầu bằng lời giải dễ kiểm chứng
+Ràng buộc còn gồm quyền sửa dữ liệu. `sort.Ints(a)` thay đổi dãy mà caller giữ; sao chép rồi sắp không có tác động ấy nhưng thêm bộ nhớ. Vài chục phần tử cho phép nhiều lựa chọn, còn hàng triệu phần tử làm chi phí lưu bản sao và sắp xếp đáng cân nhắc. Nếu đề không bảo đảm dãy không rỗng, một API có trạng thái vắng mặt giúp xử lý biên rõ ràng.
 
-Cách trực tiếp là sao chép dãy, sắp xếp tăng dần rồi bỏ qua các phần tử bằng giá trị đầu. Phần tử khác đầu tiên là đáp án. Cách này dễ giải thích, nhưng mất `O(n log n)` thời gian và `O(n)` bộ nhớ nếu phải giữ nguyên đầu vào. Nó là điểm xuất phát tốt: một lời giải chậm nhưng đúng giúp ta kiểm tra lời giải tối ưu bằng các ví dụ nhỏ.
+## Một lời giải trực tiếp làm điểm đối chiếu
 
-Quan sát quan trọng hơn nằm ở **thông tin thực sự cần giữ**. Sau khi đọc một tiền tố của dãy, ta không cần nhớ toàn bộ tiền tố; chỉ cần giá trị nhỏ nhất và nhỏ thứ hai phân biệt của tiền tố đó. Mỗi phần tử mới sẽ rơi vào một trong ba tình huống:
+Sao chép dãy, sắp tăng, rồi tìm phần tử đầu tiên khác giá trị đầu. Với ví dụ, dãy sau sắp là `[2,2,5,7]`; bỏ qua hai số 2 thì gặp 5. Mọi phần tử đứng sau đều không nhỏ hơn 5, nên 5 chính là giá trị cần tìm. Nếu duyệt hết mà chưa gặp số khác, không có hạng hai.
 
-1. Nhỏ hơn giá trị nhỏ nhất hiện có: giá trị nhỏ nhất cũ trở thành hạng hai.
-2. Bằng giá trị nhỏ nhất: bỏ qua vì cần các giá trị phân biệt.
-3. Lớn hơn giá trị nhỏ nhất nhưng nhỏ hơn hạng hai hiện có: cập nhật hạng hai.
+Cách này tốn `O(n log n)` thời gian với thuật toán sắp xếp tương ứng, và `O(n)` bộ nhớ để giữ nguyên đầu vào. Nó có ích dù chưa tối ưu: logic ngắn giúp tạo một lời giải tham chiếu khi đối chiếu các đầu vào nhỏ. Khi cải tiến, ta cần giữ nguyên hợp đồng chứ không chỉ cho cùng kết quả trên một ví dụ.
 
-Đó là cách chuyển từ “thử mọi dữ liệu” sang một trạng thái ngắn gọn. Bước này thường quyết định hiệu quả của thuật toán hơn việc đổi cú pháp vòng lặp.
+Muốn bỏ bước sắp xếp, hãy xác định thông tin thật sự cần giữ sau mỗi phần tử. Để biết hai giá trị nhỏ nhất phân biệt của tiền tố đã đọc, không cần nhớ thứ tự của mọi giá trị khác. Chỉ cần hai giá trị và trạng thái chúng đã tồn tại hay chưa.
 
-## 3. Bất biến: câu giải thích vì sao code đúng
+```note-visualization
+{"id":"scan-maximum","preset":"normal"}
+```
 
-**Bất biến vòng lặp** là mệnh đề luôn đúng sau mỗi lần xử lý một phần tử. Ở đây, sau khi đọc `a[0:i]`, biến `first` giữ giá trị nhỏ nhất; nếu có ít nhất hai giá trị phân biệt, `second` giữ giá trị nhỏ thứ hai phân biệt. Hai biến boolean cho biết mỗi giá trị đã tồn tại hay chưa. Không dùng `math.MaxInt` làm “chưa có”, vì bản thân `MaxInt` có thể là dữ liệu hợp lệ.
+Minh họa quét cực trị giúp theo dõi ý tưởng “đọc một phần tử, cập nhật trạng thái”. Bài toán dưới đây giữ hai cực trị phân biệt, nên còn phải xử lý sự trùng nhau và việc đẩy giá trị nhỏ nhất cũ xuống hạng hai.
 
-Xét dãy `[7, 2, 2, 5]`:
+## Từ bất biến đến các nhánh cập nhật
 
-| Vừa đọc | `first` | `second` | Nhận xét |
+Sau khi đọc một tiền tố, giữ bất biến: nếu `hasFirst`, `first` là giá trị nhỏ nhất; nếu `hasSecond`, `second` là giá trị nhỏ thứ hai phân biệt và `first < second`. Cờ boolean mô tả sự hiện diện, nên giá trị số ban đầu của hai biến không bị nhầm với dữ liệu.
+
+Với phần tử mới `x`, xét theo thứ tự:
+
+1. Chưa có giá trị đầu hoặc `x < first`: nếu đã có `first`, nó trở thành hạng hai; sau đó đặt `first=x`.
+2. `x == first`: không tạo giá trị phân biệt mới, giữ trạng thái.
+3. `x > first`: chỉ cập nhật `second` nếu hạng hai chưa có hoặc `x < second`.
+
+Vì sao ở trường hợp đầu được thay cả hạng hai cũ bằng `first` cũ? Trước đó, `first` cũ nhỏ hơn mọi giá trị khác phân biệt trong tiền tố. Sau khi thêm một `x` còn nhỏ hơn nó, hai giá trị nhỏ nhất mới đúng là `x` và `first` cũ. Không cần giữ hạng hai cũ nữa.
+
+| Đã đọc thêm | `first` | `second` | Lý do |
 | --- | ---: | ---: | --- |
-| `7` | 7 | chưa có | mới một giá trị |
-| `2` | 2 | 7 | giá trị nhỏ nhất cũ lùi xuống hạng hai |
-| `2` | 2 | 7 | trùng `first`, không đổi |
-| `5` | 2 | 5 | `5` nằm giữa `first` và `second` |
+| `7` | 7 | chưa có | phần tử đầu tiên |
+| `2` | 2 | 7 | 7 từ hạng nhất thành hạng hai |
+| `2` | 2 | 7 | không thêm giá trị phân biệt |
+| `5` | 2 | 5 | 5 tốt hơn hạng hai cũ là 7 |
 
-Lập luận đúng đắn có ba phần. Ban đầu, tiền tố rỗng chưa có giá trị nên bất biến đúng. Giả sử nó đúng trước khi đọc `x`: ba tình huống ở trên cập nhật đúng hai giá trị nhỏ nhất của tiền tố mới. Khi vòng lặp kết thúc, tiền tố chính là toàn bộ dãy, nên `second` là đáp án nếu nó tồn tại. Đây là một chứng minh bằng quy nạp trên số phần tử đã đọc.
+## Code thể hiện đúng trạng thái đã mô tả
+
+Đây là khai báo hàm độc lập, không cần import. Hàm chỉ đọc slice đầu vào và không sắp xếp hay sửa phần tử:
 
 ```go
 func SecondDistinctMin(values []int) (int, bool) {
@@ -84,23 +96,22 @@ func SecondDistinctMin(values []int) (int, bool) {
 }
 ```
 
-Mỗi phần tử được xét đúng một lần, với số phép so sánh không phụ thuộc `n`: thời gian `O(n)`, bộ nhớ phụ `O(1)`. Đây là **cận trên**; với dãy không rỗng, bài toán cũng cần xem mọi phần tử trong trường hợp xấu nhất, vì một giá trị rất nhỏ ở cuối có thể thay đổi cả hai vị trí. Do đó lời giải một lượt là tối ưu theo bậc tăng trưởng trong mô hình đọc tuần tự.
+Hai câu `continue` kết thúc xử lý phần tử ngay khi đã thuộc trường hợp đầu hoặc trường hợp trùng. Nhờ vậy, nhánh cập nhật `second` phía dưới chỉ nhận giá trị lớn hơn `first`. Thứ tự lưu `first` cũ trước khi gán `first=x` là cần thiết: đảo thứ tự sẽ làm mất ứng viên hạng hai.
 
-## 4. Kiểm tra có chiến lược
+Có thể chứng minh bằng quy nạp theo số phần tử đã đọc. Ban đầu tiền tố rỗng có cả hai cờ false, phù hợp bất biến. Giả sử bất biến đúng trước khi đọc `x`: ba trường hợp trên bao phủ mọi khả năng và giữ đúng hai giá trị tốt nhất của tiền tố mới. Khi vòng lặp kết thúc, tiền tố là toàn dãy, nên `second` đúng nếu `hasSecond=true`.
 
-Đừng chỉ kiểm tra ví dụ đề cho. Tạo ca cho từng nhánh điều kiện: dãy rỗng, chỉ một giá trị phân biệt, giá trị nhỏ nhất xuất hiện ở cuối, số âm, số trùng xen kẽ, và `MaxInt` nếu muốn chắc rằng mình không dùng sentinel. So sánh kết quả của lời giải một lượt với lời giải sắp xếp trên các dãy nhỏ tự tạo cũng là cách tìm phản ví dụ rất hiệu quả.
+Mỗi phần tử cần một số phép kiểm tra bị chặn bởi hằng số. Thời gian là `O(n)`, bộ nhớ phụ `O(1)`. Trong mô hình đọc các phần tử chưa được sắp xếp, phải xem mọi phần tử ở trường hợp xấu: một phần tử chưa xem có thể rất nhỏ và đổi đáp án. Vì vậy bậc thời gian tuyến tính là tối ưu trong mô hình này. Lập luận này không nói một cách cài cụ thể luôn nhanh nhất về thời gian thực.
 
-Một lỗi hay gặp là cập nhật `second` trước khi lưu `first` cũ; lỗi khác là cho phép `second == first`. Cả hai đều lộ ra nếu ta ghi bảng trạng thái sau từng bước. Khi code phức tạp hơn bảng trạng thái có thể giải thích, hãy quay lại mô tả bất biến trước khi thêm điều kiện mới.
+## Chọn ca kiểm tra theo nhánh suy luận
 
-## 5. Quy trình áp dụng cho bài khác
+Ngoài bảng đầu bài, xét giá trị nhỏ nhất ở cuối, nhiều số trùng xen kẽ và dữ liệu chứa `MaxInt`. Mỗi ca có mục đích: đi vào một nhánh cụ thể hoặc phát hiện một sentinel không hợp lệ. Ghi trạng thái sau mỗi lượt giúp tìm lỗi logic sớm hơn việc thêm điều kiện theo cảm giác. Đối chiếu với lời giải sắp xếp trên các dãy nhỏ cũng là cách tìm phản ví dụ.
 
-1. Viết hợp đồng và ca biên bằng lời của mình.
-2. Tìm lời giải đơn giản để có điểm so sánh.
-3. Chọn cách biểu diễn chỉ giữ những thông tin thật sự cần.
-4. Phát biểu bất biến hoặc tính chất khiến lựa chọn ở mỗi bước là hợp lệ.
-5. Ước lượng thời gian, bộ nhớ theo ràng buộc; sau đó mới viết code.
-6. Tự kiểm bằng ca biên và một lời giải tham chiếu nhỏ.
+Có thể dùng cùng quy trình ở bài khác: viết hợp đồng và biên; tìm cách đơn giản; chọn trạng thái đủ thông tin; phát biểu bất biến; tính chi phí theo ràng buộc; rồi viết code và đối chiếu. Các bước có thể quay lại nhau khi phát hiện giả định thiếu, không phải một nghi thức chỉ làm đúng một lần.
 
-**Tự luyện:** đổi bài toán thành tìm giá trị lớn thứ ba phân biệt. Trạng thái cần thêm gì? Khi một giá trị mới lớn nhất xuất hiện, các vị trí cũ dịch chuyển ra sao? Thử chứng minh bất biến trước khi code.
+## Tự mở rộng và đối chiếu lập luận
 
-*Đọc thêm trong bộ sách: Hemant Jain, chương 3; Lê Minh Hoàng, phần 2 §1. Cấu trúc bài học và ví dụ ở đây được diễn giải độc lập.*
+**Bài tập:** đổi thành giá trị **lớn thứ ba phân biệt**. Khi đọc một giá trị lớn nhất mới, ba vị trí dịch chuyển thế nào? Có nên bỏ một giá trị bằng hạng hai không?
+
+**Gợi ý giải thích:** giữ ba giá trị cùng cờ hiện diện, luôn có thứ tự giảm nghiêm ngặt ở các vị trí đã có. Giá trị lớn nhất mới đẩy hạng nhất cũ xuống hai, hạng hai cũ xuống ba; phải lưu theo thứ tự không làm mất giá trị cũ. Một giá trị bằng bất kỳ hạng đang giữ không tạo giá trị phân biệt mới, nên bỏ qua. Đáp án cần giải thích các vị trí sau cập nhật vẫn là ba giá trị lớn nhất của tiền tố; chỉ liệt kê ba biến chưa đủ chứng minh đúng.
+
+Đọc tiếp [độ phức tạp](/vi/notes/data-structures-algorithms/complexity/) để phân biệt cận trên với cận chặt và worst-case với amortized.

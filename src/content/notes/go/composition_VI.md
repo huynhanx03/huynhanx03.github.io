@@ -1,103 +1,152 @@
 ---
-title: "Composition"
+title: "Composition và embedding: lắp ghép mà không kế thừa"
 category: "Go"
 tags: ["golang", "composition", "struct-embedding", "fundamentals"]
+description: "Composition nghĩa là một thành phần sử dụng các thành phần khác để làm việc. Go hỗ trợ điều này bằng field thông thường, embedded field và interface; embedding chỉ là một trong các cách lắp ghép."
+updated: 2026-10-15
+translationKey: "go/composition"
 ---
 
-# Composition: Triết lý lắp ghép cấu trúc
+Một service checkout cần ghi log, nhưng caller chưa chắc cần gọi mọi method của logger thông qua checkout. Đây là câu hỏi thiết kế phía sau composition: đối tượng được tạo từ những thành phần nào, và những thao tác nào thuộc API công khai của nó?
 
-Ngôn ngữ Go phủ quyết cơ chế kế thừa phân cấp (Class-based Inheritance) của các ngôn ngữ OOP truyền thống. Thay vào đó, Go hiện thực hóa tư duy **Composition** (Lắp ghép) một cách triệt để thông qua tính năng **Struct Embedding**. Đây không chỉ là thay đổi về cú pháp, mà là một sự thay đổi về tư duy thiết kế: Ưu tiên sự linh hoạt của việc lắp ghép các thành phần nhỏ thành hệ thống lớn.
+Go hỗ trợ composition qua field thông thường, embedded field và interface. Embedding bổ sung promotion cho selector và method, nên cần hiểu chính xác sự tiện lợi ấy đưa những gì ra ngoài. Bài này dựa trên [struct](/vi/notes/go/structs/), [method](/vi/notes/go/methods/) và [interface](/vi/notes/go/interfaces/). Mỗi khối code là đoạn riêng trừ khi nói rõ dùng lại kiểu trước đó; đặt method ở cấp package, câu lệnh trong `main`, thêm `fmt` tại nơi sử dụng. Comment mô tả kết quả dự kiến.
 
----
+## Bắt đầu với dependency tường minh
 
-## 1. Bản chất của Struct Embedding
-
-Trong Go, khi bạn nhúng một Struct vào một Struct khác mà không đặt tên trường, Go sẽ thực hiện cơ chế **Anonymous Embedding**.
+Field có tên cho phép checkout quyết định cách sử dụng logger:
 
 ```go
-type Persona struct {
-    Name string
+type Logger interface { Println(...any) }
+
+type Checkout struct {
+    logger Logger
 }
 
-func (p Persona) Greet() {
-    fmt.Println("Xin chào, tôi là", p.Name)
+func NewCheckout(logger Logger) *Checkout {
+    return &Checkout{logger: logger}
 }
 
-type Employee struct {
-    Persona // Embedding
-    ID      int
+func (c *Checkout) Place(orderID string) {
+    c.logger.Println("placing order", orderID)
 }
 ```
 
----
+`Place` gọi thành phần qua `c.logger`. Caller dùng được `Place`, nhưng field này không tự tạo method `Println` cho `Checkout`. Ghi log vẫn là dependency bên trong. Với package `log` chuẩn, `NewCheckout(log.Default()).Place("A17")` ghi log thao tác; prefix cụ thể phụ thuộc cấu hình logger.
 
-## 2. Phân biệt then chốt: Embedding vs. Subtyping
+Constructor yêu cầu logger sử dụng được. Không thể gọi method trên interface nil, còn interface giữ typed nil có hành vi tùy method cụ thể. Ví dụ chưa kiểm tra dependency đó. `Place` cũng chỉ minh họa ghi log, chưa thực hiện giao dịch đặt hàng. Cách viết `any` cần Go 1.18 trở lên.
 
-Đây là điểm khác biệt học thuật quan trọng nhất mà lập trình viên cần nắm vững:
+Nếu field được nhúng dưới dạng `Logger`, `Println` sẽ được promote và caller có thể gọi qua checkout. Cả hai thiết kế đều lắp ghép hành vi từ thành phần khác. Field có tên phù hợp khi thành phần nên ở bên trong; embedding phù hợp khi hành vi được promote là phần có chủ đích của API ngoài.
 
--   **OOP Truyền thống (Subtyping):** Lớp con **là một (is-a)** lớp cha. Đối tượng lớp con có thể được sử dụng ở bất kỳ đâu mong đợi lớp cha.
--   **Go (Embedding):** Struct bao ngoài **có một (has-a)** struct bên trong, nhưng được che đậy bằng cú pháp truy cập trực tiếp. `Employee` **không phải** là một `Persona`. 
+## Embedding thay đổi selector thế nào?
 
-> Bạn không thể truyền một biến kiểu `Employee` vào một hàm nhận tham số kiểu `Persona`. Sự đa hình trong Go chỉ được thực hiện thông qua **Interfaces**, không phải qua Struct Embedding.
+```go
+type Persona struct { Name string }
+func (p Persona) Greet() string { return "Hello, " + p.Name }
 
----
+type Employee struct {
+    Persona
+    ID int
+}
 
-## 3. Giải quyết xung đột (Ambiguous Selectors)
+e := Employee{Persona: Persona{Name: "An"}, ID: 7}
+fmt.Println(e.Name, e.Greet()) // An Hello, An
+```
 
-Go giải quyết vấn đề "Diamond Problem" (Xung đột đa kế thừa) bằng một quy tắc cực kỳ tường minh:
+Khai báo `Persona` bỏ tên field tường minh. Tên kiểu trở thành tên field, nên `Employee` vẫn có một field `Persona` thật. Go cho phép selector `e.Name`, `e.Greet` thay cho `e.Persona.Name`, `e.Persona.Greet`; đó là selector được **promote**.
 
-Nếu một Struct nhúng nhiều thành phần có cùng tên trường hoặc phương thức, Go sẽ không báo lỗi lúc định nghĩa. Lỗi biên dịch chỉ xảy ra khi bạn truy cập vào trường đó mà không chỉ rõ nguồn gốc.
+Khởi tạo vẫn theo các field thật. Literal dùng `Persona: Persona{...}`. `Employee{Name: "An"}` không biên dịch vì `Name` được promote chứ không được khai báo trực tiếp trong `Employee`. Hình dung đối tượng lồng nhau trước rồi đến cú pháp rút gọn giúp giải thích cả truy cập lẫn khởi tạo.
+
+## Thành phần được nhúng vẫn giữ receiver riêng
+
+`Employee` chứa `Persona`, nhưng không phải subtype tự động truyền được vào hàm nhận `Persona`. Với hàm ấy, cần truyền `e.Persona`. Hàm nhận interface phù hợp có thể nhận cả hai kiểu khi method set của chúng thỏa interface. Generics cung cấp một dạng tái sử dụng theo kiểu khác với constraint riêng; embedding không thay thế các cơ chế ấy.
+
+Ranh giới tương tự áp dụng cho method. Bổ sung các method cấp package sau vào ví dụ trước:
+
+```go
+func (p Persona) Introduction() string { return p.Greet() }
+func (e Employee) Greet() string { return "Employee " + e.Name }
+```
+
+Với cùng `e`, `e.Greet()` trả `Employee An`, còn `e.Introduction()` trả `Hello, An`. `Employee.Greet` khai báo trực tiếp che selector được promote. Nhưng `Introduction` vẫn chạy với receiver `Persona`, và `p.Greet()` được phân giải thành `Persona.Greet`. Embedding không tạo virtual dispatch đến method trùng tên của đối tượng ngoài.
+
+Điều này có ý nghĩa khi tái sử dụng thành phần có các method gọi lẫn nhau. Thêm method ngoài thay đổi thứ caller chọn trên kiểu ngoài; nó không viết lại hành vi nội bộ của thành phần.
+
+## Giải quyết xung đột bằng đường dẫn field
 
 ```go
 type A struct { Name string }
 type B struct { Name string }
+type C struct { A; B }
 
-type C struct {
-    A
-    B
-}
-
-var c C
-// fmt.Println(c.Name) // LỖI: Ambiguous selector 'Name'
-fmt.Println(c.A.Name)   // Hợp lệ: Truy cập tường minh
+c := C{A: A{Name: "A"}, B: B{Name: "B"}}
+fmt.Println(c.A.Name) // A
+// c.Name is ambiguous.
 ```
 
-Cơ chế này ép buộc lập trình viên phải minh bạch trong mã nguồn, loại bỏ mọi sự mơ hồ mà các hệ thống kế thừa phức tạp thường gặp phải.
+Khai báo `C` hợp lệ. Vấn đề xuất hiện khi dùng `c.Name`: có hai field ứng viên ở cùng độ sâu selector. Go không thể chọn một trong hai. Đường dẫn `c.A.Name` xác định rõ thành phần mong muốn nên hợp lệ.
 
----
+Field hoặc method ở mức nông hơn có thể che tên ở mức sâu hơn. Vì vậy việc phân giải theo độ sâu selector và quy tắc method set, thay vì theo một hệ thống phân cấp kế thừa chung. Đường dẫn tường minh còn cho biết thành phần nào sở hữu trạng thái, đôi khi hữu ích ngay cả khi selector ngắn hơn hợp lệ.
 
-## 4. Interface Satisfaction via Embedding
-
-Sức mạnh thực sự của Composition bộc lộ khi kết hợp với Interface. Bằng cách nhúng một Struct đã thực hiện sẵn các phương thức cần thiết, Struct mới sẽ **nghiễm nhiên thỏa mãn một Interface** mà không cần viết lại mã (Boilerplate code).
+## Promotion có thể trở thành cam kết interface
 
 ```go
 type Logger struct{}
-func (l Logger) Log(msg string) { fmt.Println(msg) }
+func (Logger) Log(message string) { fmt.Println(message) }
 
-type Service struct {
-    Logger // Giúp Service thỏa mãn interface có phương thức Log()
-}
+type Service struct { Logger }
+type Logging interface { Log(string) }
+var _ Logging = Service{}
 ```
 
----
+Đây là ví dụ riêng với ví dụ interface `Logger` trước đó. `Service` thỏa `Logging` nhờ method `Log` được promote. Caller nhận `Logging` vì thế có thể nhận một `Service` và gọi method mà không biết field nhúng.
 
-## 5. Composition trên Giao diện (Interface Embedding)
+Với pointer receiver, cần xét cả kiểu ngoài và field được nhúng:
 
-Go cho phép lắp ghép các Giao diện nhỏ thành Giao diện lớn hơn. Đây là cách Go áp dụng nguyên lý **Interface Segregation** (ISP) trong SOLID.
+| Field nhúng | Method khai báo trên `T` | Method khai báo trên `*T` |
+| --- | --- | --- |
+| `T` | Promote vào `Outer` và `*Outer` | Promote vào `*Outer` |
+| `*T` | Promote vào `Outer` và `*Outer` | Promote vào `Outer` và `*Outer` |
+
+Bảng giả định tên method không mơ hồ và không bị che. Đây là mô tả method set, không bảo đảm mọi lời gọi đều có dữ liệu receiver dùng được. Nhúng `*T` cho phép nhiều struct ngoài chia sẻ cùng một đối tượng, nhưng zero value của struct ngoài chứa pointer nil. Method được promote cần field của đối tượng ấy có thể panic. Cần xác định zero value dùng được hay phải khởi tạo thành phần nhúng trước.
+
+Promotion còn có chi phí API: method mới được export từ kiểu nhúng có thể hiện ra qua kiểu ngoài. Chọn embedding có chủ đích cần xét quan hệ ấy, thay vì chỉ xem đây là cách giảm vài dòng forwarding.
+
+## Kết hợp hợp đồng hoặc chuyển tiếp hành vi
+
+Interface có thể kết hợp interface khác mà không chứa các field thành phần ở runtime:
 
 ```go
-type Reader interface { Read(p []byte) (n int, err error) }
-type Writer interface { Write(p []byte) (n int, err error) }
-
-// ReadWriter được lắp ghép từ hai giao diện nguyên tử
-type ReadWriter interface {
-    Reader
-    Writer
-}
+type Reader interface { Read([]byte) (int, error) }
+type Writer interface { Write([]byte) (int, error) }
+type ReadWriter interface { Reader; Writer }
 ```
 
-Kiểu thiết kế này giúp hệ thống cực kỳ linh hoạt (composability) và dễ dàng thực hiện các cơ chế Decorator hay Proxy.
+Một giá trị thỏa `ReadWriter` khi method set cung cấp cả hai thao tác. Method trùng phải có chữ ký tương thích, giống nhau; hai chữ ký `Read` khác nhau không thể trở thành overload.
 
----
+Ngược lại, field có tên giữ dependency thật và cần chuyển tiếp tường minh:
 
-> **Favor Composition over Inheritance:** Việc lắp ghép các thành phần độc lập giúp giảm thiểu sự phụ thuộc chặt chẽ (Tight Coupling), làm cho mã nguồn dễ kiểm thử (Unit Test) và dễ bảo trì hơn trong dài hạn.
+```go
+type Service struct { logger Logging }
+func (s Service) Run() { s.logger.Log("start") }
+```
+
+`Service` này là đoạn riêng với bản dùng embedding và giả định có `Logging` ở trên. Nó cung cấp `Run`, nhưng không tự thỏa `Logging`. Decorator hoặc proxy có thể theo cùng cách: giữ interface, khai báo những method muốn đưa ra ngoài, thêm logging hoặc metrics rồi chuyển tiếp đến giá trị được bọc. Retry cần thêm quy tắc an toàn theo thao tác cụ thể; bọc một dependency không tự làm retry an toàn.
+
+## Chọn quan hệ trước khi chọn cú pháp
+
+**1.** Vì sao `Employee{Name: "An"}` sai trong khi `e.Name` hợp lệ?
+
+**2.** Service cần logger nhưng không nên cung cấp ghi log như thao tác công khai. Dạng field nào diễn đạt thiết kế đó, và service có tự thỏa interface logger không?
+
+**3.** Nếu `Log` đổi sang receiver `*Logger` còn `Service` nhúng value `Logger`, `Service{}` còn thỏa `Logging` không? `*Service` thì sao?
+
+**Giải thích:**
+
+1. Literal gọi tên field được khai báo. `Name` thuộc `Persona`; promotion chỉ cung cấp selector ngắn hơn. Cần khởi tạo `Persona` lồng bên trong tường minh.
+2. Dùng field có tên như `logger Logging` và gọi tường minh. Service cần method `Log` riêng để thỏa `Logging`; field ấy không tự promote method.
+3. Value `Service` không còn method đó trong method set. `*Service` có, nếu không mơ hồ hay bị che. Biến `Service` addressable vẫn có thể gọi pointer method bằng cú pháp rút gọn; việc thỏa interface vẫn theo method set của kiểu.
+
+## Tài liệu đối chiếu
+
+- [Go specification: struct types](https://go.dev/ref/spec#Struct_types), [selectors](https://go.dev/ref/spec#Selectors), [method sets](https://go.dev/ref/spec#Method_sets) và [embedded interfaces](https://go.dev/ref/spec#Embedded_interfaces).
+- [Effective Go: embedding](https://go.dev/doc/effective_go#embedding) — composition và hành vi chuyển tiếp.

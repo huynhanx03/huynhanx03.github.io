@@ -35,14 +35,10 @@ const formatCount = (value: number) => new Intl.NumberFormat(locale === 'vi' ? '
           <button type="button" class="ps-clear" data-clear aria-label={copy.clear} title={copy.clear} hidden><span aria-hidden="true">×</span></button>
         </div>
         {[{ key: 'topic', label: copy.topic, values: dsaIndex.filters.topics }, { key: 'difficulty', label: copy.difficulty, values: dsaIndex.filters.difficulties }, { key: 'language', label: copy.language, values: dsaIndex.filters.languages }].map(({ key, label, values }) => <div class="ps-filter-menu" data-filter-menu data-filter={key}>
-          <button type="button" class="ps-select" data-filter-trigger aria-expanded="false" aria-controls={`ps-filter-${key}-options`}><span class="ps-select-label">{label}</span><span class="ps-select-value" data-filter-value>{copy.any}</span><span class="ps-select-chevron" aria-hidden="true">⌄</span></button>
-          <div class="ps-select-popover" id={`ps-filter-${key}-options`} data-filter-popover hidden>
-            {key === 'topic' && <label class="ps-option-search"><span aria-hidden="true">⌕</span><input type="search" placeholder={copy.searchTopics} data-option-search /><span class="sr-only">{copy.searchTopics}</span></label>}
-            <div class="ps-option-list" aria-label={label} data-option-list>
-              <button type="button" class="ps-option is-selected" aria-pressed="true" data-option="">{copy.any}<span aria-hidden="true">✓</span></button>
-              {values.map((value) => <button type="button" class="ps-option" aria-pressed="false" data-option={value}>{value}<span aria-hidden="true">✓</span></button>)}
-            </div>
-          </div>
+          <select data-filter-select aria-label={label} data-search-placeholder={key === 'topic' ? copy.searchTopics : undefined}>
+            <option value="">{copy.any}</option>
+            {values.map((value) => <option value={value}>{value}</option>)}
+          </select>
         </div>)}
       </div>
       <p class="ps-result-count" data-result-count data-problem-word={copy.problem} data-problems-word={copy.problems} data-results-of={copy.resultsOf} aria-live="polite"></p>
@@ -58,11 +54,15 @@ const formatCount = (value: number) => new Intl.NumberFormat(locale === 'vi' ? '
     </div>
   </section>
   <script>
+    import { enhanceSelect } from '../../../lib/ui/select';
     const input = document.querySelector<HTMLInputElement>('[data-ps-search]');
     const rows = [...document.querySelectorAll<HTMLElement>('[data-problem-row]')];
     const platformButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-platform]')];
     const filterMenus = [...document.querySelectorAll<HTMLElement>('[data-filter-menu]')];
-    const filters = filterMenus.map((menu) => ({ menu, key: menu.dataset.filter ?? '', trigger: menu.querySelector<HTMLButtonElement>('[data-filter-trigger]')!, value: menu.querySelector<HTMLElement>('[data-filter-value]')!, popover: menu.querySelector<HTMLElement>('[data-filter-popover]')!, options: [...menu.querySelectorAll<HTMLButtonElement>('[data-option]')], search: menu.querySelector<HTMLInputElement>('[data-option-search]') }));
+    const filters = filterMenus.map((menu) => {
+      const select = menu.querySelector<HTMLSelectElement>('[data-filter-select]')!;
+      return { menu, key: menu.dataset.filter ?? '', select, ui: enhanceSelect(select, {label: select.getAttribute('aria-label') ?? '', searchPlaceholder: select.dataset.searchPlaceholder, showLabel: true}) };
+    });
     const clear = document.querySelector<HTMLButtonElement>('[data-clear]');
     const searchClear = document.querySelector<HTMLButtonElement>('[data-search-clear]');
     const resultCount = document.querySelector<HTMLElement>('[data-result-count]');
@@ -73,12 +73,11 @@ const formatCount = (value: number) => new Intl.NumberFormat(locale === 'vi' ? '
     for (const filter of filters) setFilter(filter, params.get(filter.key) ?? '');
     if (input) input.value = params.get('q') ?? '';
     function setFilter(filter: typeof filters[number], value: string) {
-      const selected = filter.options.find((option) => option.dataset.option === value) ?? filter.options[0];
-      filter.value.textContent = selected.textContent?.replace('✓', '').trim() ?? '';
-      filter.options.forEach((option) => { const active = option === selected; option.classList.toggle('is-selected', active); option.setAttribute('aria-pressed', String(active)); });
-      filter.menu.dataset.value = selected.dataset.option ?? '';
+      const selected = [...filter.select.options].find((option) => option.value === value) ?? filter.select.options[0];
+      filter.select.value = selected.value;
+      filter.menu.dataset.value = selected.value;
+      filter.ui.sync();
     }
-    const closeMenus = (except?: HTMLElement) => filters.forEach((filter) => { if (filter.menu !== except) { filter.popover.hidden = true; filter.trigger.setAttribute('aria-expanded', 'false'); } });
     const apply = () => {
       let visible = 0;
       platformButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.platform === platform));
@@ -100,23 +99,9 @@ const formatCount = (value: number) => new Intl.NumberFormat(locale === 'vi' ? '
       history.replaceState({}, '', next);
     };
     platformButtons.forEach((button) => button.addEventListener('click', () => { platform = button.dataset.platform ?? 'all'; apply(); }));
-    filters.forEach((filter) => {
-      filter.trigger.addEventListener('click', () => { const open = filter.popover.hidden; closeMenus(filter.menu); filter.popover.hidden = !open; filter.trigger.setAttribute('aria-expanded', String(open)); if (open) (filter.search ?? filter.options[0])?.focus(); });
-      filter.options.forEach((option) => option.addEventListener('click', () => { setFilter(filter, option.dataset.option ?? ''); filter.popover.hidden = true; filter.trigger.setAttribute('aria-expanded', 'false'); filter.trigger.focus(); apply(); }));
-      filter.search?.addEventListener('input', () => { const query = normalize(filter.search?.value ?? ''); filter.options.forEach((option) => { option.hidden = !normalize(option.dataset.option ?? '').includes(query); }); });
-      filter.menu.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') { filter.popover.hidden = true; filter.trigger.setAttribute('aria-expanded', 'false'); filter.trigger.focus(); return; }
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          const visibleOptions = filter.options.filter((option) => !option.hidden);
-          const current = visibleOptions.indexOf(document.activeElement as HTMLButtonElement);
-          const direction = event.key === 'ArrowDown' ? 1 : -1;
-          const next = current < 0 ? (direction > 0 ? 0 : visibleOptions.length - 1) : (current + direction + visibleOptions.length) % visibleOptions.length;
-          event.preventDefault(); visibleOptions[next]?.focus();
-        }
-      });
-    });
+    filters.forEach((filter) => filter.select.addEventListener('change', () => { setFilter(filter, filter.select.value); apply(); }));
+    document.addEventListener('astro:before-swap', () => filters.forEach(filter => filter.ui.destroy()), {once:true});
     function normalize(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase(); }
-    document.addEventListener('click', (event) => { if (!(event.target instanceof Element) || !event.target.closest('[data-filter-menu]')) closeMenus(); });
     document.addEventListener('keydown', (event) => { if (event.key === '/' && !event.metaKey && !event.ctrlKey && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLTextAreaElement)) { event.preventDefault(); input?.focus(); } });
     input?.addEventListener('input', apply);
     searchClear?.addEventListener('click', () => { if (input) { input.value = ''; input.focus(); } apply(); });

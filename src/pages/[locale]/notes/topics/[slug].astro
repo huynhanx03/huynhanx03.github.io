@@ -37,6 +37,10 @@ const schemas = buildLocalizedPageSchemas({ site, locale, urls, name: guide.titl
       <p class="eyebrow">{copy.notes.topic}</p>
       <h1>{guide.title}</h1>
       <p class="topic-guide-intro">{guide.description}</p>
+      {guide.source && <div class="topic-guide-source">
+        <p>{guide.source}</p>
+        {guide.sourceNote && <p class="topic-guide-source-note">{guide.sourceNote}</p>}
+      </div>}
       <p class="topic-guide-prerequisite"><strong>{copy.notes.prerequisites}:</strong> {guide.prerequisites}
         {guide.prerequisiteTopics.length > 0 && <span class="topic-guide-prerequisite-links">
           {guide.prerequisiteTopics.map((topic) => <a href={sitePath(`/${locale}/notes/topics/${topic.slug}/`)}>{topic.title} <span aria-hidden="true">↗</span></a>)}

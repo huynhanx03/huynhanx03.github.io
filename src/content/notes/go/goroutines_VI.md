@@ -1,318 +1,201 @@
 ---
-title: "Goroutines"
+title: "Goroutine: chạy đồng thời, scheduler và quản lý vòng đời"
 category: "Go"
 tags: ["golang", "concurrency", "goroutines", "fundamentals"]
+description: "Goroutine là một luồng thực thi do Go runtime quản lý. Từ khóa go giúp bắt đầu công việc đồng thời, nhưng phần quan trọng hơn là biết ai chờ kết quả, ai yêu cầu dừng và công việc dọn dẹp lúc nào."
+updated: 2026-10-15
+translationKey: "go/goroutines"
 ---
 
-# Goroutines: Lập trình đồng thời siêu nhẹ
+Một hàm có thể mất nhiều thời gian mà không cần caller luôn chờ bên cạnh. Thêm `go` trước lời gọi giúp hàm chạy đồng thời, cho caller tiếp tục. Nhưng ngay lúc ấy xuất hiện một câu hỏi mới: khi caller trả về, ai biết công việc đã xong chưa?
 
-Go được khai sinh để chinh phục thế giới đa nhân (Multi-core). Trái tim của sức mạnh này chính là **Goroutine**. Hãy tạm quên đi khái niệm "Thread" (Luồng) nặng nề của hệ điều hành; Goroutine là một thực thể vận hành nhẹ nhàng hơn hàng nghìn lần.
+Bài này đi từ một chương trình nhỏ tới scheduler và cách chẩn đoán vòng đời trong service. Bạn cần biết hàm và khái niệm dữ liệu dùng chung. Các ví dụ là đoạn trích độc lập; đặt câu lệnh trong `main` và import package tương ứng. Thứ tự lập lịch bên dưới là khả năng có thể xảy ra hoặc chi tiết triển khai, không phải lời hứa về thứ tự output.
 
-## 1. Goroutine là gì?
-
-Goroutine là một hàm có khả năng thực thi đồng thời với các hàm khác. Một ứng dụng Go có thể vận hành hàng triệu Goroutine cùng một lúc mà không làm quá tải hệ thống.
-
-## 2. Cách vận hành cơ bản
-
-### 2.1. Khởi tạo với từ khóa `go`
-
-Mọi thứ diễn ra vô cùng đơn giản: chỉ cần thêm từ khóa `go` trước bất kỳ lời gọi hàm nào.
+## Khởi chạy công việc rồi chờ nó hoàn tất
 
 ```go
-func SayHello(name string) {
-    fmt.Println("Xin chào", name)
-}
+func hello(name string) { fmt.Println("Hello,", name) }
 
 func main() {
-    go SayHello("An") // Thực thi hàm ngầm trong nền (background)
-    fmt.Println("Hàm main vẫn tiếp tục chạy...")
-
-    // Lưu ý quan trọng: Nếu hàm main kết thúc, mọi Goroutine khác cũng sẽ bị ngắt lập tức
-    time.Sleep(time.Second)
+    var wg sync.WaitGroup
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        hello("An")
+    }()
+    fmt.Println("main continues")
+    wg.Wait()
 }
 ```
 
-> **Hàm main là một Goroutine:** Khi chương trình Go chạy, hệ thống sẽ tạo ra một Goroutine đặc biệt gọi là `main goroutine`. Nếu `main` thoát ra, chương trình sẽ đóng lại ngay lập tức mà không cần quan tâm các Goroutine khác có còn đang chạy hay không.
+Thêm `package main` và import `fmt`, `sync` để có chương trình hoàn chỉnh. `go` khởi chạy một **goroutine**, tức luồng thực thi do Go runtime quản lý. Caller tiếp tục mà không chờ `hello` trả về. Dòng nào trong hai dòng in ra cũng có thể xuất hiện trước; code chỉ bảo đảm worker hoàn thành trước khi `main` trả về, không áp đặt thứ tự giữa hai lệnh in.
 
-### 2.2. Đồng bộ hóa với WaitGroup
+`WaitGroup` đếm công việc chưa xong. `Add(1)` ghi nhận task trước khi chạy, `Done` giảm đếm lúc worker thoát, còn `Wait` chờ đếm về 0. Nếu Add bên trong worker, Wait có thể nhìn thấy 0 trước khi worker kịp đăng ký. Mỗi task phải có đúng một Done, và không copy WaitGroup sau lần sử dụng đầu.
 
-Làm thế nào để hàm `main` kiên nhẫn chờ đợi cho đến khi tất cả các Goroutine hoàn thành nhiệm vụ? Chúng ta sử dụng công cụ `sync.WaitGroup`.
+Khi `main` trả về, chương trình kết thúc mà không tự join goroutine khác. `time.Sleep` chỉ đợi thời gian trôi qua: máy chậm hoặc dependency bị chặn có thể khiến task chạy lâu hơn. Cơ chế báo hoàn tất mới diễn đạt đúng điều kiện cần chờ.
+
+Go 1.25 thêm `WaitGroup.Go` để khởi chạy task có theo dõi; hàm truyền vào không được panic. Dạng Add/Done vẫn phù hợp khi hỗ trợ toolchain cũ. Cả hai cách đều không truyền error, không yêu cầu hủy và không bảo vệ object dùng chung khỏi sửa đồng thời.
+
+## Công việc chồng lấp chưa chắc chạy cùng lúc
+
+Concurrency tổ chức nhiều công việc có tiến trình chồng lấp. Parallelism nghĩa là chúng thực sự thực thi cùng lúc trên nhiều tài nguyên xử lý. Một logical CPU vẫn có concurrency nhờ chuyển giữa các task, nhất là khi có task chờ I/O. Công việc CPU muốn chạy song song cần năng lực xử lý sẵn có.
+
+Cần phân biệt logical CPU với core vật lý: SMT, chẳng hạn Intel Hyper-Threading, cho phép nhiều hardware thread chia sẻ tài nguyên thực thi của một core. Vì thế số logical CPU không đồng nghĩa số core độc lập hay mức tăng tốc tương ứng. [Intel giải thích quan hệ giữa core và logical processor](https://www.intel.com/content/www/us/en/developer/articles/guide/hyper-thread-tuning-guide-for-video-ai-workload.html).
+
+Thêm goroutine không tăng khả năng phục vụ của database và không loại bỏ mutex đang bị tranh chấp. Khi dependency đã bão hòa, việc mới có thể chỉ xếp hàng, giữ thêm stack, buffer và connection. Worker pool hữu hạn hoặc semaphore đặt giới hạn chủ động cho việc đang chạy. Giới hạn phù hợp phụ thuộc CPU, năng lực dependency và thời gian chờ chấp nhận được.
+
+Một ví dụ nhỏ giúp theo dõi rõ các lần ghi dùng chung:
 
 ```go
-var wg sync.WaitGroup
+func squares(input []int) []int {
+    output := make([]int, len(input))
+    var wg sync.WaitGroup
+    for i, value := range input {
+        wg.Add(1)
+        go func(index, n int) {
+            defer wg.Done()
+            output[index] = n * n
+        }(i, value)
+    }
+    wg.Wait()
+    return output
+}
 
-wg.Add(1) // Thông báo có 1 tác vụ chuẩn bị bắt đầu
-go func() {
-    defer wg.Done() // Báo cáo hoàn thành khi hàm kết thúc
-    fmt.Println("Đang xử lý dữ liệu chuyên sâu...")
-}()
-
-wg.Wait() // Dừng lại chờ cho đến khi nhận được đủ tín hiệu Done
-fmt.Println("Mọi tác vụ đã hoàn tất!")
+fmt.Println(squares([]int{3, 1, 2})) // [9 1 4]
 ```
 
-### 2.3. Phân biệt Concurrency và Parallelism
+Mỗi task nhận index và số riêng rồi ghi một phần tử khác nhau. Không task nào append hoặc thay `output`. Wait bảo đảm mọi lần ghi xong trước khi caller đọc kết quả. Task có thể hoàn thành theo thứ tự bất kỳ, còn kết quả vẫn theo index đầu vào. Caller cũng không được sửa input đồng thời khi `squares` đang đọc.
 
--   **Concurrency (Đồng thời)**: Khả năng sắp xếp và quản lý nhiều việc để xử lý cùng lúc (ví dụ: một người vừa nấu ăn vừa nghe điện thoại).
--   **Parallelism (Song song)**: Thực hiện nhiều việc tại cùng một thời điểm vật lý (ví dụ: hai đầu bếp cùng nấu ăn ở hai gian bếp khác nhau).
+Ví dụ này giải thích vòng đời và quyền ghi dữ liệu, chưa phải cách hiệu quả để bình phương số. Phép nhân nhỏ có thể rẻ hơn overhead goroutine; đầu vào rất lớn lại tạo quá nhiều công việc. Giả định bình phương các số nằm trong miền `int`; tràn số là vấn đề riêng.
 
-Go được thiết kế tối ưu để bạn viết mã theo tư duy Concurrency, và hệ thống của Go (Go Runtime) sẽ tự động phân phối để chúng chạy Parallelism trên các nhân CPU hiện có.
+## Goroutine không ánh xạ một–một với OS thread
 
-> Đừng lạm dụng từ khóa `go` một cách vô tội vạ. Mỗi Goroutine cần có mục tiêu rõ ràng và phải được quản lý vòng đời chặt chẽ để tránh rò rỉ tài nguyên.
+| Đơn vị | Quan hệ bộ nhớ | Ai lập lịch? | Hệ quả về tài nguyên |
+| --- | --- | --- | --- |
+| Process | Thường cách ly với process khác | OS | Có tài nguyên riêng; giao tiếp thường cần IPC |
+| OS thread | Chia sẻ address space trong process | OS | Có stack riêng; chi phí chuyển tùy OS |
+| Goroutine | Chia sẻ bộ nhớ process với goroutine khác | Go runtime trên OS threads | Stack nhỏ có thể điều chỉnh; không cần một thread riêng |
 
----
+Stack riêng không làm heap object thành dữ liệu riêng. Hai goroutine vẫn có thể cùng giữ một map hoặc user object rồi race trên đó.
 
-## 3. Tại sao Goroutine mạnh mẽ? (Kiến trúc & Cơ chế)
+Con số stack 2 KiB thường được nhắc đến là minimum trong runtime, không phải bảo đảm mỗi goroutine luôn chiếm đúng từng ấy. Kích thước ban đầu có thể được điều chỉnh; stack có thể tăng hoặc giảm. Khi tăng, runtime có thể cấp vùng mới và copy stack. Chuyển goroutine thông thường lưu/khôi phục trạng thái như SP, PC; không cần copy toàn stack ở mỗi lần chuyển.
 
-### 3.1. So sánh với Thread truyền thống
+Không có chi phí chuyển cố định theo nano giây hay một số lượng goroutine luôn an toàn. Hàng trăm nghìn goroutine có thể hợp lý với workload phù hợp, nhưng stack, object giữ lại, socket, GC và CPU giới hạn số hữu ích. OS vẫn lập lịch các thread nằm dưới scheduler Go.
 
-So với OS Thread truyền thống:
-- Stack cực nhỏ (khởi điểm vài KB), tự động co/giãn linh hoạt.
-- Context Switch (chuyển đổi ngữ cảnh) cực nhẹ do được tiến hành ở user-space (không cần can thiệp xuống kernel).
-- Scheduler được kiểm soát hoàn toàn bởi Go runtime thay vì Hệ điều hành.
+## G, M và P chia trách nhiệm thế nào?
 
-**Lợi ích:**
-- Tránh ánh xạ 1:1 giữa Goroutine và OS Thread.
-- Loại bỏ chi phí Context Switch nặng nề của OS Kernel.
-- Tận dụng tối đa sức mạnh đa nhân (Core CPU).
+```text
+G: goroutine state + stack
+             executes on
+M: OS thread + P: resources/right to execute ordinary Go code
+                 ├─ local runnable queue
+                 ├─ runnext
+                 └─ allocation/runtime caches
 
-**1. Mỗi Goroutine có bộ nhớ Stack riêng biệt:**
--   **Stack riêng:** Mỗi Goroutine khi sinh ra đều được cấp một vùng nhớ riêng gọi là Stack (khởi điểm chỉ **2KB**) để lưu trữ các biến cục bộ và lời gọi hàm. Điều này giúp chúng hoạt động độc lập, không xâm phạm lẫn nhau.
--   **Tự động co giãn (Contiguous Stacks):** Nếu 2KB không đủ, Go runtime sẽ tự động cấp thêm vùng nhớ lớn hơn và chuyển dữ liệu sang. Khác với OS Thread luôn giữ cố định 1-8MB (gây lãng phí), Goroutine chỉ dùng đúng những gì nó cần.
+shared global queue ↔ scheduler ↔ network poller
+```
 
-**2. Cơ chế Hoán đổi (Context Switch) của Scheduler:**
--   Goroutine không phải là một luồng hệ điều hành thật sự, nó là một thực thể logic chứa code và vùng nhớ Stack riêng.
--   **Cách chạy (Pointer Swap):** Khi đến lượt một Goroutine được chạy, Go Scheduler thực hiện việc hoán đổi cực nhanh: nó cập nhật các thanh ghi của CPU (như **SP - Stack Pointer** và **PC - Program Counter**) để trỏ thẳng vào vùng Stack của Goroutine mới.
--   **Hiệu năng:** Vì vùng nhớ Stack đã nằm sẵn trên bộ nhớ (Heap), việc chuyển đổi chỉ là thay đổi địa chỉ mà CPU trỏ tới. **Hoàn toàn không có việc sao chép dữ liệu Stack**, giúp tốc độ chuyển đổi đạt mức nano giây.
+G giữ công việc và trạng thái thực thi. M là OS thread chạy instruction. P là tài nguyên lập lịch logic mà M cần để chạy Go code thông thường. P không phải core; mô hình này cũng không pin G hay M vào core cố định.
 
-#### Bảng so sánh Process vs Thread vs Goroutine
+`GOMAXPROCS` điều khiển số P. Nó không giới hạn tổng goroutine hay tổng OS thread: syscall bị chặn hoặc cgo có thể cần nhiều M hơn P. Vì thế đặt bằng 2 không có nghĩa process chỉ có hai thread.
 
-| Tiêu chí | Process | Thread (OS) | Goroutine (Go) |
-| :--- | :--- | :--- | :--- |
-| **Bản chất** | Đơn vị cô lập tài nguyên | Đơn vị thực thi trong process | Đơn vị thực thi logic của Go |
-| **Quản lý bởi** | Hệ điều hành | Hệ điều hành | Go runtime |
-| **Không gian bộ nhớ** | Riêng biệt | Chung trong process | Chung trong process |
-| **Heap** | Riêng | Chung | Chung |
-| **Stack** | Riêng | Riêng | Riêng |
-| **Kích thước stack** | Lớn, cố định | ~1–8 MB, cố định | ~2 KB, tăng động |
-| **Tạo mới** | Rất tốn kém | Tốn kém | Rất rẻ |
-| **Context switch** | Rất đắt (kernel) | Đắt (kernel) | Rẻ (user-space) |
-| **Scheduling** | Kernel | Kernel | Go scheduler |
-| **Số lượng tối đa** | Rất ít | Vài nghìn | Hàng trăm nghìn – triệu |
-| **Giao tiếp** | IPC | Shared memory | Channel / shared memory |
-| **Khả năng scale** | Kém | Trung bình | Rất tốt |
-| **Mục tiêu thiết kế** | An toàn, cách ly | Song song | Concurrency hiệu quả |
+Khi đọc source, bạn thường gặp local queue 256 entry trên mỗi P và slot ưu tiên riêng `runnext`. Thread bootstrap gọi là M0, nhưng điều này không hứa `main` luôn chạy ở đó. Mỗi M có `g0` dùng system stack cho một số công việc runtime; g0 không phải goroutine nghiệp vụ tạo bằng `go`. Tên và kích thước ấy thuộc implementation runtime.
 
-### 3.2. Mô hình lập lịch GMP
+### Vì sao cấu hình CPU trong container quan trọng?
 
--   **Goroutine**: Chỉ tiêu tốn khoảng **2KB** khởi điểm và có khả năng co giãn linh hoạt (growable stacks).
+Trước Go 1.25, mặc định GOMAXPROCS thường theo logical CPU sẵn có lúc khởi động. Go 1.25 thêm khả năng xét CPU limit từ Linux cgroup và cập nhật định kỳ khi limit đổi. CPU request của Kubernetes khác CPU limit. Đặt GOMAXPROCS thủ công hoặc dùng cấu hình tương thích có thể tắt/thay đổi hành vi tự động.
 
-GMP là mô hình lập lịch (scheduler) của Go runtime, được sử dụng để ánh xạ các đơn vị công việc logic (Goroutine) lên các đơn vị thực thi vật lý (OS Thread/Machine) một cách hiệu quả. Go sử dụng một bộ điều phối (scheduler) nội bộ vô cùng thông minh. Thay vì để Hệ điều hành quản lý hàng triệu Thread, Go Scheduler sẽ tự mình phân phối hàng triệu Goroutine (G) lên một số lượng ít các Thread hệ điều hành (M) thông qua các bộ xử lý logic (P). Điều này giúp việc chuyển đổi ngữ cảnh (context switch) diễn ra cực nhanh.
+Trước khi dùng số core của host để giải thích hiệu năng container, hãy xem phiên bản Go và cấu hình ứng dụng. `runtime.GOMAXPROCS(0)` đọc giá trị hiện tại mà không thay nó.
 
-- **G (Goroutine)**: Đơn vị công việc logic.
-- **M (Machine)**: OS Thread/Luồng Hệ điều hành vật lý.
-- **P (Processor)**: Tài nguyên thực thi trung gian, giữ quyền chạy Go code.
+## Theo dõi lúc công việc không còn runnable
 
-#### 3.2.1. G – Goroutine (Đơn vị công việc)
+G runnable có thể được M đang giữ P chọn để chạy. Khi phải chờ channel hoặc lock, G có thể **park**: G chờ còn M/P chạy việc khác. G đang park thường không tiêu CPU liên tục, nhưng stack và object reachable vẫn giữ bộ nhớ.
 
-| Tiêu chí | Mô tả chi tiết |
-| :--- | :--- |
-| **Bản chất** | Là một task logic, không phải Thread. Rất nhẹ (stack vài KB, có thể tự co/giãn). Không gắn cố định với OS Thread. |
-| **Vai trò** | Chứa: Function cần chạy, Stack, và các Metadata (status, con trỏ, thông tin panic...). |
-| **Điểm quan trọng** | Goroutine không tự chạy. Nó bắt buộc phải được gán cho P và chạy trên M. |
+Blocking syscall khác ở chỗ OS có thể giữ chính M. Runtime có cơ chế nhả hoặc retake P để M khác chạy Go code. Khi syscall xong, G có thể lấy lại P hoặc thành runnable để chờ lượt. Không có một đường quay lại duy nhất áp dụng cho mọi tình huống.
 
-#### 3.2.2. M – Machine (OS Thread)
+Với I/O mạng được hỗ trợ, network poller chờ readiness qua cơ chế OS như epoll, kqueue hoặc IOCP. Nhờ đó G chờ có thể nhả tài nguyên thực thi. Không phải mọi file operation hay cgo đều đi đường này, nên khẳng định “I/O chỉ block goroutine” cần nêu điều kiện.
 
-| Tiêu chí | Mô tả chi tiết |
-| :--- | :--- |
-| **Bản chất** | Là một OS Thread thật do Go runtime tạo và quản lý. |
-| **Vai trò** | Thực sự thực thi các lệnh CPU (CPU instruction). Chạy Go code hoặc bị block bởi syscall (hệ thống). |
-| **Điểm quan trọng** | Số lượng M có thể nhiều hơn P. M không sở hữu công việc, nó chỉ là "người làm thuê" để thực thi. |
+P thiếu việc có thể lấy runnable G từ P khác, thường lấy một phần queue để giảm tranh chấp. Global runnable queue giữ việc dùng chung; các lần kiểm tra fairness giúp tránh bỏ đói nó. Một số đường scheduler kiểm tra mỗi 61 scheduling ticks; tick không phải millisecond hay giới hạn thời gian chờ.
 
-#### 3.2.3. P – Processor (Lõi Lập lịch)
+Batch từ global queue trong runtime lịch sử lấy xấp xỉ `len(global queue)/P + 1`, còn bị chặn bởi số G có sẵn, giới hạn caller yêu cầu và khoảng nửa local queue. Công thức kiểu `min(..., 128)` chỉ là cách nhìn rút gọn. Scheduler còn xét timer, network readiness, GC và trạng thái thread; không có thứ tự local → global → steal → poller cố định cho mọi lần tìm việc.
 
-| Tiêu chí | Mô tả chi tiết |
-| :--- | :--- |
-| **Bản chất** | P không phải CPU. P là: Quyền được chạy Go code và đi kèm với hàng đợi (run queue) local để chứa Goroutine. |
-| **Vai trò** | Giữ Run queue của Goroutine, Cache allocator, GC state. Điều phối Goroutine rất nhanh mà không cần khóa (lock) toàn cục. |
-| **Quan hệ** | 1 P ↔ tối đa 1 M tại một thời điểm. M muốn chạy Go code bắt buộc phải có P. |
-| **GOMAXPROCS** | Số lượng P được xác định bởi biến môi trường `GOMAXPROCS` (thường mặc định bằng số core CPU). |
-| **Local Run Queue** | Mỗi P sở hữu một hàng đợi riêng chứa tối đa **256** Goroutine đang chờ chạy. Ngoài ra còn có một slot đặc biệt gọi là `runnext` để ưu tiên chạy ngay lập tức Goroutine vừa thức tỉnh. |
+Go 1.14 đưa asynchronous preemption vào các nền tảng được hỗ trợ, bổ sung cho safe point hợp tác. Vì thế không nên mô tả Go hiện đại là scheduler hoàn toàn cooperative. Preemption cho việc khác cơ hội chạy; nó không tạo đồng bộ mà chương trình cần. `runtime.Gosched` cũng nhường lượt mà không thiết lập giao thức truy cập bộ nhớ chung.
 
-#### 3.2.4. Các thực thể nội bộ đặc biệt
+## Mỗi goroutine cần chủ sở hữu và lối thoát
 
-- **M0 (Machine 0)**: Là thread đầu tiên được tạo ra khi chương trình khởi chạy. Nó chịu trách nhiệm khởi tạo runtime và thực thi hàm `main`.
-- **G0 (Goroutine 0)**: Mỗi M đều đi kèm với một G0. G0 không chạy code người dùng mà chạy trên **System Stack** để thực hiện các nhiệm vụ lập lịch, cấp phát bộ nhớ và quản lý GC.
+Giả sử worker đã có kết quả nhưng caller bỏ nhận. Send vô điều kiện có thể chờ mãi. Cho phép hủy send tạo thêm một lối thoát:
 
-### 3.3. Cơ chế lập lịch thông minh
+```go
+func forward(ctx context.Context, out chan<- int, value int) error {
+    select {
+    case out <- value:
+        return nil
+    case <-ctx.Done():
+        return ctx.Err()
+    }
+}
+```
 
-#### 3.3.1. Luồng chạy thực tế (Execution Flow)
+Hàm cần import `context`. Nếu send chưa thực hiện được và có cancellation, hàm trả error. Nếu cả hai case sẵn sàng thì case nào cũng có thể thắng; vị trí case không tạo ưu tiên cho cancellation. CPU loop trước send vẫn cần điểm kiểm tra hủy; I/O trước đó cần API hỗ trợ context hoặc deadline.
 
-1. Goroutine (G) được tạo và đưa vào Run Queue của P.
-2. Một OS Thread (M) sẵn sàng sẽ lấy một Processor (P).
-3. M lấy một Goroutine (G) từ Run Queue của P.
-4. M thực thi Goroutine đó.
+Cancellation là yêu cầu dừng có hợp tác. Nó không join worker. Chủ sở hữu cần WaitGroup hoặc completion channel khi phải biết việc dọn dẹp đã xong; bài [Context](/vi/notes/go/context/) có ví dụ hủy rồi join. Bài [Channels](/vi/notes/go/channels/) giải thích cách coordinator đóng output sau khi mọi sender hoàn tất.
 
-Trạng thái kết thúc của Goroutine:
-- **Chạy xong** → Exit.
-- **Bị block** → Bị tách khỏi M.
-- **Tự nguyện nhả CPU (Yield)** → Trả CPU cho Goroutine khác.
+### Nhiều vấn đề khác nhau thường cùng được gọi là leak
 
-> **Tóm tắt:** M chạy, P điều phối, G là công việc.
+| Thứ bị giữ lại | Một nguyên nhân có thể có | Quyết định về vòng đời |
+| --- | --- | --- |
+| Goroutine | Send không có receiver, receive hết sender, thiếu báo hoàn tất | Điều kiện thoát và join |
+| Tài nguyên context | Bỏ qua hàm cancel | Cancel ở các đường trả về phù hợp |
+| Timer | Tạo liên tục hoặc giữ timer | Vòng đời và semantics theo phiên bản |
+| Tài nguyên bên ngoài | Không đóng body/file/rows | Chủ sở hữu gọi `Close` |
+| Heap object | Slice nhỏ giữ array lớn | Copy phần cần giữ hoặc bỏ alias |
 
-#### 3.3.2. Xử lý Blocking Syscall
+Mutex không reentrant: lấy cùng lock hai lần có thể deadlock, cũng như vòng phụ thuộc khóa hoặc quên Unlock. I/O thiếu timeout hiệu lực có thể giữ công việc vô hạn. HTTP response body chưa đóng có thể cản connection reuse và giữ tài nguyên, nhưng không đồng nghĩa mỗi body leak đúng một goroutine. GC không thực hiện giao thức shutdown thay ứng dụng.
 
-Khi một Goroutine thực hiện một lệnh Syscall blocking (như I/O, network), OS Thread (M) sẽ bị block theo. Nếu M giữ P, toàn bộ Goroutine trên P đó sẽ bị đứng.
+Lời khuyên về timer phải gắn phiên bản. Trước Go 1.23, timer/ticker chưa Stop có hạn chế thu gom. Với semantics mới từ 1.23, timer/ticker không còn reference có thể được GC thu hồi dù chưa Stop. Phiên bản trong module và cấu hình GODEBUG tương thích ảnh hưởng semantics được dùng. Lặp `time.After` vẫn có thể gây allocation churn hoặc vô tình khởi động lại timeout mỗi vòng; “mọi loop đều leak tới lúc timer fire” không đúng cho mọi bản Go.
 
-**Giải pháp của Go:**
-- Khi Goroutine vào Syscall blocking: M nhả P (cho phép Goroutine bị block chạy trên M mà không cần P).
-- P ngay lập tức được gán cho một M khác rảnh rỗi.
-- **Kết quả:** Khi Syscall xong, Goroutine quay lại Run Queue. Các Goroutine khác trên P vẫn tiếp tục được lập lịch và chạy mà không bị gián đoạn.
+### Recover panic tại ranh giới được chọn có chủ đích
 
-#### 3.3.3. Work Stealing (Cân bằng tải)
+Panic chưa recover ở bất kỳ goroutine nào có thể kết thúc process. Deferred recovery phải chạy trong cùng goroutine gây panic; recover ở caller không bắt panic của worker mới.
 
-- **Vấn đề:** Một Processor (P) rảnh rỗi nhưng P khác lại quá tải với quá nhiều Goroutine trong hàng đợi.
-- **Giải pháp:** P rảnh sẽ "ăn cắp" (steal) khoảng 1/2 số Goroutine từ Run Queue của P khác.
-- **Lợi ích:** Tránh phụ thuộc hoàn toàn vào Global Queue, giảm xung đột khóa (lock contention), và tối ưu cache locality.
-
-#### 3.3.4. Global Run Queue (GRQ) - Hành lang chờ chung
-
-Khi Local Queue của P bị đầy (quá 256), các Goroutine mới sinh ra sẽ được đẩy vào **Global Run Queue**. GRQ là một hàng đợi dùng chung cho toàn bộ hệ thống, được bảo vệ bởi một khóa (global lock).
-
-**Cơ chế thoát khỏi Global Queue:**
-1.  **Tính công bằng (Quy tắc 1/61):** Để tránh việc P chỉ mải mê chạy các Goroutine trong Local Queue mà "bỏ đói" (starve) các Goroutine ở Global Queue, Go scheduler áp dụng quy tắc đặc biệt: Cứ mỗi **61 ticks** (lần lập lịch), P sẽ bắt buộc phải kiểm tra GRQ trước khi xem Local Queue của chính mình.
-2.  **Lấp đầy mẻ (Batch Picking):** Khi một P rảnh rỗi hoặc đến lượt kiểm tra GRQ, nó không chỉ lấy duy nhất 1 Goroutine. Để tối ưu hóa và giảm số lần phải tranh chấp khóa (lock contention) trên GRQ, P sẽ lấy một "mẻ" (batch) Goroutine.
-    *   **Công thức:** `n = min(len(GRQ)/Gomaxprocs + 1, 128)`.
-    *   Các Goroutine này sẽ được nạp đầy vào 1/2 Local Queue của P đó để xử lý dần.
-3.  **Thứ tự ưu tiên:** Khi P đi tìm việc (`findrunnable`), thứ tự thường là: Local Queue -> **Global Queue** -> Stealing (ăn cắp từ P khác) -> Network Poller.
-
-#### 3.3.5. Network Poller (Non-blocking I/O)
-
-Go xử lý hàng triệu kết nối mạng mà không cần hàng triệu OS Thread nhờ **Network Poller**.
-
-- **Cơ chế:** Khi một Goroutine yêu cầu I/O mạng (read/write socket), nó sẽ được đưa vào Network Poller (sử dụng các cơ chế OS như `epoll`, `kqueue`, hoặc `IOCP`).
-- **Lợi ích:** OS Thread (M) không bị block. M có thể rảnh tay để chạy Goroutine khác. Khi I/O sẵn sàng, Network Poller sẽ thông báo cho scheduler để đưa Goroutine đó quay lại Run Queue.
-
-#### 3.3.6. Scheduler Preemption (Cơ chế chiếm quyền)
-
-Go scheduler là một **Cooperative Scheduler** (hợp tác), nghĩa là Goroutine phải tự nhường (yield) tại các điểm kiểm tra (thường là lời gọi hàm).
-
-- **Từ Go 1.14 trở đi:** Go giới thiệu **Asynchronous Preemption**. Nếu một Goroutine chạy quá lâu (ví dụ vòng lặp vô tận không có lời gọi hàm), runtime sẽ gửi một tín hiệu (Signal) để ép Goroutine đó dừng lại và nhường chỗ cho người khác. Điều này giúp hệ thống ổn định hơn, tránh việc một Goroutine "tham lam" chiếm dụng toàn bộ CPU.
-
-## 4. Quản trị vòng đời & An toàn
-
-### 4.1. Concurrency Leaks: Phân loại & Kịch bản
-
-**Concurrency Leak** xảy ra khi các tài nguyên (Goroutine, Context, Timer, Connection) bị treo hoặc không được giải phóng, dẫn đến lãng phí tài nguyên và làm hệ thống cạn kiệt theo thời gian.
-
-#### 4.1.1. Hệ sinh thái 5 loại Leak thường gặp
-
-Trong Go, tài nguyên không chỉ bị rò rỉ qua Goroutine mà còn qua các thực thể runtime và bộ nhớ. Một lập trình viên cần phân biệt rõ 5 nhóm chính:
-
-| Loại Leak | Nguyên nhân chính (Thủ phạm) | Hậu quả (Triệu chứng) |
-| :--- | :--- | :--- |
-| **Goroutine Leak** | G bị block vĩnh viễn (do Channel, Mutex, WaitGroup). | Tăng RAM (Stack), tăng CPU overhead cho Scheduler. |
-| **Context Leak** | Quên gọi hàm `cancel()` từ `WithCancel` hoặc `WithTimeout`. | Giữ lại các timers, references trong Context tree. |
-| **Timer Leak** | Sử dụng `time.After` sai cách bên trong vòng lặp. | RAM Heap tăng dần do các Timer struct rác tích tụ. |
-| **Resource Leak** | Không `close()` HTTP Body, File, hoặc DB Connection. | Gây Goroutine Leak ngầm (ngốn worker/connection). |
-| **Memory Leak** | Giữ tham chiếu mảng lớn qua slice nhỏ truyền giữa các G. | RAM tăng cao, GC không thu hồi được mảng gốc (Pinning). |
-
-> Các loại leak này thường tạo thành một chuỗi. Ví dụ: **Resource Leak** (quên đóng Body) -> trực tiếp giữ một **Goroutine ngầm** (G leak) để quản lý connection -> G leak này lại giữ tham chiếu tới **Context** (Context leak). Vì vậy, hãy tìm "nguồn phát" tài nguyên thay vì chỉ đi tìm "số lượng Goroutine".
-
-#### 4.1.2. Các kịch bản rò rỉ thực tế (Detailed Case Studies)
-
-Dưới đây là chi tiết cơ chế và lý do gây rò rỉ cho từng kịch bản cụ thể:
-
-**A. Goroutine Leak (Phổ biến nhất)**
-Hiện tượng Goroutine bị treo vô hạn tại các điểm đồng bộ hóa hoặc I/O:
-
-1.  **Gửi vào Channel mà không có người nhận**: 
-    *   **Cơ chế**: Gửi dữ liệu (`ch <- data`) vào unbuffered channel nhưng không có Goroutine nào sẵn sàng nhận (`<-ch`).
-    *   **Bị Block như nào**: Goroutine gửi sẽ bị "đứng" vĩnh viễn tại chính dòng lệnh đó.
-    *   **Lý do Leak**: Nếu Goroutine nhận bị thoát sớm hoặc không bao giờ được tạo, tài nguyên Stack của G gửi không bao giờ được giải phóng.
-
-2.  **Nhận từ Channel mà không có người gửi**: 
-    *   **Cơ chế**: Cố nhận dữ liệu (`<-ch`) từ một channel rỗng (hoặc buffered channel đã hết dữ liệu) và không còn G nào gửi vào nữa.
-    *   **Bị Block như nào**: Goroutine nhận sẽ rơi vào trạng thái chờ vô thời hạn.
-    *   **Lý do Leak**: Nếu Goroutine gửi bị crash hoặc thoát mà không `close(ch)`, G nhận sẽ kẹt lại mãi mãi.
-
-3.  **Deadlock do Mutex**: 
-    *   **Cơ chế**: Goroutine cố lấy một Lock (`mutex.Lock()`) nhưng Lock đó đang bị giữ bởi chính nó hoặc tạo vòng lặp chờ với G khác.
-    *   **Bị Block như nào**: Treo vĩnh viễn ở trạng thái "Waiting for Lock".
-    *   **Lý do Leak**: Go không hỗ trợ Reentrant Lock, dẫn đến việc G tự block chính mình.
-
-4.  **Chờ I/O không có Timeout**: 
-    *   **Cơ chế**: Gọi API mạng, đọc file, hoặc kết nối DB mà không thiết lập thời gian chờ (timeout/deadline).
-    *   **Bị Block như nào**: Khi server đích sập hoặc mất mạng, Goroutine và OS Thread (M) sẽ bị treo cứng.
-    *   **Lý do Leak**: Không có cơ chế tự thoát khi gặp sự cố ngoại cảnh.
-
-**B. Context Leak**
-- **Ví dụ**: Gọi `ctx, _ := context.WithTimeout(...)` nhưng không gọi `defer cancel()`.
-- **Cơ chế**: Go runtime duy trì một timer nội bộ và các tham chiếu trong cây context cho đến khi context cha kết thúc.
-- **Hệ quả**: Nếu hàm này được gọi liên tục, các timer "rác" sẽ lấp đầy bộ nhớ trước khi kịp hết hạn tự nhiên.
-
-**C. Timer Leak**
-- **Ví dụ**: Sử dụng `time.After(time.Hour)` bên trong một vòng lặp `for-select`.
-- **Cơ chế**: Mỗi lần gọi `time.After` sẽ tạo một Timer mới. Nếu case `Default` được chọn, Timer 1 tiếng này vẫn "sống" trong runtime heap.
-- **Hệ quả**: RAM Heap tăng tỉ lệ thuận với số lần lặp, dù các tác vụ logic đã hoàn thành.
-
-**D. Resource Leak (Ẩn sau Goroutine Leak)**
-- **Ví dụ**: Quên `resp.Body.Close()` sau khi gọi HTTP request.
-- **Cơ chế**: Thư viện `net/http` duy trì một Goroutine đọc ngầm để tái sử dụng connection (keep-alive).
-- **Hệ quả**: Cạn kiệt connection pool và làm tăng số lượng Goroutine mồ côi mà bạn không hề code trực tiếp.
-
-**E. Memory Leak (Pinning Memory)**
-- **Ví dụ**: Cắt một slice nhỏ từ một mảng khổng lồ (`huge[:10]`) và giữ/gửi slice này đi.
-- **Cơ chế**: Slice nhỏ vẫn giữ tham chiếu đến toàn bộ mảng gốc (Backing Array).
-- **Hệ quả**: Garbage Collector (GC) không thể thu hồi mảng khổng lồ đó, gây lãng phí RAM nghiêm trọng.
-
-> **Ghi nhớ:** Goroutine Leak là "bề nổi của tảng băng", còn Context/Resource Leak thường là phần chìm gây ra nó.
-
-#### 4.1.3. Chiến lược tiếp cận An toàn (Performance & Reliability)
-
-Để xây dựng hệ thống bền bỉ (Reliability) và tối ưu (Performance), hãy áp dụng các kỹ thuật sau:
-
-1.  **Quản lý Quyền sở hữu (Ownership):** Mọi Goroutine khi sinh ra phải có một "Chủ sở hữu" chịu trách nhiệm về vòng đời của nó. Sử dụng `context.Context` để truyền tín hiệu hủy bỏ xuyên suốt.
-2.  **Nguyên tắc "Lối thoát cưỡng bức":** 
-    *   **Channel**: Luôn kết hợp `select` với `ctx.Done()` để đảm bảo Goroutine luôn có đường thoát.
-    *   **I/O**: Luôn thiết lập `Timeout/Deadline` cho mọi kết nối ngoại vi.
-3.  **Dọn dẹp tài nguyên (Cleanup):** Luôn sử dụng lệnh `defer` ngay sau khi khởi tạo: `defer cancel()`, `defer resp.Body.Close()`, `defer rows.Close()`.
-4.  **Quan sát & Kiểm thử (Observability & Testing):**
-    *   **Profiling**: Dùng `pprof` để phân tích đồ thị Goroutine (`/debug/pprof/goroutine?debug=2`).
-    *   **Metric**: Theo dõi `runtime.NumGoroutine()` để phát hiện sớm các dấu hiệu tăng bất thường.
-    *   **Unit Test**: Tích hợp `go.uber.org/goleak` để chặn đứng code có leak ngay từ khâu CI/CD (ví dụ: `defer goleak.VerifyNone(t)`).
-
-### 4.2. Panic và Recover trong Goroutine (Quy tắc an toàn)
-
-Một sai lầm nguy hiểm của lập trình viên Go mới là quên rằng **Panic trong một Goroutine sẽ làm sập toàn bộ chương trình**, ngay cả khi `main goroutine` có lệnh `recover()`.
-
-- **Nguyên tắc:** Mỗi Goroutine phải tự quản lý `recover()` của chính nó.
-- **Cách xử lý chuẩn:**
 ```go
 go func() {
     defer func() {
-        if r := recover(); r != nil {
-            log.Printf("Recovered from panic in goroutine: %v", r)
+        if value := recover(); value != nil {
+            log.Printf("worker panic: %v\n%s", value, debug.Stack())
+            // Báo lỗi qua cơ chế trả kết quả của ứng dụng.
         }
     }()
-    // Code thực thi chính của Goroutine
     doWork()
 }()
 ```
 
-## 5. Công cụ giám sát và quan sát (Observability)
+Đoạn trích giả định đã có `doWork` và import `log`, `runtime/debug`. Nó minh họa vị trí recover có hiệu lực, chưa phải giao thức trả kết quả đầy đủ. Nếu service chủ ý recover ở một boundary, hãy ghi stack và báo thất bại; chỉ log không được khiến task lỗi trông như thành công. Không cần mặc định bọc mọi câu lệnh go bằng recover.
 
-### 5.1. Theo dõi Scheduler với GODEBUG
+## Khảo sát vòng đời trước khi đổi cấu hình scheduler
 
-Bạn có thể xem trực quan cách các G-M-P đang làm việc bằng cách chạy chương trình với biến môi trường:
-`GODEBUG=schedtrace=1000 ./myprog`
-- `schedtrace=1000`: In trạng thái scheduler mỗi 1000ms.
-- Giúp bạn phát hiện các hiện tượng như "P bị đói" hoặc "quá nhiều OS Threads bị tạo ra".
+Theo dõi `runtime.NumGoroutine` theo thời gian cùng số request đang hoạt động. Tăng khi tải tăng có thể bình thường; tăng sau khi tải đã hết cần thêm bằng chứng. Goroutine profile cho biết worker còn park ở đâu, còn pprof và execution trace giúp thấy contention, scheduler delay và CPU.
 
-### 5.2. Các hàm Runtime hữu ích
+`GODEBUG=schedtrace=1000` in trạng thái scheduler khoảng mỗi 1.000 millisecond; `scheddetail=1` thêm chi tiết. Đây là cấu hình chẩn đoán, không phải cách tự sửa hiệu năng. Không expose debug HTTP endpoint ra Internet công khai.
 
-- `runtime.NumGoroutine()`: Trả về số lượng Goroutine hiện có. Cực kỳ quan trọng để debug Goroutine leak.
-- `runtime.Gosched()`: Chủ động nhường CPU cho Goroutine khác.
-- `runtime.GOMAXPROCS(n)`: Giới hạn số nhân CPU mà Go runtime được sử dụng.
+Race detector tìm truy cập bộ nhớ không đồng bộ trên đường đã chạy, không tìm hết lost update, deadlock hay lỗi vòng đời. Tool như `go.uber.org/goleak` hỗ trợ tìm goroutine còn dư trong test, nhưng phải tính đến background work hợp lệ. Đọc kết quả tool cùng quy tắc sở hữu và shutdown dự kiến.
 
----
+## Thử dự đoán trước khi xem đáp án
+
+1. `WaitGroup.Wait` có thay mutex khi nhiều worker tăng cùng một số nguyên không?
+2. Caller cancel lúc worker đang send bị chặn. Điều gì cho worker thoát, và điều gì báo caller rằng worker đã thoát?
+3. Một nghìn G park có đồng nghĩa một nghìn OS thread bị chặn không? Số G tăng có đủ chứng minh leak không?
+
+**Giải thích:**
+
+1. Không. Chờ chỉ phối hợp hoàn tất, không ngăn các worker race trong lúc chạy. Bảo vệ cập nhật chung hoặc chia dữ liệu độc lập như `squares`.
+2. Select giữa send và ctx.Done tạo lối thoát. Completion channel hoặc WaitGroup tạo bước join riêng. Những thao tác chặn trước send cũng cần chính sách dừng.
+3. Cả hai đều không. Nhiều G park có thể dùng rất ít M. Cần so số lượng với tải, tài nguyên giữ lại, stack và việc G có biến mất sau khi chủ sở hữu kết thúc hay không.
+
+## Tài liệu đối chiếu
+
+- [sync.WaitGroup](https://pkg.go.dev/sync#WaitGroup) — hợp đồng completion và `Go`.
+- [Runtime scheduler source](https://go.dev/src/runtime/proc.go) — chi tiết triển khai, đối chiếu ngày 2026-10-15.
+- [Go 1.25 runtime changes](https://go.dev/doc/go1.25#runtime) và [Go 1.14 runtime changes](https://go.dev/doc/go1.14#runtime) — thay đổi scheduler theo phiên bản.
+- [Go 1.23 timer changes](https://go.dev/wiki/Go123Timer) — thu gom timer và cấu hình tương thích.
+- [Diagnostics](https://go.dev/doc/diagnostics) — profile, trace và các công cụ quan sát.
