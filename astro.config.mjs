@@ -3,6 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { unified } from "@astrojs/markdown-remark";
 import { stripLeadingHeading } from "./src/plugins/strip-leading-heading.mjs";
+import { noteVisualization } from "./src/plugins/note-visualization.mjs";
 
 const site = process.env.PUBLIC_SITE_URL ?? "https://huynhanx03.github.io";
 const base = process.env.PUBLIC_BASE_PATH || undefined;
@@ -27,6 +28,6 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: { themes: { light: "github-light", dark: "github-dark" }, defaultColor: false },
-    processor: unified({ remarkPlugins: [stripLeadingHeading] }),
+    processor: unified({ remarkPlugins: [stripLeadingHeading, noteVisualization] }),
   },
 });

@@ -1,52 +1,70 @@
 ---
-title: "ACID: The 4 Pillars of Database Transactions"
+title: "ACID: what does a transaction protect?"
 category: "Database"
+description: "Follow a transaction to understand atomicity, consistency, isolation, durability, and the boundaries of their guarantees."
+updated: 2026-10-15
+translationKey: "database/acid"
 ---
 
-# The ACID Principles in Databases
+Transferring 100 units from account A to B involves at least two updates. Debiting A without crediting B leaves stored data representing an incomplete transfer. If concurrent requests read an old balance, individually successful statements can still produce a wrong result.
 
-In any Database Management System (DBMS), a **Transaction** is the heartbeat of the application. To guarantee **Data Integrity** in high-traffic and failure-prone environments, transactions must strictly adhere to four core properties known as **ACID**.
+A **transaction** groups database operations into one unit of work. ACID describes atomicity, consistency, isolation, and durability. Interpret these properties within the transaction boundary and database configuration; the acronym does not protect every application side effect automatically.
 
----
+## Following a transfer
 
-## A - Atomicity
-**"All or Nothing."**
+```sql
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+```
 
--   **Essence:** A transaction consists of multiple steps that must succeed as a single unit of work. If any step fails, the entire transaction is aborted and reverted (**Rollback**), ensuring the database is never left in a "half-finished" state.
--   **Mechanism:** Modern databases guarantee this through **Transaction Logs** and undo mechanisms.
+This is an illustrative outline, not a production transfer workflow. Assume integer currency units and two existing accounts; actual code must check affected rows, sufficient balance, authorization, and duplicate requests. Statements must belong to the same properly managed transaction/session.
 
-## C - Consistency
-**"Data remains valid after every transaction."**
+Starting with A=500 and B=200, the desired committed state is A=400 and B=300. Follow this transfer to see the role of each property.
 
--   **Essence:** A transaction must transform the database from one valid state to another.
--   **Constraints:** It must respect all predefined rules, including **Constraints** (Primary Key, Foreign Key), **Unique** indexes, and **Business Logic**. If any rule is violated, the transaction is rejected.
+## Atomicity: commit together or abort together
 
-## I - Isolation
-**"Concurrent transactions do not interfere with each other."**
+If the transaction rolls back, its debit and credit must not remain as separately committed outcomes. The database supports this through logging and recovery mechanisms appropriate to its design. [PostgreSQL's transaction tutorial](https://www.postgresql.org/docs/current/tutorial-transactions.html) illustrates BEGIN/COMMIT/ROLLBACK boundaries.
 
--   **Essence:** Each transaction operates as if it were the only one in the system. It should not be affected by other concurrent operations.
--   **Anomalies Prevented:** Isolation mitigates issues like:
-    -   **Dirty Reads:** Reading uncommitted data from another transaction.
-    -   **Non-Repeatable Reads:** Data changing between two reads within the same transaction.
-    -   **Phantom Reads:** "Ghost" records appearing when a query is re-executed.
--   **Control:** Managed via **Isolation Levels** (Read Uncommitted, Read Committed, Repeatable Read, Serializable).
+Do not infer that every error automatically refunds money in the same way. Applications must handle failures and terminate transactions according to driver/database rules. An email already sent, an external provider call, or an update in another database is not automatically rolled back by this transaction.
 
-## D - Durability
-**"Committed data is permanent."**
+A connection lost during commit may leave the client unsure whether commit succeeded. User responses and retries must account for that uncertainty rather than assuming a lost reply means no transfer occurred.
 
--   **Essence:** Once a transaction is committed, the changes are permanent, even in the event of a system crash, power failure, or hardware error.
--   **Mechanism:** Databases guarantee this using techniques like **Write-Ahead Logging (WAL)**, **Redo Logs**, and **Persistence** mechanisms to non-volatile storage or replication.
+## Consistency: valid according to which rules?
 
----
+Without fees, the sum of the two balances should remain 700. A non-negative-balance rule must also hold if required. Primary keys, foreign keys, unique constraints, and checks let the database enforce declared rules.
 
-### Real-World Example: Bank Transfer
+The database does not infer every business rule. Two type-correct updates can still credit the wrong recipient if the application passes the wrong id. ACID consistency needs appropriate constraints and correct transaction logic. It is also distinct from eventual consistency or linearizability in distributed systems; those address different questions.
 
-When you transfer money:
-1.  **Atomicity:** If the system debits your account but fails to credit the recipient due to a network error, it automatically reverses the debit (Rollback).
-2.  **Consistency:** The total balance across both accounts remains conserved before and after the transfer.
-3.  **Isolation:** If multiple transfers hit your account simultaneously, the balance is updated sequentially to prevent race conditions.
-4.  **Durability:** As soon as the app shows "Success," the transaction is written to the bank's disk; power loss will not wipe it.
+## Isolation: protection depends on the level
 
----
+Isolation controls observations and allowed execution schedules when transactions run concurrently. Not every level behaves as though it is the only transaction. Serializable aims for results equivalent to a valid serial order; the database need not literally execute transactions one at a time.
 
-> ACID is the gold standard for financial, banking, and e-commerce systems (typically using RDBMS like PostgreSQL or MySQL). In contrast, some NoSQL systems adopt **Eventual Consistency**—sacrificing immediate ACID properties for higher throughput and global scalability.
+| Phenomenon | Interpretation |
+| --- | --- |
+| Dirty read | Reading another transaction's uncommitted data |
+| Non-repeatable read | Rereading a row and seeing another transaction's committed change |
+| Phantom read | Repeating a predicate query and observing a changed set of matching rows |
+
+Common level names are Read Uncommitted, Read Committed, Repeatable Read, and Serializable. Check guarantees for the specific database: PostgreSQL maps Read Uncommitted to Read Committed, and its Repeatable Read also prevents phantom reads. Its [isolation documentation](https://www.postgresql.org/docs/current/transaction-iso.html) explains the distinctions.
+
+Preventing concurrent spending may require conditional updates, transactional row locks, or suitable isolation. Serializable can reject a transaction with a serialization failure; where appropriate, retry the whole transaction rather than only its final statement.
+
+## Durability: commit survives which failures?
+
+After commit is acknowledged under the configured durability guarantees, the database must recover data within the supported failure model. WAL/redo logging enables recovery even before all data pages reach storage. This does not mean committed data survives destruction of every disk and copy.
+
+Configuration changes guarantees. PostgreSQL asynchronous commit, for example, may acknowledge success before WAL is flushed, allowing recent transactions to be lost in a crash. Its [asynchronous commit documentation](https://www.postgresql.org/docs/current/wal-async-commit.html) explains the trade-off. Asynchronous replication likewise does not imply that a replica has received a commit when the primary replies.
+
+Backups, disaster recovery, and application success responses remain important beyond SQL statements. In the transfer example, report only what the application actually knows about transaction outcome.
+
+## Check the transaction boundary
+
+**Does rolling back after sending an email unsend it?** No. It is an effect outside the database boundary and needs separate coordination to stay consistent with stored data.
+
+**Are SELECT and UPDATE inside a transaction enough to prevent overselling?** Not enough information. Examine isolation, locks, update conditions, and error handling.
+
+**Does NoSQL mean no ACID?** No. Guarantees may cover a document, multiple documents, or transactions within a product-specific scope. Eventual consistency is not shorthand for abandoning all four properties. Read guarantees by operation, scope, and configuration.
+
+[Race conditions](/en/notes/fundamentals/concurrency_race/) helps identify the business operation that needs protection before choosing a database mechanism.

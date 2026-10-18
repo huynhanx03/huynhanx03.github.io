@@ -1,114 +1,110 @@
 ---
-title: "Object-Oriented Programming"
+title: "OOP: organizing state, behavior, and contracts"
 category: "Fundamentals"
 tags: ["oop", "programming", "fundamentals", "design-patterns"]
+description: "Understand encapsulation, inheritance, abstraction, and polymorphism through design decisions and Java examples."
+updated: 2026-10-15
+translationKey: "fundamentals/oop"
 ---
 
-# Object-Oriented Programming (OOP)
+A bank account has a balance. If every part of a program can assign it directly, each caller must remember the rules for valid deposits. One missing check can leave the object in an invalid state.
 
-Object-Oriented Programming (OOP) is a software design philosophy that centers on **Objects**. Rather than focusing on a sequence of commands (Imperative), OOP focuses on modeling entities, data, and their interrelationships.
+Object-oriented programming (OOP) organizes data together with behavior responsible for keeping that data valid. This article uses Java to distinguish encapsulation, inheritance, abstraction, and polymorphism. These are related design perspectives; memorizing four names does not determine which classes a program should have.
 
----
+The Java snippets are separate examples. Put class/interface declarations at the top level, methods inside a containing class, and statements such as `vehicle.honk()` inside `main`. Each fragment shows only what is needed for the design decision being discussed.
 
-## 1. Encapsulation - Protecting Integrity
+## An object takes responsibility for its state
 
-**Essence:** Bundling data (Fields) and behaviors (Methods) into a single unit (Class) while **hiding** internal implementation details via Access Modifiers (`private`, `protected`).
+An object has state, such as its current balance, and behavior, such as accepting a deposit. A **class** describes a type of object; an **instance** is a particular object created from that class. Two instances can share behavior while holding different state.
 
-### Why avoid indiscriminate `public` access?
-
-In large-scale systems, making attributes `public` (accessible freely from anywhere) is akin to handing your house keys to any passerby.
-
--   **Accidental Corruption:** Code anywhere can assign invalid values without validation. For example, setting `age = -5` or `balance = 999999999` on a newly created account.
--   **Leaky Logic:** If external modules interact directly with data, any change to the internal data structure (e.g., switching from `int` to `long` for optimization) will break every external reference.
--   **Broken Invariants (Consistency):** An object often has internal rules (e.g., `total = price * quantity`). If `price` is public, someone could change it without updating `total`, leading to immediate data inconsistency.
-
-**Solution:** Always prioritize `private`. Expose only what is strictly necessary through controlled "gateways" (Getters/Setters or Business Methods).
+OOP still uses statements and sequences of operations. The distinction concerns responsibility: instead of having callers manipulate all data directly, an object exposes operations meaningful to the problem domain.
 
 ```java
-public class BankAccount {
-    private double balance; // Strictly protected data
+final class BankAccount {
+    private long balance;
 
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
+    public void deposit(long amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("amount must be positive");
         }
+        balance = Math.addExact(balance, amount);
     }
 
-    public double getBalance() {
+    public long getBalance() {
         return balance;
     }
 }
 ```
 
----
+The example uses integers in an agreed currency unit rather than `double`. `deposit(100)` changes an initial balance of 0 to 100; `deposit(-5)` throws before changing it. `Math.addExact` also rejects overflow of `long`. This illustrative class does not implement multithreaded synchronization or banking persistence.
 
-## 2. Inheritance - Sharing the "Bloodline" (Is-a)
+A `private` field prevents arbitrary assignments by callers. More importantly, the method preserves an **invariant**: a property that must hold at valid object states. In an order where `total = price * quantity`, changing either input must preserve that relationship.
 
-**Essence:** Establishing a parent-child relationship. A subclass inherits characteristics and methods from a superclass to achieve **Code Reuse** without rewriting.
+This is **encapsulation**: keeping data and responsibility for its updates behind a boundary. Getters and setters alone do not make a good design; an unrestricted balance setter still defeats that boundary. Business methods such as `deposit` express intent more clearly. Reducing dependencies on internal fields also makes representation changes easier when the public contract remains intact.
 
-- **Key Distinction:** Inheritance focuses on inheriting **Source Code** and **Data Structures**. It creates a rigid hierarchy.
-- **Risks:** Leads to **Tight Coupling**. If the parent class changes its logic, multiple subclasses might "break" as a result (**Fragile Base Class**).
+## Inheritance needs a meaningful substitution contract
 
 ```java
-public class Vehicle {
-    protected String brand = "Ford";
-    public void honk() { System.out.println("Tuut, tuut!"); }
+class Vehicle {
+    public void honk() {
+        System.out.println("Beep");
+    }
 }
 
-public class Car extends Vehicle {
-    private String modelName = "Mustang";
-}
-// Car doesn't need to rewrite honk() but can still use it.
+class Car extends Vehicle {}
+
+Vehicle vehicle = new Car();
+vehicle.honk(); // Beep
 ```
 
----
+`Car` inherits `honk`, avoiding a duplicate implementation. Java also permits a `Car` to be held through a `Vehicle` variable. **Inheritance** establishes a type relationship and can share implementation; reuse comes with dependency on the superclass.
 
-## 3. Abstraction - The "Blueprint/Contract"
+An everyday “is-a” relationship does not prove a software contract is appropriate. If `Bird` promises every instance can fly, `Ostrich` cannot honor that promise. A separate capability contract may be a better fit. If the goal is simply to reuse a component, consider composition: hold it in a field and delegate instead of becoming its subtype.
 
-**Essence:** Focusing on **Defining** what an object must do, rather than how it does it.
-
-> - **Abstract Class:** What it **IS** (Identity/Is-a). Used when objects share the same ancestry (e.g., Dogs and Cats are Animals). We use abstract classes to group common traits of ancestors.
-> - **Interface:** What it **CAN DO** (Capability/Can-do). Used for cross-species skills (e.g., both Birds and Airplanes are `Flyable`). We use interfaces for entities that are unrelated but share common behaviors.
+## Abstraction defines what the caller needs to know
 
 ```java
-// Interface: "What it can do" (Behavioral Contract)
 interface Flyable {
-    void fly(); 
+    void fly();
 }
 
-// Abstract Class: "What it is" (Genetic Identity)
 abstract class Bird {
     abstract void sing();
 }
 ```
 
----
+**Abstraction** selects the characteristics relevant to a purpose and hides implementation details the caller does not need. A caller using `Flyable` needs flight behavior without knowing whether the object is a bird or aircraft.
 
-## 4. Polymorphism - "Runtime Morphing"
+Interfaces and abstract classes are tools for expressing abstraction, not its entire definition. An abstract class can share state and implementation with subclasses; an interface commonly expresses a shared contract. Do not decide solely by the slogan “abstract classes are ancestry, interfaces are skills”: consider the contract, type relationship, and dependency. Abstraction also exists in functions, modules, and APIs outside OOP.
 
-**Essence:** Allowing a common identifier (Interface/Parent) to represent various actual entities, with each entity choosing how to act at the time of execution.
-
-### Distinguishing Abstraction vs. Polymorphism
-
-It is easy to confuse the two. Think of it simply:
-- **Abstraction** is for **Planning** (Design-time). We say: "I need something that can make a sound (`makeSound`)".
-- **Polymorphism** is for **Execution** (Run-time). When we call `makeSound()`, the system automatically chooses between a Dog's bark or a Cat's meow based on the actual object held.
+## Polymorphism lets one call use different implementations
 
 ```java
-public void performSound(Animal a) {
-    // Abstraction allows us to write this method without knowing the specific type of 'a'.
-    // Polymorphism selects the correct sound for 'a' during runtime.
-    a.makeSound(); 
+interface Animal {
+    void makeSound();
+}
+class Dog implements Animal {
+    public void makeSound() { System.out.println("Woof"); }
+}
+class Cat implements Animal {
+    public void makeSound() { System.out.println("Meow"); }
+}
+
+static void performSound(Animal animal) {
+    animal.makeSound();
 }
 ```
 
----
+Declare `performSound` inside a class. Calling it with `new Dog()` prints `Woof`; with `new Cat()`, it prints `Meow`. The caller uses the same `Animal` contract, while method implementation is selected from the actual object.
 
-### Summary Table
+This is subtype polymorphism through Java instance methods. Abstraction explains why callers need only the contract; polymorphism explains how different implementations answer the same call. This does not mean every form of polymorphism happens at runtime; the term has a broader scope. [Oracle describes this method-dispatch behavior](https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html).
 
-| Pillar | Essence | Representative Question |
-| :--- | :--- | :--- |
-| **Encapsulation** | Information Security | Who is authorized to modify this data? |
-| **Inheritance** | Source Code Reuse | Does it share the same bloodline as the parent? |
-| **Abstraction** | Contractual Design | What IS it (Abstraction) and what CAN it do (Interface)? |
-| **Polymorphism** | Runtime Morphing | How will it behave during execution? |
+## Check your understanding with a design change
+
+An `Order` exposes `price`, `quantity`, and `total`. You replace public fields with individual setters but never update related fields. Has encapsulation protected consistency?
+
+No. Access has changed, but the relationship has not been protected. You could compute `total` from its inputs when requested, or update related state through a method preserving the invariant. Choose based on storage and business requirements.
+
+Must a service inherit from a logger to reuse logging? Usually not: a logger field expresses collaboration more directly. Use subtyping when callers can genuinely substitute the object according to its contract, rather than merely to reuse a few methods.
+
+Continue with [SOLID](/en/notes/fundamentals/solid/) for how these boundaries affect change. [Oracle: Interfaces and Inheritance](https://docs.oracle.com/javase/tutorial/java/IandI/index.html) provides Java syntax reference.

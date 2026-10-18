@@ -8,6 +8,8 @@ import { getSiteConfig } from '../../../data/portfolio';
 import { buildArticleSchema, buildBreadcrumbSchema, buildPersonSchema } from '../../../lib/seo';
 import { getReadingStats } from '../../../content/notes/reading-time';
 import { getNoteViews } from '../../../lib/analytics/note-views';
+import NoteComments from '../../../components/notes/NoteComments.astro';
+import '../../../styles/visualizations.css';
 
 export async function getStaticPaths() {
   const notes = await getAllNotes();
@@ -58,6 +60,7 @@ const schemas = [
     {series.length > 0 && <section class="note-section" aria-labelledby="series-heading"><p class="eyebrow">{copy.notes.series}</p><h2 id="series-heading">{note.data.series}</h2><div class="related-grid">{series.map((candidate) => <a class="related-card" href={notePath(candidate)}><span>{candidate.data.seriesOrder ?? '↗'}</span><strong>{candidate.data.title}</strong></a>)}</div></section>}
     {related.length > 0 && <section class="note-section" aria-labelledby="related-heading"><p class="eyebrow">{copy.notes.keepExploring}</p><h2 id="related-heading">{copy.notes.related}</h2><div class="related-grid">{related.map((candidate) => <a class="related-card" href={notePath(candidate)}><span>{candidate.data.category}</span><strong>{candidate.data.title}</strong></a>)}</div></section>}
     {note.data.sources.length > 0 && <section class="note-section" aria-labelledby="sources-heading"><p class="eyebrow">{copy.notes.sources}</p><h2 id="sources-heading">{copy.notes.references}</h2><ul class="source-list">{note.data.sources.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} ↗</a></li>)}</ul></section>}
+    <NoteComments locale={locale} translationKey={note.translationKey} />
   </article>
   <script is:inline>
     const copyLabel = document.documentElement.lang === 'vi' ? 'Sao chép' : 'Copy';
@@ -83,5 +86,8 @@ const schemas = [
       });
       wrapper.append(button);
     });
+  </script>
+  <script>
+    import '../../../lib/visualizations/bootstrap';
   </script>
 </PortfolioLayout>

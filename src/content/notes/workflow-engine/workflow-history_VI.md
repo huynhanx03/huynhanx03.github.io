@@ -3,7 +3,6 @@ title: "Workflow History là dữ liệu bền vững"
 category: "Workflow Engine"
 kind: "note"
 translationKey: "workflow-engine/workflow-history"
-translationPending: true
 series: "Workflow Engine"
 seriesOrder: 2
 description: "History hỗ trợ replay nhưng cũng lưu payload và tạo yêu cầu về kích thước, bảo mật, retention."
@@ -11,22 +10,59 @@ sources:
   - title: "Cadence workflow history article"
     url: "https://cadenceworkflow.io/blog/2026/06/03/2026-06-03-workflow-history-data-converter/workflow-history-data-converter"
 draft: false
+updated: 2026-10-15
 ---
 
-Event History thường được nhìn như nhật ký để trả lời “workflow đã làm gì?”. Nhưng nó còn là đầu vào để worker replay và dựng lại state. Vì thế input, kết quả Activity, signal và một số payload khác có thể được lưu lâu hơn ta dự tính.
+Một Activity xử lý video trả về kết quả. Khi worker chết rồi khởi động lại, Workflow vẫn cần biết kết quả ấy để đi tiếp. Nếu kết quả là file video 200 MB, gửi cả file qua luồng điều phối sẽ biến history thành nơi giữ một lượng dữ liệu mà phần điều phối thực ra không cần đọc.
 
-Điều đó tạo ra ba câu hỏi thiết kế: history lớn đến đâu, dữ liệu nhạy cảm có thể đọc ở đâu, và execution cần được giữ lại bao lâu?
+Event History là dữ liệu đầu vào để dựng lại state, bên cạnh vai trò giải thích execution đã làm gì. Vì vậy, thiết kế payload quyết định đồng thời chi phí phục hồi, vòng đời dữ liệu và những nơi thông tin có thể xuất hiện.
 
-## Đừng truyền cả object nếu chỉ cần một định danh
+## Kết quả hàm có thể trở thành dữ liệu lưu lâu dài
 
-Giả sử Activity xử lý video trả về file 200 MB. Đưa toàn bộ file qua Workflow History khiến mỗi bước tiếp theo mang dữ liệu lớn, tăng chi phí lưu trữ và replay. Claim-check pattern lưu file ở object storage, còn history chỉ giữ object key cùng metadata cần thiết.
+Workflow input, kết quả Activity, Signal và những payload được ghi theo cơ chế SDK có thể được giữ trong history. Khi replay, kết quả đã ghi giúp code đi lại đúng nhánh mà không gọi lại Activity đã hoàn tất. Đây không phải bản sao RAM của worker và cũng không có nghĩa mọi biến tạm đều được serialize độc lập.
 
-Reference bên ngoài cũng là dependency: nó phải còn tồn tại khi retry hoặc workflow tiếp tục. Thiết kế retention của object storage phải khớp với vòng đời execution; credential hoặc URL ký sẵn có thể hết hạn giữa các lần retry.
+Hãy nhìn một luồng nhỏ:
 
-## Mã hóa không bao phủ mọi bề mặt
+1. Activity lưu video đã xử lý.
+2. Activity trả thông tin kết quả cho Workflow.
+3. Service ghi kết quả cần thiết vào history.
+4. Worker khác replay sau sự cố và dùng lại thông tin đó để đi tiếp.
 
-Data converter có thể mã hóa/serialize payload trên đường đi qua SDK, nhưng Search Attributes, log ứng dụng, metric label và dữ liệu trong hệ thống nguồn có thể không đi qua converter. Hãy lập danh sách tất cả nơi dữ liệu xuất hiện trước khi tuyên bố “history đã được mã hóa”.
+Tại bước 2, ta quyết định đưa toàn bộ byte hay một tham chiếu vào lịch sử. Quyết định ấy còn tác động tới những lần đọc history về sau, không chỉ lần gọi hiện tại.
 
-Cadence có bài hướng dẫn về giới hạn payload 2 MB và cách claim check; con số này không nên áp sang Temporal hay phiên bản Cadence khác. Kiểm tra giới hạn thực tế, retention và cấu hình server/SDK của mình.
+## Chỉ mang theo thứ đủ để tiếp tục
 
-Một workflow bền vững cần giữ đủ dữ liệu để phục hồi, nhưng chỉ giữ đúng lượng dữ liệu cần thiết. Thiết kế payload là một phần của kiến trúc độ tin cậy và bảo mật, không chỉ là tối ưu dung lượng.
+Claim-check pattern lưu file trong object storage, còn history giữ object key cùng metadata cần thiết, chẳng hạn checksum và schema version. Workflow điều phối theo reference; Activity cần nội dung mới tải file. Như vậy phần replay không phải mang file lớn chỉ để biết file nào đã được tạo.
+
+Nhưng reference tạo dependency bên ngoài. Object phải còn tồn tại và truy cập được khi Activity retry hoặc quy trình tiếp tục. URL ký sẵn có thể hết hạn trước workflow; thường cần định danh bền vững và Activity lấy quyền truy cập phù hợp tại lúc dùng. Nếu muốn dữ liệu không đổi giữa các lần dùng, reference cần xác định đúng phiên bản hoặc object bất biến theo hợp đồng lưu trữ.
+
+| Tình huống | Điều cần thiết kế |
+| --- | --- |
+| Workflow chờ nhiều ngày | Retention của object đủ cho thời gian sử dụng |
+| Activity retry đọc lại | Đọc cùng dữ liệu hay phiên bản nào được xác định rõ |
+| Người dùng yêu cầu xóa | Quan hệ giữa object, history, bản sao và khả năng tiếp tục execution |
+| Cleanup object thừa | Không xóa nhầm object mà execution còn cần |
+
+Claim check chuyển trách nhiệm lưu trữ ra ngoài, không làm trách nhiệm ấy biến mất.
+
+## Mã hóa payload chưa bao phủ mọi nơi có dữ liệu
+
+Data converter có thể serialize, nén hoặc mã hóa những payload đi qua đường chuyển đổi của SDK. Nhưng tên Activity, loại event, Search Attributes, log, metric label hay dữ liệu trong hệ thống nguồn có thể nằm ngoài phạm vi đó. Một dòng log in input đầy đủ vẫn có thể làm lộ dữ liệu dù payload history đã mã hóa.
+
+Cần kiểm kê bề mặt đọc và ghi: history/UI, backup, blob store, log và nơi giữ khóa. Worker phục hồi cũng cần decode được dữ liệu cũ; bỏ khóa cũ quá sớm có thể làm execution không replay được. Giữ cơ chế đọc phiên bản dữ liệu cũ phù hợp với vòng đời execution.
+
+## Giới hạn là theo trường dữ liệu và cấu hình
+
+Blog Cadence dẫn trường hợp giới hạn payload khoảng 2 MB và giải pháp claim check. Không áp con số ấy sang mọi event, server hoặc Temporal. Kiểm tra giới hạn đúng phiên bản, SDK và thao tác; nén không thay thế budget kích thước. [Bài Cadence về history và converter](https://cadenceworkflow.io/blog/2026/06/03/2026-06-03-workflow-history-data-converter/workflow-history-data-converter) là nguồn đối chiếu, không phải cam kết cho môi trường khác.
+
+History lớn còn tăng chi phí đọc và replay. Retention cho execution đã đóng cần cân bằng nhu cầu điều tra, dữ liệu nhạy cảm và chi phí; đây không phải cách tùy ý xóa phần history mà execution đang mở còn cần.
+
+## Tự kiểm tra thiết kế payload
+
+**Chỉ trả URL tải file có hạn 15 phút cho workflow chờ hai ngày có đủ không?** Không. Khi tiếp tục, URL có thể hết hạn. Cần reference bền vững và đường cấp quyền/đọc lại thích hợp.
+
+**Mã hóa converter có cho phép ghi access token vào metric label không?** Không. Metric không mặc định đi qua converter; token cũng không phải metadata phù hợp cho chỉ mục/nhãn quan sát.
+
+**Giữ đủ history có bảo đảm tiếp tục được nếu object ngoài đã xóa không?** Chưa. History chỉ còn reference, còn Activity tiếp theo vẫn cần đối tượng thật. Khả năng phục hồi phụ thuộc cả dữ liệu ngoài engine.
+
+Mục tiêu là giữ đúng lượng dữ liệu cần để phục hồi, trong đúng thời gian và phạm vi truy cập. Đọc tiếp [payload và observability Cadence](/vi/notes/cadence/data-and-observability/) để tách Visibility, History, log và trace.

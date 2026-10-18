@@ -1,99 +1,301 @@
 ---
-title: "Slices"
+title: "Go slices: understanding shared data and append"
 category: "Go"
 tags: ["golang", "slices", "arrays", "fundamentals"]
+description: "Track backing arrays, length, and capacity to understand shared data, where append writes, and when copying is needed."
+updated: 2026-10-15
+translationKey: "go/slices"
 ---
 
-# Slices: Dynamic Array Abstractions
+You take the first two scores from a list, assign them to another variable, and change one of them. Then you discover that the original list changed too. Why can two differently named variables affect each other?
 
-In the Go ecosystem, **Slices** are the primary mechanism for managing sequences of data. While **Arrays** serve as the primitive foundation with a fixed size, Slices provide a powerful, high-level abstraction layer. In professional Go development, Slices are utilized 99% of the time due to their flexibility, efficient memory sharing, and dynamic scaling capabilities.
+With Go slices, variable names do not tell you whether the data is independent. To predict the result, track two things: the slice value and the array that stores its elements.
 
----
+This article develops that distinction through mutation, append, copying, and memory retention. It assumes variables, functions, and loops; see [Pointers](/en/notes/go/pointers/) if addresses are unfamiliar. Code snippets are independent: place statements in `main`, function declarations outside `main`, and add the imports they use. Comments show expected results derived from the language rules.
 
-## 1. Array vs. Slice: Type Systems and Memory
-
-### Fixed-size Arrays
-An Array, such as `[5]int`, has its dimensions intrinsically tied to its type. Consequently, `[5]int` and `[10]int` are incompatible types. This rigidity makes Arrays unsuitable for general-purpose data collections.
-
-### Semantic Distinctions in Memory Addressing
-While the physical memory address of an array and its first element often coincide, they represent different entities in Go's strict type system:
--   **`&arr`**: Represents a pointer to the **entire array structure** (Type: `*[N]T`).
--   **`&arr[0]`**: Represents a pointer to a **single element** (Type: `*T`).
-
-Distinguishing these two is vital when performing low-level pointer arithmetic or interfacing with C-style libraries.
-
----
-
-## 2. Internal Representation (The SliceHeader)
-
-A Slice does not store data directly; instead, it encapsulates three fields that describe a portion of an underlying array. This "Descriptor" is defined as `SliceHeader` in `runtime/slice.go`:
+## Two variables, one region of data
 
 ```go
-type SliceHeader struct {
-    Data uintptr // Pointer to the initial element in the underlying array
-    Len  int     // The current count of accessible elements
-    Cap  int     // The total capacity before a re-allocation is mandatory
-}
+scores := []int{10, 20, 30, 40}
+firstTwo := scores[:2]
+firstTwo[0] = 99
+
+fmt.Println(firstTwo) // [99 20]
+fmt.Println(scores)   // [99 20 30 40]
 ```
 
-### The "Header Copy" Consequence
-When a Slice is passed to a function, Go performs a **Shallow Copy** of this 24-byte structure (on 64-bit systems).
--   **Mutable Elements**: Since both the original and the copy point to the same `Data` address, modifications like `s[0] = 10` are globally visible.
--   **Immutable Metadata**: If `append` modifies the `Len` or `Cap` of the local copy, the original Header in the caller remains unaffected. This architectural decision necessitates the standard idiom: `s = append(s, ...)`.
+The expression `scores[:2]` selects the region from the start up to, but excluding, index 2: elements 0 and 1. It does not copy those elements into another array. `firstTwo[0]` and `scores[0]` access the same location, so a write through `firstTwo` is visible through `scores`.
 
----
+The array storing these elements is called the **backing array**. A slice describes a region of that array; several slices can describe overlapping regions. Another slice variable does not imply another copy of the data.
 
-## 3. Growth Strategy and Runtime Anatomy
+To see why, first consider an array on its own.
 
-The `append` function is an intelligent wrapper around the runtime's memory management. When `Len` reaches `Cap`, the runtime triggers a re-allocation:
-
-1.  **Capacity Scaling**: To minimize allocation frequency while curbing memory waste, Go employs a dual-threshold strategy:
-    -   **Small Slices (`Cap < 256`)**: The capacity is **doubled** (Exponential growth) for rapid scaling.
-    -   **Large Slices (`Cap >= 256`)**: Growth shifts to a smoother transition (approaching **1.25x**) to prevent massive, unutilized memory reservations.
-2.  **Memory Migration**: A new, larger contiguous memory block is allocated. The runtime uses `memmove` for high-performance data transfer from the obsolete array to the new one.
-3.  **GC Integration**: The obsolete array becomes eligible for Garbage Collection (GC) once all references are severed.
-
-> To achieve optimal performance and avoid the latency of repeated migrations, always pre-allocate capacity using `make([]T, len, cap)` when the approximate dataset size is predictable.
-
----
-
-## 4. Sophisticated Slice Logic
-
-### Full Slice Expression (3-Parameter Reslicing)
-The syntax `a[low : high : max]` provides surgical precision over the resulting Slice's capacity.
-- **`max`**: Explicitly caps the `Cap`. 
-- **Use Case**: This is critical for preventing "leaky" modifications where a child slice might accidentally overwrite parent array data during an `append` operation.
-
-### In-place Filtering and Transformation
-For performance-critical code, you can perform transformations without a single allocation by reusing the underlying array:
+## An array holds elements; a slice describes a region
 
 ```go
-func FilterInPlace(src []int) []int {
+original := [3]int{10, 20, 30}
+other := original
+other[0] = 99
+
+fmt.Println(original) // [10 20 30]
+fmt.Println(other)    // [99 20 30]
+```
+
+`[3]int` is an array of three integers. Its length is part of its type, so `[3]int` and `[4]int` are different types. Array assignment copies the elements: `other[0]` is independent of `original[0]` in this example.
+
+A slice type is written `[]int`, without a length in the brackets. A useful model of a slice value has three components:
+
+| Component | Meaning |
+| --- | --- |
+| Pointer | Identifies the starting position in the backing array |
+| `len` | The number of elements currently accessible through the slice |
+| `cap` | The number of elements from that start to the array boundary the slice is allowed to extend to |
+
+Slice assignment copies this descriptive value; the backing array can remain shared. The pointer–len–cap model is sufficient here; there is no need to construct a representation with `unsafe`.
+
+Array assignment is not automatically a deep copy either. If its elements are slices, maps, or pointers, copied values can still reference shared inner data. This distinction will matter again when using `copy`.
+
+## Reading len, cap, and bounds
+
+```go
+scores := []int{10, 20, 30, 40}
+middle := scores[1:3]
+
+fmt.Println(middle)           // [20 30]
+fmt.Println(len(middle))      // 2
+fmt.Println(cap(middle))      // 3
+fmt.Println(middle[:3])       // [20 30 40]
+// fmt.Println(middle[2])     // Would panic: index is outside len.
+```
+
+`scores[1:3]` starts at index 1 and stops before index 3. `middle` has two elements, but three positions remain from its start to the end of the array: 20, 30, and 40. Its length is therefore 2 and its capacity is 3.
+
+The important distinction is that **indexing uses length**, not capacity. `middle[2]` is not valid yet, even though 40 exists in the backing array. `middle[:3]` creates a longer slice because the new bound fits within capacity; it does not update `len(middle)` unless the result is assigned back.
+
+For slices, `s[low:high]` has length `high-low`, with valid bounds satisfying `0 ≤ low ≤ high ≤ cap(s)`. This allows reslicing beyond the current length. Element access `s[i]` still requires `0 ≤ i < len(s)`.
+
+## make: available space is not current length
+
+```go
+scores := make([]int, 0, 4)
+fmt.Println(len(scores), cap(scores)) // 0 4
+// scores[0] = 10                    // Would panic.
+
+scores = append(scores, 10, 20)
+fmt.Println(scores) // [10 20]
+
+zeros := make([]int, 2, 4)
+fmt.Println(zeros) // [0 0]
+```
+
+`make([]int, 0, 4)` creates an empty slice with room for four elements before capacity must be exceeded. Its length is still zero, so `scores[0]` cannot be assigned. Here, `append` adds elements and returns a slice with the new length.
+
+By contrast, `make([]int, 2, 4)` already has two accessible elements, initialized to the zero value of `int`: 0. Appending to it places new values after those two zeros rather than replacing them.
+
+When assigning elements by index, create the required length. When building a list with `append`, starting at length zero with a reasonable anticipated capacity is often appropriate.
+
+## Where does append write?
+
+Return to the scores. Use an explicit capacity so the example does not depend on the runtime's growth choices.
+
+```go
+scores := make([]int, 3, 5)
+copy(scores, []int{10, 20, 30})
+firstTwo := scores[:2]
+
+firstTwo = append(firstTwo, 99)
+fmt.Println(firstTwo) // [10 20 99]
+fmt.Println(scores)   // [10 20 99]
+```
+
+Initially, `firstTwo` has length 2 and capacity 5. Adding 99 fits, so `append` reuses the backing array. The new element occupies index 2 relative to the start of `firstTwo`, which is also the position containing 30 in `scores`. The value 30 is therefore overwritten.
+
+| Moment | `scores` | `firstTwo` | Relevant data in the shared array |
+| --- | --- | --- | --- |
+| Before append | len 3, cap 5 | len 2, cap 5 | 10, 20, 30 |
+| After append | len 3, cap 5 | len 3, cap 5 | 10, 20, 99 |
+
+`append` does not know that we want to preserve the data visible through another slice. It operates on the supplied slice and its capacity.
+
+Now change only the capacity limit, keeping the append operation:
+
+```go
+scores := []int{10, 20, 30}
+firstTwo := scores[:2:2]
+firstTwo = append(firstTwo, 99)
+
+fmt.Println(scores)   // [10 20 30]
+fmt.Println(firstTwo) // [10 20 99]
+```
+
+The three-index expression `s[low:high:max]` gives length `high-low` and capacity `max-low`. With `scores[:2:2]`, both are 2. Adding a third element exceeds capacity, so `append` needs another array and copies the existing two elements into it. Writing 99 now leaves the old array's 30 untouched.
+
+However, limiting capacity **does not copy the data at slicing time**. Assigning `firstTwo[0] = 77` before appending would still change `scores[0]`. This technique forces an append exceeding capacity to move storage; it does not prevent writes to currently shared elements. Copy when independence is required immediately.
+
+## Why return a slice after appending inside a function?
+
+```go
+func addScore(scores []int, value int) []int {
+    return append(scores, value)
+}
+
+scores := make([]int, 2, 3)
+copy(scores, []int{10, 20})
+longer := addScore(scores, 30)
+
+fmt.Println(scores)       // [10 20]
+fmt.Println(longer)       // [10 20 30]
+fmt.Println(scores[:3])   // [10 20 30]
+```
+
+Go passes arguments by value. The function receives a copy of the slice value, including its length and capacity; that copy can still refer to the caller's array. Here it writes 30 into shared storage, but the caller's `scores` length remains 2. `longer` holds the returned slice and has length 3.
+
+To update the current list, the usual call is `scores = addScore(scores, 30)`. Keeping the result also works when append allocates another array. Relying only on writes to old storage can appear to work with spare capacity and fail when that capacity runs out.
+
+A function that only changes existing elements, such as `scores[0] = 99`, can make a change visible to the caller without returning another slice. Distinguish mutating backing data from replacing the slice value held by the caller.
+
+## Copying for independent data
+
+```go
+scores := []int{10, 20, 30}
+independent := make([]int, 2)
+copied := copy(independent, scores[:2])
+independent[0] = 99
+
+fmt.Println(copied)      // 2
+fmt.Println(scores)      // [10 20 30]
+fmt.Println(independent) // [99 20]
+```
+
+This time, `make` creates separate storage, and `copy` transfers the elements. Changing `independent` leaves `scores` unchanged because the slices no longer share an array.
+
+`copy` returns the smaller of the source and destination lengths. It does not grow the destination or allocate more room: copying into a nil or zero-length slice copies zero elements, even if the destination has spare capacity.
+
+For `[]int`, copying elements is enough to change numbers independently. For `[][]int` or `[]*User`, `copy` only copies the inner slices or pointers, which may still reference shared data. Choose the copying depth for the actual structure rather than assuming `copy` clones an entire object. [Structs](/en/notes/go/structs/) explains the same issue for slice fields.
+
+## In-place filtering also mutates shared data
+
+```go
+func positiveInPlace(src []int) []int {
     n := 0
-    for _, x := range src {
-        if x > 0 {
-            src[n] = x // Overwriting current underlying memory
+    for _, value := range src {
+        if value > 0 {
+            src[n] = value
             n++
         }
     }
-    return src[:n] // Returning a view of the reused memory
+    clear(src[n:])
+    return src[:n]
+}
+
+values := []int{-1, 2, 0, 3}
+alias := values
+values = positiveInPlace(values)
+
+fmt.Println(values) // [2 3]
+fmt.Println(alias)  // [2 3 0 0]
+```
+
+The variable `n` is the next write position. Each positive number is moved to the front, then `n` is incremented. The write position never passes the current read position, so writes do not destroy unread elements. Positive values retain their relative order.
+
+After the loop, the two retained numbers are at the front. `clear(src[n:])` resets the tail to zero values; the function returns a slice of length `n`. The caller assigns it to `values`, while `alias` keeps its old length and can still see both trailing zeros. An in-place filtering API must therefore document its mutation of shared storage.
+
+`clear` was added in Go 1.21. For `[]int` it resets tail values; for pointer-containing elements, clearing the tail also removes unwanted references. It does not change length or capacity. When the input must remain unchanged, build a separate result slice instead.
+
+## A short slice can retain a large array
+
+Suppose a function reads a large packet and returns only its header:
+
+```go
+func header() []byte {
+    packet := make([]byte, 8<<20)
+    copy(packet, "HEADER")
+    return packet[:6]
 }
 ```
 
----
+The result has length 6 but still references the 8 MiB array. While the caller retains it, that array remains reachable rather than becoming garbage eligible for collection.
 
-## 5. Operational Pitfalls and Best Practices
+Restricting the slice to `packet[:6:6]` does not detach it. If the header must outlive the packet, return a copy:
 
-### Memory Pinning (Leaks)
-A tiny Slice can inadvertently "pin" a massive underlying array in memory, as the GC cannot reclaim the array while a valid pointer (`Data`) refers to it.
-*Mitigation*: When slicing a small portion from a large source, use `copy()` to a new, correctly sized allocation.
+```go
+func headerCopy() []byte {
+    packet := make([]byte, 8<<20)
+    copy(packet, "HEADER")
+    result := make([]byte, 6)
+    copy(result, packet[:6])
+    return result
+}
+```
 
-### The Nil vs. Empty Slice Paradox
-This distinction is a favorite topic in technical evaluations:
-- **Nil Slice** (`var s []int`): `Data = 0`. Represents a logical absence of data (e.g., failed operation).
-- **Empty Slice** (`s := []int{}`): `Data` refers to the internal **`zerobase`** sentinel. This costs zero allocation but satisfies requirements for non-nil results.
-- **JSON Serialization**: A Nil Slice serializes to `null`, whereas an Empty Slice serializes to `[]`. Consistency here is paramount for API contract stability.
+The result no longer retains the large array. This does not guarantee an immediate drop in process RSS: GC timing, allocation, and returning memory to the operating system also affect measurements. See [Garbage collection](/en/notes/go/garbage_collection/) for those distinctions.
 
----
+Copying has a cost, so consider lifetime: retaining a few bytes long-term differs from consuming them immediately and discarding them.
 
-> To create a fundamentally independent data set that is decoupled from the original underlying array, always utilize the `copy()` function.
+## Nil and empty: similar iteration, different representation
+
+```go
+var missing []int
+empty := []int{}
+
+fmt.Println(len(missing), len(empty)) // 0 0
+fmt.Println(missing == nil)          // true
+fmt.Println(empty == nil)            // false
+
+missingJSON, _ := json.Marshal(missing)
+emptyJSON, _ := json.Marshal(empty)
+fmt.Println(string(missingJSON)) // null
+fmt.Println(string(emptyJSON))   // []
+```
+
+Both can be ranged over with no iterations and can be used with `append`. The distinction is that `missing` is nil while `empty` is not. Slices cannot be compared to one another with `==`; direct comparison with nil is permitted.
+
+Import `encoding/json` and `fmt`. The example calls `json.Marshal` directly on `[]int`, ignoring errors only for these specific inputs. General marshaling code must handle errors. With this `encoding/json.Marshal` API, a nil slice becomes `null` and an empty slice becomes `[]`. Fields with `omitempty` or types with custom marshaling can have different representations. Follow the API contract rather than internal addresses of empty slices. The [Marshal documentation](https://pkg.go.dev/encoding/json#Marshal) describes the encoding rules.
+
+## Further detail: addresses, representation, and capacity growth
+
+These details help when reading code or investigating performance; they are not prerequisites for understanding the shared-data examples above.
+
+`&array` points to the entire array, whereas `&array[0]` points to the first element. Their types differ even if printed addresses coincide:
+
+```go
+array := [3]int{10, 20, 30}
+fmt.Printf("%T %T\n", &array, &array[0]) // *[3]int *int
+```
+
+An empty array has no element zero whose address can be taken. On many 64-bit architectures a slice descriptor occupies three words; this representation is not an external storage contract or a reason to construct slices using `unsafe`.
+
+When append exceeds capacity, do not predict the next capacity with an unconditional doubling rule. In the [runtime source checked on 2026-10-15](https://go.dev/src/runtime/slice.go), `nextslicecap` uses a threshold of 256 and transitions towards roughly 1.25× growth for large slices. The required new length and allocator rounding also affect actual capacity. These details can change with versions; application code should depend on sufficient capacity for the result rather than an exact sequence of capacities.
+
+Preallocation can reduce backing-array allocations when an appropriate size is known. Reserving excessive space increases retained memory. Optimize after identifying the workload and the cost that needs reducing.
+
+## Predict before reading the explanation
+
+No concrete memory addresses are needed. For each question, identify shared arrays and the length/capacity that governs the next operation.
+
+**1. Change one bound.** In the append example starting with `scores := make([]int, 3, 5)`, replace `firstTwo := scores[:2]` with `firstTwo := scores[:2:2]`. Is the 30 in `scores` overwritten? Why?
+
+**2. Keep capacity, remove length.** How many elements does this copy?
+
+```go
+source := []int{10, 20}
+destination := make([]int, 0, 2)
+n := copy(destination, source)
+```
+
+**3. Reuse or preserve?** You need positive numbers, but must also log the original list afterwards. Should you pass it directly to `positiveInPlace`? Suggest a way to preserve it.
+
+**Explanations — read after trying:**
+
+1. No. `firstTwo` has capacity 2, so adding a third element requires another array. Writing an existing element before appending would still affect the old array.
+2. `n` is zero because the destination length is zero. To copy two elements, create a destination of length 2 or reslice it to length 2 before copying.
+3. Not when the original must remain unchanged. Copy the `[]int` before filtering, or build a separate result slice. A good answer explains remaining sharing and additional allocation costs; several implementations are valid.
+
+The transferable skill is tracking data: which slices hold separate descriptive values, which arrays remain shared, and which operation changes each. That model lets you derive results rather than memorize snippets.
+
+## References
+
+- [Go specification: slices](https://go.dev/ref/spec#Slice_types), [slice expressions](https://go.dev/ref/spec#Slice_expressions), [append and copy](https://go.dev/ref/spec#Appending_and_copying_slices) — language rules.
+- [Go Slices: usage and internals](https://go.dev/blog/slices-intro) — backing-array model and slice usage; its age makes it unsuitable as a promise about today's capacity-growth algorithm.
+- [Runtime slice.go](https://go.dev/src/runtime/slice.go) — implementation details, checked on 2026-10-15.
+- [encoding/json.Marshal](https://pkg.go.dev/encoding/json#Marshal) — nil and empty slice encoding.

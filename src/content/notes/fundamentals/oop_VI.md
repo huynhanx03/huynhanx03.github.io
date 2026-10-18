@@ -1,114 +1,110 @@
 ---
-title: "Lập trình hướng đối tượng"
+title: "OOP: tổ chức trạng thái, hành vi và hợp đồng"
 category: "Fundamentals"
 tags: ["oop", "programming", "fundamentals", "design-patterns"]
+description: "Hiểu đóng gói, kế thừa, trừu tượng và đa hình qua các quyết định thiết kế và ví dụ Java."
+updated: 2026-10-15
+translationKey: "fundamentals/oop"
 ---
 
-# Lập trình hướng đối tượng (OOP)
+Một tài khoản ngân hàng có số dư. Nếu mọi nơi trong chương trình đều được gán lại số dư, quy tắc “chỉ nạp số tiền hợp lệ” sẽ phải được nhớ và kiểm tra ở từng nơi. Chỉ một chỗ quên kiểm tra cũng có thể làm đối tượng rơi vào trạng thái sai.
 
-Lập trình hướng đối tượng (Object-Oriented Programming - OOP) là một triết lý thiết kế phần mềm lấy **Đối tượng** (Object) làm trung tâm. Thay vì tập trung vào các bước thực hiện lệnh (Imperative), OOP tập trung vào việc mô hình hóa các thực thể, dữ liệu và mối quan hệ giữa chúng.
+Lập trình hướng đối tượng (OOP) giúp tổ chức dữ liệu cùng những hành vi có trách nhiệm giữ dữ liệu hợp lệ. Bài này dùng Java để phân biệt đóng gói, kế thừa, trừu tượng và đa hình. Đó là những góc nhìn thiết kế có quan hệ với nhau; thuộc bốn tên gọi chưa đủ để quyết định chương trình nên có những class nào.
 
----
+Các đoạn Java là ví dụ riêng. Đặt khai báo class/interface ở cấp ngoài cùng, method trong class chứa nó và các câu lệnh như `vehicle.honk()` trong `main`. Mỗi đoạn chỉ giữ phần cần cho quyết định đang giải thích.
 
-## 1. Đóng gói (Encapsulation) - Bảo vệ sự toàn vẹn
+## Đối tượng chịu trách nhiệm cho trạng thái của mình
 
-**Bản chất:** Gom dữ liệu (Field) và hành vi (Method) vào một lớp (Class), đồng thời **che giấu** những chi tiết triển khai nội bộ thông qua cơ chế Access Modifiers (`private`, `protected`).
+Đối tượng có trạng thái, như số dư hiện tại, và hành vi, như nạp tiền. **Class** mô tả một kiểu đối tượng; **instance** là một đối tượng cụ thể được tạo từ class đó. Hai instance có thể cùng cách xử lý nhưng giữ trạng thái khác nhau.
 
-### Tại sao không nên để `public` bừa bãi?
-
-Trong các hệ thống lớn, việc để thuộc tính là `public` (truy cập tự do từ mọi nơi) giống như việc giao chìa khóa nhà cho bất kỳ ai đi ngang qua. 
-
-- **Vô tình phá vỡ logic (Accidental Corruption):** Code ở bất kỳ đâu cũng có thể gán giá trị sai cho biến mà không thông qua kiểm tra. Ví dụ: gán `age = -5` hoặc `balance = 999999999` cho một tài khoản vừa tạo.
-- **Rò rỉ logic (Leaky Logic):** Nếu bên ngoài can thiệp trực tiếp vào dữ liệu, khi bạn muốn thay đổi cấu trúc dữ liệu bên trong (ví dụ đổi từ `int` sang `long` để tối ưu), bạn sẽ làm hỏng toàn bộ những chỗ đang gọi đến thuộc tính đó.
-- **Mất tính nhất quán (Invariants):** Một đối tượng thường có những quy tắc ngầm (vd: `total = price * quantity`). Nếu `price` là public, ai đó đổi `price` mà không cập nhật `total` thì dữ liệu sẽ bị mâu thuẫn ngay lập tức.
-
-**Giải pháp:** Luôn ưu tiên `private`. Chỉ lộ ra những gì thực sự cần thiết qua các "cửa khẩu" kiểm soát (Getter/Setter hoặc Business Methods).
+OOP vẫn sử dụng câu lệnh và các bước xử lý. Điểm khác nằm ở cách phân chia trách nhiệm: thay vì để caller tự sửa mọi dữ liệu, một đối tượng cung cấp những thao tác có ý nghĩa trong miền bài toán.
 
 ```java
-public class BankAccount {
-    private double balance; // Dữ liệu được bảo vệ nghiêm ngặt
+final class BankAccount {
+    private long balance;
 
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
+    public void deposit(long amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("amount must be positive");
         }
+        balance = Math.addExact(balance, amount);
     }
 
-    public double getBalance() {
+    public long getBalance() {
         return balance;
     }
 }
 ```
 
----
+Ví dụ dùng số nguyên theo một đơn vị tiền đã thống nhất, không dùng `double` để minh họa tiền. `deposit(100)` đưa số dư từ 0 lên 100; `deposit(-5)` ném lỗi trước khi sửa trạng thái. `Math.addExact` cũng từ chối phép cộng vượt miền của `long`. Đây là đoạn class minh họa, chưa có đồng bộ cho nhiều thread hay lưu trữ giao dịch ngân hàng.
 
-## 2. Kế thừa (Inheritance) - Chia sẻ "Dòng máu" (Is-a)
+Field `private` giúp caller không thể tùy ý gán số dư. Quan trọng hơn, method giữ **invariant**: tính chất cần đúng ở các trạng thái hợp lệ của đối tượng. Với đơn hàng có `total = price * quantity`, việc đổi giá hoặc số lượng cũng phải giữ quan hệ ấy.
 
-**Bản chất:** Xây dựng mối quan hệ cha-con. Lớp con thừa hưởng đặc tính từ lớp cha để **Tái sử dụng code** (Reuse) mà không cần viết lại.
+Đó là **đóng gói**: giữ dữ liệu và trách nhiệm cập nhật bên trong một ranh giới. Getter/setter không tự tạo ra thiết kế tốt; một setter cho phép gán bất kỳ số dư nào vẫn phá ý nghĩa của ranh giới này. Method nghiệp vụ như `deposit` diễn đạt ý định rõ hơn. Giảm phụ thuộc vào field nội bộ cũng giúp thay biểu diễn mà ít ảnh hưởng caller, nếu hợp đồng công khai được giữ.
 
-- **Điểm khác biệt:** Kế thừa tập trung vào việc kế thừa lại **Mã nguồn** và **Cấu trúc dữ liệu**. Nó tạo ra một hệ thống phân cấp chặt chẽ.
-- **Rủi ro:** Gây ra sự phụ thuộc quá lớn vào lớp cha (**Tight Coupling**). Nếu cha sửa, con cũng "vỡ" theo.
+## Kế thừa cần một hợp đồng thay thế hợp lý
 
 ```java
-public class Vehicle {
-    protected String brand = "Ford";
-    public void honk() { System.out.println("Tuut, tuut!"); }
+class Vehicle {
+    public void honk() {
+        System.out.println("Beep");
+    }
 }
 
-public class Car extends Vehicle {
-    private String modelName = "Mustang";
-}
-// Car không cần viết lại hàm honk() nhưng vẫn có thể dùng nó.
+class Car extends Vehicle {}
+
+Vehicle vehicle = new Car();
+vehicle.honk(); // Beep
 ```
 
----
+`Car` kế thừa method `honk`, nên không cần viết lại cùng phần triển khai. Java cũng cho phép giữ `Car` qua biến kiểu `Vehicle`. **Kế thừa** vừa tạo quan hệ kiểu, vừa có thể chia sẻ phần triển khai; lợi ích tái sử dụng đi cùng sự phụ thuộc vào class cha.
 
-## 3. Trừu tượng (Abstraction) - "Bản thiết kế/Hợp đồng"
+Một quan hệ “is-a” trong đời sống chưa đủ chứng minh hợp đồng phần mềm phù hợp. Nếu class `Bird` hứa mọi instance đều bay được, `Ostrich` không thể thực hiện lời hứa đó. Tách khả năng bay thành một hợp đồng riêng có thể hợp lý hơn. Nếu mục tiêu chỉ là dùng lại một thành phần, hãy cân nhắc composition: giữ thành phần trong field và gọi nó, thay vì trở thành subtype của nó.
 
-**Bản chất:** Tập trung vào việc **Định nghĩa** đối tượng phải có những gì, thay vì làm như thế nào.
-
-> - **Abstract Class:** Nó **LÀ** cái gì? (Nguồn gốc). Ví dụ: Chó, Mèo là Động vật. Ta dùng abs class để gom những đặc tính chung của tổ tiên.
-> - **Interface:** Nó **LÀM** được gì? (Hành vi/Kỹ năng). Ví dụ: Chim và Máy bay đều có thể Bay (`Flyable`). Ta dùng interface cho những thực thể khác loài nhưng chung kỹ năng.
+## Trừu tượng xác định điều caller cần biết
 
 ```java
-// Interface: Kỹ năng "Làm được gì"
 interface Flyable {
-    void fly(); 
+    void fly();
 }
 
-// Abstract Class: Nguồn gốc "Nó là gì"
 abstract class Bird {
     abstract void sing();
 }
 ```
 
----
+**Trừu tượng** chọn những đặc điểm có ích cho mục đích đang xét và che phần triển khai chưa cần biết. Caller của `Flyable` cần một hành vi bay; nó không phải biết đối tượng là chim hay máy bay.
 
-## 4. Đa hình (Polymorphism) - "Biến hóa tại Runtime"
+Interface và abstract class là hai công cụ biểu đạt, không phải định nghĩa duy nhất của trừu tượng. Abstract class có thể chia sẻ trạng thái và phần triển khai với subclass; interface thường diễn đạt một hợp đồng chung. Không nên quyết định chỉ bằng công thức “abstract class là nguồn gốc, interface là kỹ năng”: hãy xét hợp đồng, quan hệ kiểu và mức phụ thuộc. Khái niệm trừu tượng còn xuất hiện trong hàm, module và API, không chỉ trong OOP.
 
-**Bản chất:** Cho phép một danh xưng chung (Interface/Parent) đại diện cho nhiều thực thể khác nhau, và mỗi thực thể tự chọn cách hành động tại thời điểm chạy.
-
-### Phân biệt Trừu tượng (Abstraction) vs Đa hình (Polymorphism)
-
-Rất nhiều người nhầm hai cái này là một. Hãy hiểu đơn giản:
-- **Abstraction** là lúc ta **Lên kế hoạch** (Design-time). Ta nói: "Tôi cần một thứ có thể kêu (`makeSound`)".
-- **Polymorphism** là lúc ta **Thực thi** (Run-time). Khi ta gọi lệnh `makeSound()`, hệ thống sẽ tự biết chọn âm thanh của Chó sủa hay Mèo kêu dựa trên biến thực tế đang giữ.
+## Đa hình cho phép cùng lời gọi có triển khai khác nhau
 
 ```java
-public void performSound(Animal a) {
-    // Abstraction cho phép ta viết hàm này mà không cần biết 'a' là con gì.
-    // Polymorphism sẽ tự chọn đúng tiếng kêu của 'a' tại thời điểm chạy.
-    a.makeSound(); 
+interface Animal {
+    void makeSound();
+}
+class Dog implements Animal {
+    public void makeSound() { System.out.println("Woof"); }
+}
+class Cat implements Animal {
+    public void makeSound() { System.out.println("Meow"); }
+}
+
+static void performSound(Animal animal) {
+    animal.makeSound();
 }
 ```
 
----
+Khai báo method `performSound` bên trong một class. Khi gọi nó với `new Dog()`, kết quả dự kiến là `Woof`; với `new Cat()`, là `Meow`. Caller dùng cùng hợp đồng `Animal`, còn triển khai method được chọn theo đối tượng thực tế.
 
-### Bảng tóm tắt nhanh
+Đây là đa hình qua subtype và lời gọi method instance trong Java. Trừu tượng giải thích vì sao caller chỉ cần biết hợp đồng; đa hình giải thích cách các triển khai khác nhau đáp ứng cùng lời gọi. Phân biệt này không có nghĩa mọi hình thức đa hình đều xảy ra ở runtime; thuật ngữ đa hình còn có phạm vi rộng hơn ví dụ đang xét. [Oracle mô tả cơ chế gọi method này](https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html).
 
-| Trụ cột | Bản chất | Câu hỏi đại diện |
-| :--- | :--- | :--- |
-| **Đóng gói** | Bảo mật thông tin | Ai được quyền sờ vào dữ liệu này? |
-| **Kế thừa** | Tái sử dụng "Gốc gác" | Nó có cùng dòng máu với cha không? |
-| **Trừu tượng** | Thiết kế "Hợp đồng" | Nó LÀ gì (Abstraction) và LÀM được gì (Interface)? |
-| **Đa hình** | Thực thi "Biến hóa" | Lúc chạy nó sẽ hành động ra sao? |
+## Tự kiểm tra bằng một thay đổi thiết kế
+
+Một class `Order` công khai cả `price`, `quantity` và `total`. Bạn thêm setter riêng cho từng field nhưng không cập nhật các field còn lại. Đóng gói đã bảo vệ tính nhất quán chưa?
+
+Chưa. Khả năng truy cập field đã đổi, nhưng quy tắc giữa chúng chưa được bảo vệ. Có thể tính `total` từ hai đầu vào khi đọc hoặc cập nhật các giá trị qua method giữ invariant. Lựa chọn tùy yêu cầu lưu trữ và nghiệp vụ.
+
+Nếu chỉ muốn dùng lại logger, có cần kế thừa logger không? Không nhất thiết: một field logger thường diễn đạt sự hợp tác rõ hơn. Hãy dùng quan hệ subtype khi caller thực sự có thể sử dụng đối tượng thay thế theo hợp đồng, không chỉ vì có vài method cần dùng lại.
+
+Đọc tiếp [SOLID](/vi/notes/fundamentals/solid/) để xem các ranh giới này ảnh hưởng thay đổi phần mềm ra sao. [Oracle: Interfaces and Inheritance](https://docs.oracle.com/javase/tutorial/java/IandI/index.html) là nguồn đối chiếu cú pháp Java.

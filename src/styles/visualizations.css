@@ -1,0 +1,245 @@
+note-visualization {
+  display:block; margin:2rem 0; --nv-motion:360ms; container-type:inline-size;
+  --nv-ease:cubic-bezier(.22,1,.36,1);
+  --nv-active:color-mix(in srgb,var(--accent) 10%,var(--surface-solid));
+  --nv-mid:#c4a0ff; --nv-mid-bg:color-mix(in srgb,#8b5cf6 18%,var(--surface-solid));
+  --nv-success:#86efac; --nv-error:#fda4af; --nv-button-ink:#08212c;
+  --nv-keyword:#c4a0ff; --nv-function:#7dd3fc; --nv-number:#fbbf24; --nv-string:#86efac;
+  font-family:var(--font-primary); font-size:.9rem; line-height:1.5;
+}
+:root[data-theme="light"] note-visualization {
+  --nv-mid:#7c3aed; --nv-success:#15803d; --nv-error:#be123c; --nv-button-ink:#fff;
+  --nv-keyword:#7c3aed; --nv-function:#0369a1; --nv-number:#a16207; --nv-string:#15803d;
+}
+note-visualization * {box-sizing:border-box;}
+note-visualization [hidden] {display:none!important;}
+note-visualization .nv-shell {
+  overflow:hidden; border:1px solid var(--line); border-radius:18px;
+  background:var(--surface-solid); box-shadow:0 14px 44px rgb(0 0 0 / .06);
+}
+note-visualization .nv-header {display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.35rem 1.5rem 1.1rem;}
+note-visualization .nv-title-group {display:flex; align-items:center; gap:.85rem;}
+note-visualization .nv-symbol {display:flex; align-items:center; justify-content:center; gap:3px; width:40px; height:40px; border-radius:12px; background:var(--nv-active); border:1px solid color-mix(in srgb,var(--accent) 15%,var(--line));}
+note-visualization .nv-symbol span {width:4px; height:12px; border-radius:3px; background:var(--accent);}
+note-visualization .nv-symbol span:nth-child(2) {height:20px;}
+note-visualization .nv-symbol span:nth-child(3) {height:16px;}
+note-visualization .nv-title-group strong {display:block; font-size:1.05rem; font-weight:650; letter-spacing:-.025em;}
+note-visualization .nv-title-group div>span {display:block; font-size:.76rem; color:var(--muted); margin-top:3px;}
+note-visualization .nv-live-badge {font-size:.61rem; letter-spacing:.11em; color:var(--muted); white-space:nowrap;}
+note-visualization .nv-tabs {display:flex; align-items:center; gap:1.4rem; padding:0 1.5rem; border-bottom:1px solid var(--line);}
+note-visualization button {font:inherit; font-size:.78rem; padding:.5rem .75rem; min-height:36px; border:1px solid var(--line); border-radius:8px; background:var(--surface-solid); color:var(--text); cursor:pointer; transition:background .18s,border-color .18s,transform .18s;}
+note-visualization button:hover:not(:disabled) {background:var(--nv-active); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+note-visualization button:active:not(:disabled) {transform:translateY(1px);}
+note-visualization button:disabled {opacity:.3; cursor:default;}
+note-visualization :is(button,input,select):focus-visible {outline:2px solid var(--accent); outline-offset:3px;}
+note-visualization .nv-tabs button {border:0; border-bottom:2px solid transparent; border-radius:0; padding:.8rem 0; color:var(--muted); background:transparent;}
+note-visualization .nv-tabs button[aria-pressed="true"] {color:var(--text); border-bottom-color:var(--accent);}
+note-visualization .nv-mode-label {display:flex; align-items:center; gap:.4rem; font-size:.7rem; color:var(--muted); margin-left:auto; white-space:nowrap;}
+note-visualization .nv-mode-label::before {content:''; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.7;}
+note-visualization[data-phase="playing"] .nv-mode-label {color:var(--accent);}
+note-visualization[data-phase="finished"] .nv-mode-label {color:var(--nv-success);}
+note-visualization .nv-body {padding:1.25rem 1.5rem 1.5rem;}
+note-visualization .nv-workspace>div {min-width:0;}
+note-visualization .nv-example-row {display:flex; justify-content:space-between; align-items:center; gap:.7rem;}
+note-visualization label {display:block; min-width:0; font-size:.75rem; color:var(--muted);}
+note-visualization .nv-preset {display:flex; align-items:center; gap:.6rem;}
+note-visualization .nv-preset>span {font-size:.73rem;}
+note-visualization input:not([type="range"]),note-visualization select {border:1px solid var(--line); border-radius:8px; padding:.55rem .65rem; min-width:0; max-width:100%; background:var(--code-bg); color:var(--text); font-size:.79rem;}
+note-visualization .nv-preset select {background:var(--surface-solid); border-color:transparent; padding-left:.3rem; font-weight:500;}
+note-visualization .nv-text-action {padding:.4rem 0; border:0; color:var(--accent); background:transparent; white-space:nowrap;}
+note-visualization .nv-input-editor {padding:1rem; margin-top:.8rem; border:1px solid var(--line); border-radius:10px; background:var(--code-bg);}
+note-visualization .nv-inputs {display:grid; grid-template-columns:minmax(0,1fr) 85px; gap:.8rem;}
+note-visualization input:not([type="range"]) {width:100%; display:block; font-family:var(--font-mono); margin-top:.4rem; background:var(--surface-solid);}
+note-visualization .nv-actions {display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.8rem;}
+note-visualization .nv-primary {background:var(--accent); border-color:var(--accent); color:var(--nv-button-ink); font-weight:600;}
+note-visualization .nv-primary:hover:not(:disabled) {background:var(--accent-strong); color:var(--nv-button-ink);}
+note-visualization :is(.nv-error,.nv-dirty) {font-size:.78rem; line-height:1.6; margin:.6rem 0 0;}
+note-visualization .nv-error {color:var(--nv-error);}
+note-visualization .nv-dirty {color:var(--muted);}
+note-visualization .nv-stage {
+  border:1px solid var(--line); border-radius:12px; margin-top:.8rem; padding:1.1rem 1rem .85rem;
+  background:radial-gradient(ellipse at 50% 0,color-mix(in srgb,var(--accent) 7%,transparent),transparent 70%),var(--code-bg);
+}
+note-visualization .nv-stage-meta {display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.6rem; font:.72rem var(--font-mono); color:var(--muted);}
+note-visualization .nv-target {padding:.3rem .5rem; border-radius:6px; background:var(--surface-solid); color:var(--text); border:1px solid var(--line);}
+note-visualization .nv-array-scroll {overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent;}
+note-visualization .nv-array-board {position:relative; padding:49px 0 35px; min-width:calc(var(--nv-columns) * 36px); margin-top:6px;}
+note-visualization .nv-array {display:grid; gap:0;}
+note-visualization .nv-cell {display:flex; flex-direction:column; text-align:center; padding:0 3px; min-width:0;}
+note-visualization .nv-cell-value {display:block; height:52px; line-height:52px; border-radius:9px; border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line)); background:var(--nv-active); color:var(--text); font-family:var(--font-mono); font-size:1.1rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:background var(--nv-motion),color var(--nv-motion),opacity var(--nv-motion),transform var(--nv-motion) var(--nv-ease),border-color var(--nv-motion),box-shadow var(--nv-motion);}
+note-visualization .nv-cell-index {font:.65rem var(--font-mono); color:var(--muted); margin-top:8px;}
+note-visualization .nv-cell[data-state="mid"] .nv-cell-value {color:var(--nv-mid); background:var(--nv-mid-bg); border-color:var(--nv-mid); transform:translateY(-4px); box-shadow:0 6px 18px color-mix(in srgb,var(--nv-mid) 15%,transparent); animation:nv-focus-arrive var(--nv-motion) var(--nv-ease);}
+note-visualization .nv-cell[data-state="out"] .nv-cell-value {background:var(--surface-solid); border-color:var(--line); color:var(--muted); opacity:.4; transform:scale(.94);}
+note-visualization .nv-sentinel .nv-cell-value {border-style:dashed; background:transparent; font-size:1rem;}
+note-visualization .nv-cell[data-state="result"] .nv-cell-value {opacity:1; color:var(--nv-success); background:color-mix(in srgb,var(--nv-success) 10%,var(--code-bg)); border-color:var(--nv-success); transform:translateY(-2px); box-shadow:0 5px 18px color-mix(in srgb,var(--nv-success) 12%,transparent);}
+note-visualization .nv-interval-band {position:absolute; top:40px; height:3px; border-radius:3px; background:var(--accent); transition:width var(--nv-motion) var(--nv-ease),left var(--nv-motion) var(--nv-ease);}
+note-visualization .nv-marker {position:absolute; transform:translateX(-50%); padding:3px 6px; border-radius:5px; color:var(--accent); background:var(--nv-active); font:500 .7rem var(--font-mono); white-space:nowrap; transition:left var(--nv-motion) var(--nv-ease),opacity .2s,color .2s;}
+note-visualization .nv-marker-lo,note-visualization .nv-marker-hi {bottom:0;}
+note-visualization .nv-marker-lo::before,note-visualization .nv-marker-hi::before {content:''; position:absolute; top:-7px; left:50%; transform:translateX(-50%); border-left:4px solid transparent; border-right:4px solid transparent; border-bottom:4px solid currentColor;}
+note-visualization .nv-marker-mid {top:5px; color:var(--nv-mid); background:var(--nv-mid-bg);}
+note-visualization .nv-marker-mid::after {content:''; position:absolute; bottom:-7px; left:50%; transform:translateX(-50%); border-left:4px solid transparent; border-right:4px solid transparent; border-top:4px solid currentColor;}
+note-visualization .nv-marker.is-hidden {opacity:0;}
+note-visualization .nv-marker-result {color:var(--nv-success); background:color-mix(in srgb,var(--nv-success) 12%,var(--code-bg));}
+note-visualization .nv-legend {display:flex; justify-content:center; flex-wrap:wrap; gap:1.2rem; margin-top:1rem; font-size:.66rem; color:var(--muted);}
+note-visualization .nv-legend>span {display:flex; align-items:center; gap:.35rem;}
+note-visualization .nv-legend>span::before {content:''; width:6px; height:6px; border-radius:2px; background:var(--muted); opacity:.45;}
+note-visualization .nv-legend .nv-legend-range::before {background:var(--accent); opacity:1;}
+note-visualization .nv-legend .nv-legend-mid::before {background:var(--nv-mid); opacity:1;}
+note-visualization .nv-variables {display:flex; justify-content:center; flex-wrap:wrap; gap:1.3rem; padding:.85rem 0; font:.73rem var(--font-mono);}
+note-visualization .nv-variables>span {display:flex; align-items:center; gap:.5rem; color:var(--muted);}
+note-visualization .nv-variables strong {display:inline-block;}
+note-visualization .nv-variables strong {font-weight:500; color:var(--text); font-variant-numeric:tabular-nums;}
+note-visualization .nv-explanation {min-height:100px; border-left:2px solid color-mix(in srgb,var(--accent) 45%,var(--line)); padding:.65rem .85rem; margin:.25rem 0 1.2rem; background:linear-gradient(90deg,var(--nv-active),transparent); border-radius:0 8px 8px 0;}
+note-visualization .nv-step-kicker {font-size:.7rem; letter-spacing:.06em; font-weight:600; color:var(--accent);}
+note-visualization .nv-explanation p {font-size:.88rem; line-height:1.7; margin:.3rem 0 0;}
+note-visualization[data-phase="finished"] .nv-explanation {border-left-color:var(--nv-success);}
+note-visualization[data-phase="finished"] .nv-step-kicker {color:var(--nv-success);}
+note-visualization .nv-transport {padding:.1rem 0 .3rem;}
+note-visualization .nv-scrubber {display:flex; align-items:center; gap:.8rem; margin-bottom:.7rem;}
+note-visualization .nv-scrubber input {min-width:0; flex:1; accent-color:var(--accent); height:24px; cursor:pointer; appearance:none; background:transparent; margin:0;}
+note-visualization .nv-scrubber input::-webkit-slider-runnable-track {height:4px; border-radius:4px; background:linear-gradient(to right,var(--accent) var(--nv-progress,0%),var(--line) var(--nv-progress,0%));}
+note-visualization .nv-scrubber input::-webkit-slider-thumb {appearance:none; width:12px; height:12px; border-radius:50%; margin-top:-4px; background:var(--accent); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent);}
+note-visualization .nv-scrubber input::-moz-range-track {height:4px; border-radius:4px; background:var(--line);}
+note-visualization .nv-scrubber input::-moz-range-progress {height:4px; border-radius:4px; background:var(--accent);}
+note-visualization .nv-scrubber input::-moz-range-thumb {height:12px; width:12px; border:0; border-radius:50%; background:var(--accent);}
+note-visualization .nv-scrubber>span {font:.7rem var(--font-mono); color:var(--muted); min-width:45px; text-align:right; font-variant-numeric:tabular-nums;}
+note-visualization .nv-controls {display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.7rem;}
+note-visualization .nv-play-group,note-visualization .nv-options {display:flex; gap:.4rem; align-items:center;}
+note-visualization .nv-play {min-width:112px; color:var(--nv-button-ink); background:var(--accent); border-color:var(--accent); font-weight:600;}
+note-visualization .nv-play:hover:not(:disabled) {background:var(--accent-strong); color:var(--nv-button-ink);}
+note-visualization .nv-options button {background:transparent; border-color:transparent; color:var(--muted);}
+note-visualization .nv-options [aria-pressed="true"] {color:var(--accent); background:var(--nv-active);}
+note-visualization .nv-speed select {font-size:.73rem; padding:.4rem .45rem; border-color:transparent; background:transparent;}
+note-visualization .nv-output {display:flex; align-items:center; gap:1rem; padding:1rem 0 0; margin-top:1rem; border-top:1px solid var(--line);}
+note-visualization .nv-output>div {display:flex; flex-direction:column; min-width:58px;}
+note-visualization .nv-output-label {font-size:.7rem; letter-spacing:.1em; color:var(--muted);}
+note-visualization .nv-output strong {font:1.35rem var(--font-mono); color:var(--muted); margin-top:.2rem;}
+note-visualization .nv-output strong.is-finished {color:var(--nv-success); animation:nv-result-reveal .4s var(--nv-ease);}
+note-visualization .nv-output p {font-size:.76rem; line-height:1.6; margin:0; color:var(--muted);}
+note-visualization .nv-code-panel {border-top:1px solid var(--line); padding-top:1rem;}
+note-visualization .nv-code-header {display:flex; justify-content:space-between; margin-bottom:.65rem; color:var(--muted); font-size:.65rem; letter-spacing:.1em;}
+note-visualization .nv-source {overflow-x:auto; border:1px solid var(--line); border-radius:9px; padding:.8rem 0; background:var(--code-bg);}
+note-visualization .nv-code-line {display:flex; min-width:max-content; border-left:2px solid transparent; padding:.1rem .8rem; font:.78rem var(--font-mono); line-height:1.8; transition:background var(--nv-motion),border-color var(--nv-motion);}
+note-visualization .nv-code-line code {white-space:pre; padding:0; border:0; background:transparent; color:var(--code-fg); font:inherit;}
+note-visualization .nv-line-number {width:2rem; flex-shrink:0; color:var(--faint); user-select:none;}
+note-visualization .nv-code-line.is-current {background:var(--nv-active); border-left-color:var(--accent);}
+note-visualization .nv-code-line.is-current .nv-line-number {color:var(--accent);}
+note-visualization .nv-syntax-keyword {color:var(--nv-keyword);}
+note-visualization .nv-syntax-function {color:var(--nv-function);}
+note-visualization .nv-syntax-number {color:var(--nv-number);}
+note-visualization .nv-syntax-string {color:var(--nv-string);}
+note-visualization .nv-syntax-comment {color:var(--muted);}
+note-visualization .nv-syntax-type {color:var(--accent);}
+note-visualization .nv-syntax-operator {color:var(--nv-mid);}
+note-visualization .nv-code-caption {font-size:.73rem; color:var(--muted); margin:.7rem 0 0; line-height:1.6;}
+note-visualization .nv-footer {text-align:center; padding:.7rem 1rem; border-top:1px solid var(--line); font-size:.66rem; color:var(--muted);}
+note-visualization .nv-fallback {padding:1rem; border:1px solid var(--line); border-radius:9px;}
+note-visualization .nv-sr-only {position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
+@keyframes nv-result-reveal {from {opacity:.4; transform:translateY(4px);} to {opacity:1; transform:translateY(0);}}
+@keyframes nv-focus-arrive {from {box-shadow:0 0 0 0 color-mix(in srgb,var(--nv-mid) 25%,transparent);} to {box-shadow:0 0 0 7px transparent;}}
+@container (min-width:680px) {
+  note-visualization .nv-workspace.is-code {display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);}
+  note-visualization .nv-workspace.is-code>.nv-body {padding:1.1rem;}
+  note-visualization .nv-workspace.is-code>.nv-code-panel {border-top:0; border-left:1px solid var(--line); background:color-mix(in srgb,var(--code-bg) 60%,var(--surface-solid));}
+  note-visualization .nv-workspace.is-code .nv-code-header {padding:.3rem 0 .4rem;}
+  note-visualization .nv-workspace.is-code .nv-code-line {min-width:0; align-items:flex-start; font-size:.73rem;}
+  note-visualization .nv-workspace.is-code .nv-code-line code {min-width:0; white-space:pre-wrap; overflow-wrap:anywhere;}
+  note-visualization .nv-workspace.is-code .nv-line-number {width:1.5rem;}
+  note-visualization .nv-workspace.is-code .nv-explanation {min-height:130px;}
+  note-visualization .nv-workspace.is-code .nv-legend {gap:.7rem;}
+}
+note-visualization.nv-reduced-motion * {transition:none!important; animation:none!important;}
+@media(prefers-reduced-motion:reduce) {note-visualization * {transition:none!important; animation:none!important;}}
+@media(max-width:520px) {
+  note-visualization .nv-header {padding:1rem;}
+  note-visualization .nv-live-badge {display:none;}
+  note-visualization .nv-tabs {padding:0 1rem; gap:1rem;}
+  note-visualization .nv-body {padding:1rem .85rem;}
+  note-visualization .nv-stage {padding:.85rem .5rem .75rem;}
+  note-visualization .nv-array-board {min-width:calc(var(--nv-columns) * 28px); padding-top:45px;}
+  note-visualization .nv-cell {padding:0 2px;}
+  note-visualization .nv-cell-value {height:40px; line-height:40px; font-size:.95rem; border-radius:7px;}
+  note-visualization .nv-interval-band {top:37px;}
+  note-visualization .nv-cell-index {font-size:.7rem;}
+  note-visualization .nv-marker {font-size:.7rem; padding:3px 4px;}
+  note-visualization .nv-legend {gap:.75rem; font-size:.7rem;}
+  note-visualization .nv-variables {gap:.9rem; font-size:.7rem;}
+  note-visualization .nv-explanation {min-height:110px;}
+  note-visualization .nv-explanation p {font-size:.85rem;}
+  note-visualization button {min-height:40px;}
+  note-visualization .nv-controls {gap:.5rem;}
+  note-visualization .nv-play-group {flex:1;}
+  note-visualization .nv-play {min-width:104px;}
+  note-visualization .nv-options {gap:.1rem;}
+  note-visualization .nv-options button {padding:.4rem .45rem;}
+  note-visualization .nv-inputs {grid-template-columns:minmax(0,1fr) 72px;}
+  note-visualization input:not([type="range"]) {font-size:16px;}
+}
+/* Shared educational scenes: same theme and playback for every domain. */
+note-visualization textarea {width:100%;margin-top:.4rem;resize:vertical;min-height:90px;border:1px solid var(--line);border-radius:8px;padding:.65rem;background:var(--surface-solid);color:var(--text);font:.8rem var(--font-mono);}
+note-visualization .nv-scene-panel + .nv-scene-panel {margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--line);}
+note-visualization .nv-panel-heading {font-size:.75rem;color:var(--muted);margin:0 0 .6rem;}
+note-visualization .nv-scene-cells {display:flex;flex-wrap:wrap;gap:5px;}
+note-visualization .nv-scene-cell {display:flex;flex-direction:column;align-items:center;min-width:30px;max-width:90px;}
+note-visualization .nv-scene-cell strong {display:grid;place-items:center;min-width:32px;min-height:36px;border:1px solid var(--line);border-radius:7px;padding:4px;background:var(--surface-solid);font:.9rem var(--font-mono);overflow-wrap:anywhere;transition:background var(--nv-motion),border-color var(--nv-motion);}
+note-visualization .nv-scene-cell small {font:.7rem var(--font-mono);color:var(--muted);margin-top:4px;}
+note-visualization .nv-scene-cell.is-active strong,note-visualization td.is-active {color:var(--nv-mid);background:var(--nv-mid-bg);border-color:var(--nv-mid);}
+note-visualization .nv-scene-cell.is-done strong {color:var(--nv-success);border-color:var(--nv-success);}
+note-visualization .nv-scene-empty {font-size:.8rem;color:var(--muted);}
+note-visualization .nv-table-scroll {overflow:auto;max-height:380px;}
+note-visualization table {border-collapse:collapse;width:100%;font:.75rem var(--font-mono);margin:0;}
+note-visualization th,note-visualization td {padding:6px 9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;}
+note-visualization th {color:var(--muted);font-weight:500;}
+note-visualization .nv-panel-stack {display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+note-visualization .nv-stack-entry {padding:6px 9px;background:var(--nv-active);border:1px solid var(--line);border-radius:6px;font:.8rem var(--font-mono);}
+note-visualization .nv-stack-label {font-size:.7rem;color:var(--accent);}
+note-visualization .nv-pattern-row {display:flex;flex-basis:100%;gap:5px;padding-left:calc(var(--offset) * 37px);overflow:auto;}
+note-visualization .nv-pattern-row span {min-width:32px;min-height:32px;text-align:center;border:1px solid var(--nv-mid);border-radius:5px;color:var(--nv-mid);}
+note-visualization .nv-graph {display:block;width:100%;min-width:260px;max-height:320px;overflow:visible;}
+note-visualization .nv-node circle {fill:var(--surface-solid);stroke:var(--line);stroke-width:1.5;transition:fill var(--nv-motion),stroke var(--nv-motion);}
+note-visualization .nv-node.active circle {fill:var(--nv-mid-bg);stroke:var(--nv-mid);}
+note-visualization .nv-node.done circle {fill:var(--nv-active);stroke:var(--accent);}
+note-visualization .nv-node.red circle {stroke:var(--nv-error);fill:color-mix(in srgb,var(--nv-error) 12%,var(--surface-solid));}
+note-visualization .nv-node.muted {opacity:.35;}
+note-visualization .nv-node-label {fill:var(--text);font:12px var(--font-mono);}
+note-visualization .nv-node-detail {fill:var(--muted);font:10px var(--font-mono);}
+note-visualization .nv-edge path {fill:none;stroke:var(--muted);stroke-width:1.2;opacity:.55;}
+note-visualization .nv-edge.active path {stroke:var(--nv-mid);stroke-width:2.5;opacity:1;}
+note-visualization .nv-edge.done path {stroke:var(--accent);stroke-width:2;opacity:1;}
+note-visualization .nv-edge.muted {opacity:.2;}
+note-visualization .nv-edge-label {fill:var(--muted);font:11px var(--font-mono);paint-order:stroke;stroke:var(--code-bg);stroke-width:4;stroke-linejoin:round;}
+note-visualization .nv-panel-board {display:grid;max-width:300px;margin:auto;}
+note-visualization .nv-panel-board span {display:grid;place-items:center;aspect-ratio:1;font-size:1.5rem;color:var(--nv-mid);}
+note-visualization .nv-board-light {background:var(--surface-solid);}
+note-visualization .nv-board-dark {background:var(--surface-strong);}
+note-visualization .nv-panel-board .is-active {background:var(--nv-mid-bg);}
+note-visualization .nv-interval-row {display:flex;align-items:center;gap:10px;margin:5px 0;font:.75rem var(--font-mono);}
+note-visualization .nv-interval-row>span {min-width:34px;}
+note-visualization .nv-interval-row>div {height:27px;flex:1;position:relative;background:var(--surface-solid);}
+note-visualization .nv-interval-item {position:absolute;height:100%;font-size:.68rem;background:var(--nv-active);border-radius:4px;text-align:center;line-height:27px;white-space:nowrap;}
+note-visualization .nv-interval-item.active {background:var(--nv-mid-bg);color:var(--nv-mid);}
+note-visualization .nv-interval-item.done {color:var(--nv-success);background:color-mix(in srgb,var(--nv-success) 15%,var(--code-bg));}
+@media(max-width:520px){note-visualization textarea{font-size:16px;}note-visualization .nv-inputs{grid-template-columns:1fr;}note-visualization .nv-graph{min-width:0;}}
+/* String alignment uses one non-wrapping coordinate system for both rows. */
+note-visualization .nv-panel-string.nv-scene-cells {display:grid;grid-template-columns:repeat(var(--nv-text-columns,1),37px);overflow-x:auto;flex-wrap:nowrap;gap:0;padding-bottom:4px;}
+note-visualization .nv-panel-string .nv-scene-cell {width:37px;max-width:37px;padding:0 2px;}
+note-visualization .nv-panel-string .nv-scene-cell strong {min-width:33px;max-width:33px;font-size:.77rem;}
+note-visualization .nv-pattern-row {grid-column:1 / -1;gap:0;padding-left:calc(var(--offset) * 37px);overflow:visible;}
+note-visualization .nv-pattern-row span {width:37px;min-width:37px;box-sizing:border-box;}
+
+/* Identity-based array movement: stable slots, travelling items and held-key pocket. */
+note-visualization .nv-array-scroll {overflow-x:auto;padding:20px 4px 22px;scrollbar-width:thin;}
+note-visualization .nv-array-track {display:flex;gap:8px;width:max-content;min-width:100%;align-items:flex-start;}
+note-visualization .nv-array-slot {position:relative;flex:0 0 var(--nv-cell-width,40px);width:var(--nv-cell-width,40px);min-height:77px;display:flex;justify-content:center;padding-top:20px;}
+note-visualization .nv-array-index {position:absolute;top:0;font:.65rem var(--font-mono);color:var(--muted);}
+note-visualization .nv-array-item {position:relative;min-width:var(--nv-cell-width,40px);width:var(--nv-cell-width,40px);}
+note-visualization .nv-array-item strong {width:100%;min-height:40px;box-shadow:0 4px 10px rgb(0 0 0 / .08);}
+note-visualization .nv-array-item small {min-height:1em;}
+note-visualization .nv-array-item.is-gap strong {border-style:dashed;background:transparent;color:var(--muted);box-shadow:none;}
+note-visualization .nv-array-item.is-held strong {border-color:var(--nv-mid);background:var(--nv-mid-bg);color:var(--nv-mid);box-shadow:0 5px 18px color-mix(in srgb,var(--nv-mid) 18%,transparent);}
+note-visualization .nv-array-pocket {display:flex;align-items:center;gap:16px;padding:10px 14px;margin-top:4px;border:1px dashed color-mix(in srgb,var(--nv-mid) 40%,var(--line));border-radius:10px;background:color-mix(in srgb,var(--nv-mid-bg) 35%,transparent);}
+note-visualization .nv-array-held-slot {display:flex;min-height:60px;align-items:center;}
+/* Use the site-wide select instead of browser/OS option styling. */
+note-visualization .nv-preset {min-width:0;}
+note-visualization .nv-preset .ui-select {min-width:0;}
+note-visualization .nv-speed .ui-select-trigger {min-width:62px;}

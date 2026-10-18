@@ -1,63 +1,103 @@
 ---
-title: "Data Race vs Race Condition"
+title: "Data races and race conditions: what must be protected?"
 category: "Fundamentals"
 tags: ["concurrency", "distributed-systems", "basics"]
+description: "Distinguish unsafe memory access from interleaving business decisions using counters and inventory."
+updated: 2026-10-15
+translationKey: "fundamentals/concurrency_race"
 ---
 
-# Data Race vs Race Condition: Deep Understanding for System Optimization
+Two customers buy the last item. You lock every read and write, yet both orders succeed. There is no contradiction: protecting individual memory accesses does not necessarily protect a business decision.
 
-In the world of Concurrency and Distributed Systems, the concepts of "Data Race" and "Race Condition" are often confused. However, they are distinct problems with different solutions.
+This article separates two questions: are accesses properly synchronized, and does the whole operation remain correct when events interleave? This distinguishes a data race from a race condition. Examples use Go, but check-then-update problems also arise across requests and services.
 
-## 1. Data Race
+The Go snippets are separate examples: put type and method declarations at package scope, statements inside `main`, and import `fmt` and `sync` where used. Comments indicate expected results or warn about intentionally incorrect code.
 
-**Definition:** A Data Race occurs when at least two threads or processes access the same memory location concurrently, where:
-- At least one access is a **Write**.
-- No **Synchronization** mechanism is used to control the order of access.
+## A data race concerns the relationship between accesses
 
-**Consequence:** The outcome for that variable becomes undefined. You might receive "garbage" data or corrupted values because a write operation was interrupted by a read.
-
-**Example in Go:**
 ```go
 var count int
-go func() { count++ }()
-go func() { count++ }()
-// No Mutex or Channel protecting the 'count' variable
+var wg sync.WaitGroup
+for i := 0; i < 2; i++ {
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        count++ // Intentionally incorrect: unsynchronized shared access.
+    }()
+}
+wg.Wait()
+fmt.Println(count) // No reliable result should be assumed.
 ```
 
-## 2. Race Condition
+Both goroutines access `count`, at least one access writes, and no synchronization orders those accesses. They need not execute at precisely the same instant on two CPUs for a data race to exist. `count++` is not automatically an atomic increment.
 
-**Definition:** A Race Condition is a logic flaw where the correctness of the program depends on the **relative timing** or **order** of execution of events.
+`Wait` makes main wait for both goroutines before printing; it does not order the increments relative to each other. Fix the increment with a common mutex, an appropriate atomic operation, or a single goroutine owning updates.
 
-A system can be **Data Race-free** (because memory access is protected) but still suffer from a **Race Condition** in its business logic.
+Avoid labeling all Go race behavior with C/C++'s unrestricted undefined-behavior model. Go specifies synchronization responsibilities and its own constraints for racy programs; races on multiword values can still create dangerous inconsistent states. Correct code removes races instead of depending on an incidental output. The [Go Memory Model](https://go.dev/ref/mem) explains happens-before relationships.
 
-**Classic Example: Over-selling (Inventory)**
-1. **Customer A** checks inventory: "1 item left".
-2. **Customer B** checks inventory: "1 item left" (because A hasn't completed the purchase yet).
-3. **Customer A** clicks buy -> Inventory decremented to 0.
-4. **Customer B** clicks buy -> Inventory decremented to -1.
+## A race condition concerns correctness of the whole operation
 
-Even if the "Decrement Inventory" operation was protected by a Mutex (meaning no Data Race occurred), the overall "Check then Decrement" logic was not an **Atomic Transaction**, leading to a logic failure.
+Suppose `Available` and `Decrement` each hold the same mutex while accessing inventory, but a purchase calls them separately. One possible schedule is:
 
-## 3. Quick Comparison
+| Step | Request A | Request B | Stock |
+| --- | --- | --- | --- |
+| 1 | Reads 1 and releases lock | | 1 |
+| 2 | | Reads 1 and releases lock | 1 |
+| 3 | Decrements under lock | | 0 |
+| 4 | | Decrements under lock | -1 |
 
-| Feature | Data Race | Race Condition |
-| :--- | :--- | :--- |
-| **Nature** | Low-level memory access error. | High-level logic/algorithmic flaw. |
-| **Cause** | Lack of synchronization for shared memory. | Dependence on the execution order of tasks. |
-| **Detection** | `go run -race`, ThreadSanitizer. | Logic testing, stress testing, design analysis. |
+Each access is locked, but the “stock exists, allow purchase” decision can become stale before the decrement. This is a logical race condition. The table describes one possible schedule, not a guaranteed execution order.
 
-## 4. How to Solve
+Protect checking and changing state within the same boundary:
 
-### For Data Race
-1. **Use Mutexes (Locks):** Ensure only one thread at a time can Write or Read-Write.
-2. **Atomic Operations:** Use hardware instructions to perform simple operations (add, set) indivisibly.
-3. **Channels (Go):** Follow the philosophy "Don't share memory by communicating; share memory by communicating."
+```go
+type Stock struct {
+    mu sync.Mutex
+    remaining int
+}
 
-### For Race Condition
-1. **Atomic Transactions:** Ensure the "Check -> Process -> Update" sequence is an indivisible unit (e.g., using SELECT FOR UPDATE in a Database).
-2. **Idempotency:** Design the system so that repeating an action multiple times yields the same safe result.
-3. **Immutability:** Minimize state changes in shared data.
+func (s *Stock) Buy() bool {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    if s.remaining == 0 {
+        return false
+    }
+    s.remaining--
+    return true
+}
+```
 
----
+Assume initially non-negative stock and that every update follows the same discipline. From stock 1, one successful call makes the next observe 0 and refuse. Do not copy `Stock` after its mutex has been used.
 
-> A program can have a Data Race without a Race Condition, and vice versa. However, the presence of either is usually a sign that the concurrency design needs careful review.
+Across multiple processes, an in-process mutex cannot protect another process's data access. Database-backed inventory can use a conditional update such as `UPDATE ... SET stock = stock - 1 WHERE stock > 0`, checking affected rows, or a transaction with suitable locking/isolation. Merely enclosing two statements in a transaction at an arbitrary isolation level does not remove every business race.
+
+## Choose tools for the boundary that needs protection
+
+| Technique | What it helps protect | What it does not automatically solve |
+| --- | --- | --- |
+| Mutex | Accesses sharing one lock within a process | Multiple processes or separately locked Get/Set sequences |
+| Atomic | One operation or a correctly designed atomic protocol | Arbitrary invariants across fields |
+| Channels and ownership | Communication order and explicit update ownership | Both sides continuing to mutate a sent pointer |
+| Transactions/conditional updates | Changes where data is actually managed | External side effects or incorrect retries |
+| Idempotency | Repeated execution of the same logical request | Different requests competing for the last item |
+| Immutable data | Fewer concurrent mutations | Publishing/replacing references and multistep decisions |
+
+Select a technique from the contract to preserve, not just the bug's label. The protected unit might be a variable, related fields, or an entire order-acceptance decision.
+
+## What can detection establish?
+
+Go provides a race detector, commonly enabled with `go run -race` or `go test -race` on supported development platforms. These are tool instructions, not execution results for this article. The detector observes paths that actually execute; no report is not proof of race freedom. It also does not infer the business rule against overselling. The [race detector documentation](https://go.dev/doc/articles/race_detector) explains usage and limitations.
+
+For logical race conditions, state the invariant and examine interleavings: who reads what, how long the lock is held, and when information may become stale. Stress testing can expose failures but does not replace reasoning about operation boundaries.
+
+There is no need to classify every program with the slogan “data race without race condition.” Definitions of race condition vary in breadth. The practical distinction is that **data-race freedom alone does not establish correct concurrent logic**.
+
+## Check your understanding
+
+If `Load` and `Store` are individually atomic, is `Load → add 1 → Store` an atomic increment?
+
+No. Two callers can load the same old value and store the same result. Use an atomic increment or a CAS/locking protocol covering the required operation.
+
+If a pointer is sent through a channel and the sender keeps mutating the object while the receiver reads, has the data race disappeared? Not necessarily. Channel operations order events according to synchronization rules; they do not prohibit later accesses. Define ownership or appropriate synchronization.
+
+Continue with [Maps](/en/notes/go/maps/) and [ACID](/en/notes/database/acid/) for in-memory and database boundaries.

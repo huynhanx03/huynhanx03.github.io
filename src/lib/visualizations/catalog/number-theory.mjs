@@ -1,0 +1,21 @@
+import {metadata as m,collect} from './helpers.mjs';
+export const definitions=collect([
+ m('number-theory','normalize-modulo','Chuẩn hóa modulo','modular-arithmetic-euclid','Chuẩn hóa',{a:'-7',mod:'5'},{a:'0'},'3','0'),
+ m('number-theory','euclid','Euclid GCD','modular-arithmetic-euclid','Ước chung',{a:'48',b:'18'},{a:'0',b:'0'},'6','0'),
+ m('number-theory','extended-euclid','Extended Euclid','modular-arithmetic-euclid','Ước chung',{a:'48',b:'18'},{a:'0',b:'0'},'6','0'),
+ m('number-theory','binary-power','Lũy thừa nhị phân','modular-arithmetic-euclid','Lũy thừa',{base:'2',exponent:'10',mod:'1000'},{exponent:'0'},'24','1'),
+ m('number-theory','eratosthenes','Sàng Eratosthenes','primes-factorization-divisors','Sàng',{n:'30'},{n:'1'},'2, 3, 5, 7, 11, 13, 17, 19, 23, 29','','N≤100.'),
+ ...[['spf-factorization','SPF factorization'],['trial-factorization','Trial division']].map(([id,title])=>m('number-theory',id,title,'primes-factorization-divisors','Sàng',{n:'60'},{n:'1'},'2^2 × 3^1 × 5^1','','SPF n≤100; trial n≤1.000.000.')),
+ m('number-theory','miller-rabin','Miller–Rabin miền giáo dục','primes-factorization-divisors','Sàng',{n:'97'},{n:'91'},'Nguyên tố','Hợp số','2≤n≤1.000.000; bases cố định; không bảo đảm cho toàn 64-bit.'),
+ m('number-theory','pollard-rho','Pollard–Rho seed cố định','primes-factorization-divisors','Sàng',{n:'91'},{n:'97'},'7','Nguyên tố','2≤n≤1.000.000; 20.000 công việc; retry deterministic.'),
+ m('number-theory','divisor-count-sum','Số lượng và tổng ước','primes-factorization-divisors','Đếm',{n:'360'},{n:'1'},'24; 1170','1; 1'),
+ m('number-theory','totient','Phi Euler','arithmetic-functions','Phi',{n:'36'},{n:'1'},'12','1'),
+ m('number-theory','mobius','Hàm Möbius','arithmetic-functions','Möbius',{n:'30'},{n:'4'},'-1','0'),
+ m('number-theory','modular-inverse','Nghịch đảo modulo','modular-inverse-crt','nghịch đảo',{a:'3',mod:'11'},{a:'2',mod:'4'},'4','Không có nghịch đảo'),
+ m('number-theory','crt-merge','Ghép đồng dư CRT','modular-inverse-crt','đồng dư',{x:'2',m:'3',y:'3',mod:'5'},{x:'1',m:'4',y:'2',mod:'6'},'8 (mod 15)','Vô nghiệm'),
+ m('number-theory','binomial-pascal','Pascal tổ hợp modulo','binomial-lucas-wilson','Lucas',{n:'5',k:'2',mod:'1000000007'},{n:'0',k:'0'},'10','1','n≤20; BigInt modulo.'),
+ m('number-theory','lucas','Lucas theo chữ số base p','binomial-lucas-wilson','Lucas',{n:'8',k:'3',p:'5'},{n:'0',k:'0'},'1','1','n≤10.000; prime p≤97.'),
+ m('number-theory','wilson-factorial','Giai thừa loại yếu tố p','binomial-lucas-wilson','Wilson',{n:'7',p:'5'},{n:'0'},'3','1','n≤10.000; prime p≤97; dùng Wilson cho các block.'),
+ ...[['euler-criterion','Euler criterion'],['sqrt-mod-3','Căn modulo p≡3 mod 4'],['tonelli-shanks','Tonelli–Shanks']].map(([id,title])=>m('number-theory',id,title,'modular-roots-discrete-log','Căn bậc',{a:'2',p:'7'},{a:'3',p:'7'},id==='euler-criterion'?'Có nghiệm':'3, 4','Vô nghiệm','Prime p≤997; xử lý a=0 và p=2.')),
+ m('number-theory','bsgs','Baby-step giant-step','modular-roots-discrete-log','Logarit',{base:'3',a:'5',p:'7'},{base:'2',a:'3',p:'7'},'5','Vô nghiệm','Prime p≤997; base khác 0; trả exponent nhỏ nhất.'),
+]);
