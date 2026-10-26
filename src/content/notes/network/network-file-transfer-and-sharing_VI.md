@@ -1,5 +1,6 @@
 ---
 title: "Chọn cách truyền và chia sẻ tệp qua mạng"
+category: "Network"
 tags: ["network", "file transfer", "file sharing", "filesystem"]
 description: "Phân biệt gửi bản sao với gắn filesystem từ xa, rồi chọn giao thức theo cách dùng, hệ điều hành và mức độ tin cậy của mạng."
 translationKey: "network/network-file-transfer-and-sharing"
