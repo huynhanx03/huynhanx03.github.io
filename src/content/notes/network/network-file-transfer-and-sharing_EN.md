@@ -1,5 +1,6 @@
 ---
 title: "Choosing How to Transfer and Share Files over a Network"
+category: "Network"
 tags: ["network", "file transfer", "file sharing", "filesystem"]
 description: "Distinguish copying files from mounting a remote filesystem, then choose a protocol based on workflow, operating systems, and network trust."
 translationKey: "network/network-file-transfer-and-sharing"
